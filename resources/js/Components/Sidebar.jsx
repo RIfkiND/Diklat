@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import { FaBars, FaRegUser, FaTimes } from "react-icons/fa";
+import { FaBars, FaRegUser } from "react-icons/fa";
 import { FiFileText } from "react-icons/fi";
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from "react-icons/md";
 import { TbAutomaticGearbox } from "react-icons/tb";

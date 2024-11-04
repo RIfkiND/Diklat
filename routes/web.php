@@ -31,5 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/user/register', [UserFormRegister::class, 'index'])->name('user.register');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__ . '/AuthRole/auth.php';
+require __DIR__ . '/AuthRole/admin.php';
 require __DIR__ . '/petugas.php';
+require __DIR__ . '/profile.php';
