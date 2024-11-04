@@ -13,7 +13,7 @@ const Sidebar = () => {
   } = usePage();
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isAkunOpen, setIsAkunOpen] = useState(false);
-  const [role, setRole] = useState(auth.user.role);
+  const [role, setRole] = useState("peserta");
   const [activePath, setActivePath] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
@@ -39,9 +39,9 @@ const Sidebar = () => {
       : role === "petugas"
         ? [
             {
-              name: "Dashboard Admin",
+              name: "Monitoring Peserta",
               icon: <FaRegUser />,
-              path: "/dashboard",
+              path: "/dashboard/petugas/monitoring-peserta",
             },
             {
               name: "Form EDP",
@@ -98,7 +98,7 @@ const Sidebar = () => {
           className="absolute top-5 translate-x-1/2 right-0 z-50 p-2 rounded-lg bg-white shadow-xl"
           onClick={() => setIsOpen((is) => !is)}
         >
-          <FaTimes size={24} />
+          {/* <FaTimes size={24} /> */}
         </button>
       ) : (
         <button
@@ -109,7 +109,7 @@ const Sidebar = () => {
         </button>
       )}
       {isOpen && (
-        <div className=" flex h-full w-full flex-col items-center gap-5 p-5 shadow-xl">
+        <div className=" flex h-full w-full flex-col items-center gap-5 p-5">
           <div className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-1">
             <span className="text-2xl font-bold text-white">RTL - EDD</span>
           </div>

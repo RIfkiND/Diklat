@@ -16,7 +16,7 @@ export default {
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: "#339af0",
+        primary: "#6366f1",
         secondary: "#228be6",
         textPrimary: "#868e96",
         textSecondary: "#adb5bd",
@@ -27,5 +27,5 @@ export default {
     },
   },
 
-  plugins: [forms],
+  plugins: [forms, require("tailwind-scrollbar")],
 };
