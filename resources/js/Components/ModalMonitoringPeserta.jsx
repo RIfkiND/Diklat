@@ -33,7 +33,7 @@ const ModalMonitoringPeserta = ({ onClose }) => {
               </p>
               <textarea
                 rows={textarea.rows}
-                className="rounded-lg text-sm text-slate-700 scrollbar-none border-2 border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
+                className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
               ></textarea>
             </div>
           ))}
@@ -57,7 +57,7 @@ const ModalMonitoringPeserta = ({ onClose }) => {
                           {select.label}
                         </p>
                         <select
-                          className="rounded-lg text-sm text-slate-700 scrollbar-none border-2 border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full cursor-pointer"
+                          className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full cursor-pointer"
                           onChange={(e) => {
                             if (select.label === "Foto") {
                               setFotoSelected(e.target.value.toLowerCase());
@@ -85,7 +85,7 @@ const ModalMonitoringPeserta = ({ onClose }) => {
               name="fotoLink"
               id="fotoLink"
               placeholder="Masukan Link Foto"
-              className="rounded-lg text-sm text-slate-700 scrollbar-none border-2 border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
+              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
             />
           )}
           {videoSelected === "ada" && (
@@ -94,7 +94,7 @@ const ModalMonitoringPeserta = ({ onClose }) => {
               name="videoLink"
               id="videoLink"
               placeholder="Masukan Link Video"
-              className="rounded-lg text-sm text-slate-700 scrollbar-none border-2 border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
+              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
             />
           )}
 
