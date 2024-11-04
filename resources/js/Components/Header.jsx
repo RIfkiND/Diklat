@@ -18,9 +18,7 @@ const Header = () => {
 
   return (
     <div className="relative flex w-full justify-between p-5">
-      <div>
-        <span className="text-2xl font-bold text-[#151D48]">Header Here</span>
-      </div>
+      <div></div>
       <div
         className="flex cursor-pointer items-center gap-8"
         onClick={toggleDropdown}
