@@ -4,7 +4,7 @@ import Sidebar from "@/Components/Sidebar";
 export default function AuthenticatedLayout({ children }) {
   return (
     <div className="flex h-screen w-screen overflow-x-hidden">
-      <div className="w-[250px] h-full">
+      <div className="w-[250px] relative h-full">
         <Sidebar />
       </div>
 

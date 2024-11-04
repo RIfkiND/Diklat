@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuUserSquare2 } from "react-icons/lu";
+import { useForm } from "@inertiajs/react"; // Import useForm for logout action
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { post } = useForm();
+
+  const handleLogout = () => {
+    post(route("logout"));
+  };
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -11,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <div className="relative flex w-full justify-between items-center h-[80px]">
+    <div className="relative flex w-full justify-between p-5">
       <div>
         <span className="text-2xl font-bold text-[#151D48]">Header Here</span>
       </div>
@@ -39,7 +45,10 @@ const Header = () => {
               }`}
             >
               <ul className="py-2 text-center">
-                <li className="cursor-pointer px-4 py-2 text-slate-700 hover:bg-gray-100">
+                <li
+                  className="cursor-pointer px-4 py-2 text-slate-700 hover:bg-gray-100"
+                  onClick={handleLogout}
+                >
                   Logout
                 </li>
               </ul>

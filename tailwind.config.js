@@ -22,7 +22,7 @@ export default {
         textSecondary: "#adb5bd",
       },
       boxShadow: {
-        primaryshadow: " 0px 4px 35px 0px rgba(0, 0, 0, 0.12)",
+        primaryshadow: " 0px 4px 35px 0px rgba(0, 0, 0, 0.08)",
       },
     },
   },
