@@ -4,7 +4,7 @@ import Sidebar from "@/Components/Sidebar";
 export default function AuthenticatedLayout({ children }) {
   return (
     <div className="flex min-h-screen w-screen">
-      <div className="w-[250px]">
+      <div className="w-[250px] relative">
         <Sidebar />
       </div>
 
