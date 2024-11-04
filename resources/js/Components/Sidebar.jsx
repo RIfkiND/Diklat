@@ -31,9 +31,9 @@ const Sidebar = () => {
             path: "/dashboard/user",
           },
           {
-            name: "Form Peserta",
+            name: "Form Daptar",
             icon: <FaRegUser />,
-            path: "/peserta/form",
+            path: "/dashboard/user/register",
           },
         ]
       : role === "petugas"
