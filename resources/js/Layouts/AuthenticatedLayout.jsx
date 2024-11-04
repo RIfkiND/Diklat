@@ -3,14 +3,14 @@ import Sidebar from "@/Components/Sidebar";
 
 export default function AuthenticatedLayout({ children }) {
   return (
-    <div className="flex min-h-screen w-screen">
-      <div className="w-[250px]">
+    <div className="flex h-screen w-screen overflow-x-hidden">
+      <div className="w-[250px] h-full">
         <Sidebar />
       </div>
 
-      <div className="w-full">
+      <div className="w-full h-full px-5">
         <Header />
-        <main>{children}</main>
+        <main className="">{children}</main>
       </div>
     </div>
   );
