@@ -2,25 +2,47 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
-    use HasFactory;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
 
-    // Specify the table name if it doesn't follow Laravel's convention
-    protected $table = 'admins';
-
-    // Specify which attributes can be mass assigned
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'name',       // Add all relevant fields for the admin model
+        'name',
         'email',
         'password',
-        'role',
-        // Add any other fields as needed
     ];
 
-    // Enable timestamps if your table has created_at and updated_at fields
-    public $timestamps = true;
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+
+            'password' => 'hashed',
+        ];
+    }
 }

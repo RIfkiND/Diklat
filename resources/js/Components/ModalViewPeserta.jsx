@@ -2,10 +2,10 @@ import React from "react";
 
 const ModalViewPeserta = ({ onClose }) => {
   const formFields = [
-    { label: "Nama", type: "text", width: "w-[25%]" },
-    { label: "Sekolah", type: "text", width: "w-[25%]" },
-    { label: "Provinsi", type: "text", width: "w-[25%]" },
-    { label: "Kabupaten", type: "text", width: "w-[25%]" },
+    { label: "Nama", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Sekolah", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Provinsi", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Kabupaten", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
   ];
 
   const formFields2 = [
@@ -19,10 +19,10 @@ const ModalViewPeserta = ({ onClose }) => {
   ];
 
   const supportFields = [
-    { label: "Undangan", type: "text", width: "w-[25%]" },
-    { label: "Daftar Hadir", type: "text", width: "w-[25%]" },
-    { label: "Link Foto", type: "text", width: "w-[25%]" },
-    { label: "Link Video", type: "text", width: "w-[25%]" },
+    { label: "Undangan", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Daftar Hadir", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Link Foto", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
+    { label: "Link Video", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
   ];
 
   return (
@@ -34,7 +34,7 @@ const ModalViewPeserta = ({ onClose }) => {
       <div className="w-[80%] md:w-[70%] h-[80%] bg-white rounded-2xl p-10 overflow-y-auto scrollbar-none z-40 flex flex-col gap-3">
         <p className="text-2xl text-slate-500 font-bold">Informasi</p>
 
-        <div className="w-full flex gap-5">
+        <div className="w-full flex gap-5 flex-wrap">
           {formFields.map((field, index) => (
             <div key={index} className={field.width}>
               <p className="text-base text-slate-700 font-bold pl-1">
@@ -80,7 +80,7 @@ const ModalViewPeserta = ({ onClose }) => {
 
         <p className="text-2xl text-slate-500 font-bold">Bukti Dukung</p>
 
-        <div className="w-full flex gap-5">
+        <div className="w-full flex gap-5 items-center flex-wrap">
           {supportFields.map((field, index) => (
             <div key={index} className={field.width}>
               <p className="text-base text-slate-700 font-bold pl-1">

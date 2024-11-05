@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard/petugas/monitoring-peserta', [PetugasController::class, 'render'])->name('petugas.monitoring-peserta');
+Route::get('/dashboard/petugas/monitoring-peserta', [DashboardController::class, 'Petugas'])->name('petugas.monitoring-peserta');

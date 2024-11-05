@@ -5,9 +5,9 @@ const ModalMonitoringPeserta = ({ onClose }) => {
   const [videoSelected, setVideoSelected] = useState("tidak");
 
   const textAreas = [
-    { label: "Realisasi", rows: 3 },
-    { label: "Kendala", rows: 3 },
-    { label: "Solusi", rows: 3 },
+    { label: "Realisasi", rows: 1 },
+    { label: "Kendala", rows: 1 },
+    { label: "Solusi", rows: 1 },
   ];
 
   const selectOptions = [

@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Petugas;
-use App\Models\Admin;
+use App\Models\Peserta;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,30 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a general user as a peserta
-        User::create([
-            'name' => 'Peserta User',
-            'email' => 'peserta@example.com',
-            'password' => Hash::make('password123'), // Use a secure password
-            'role' => 'peserta', // Assuming you have a 'role' column
+        // Create a general Peserta
+        Peserta::factory()->create([
+            'name' => 'Peserta Name',
+            'email' => 'Peserta@example.com',
+            'password' => Hash::make('Pesertapassword'),
+            'role' => 'peserta',
         ]);
 
-        // Create a petugas
-        Petugas::create([
-            'name' => 'Petugas User',
-            'email' => 'petugas@example.com',
-            'password' => Hash::make('password123'), // Use a secure password
-            'role' => 'petugas', // Assuming you have a 'role' column
-            // Include any other fields required by the Petugas model
-        ]);
-
-        // Create an admin
-        Admin::create([
-            'name' => 'Admin User',
+        // Create an admin Peserta
+        Peserta::factory()->create([
+            'name' => 'Admin Name',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password123'), // Use a secure password
-            'role' => 'admin', // Assuming you have a 'role' column
-            // Include any other fields required by the Admin model
+            'password' => Hash::make('adminpassword'),
+            'role' => 'petugas',
+        ]);
+
+        // Create a super admin Peserta
+        Peserta::factory()->create([
+            'name' => 'Super Admin Name',
+            'email' => 'superadmin@example.com',
+            'password' => Hash::make('superadminpassword'),
+            'role' => 'admin',
         ]);
     }
 }

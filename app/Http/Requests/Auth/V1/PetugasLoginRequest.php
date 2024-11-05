@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Auth\V1;
 
-use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-
-class LoginRequest extends FormRequest
+class PetugasLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,7 +36,7 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function PetugasAuth(): void
     {
         $this->ensureIsNotRateLimited();
 

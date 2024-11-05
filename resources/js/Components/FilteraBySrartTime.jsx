@@ -14,11 +14,11 @@ const FilterByStartTime = () => {
   };
 
   return (
-    <div className="border flex items-center gap-5 px-5 rounded-xl">
-      <div className="relative">
+    <div className="border flex items-center gap-5 px-5 rounded-xl w-full md:w-auto">
+      <div className="relative w-full">
         <button
           onClick={toggleDropdown}
-          className="flex items-center bg-white px-4 py-2 rounded-md text-textPrimary"
+          className="flex items-center bg-white px-4 py-2 rounded-md text-textPrimary whitespace-nowrap w-full"
         >
           {selectedtime}
           <span className="ml-2">
@@ -26,7 +26,7 @@ const FilterByStartTime = () => {
           </span>
         </button>
         {isOpen && (
-          <div className="absolute mt-2 bg-white border rounded-md shadow-lg w-40">
+          <div className="absolute mt-2 bg-white border rounded-md shadow-lg w-full">
             <ul className="py-2">
               {times.map((time, index) => (
                 <li

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\userDashboardController;
+
 use App\Http\Controllers\UserFormRegister;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,16 +22,7 @@ Route::get('/dashboard/admin', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    //   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    //   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    //   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/dashboard/user', [userDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('/dashboard/user/register', [UserFormRegister::class, 'index'])->name('user.register');
-});
-
-require __DIR__ . '/AuthRole/auth.php';
-require __DIR__ . '/AuthRole/admin.php';
+require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/petugas.php';
-require __DIR__ . '/profile.php';
+require __DIR__ . '/peserta.php';

@@ -69,19 +69,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+      //peserta
+        'peserta' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Peserta::class),
         ],
-        'petugas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Petugas::class,
+        //admin
+        'admins'=>[
+          'driver'=> 'eloquent',
+          'model'=> env('AUTH_MODEL', App\Models\Admin::class)
         ],
-        'admin' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
-
+        'petugas'
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
