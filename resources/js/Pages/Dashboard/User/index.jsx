@@ -4,77 +4,117 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Inputs = [
-  [
-    {
-      id: "1",
-      label: "Name",
-      type: "text",
-      name: "name",
-      autoComplete: "username",
-    },
-    {
-      id: "2",
-      label: "Kabupaten",
-      type: "text",
-      name: "kabupaten",
-      autoComplete: "kabupaten",
-    },
-    {
-      id: "3",
-      label: "Nama Pelatihan",
-      type: "text",
-      name: "pelatihan",
-      autoComplete: "pelatihan",
-    },
-    {
-      id: "4",
-      label: "Periode Mulai",
-      type: "date",
-      name: "periode_mulai",
-      autoComplete: "periode_mulai",
-    },
-  ],
-  [
-    {
-      id: "5",
-      label: "Sekolah",
-      type: "text",
-      name: "sekolah",
-      autoComplete: "sekolah",
-    },
-    {
-      id: "6",
-      label: "Provinsi",
-      type: "text",
-      name: "provinsi",
-      autoComplete: "provinsi",
-    },
-    {
-      id: "7",
-      label: "Nama Petugas Pembimbing",
-      type: "select",
-      name: "nama_petugas_pembimbing",
-      autoComplete: "nama_petugas_pembimbing",
-      options: ["Option 1", "Option 2", "Option 3"],
-    },
-
-    {
-      id: "8",
-      label: "Periode Akhir",
-      type: "date",
-      name: "periode_akhir",
-      autoComplete: "periode_akhir",
-    },
-  ],
-];
 export default function UserDashboard() {
   const [selectedDates, setSelectedDates] = useState({});
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+
+  const Inputs = [
+    [
+      {
+        id: "1",
+        label: "Name",
+        type: "text",
+        name: "name",
+        autoComplete: "username",
+      },
+      {
+        id: "2",
+        label: "Kabupaten",
+        type: "select",
+        name: "kabupaten",
+        autoComplete: "kabupaten",
+        options: districts.map((district) => ({
+          id: district.id,
+          name: district.name,
+        })),
+      },
+      {
+        id: "3",
+        label: "Nama Pelatihan",
+        type: "text",
+        name: "pelatihan",
+        autoComplete: "pelatihan",
+      },
+      {
+        id: "4",
+        label: "Periode Mulai",
+        type: "date",
+        name: "periode_mulai",
+        autoComplete: "periode_mulai",
+      },
+    ],
+    [
+      {
+        id: "5",
+        label: "Sekolah",
+        type: "text",
+        name: "sekolah",
+        autoComplete: "sekolah",
+      },
+      {
+        id: "6",
+        label: "Provinsi",
+        type: "select",
+        name: "provinsi",
+        autoComplete: "provinsi",
+        options: provinces.map((province) => ({
+          id: province.id,
+          name: province.name,
+        })),
+      },
+      {
+        id: "7",
+        label: "Nama Petugas Pembimbing",
+        type: "select",
+        name: "nama_petugas_pembimbing",
+        autoComplete: "nama_petugas_pembimbing",
+        options: ["Option 1", "Option 2", "Option 3"], // Update this as needed
+      },
+      {
+        id: "8",
+        label: "Periode Akhir",
+        type: "date",
+        name: "periode_akhir",
+        autoComplete: "periode_akhir",
+      },
+    ],
+  ];
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+        );
+        const data = await response.json();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  const handleSelectChange = async (e, fieldName) => {
+    const value = e.target.value;
+    setSelectedOptions((prev) => ({ ...prev, [fieldName]: value }));
+
+    if (fieldName === "provinsi") {
+      // Fetch districts based on selected province
+      const response = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
+      );
+      const data = await response.json();
+      setDistricts(data);
+    }
+  };
 
   const handleDateChange = (date, name) => {
     setSelectedDates((prevDates) => ({
@@ -83,15 +123,13 @@ export default function UserDashboard() {
     }));
   };
 
-  const handleSelectChange = (event, name) => {
-    setSelectedOptions((prevOptions) => ({
-      ...prevOptions,
-      [name]: event.target.value,
-    }));
-  };
-
   const submit = (e) => {
     e.preventDefault();
+    // Handle form submission
+    console.log("Form submitted with:", {
+      ...selectedOptions,
+      ...selectedDates,
+    });
   };
 
   return (
@@ -121,7 +159,7 @@ export default function UserDashboard() {
                           onChange={(date) =>
                             handleDateChange(date, field.name)
                           }
-                          className="mt-1 block w-full border border-gray-300 rounded-md p-2 "
+                          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                           placeholderText="Choose a date"
                           dateFormat="dd/MM/yyyy"
                         />
@@ -137,8 +175,11 @@ export default function UserDashboard() {
                             Pilih {field.label}
                           </option>
                           {field.options.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
+                            <option
+                              key={option.id || option}
+                              value={option.id || option}
+                            >
+                              {option.name || option}{" "}
                             </option>
                           ))}
                         </select>
@@ -155,6 +196,7 @@ export default function UserDashboard() {
                   ))}
                 </div>
               ))}
+
               <div className="col-span-1 md:col-span-2 flex justify-center">
                 <PrimaryButton className="w-full max-w-xl flex items-center justify-center">
                   Submit

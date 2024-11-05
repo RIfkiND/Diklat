@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Petugas;
 use App\Models\Rtl;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

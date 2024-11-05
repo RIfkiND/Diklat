@@ -25,6 +25,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     // setRole(auth.user.role);
+    setRole("admin");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 
@@ -70,10 +71,10 @@ const Sidebar = () => {
             .map((item, index) => (
               <div
                 key={index}
-                className={`group w-full cursor-pointer rounded-xl px-4 py-3 text-[#737791] transition-all duration-300 ${
+                className={`group w-full cursor-pointer rounded-xl px-4 py-3 text-[#737791] transition-all duration-300 hover:text-white ${
                   activeDropdown === item.name
                     ? "bg-indigo-500 text-white"
-                    : "hover:bg-indigo-500 hover:text-white"
+                    : "hover:bg-indigo-500"
                 }`}
                 onClick={() => handleDropdownToggle(item.name)}
               >
@@ -95,7 +96,7 @@ const Sidebar = () => {
                       <Link
                         key={subIndex}
                         href={subItem.path}
-                        className={`cursor-pointer text-sm transition-all duration-300 group-hover:text-white ${
+                        className={`cursor-pointer text-sm transition-all duration-300 text-white group-hover:text-white ${
                           activePath === subItem.path
                             ? "font-semibold text-indigo-500"
                             : "text-white hover:scale-105"
