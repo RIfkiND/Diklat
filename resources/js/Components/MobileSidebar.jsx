@@ -126,10 +126,10 @@ const MobileSidebar = () => {
                         <Link
                           key={subIndex}
                           href={subItem.path}
-                          className={`cursor-pointer text-sm transition-all duration-300 group-hover:text-white ${
+                          className={`cursor-pointer text-sm transition-all duration-300 group-hover:text-white text-white ${
                             activePath === subItem.path
                               ? "font-semibold text-indigo-500"
-                              : "text-white hover:scale-105"
+                              : " hover:scale-105"
                           }`}
                         >
                           {subItem.name}
