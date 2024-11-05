@@ -8,7 +8,7 @@ Route::middleware('guest')->group(function () {
         ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
-
+  
 });
 
 Route::middleware('auth')->group(function () {
