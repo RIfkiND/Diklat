@@ -1,24 +1,23 @@
 import Modal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
-import TableUser from "@/Components/TableUser";
+import TableUser from "@/Components//Table/TableUser";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
 
 export default function UserDashboard() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  //   const [isModalOpen, setIsModalOpen] = useState(false);
+  //   const [selectedUser, setSelectedUser] = useState(null);
 
-  const openModal = (user) => {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  };
+  //   const openModal = (user) => {
+  //     setSelectedUser(user);
+  //     setIsModalOpen(true);
+  //   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedUser(null);
-  };
+  //   const closeModal = () => {
+  //     setIsModalOpen(false);
+  //     setSelectedUser(null);
+  //   };
   return (
     <AuthenticatedLayout>
       <Head title="Biodata User" />
@@ -26,7 +25,7 @@ export default function UserDashboard() {
       <DashboardLayout>
         <TableUser />
 
-        <div className="mt-5">
+        <div className="mt-5 flex items-center justify-center">
           <Pagination />
         </div>
 
