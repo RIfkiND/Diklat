@@ -144,7 +144,7 @@ const MonitoringPeserta = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="absolute left-0 right-0 bottom-0 mt-5 flex justify-center">
+              <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
                 <Pagination />
               </div>
             </div>
