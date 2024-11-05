@@ -25,7 +25,7 @@ Route::get('/dashboard/admin', function () {
 // Admin
 Route::get('/dashboard/admin/users/table/user', [AdminDashboardController::class, 'index'])->name('admin.users');
 Route::get('/dashboard/admin/users/table/user/view', function () {
-    return Inertia::render('Dashboard/Admin/Table/View/ViewData');
+    return Inertia::render('Dashboard/Admin/Table/User/View/ViewData');
 })->name(name: 'admin.users.view');
 
 
