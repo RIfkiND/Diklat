@@ -24,5 +24,7 @@ Route::get('/dashboard/admin', function () {
 
 
 require __DIR__ . '/Auth/auth.php';
+require __DIR__ . '/Auth/admin.php';
+require __DIR__ . '/Auth/petugas.php';
 require __DIR__ . '/petugas.php';
 require __DIR__ . '/peserta.php';
