@@ -32,7 +32,6 @@ const MobileSidebar = () => {
 
   useEffect(() => {
     // setRole(auth.user.role);
-    setRole("admin");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 
