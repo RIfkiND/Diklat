@@ -12,27 +12,31 @@ const iconMap = {
   TbAutomaticGearbox: <TbAutomaticGearbox />,
   FiFileText: <FiFileText />,
 };
-
 const Sidebar = () => {
   const {
     url,
     props: { auth },
   } = usePage();
-  const [isReportOpen, setIsReportOpen] = useState(false);
-  const [isAkunOpen, setIsAkunOpen] = useState(false);
-  const [role, setRole] = useState("peserta");
+  //   const [isReportOpen, setIsReportOpen] = useState(false);
+  //   const [isAkunOpen, setIsAkunOpen] = useState(false);
+  const [role, setRole] = useState("");
   const [activePath, setActivePath] = useState("");
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
-    setRole(auth.user.role);
+    // setRole(auth.user.role);
+    setRole("admin");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 
   const sidebarItems = getNavItems(role);
 
   const handleDropdownToggle = (name) => {
-    if (name === "Report") setIsReportOpen(!isReportOpen);
-    if (name === "Akun") setIsAkunOpen(!isAkunOpen);
+    if (activeDropdown === name) {
+      setActiveDropdown(null);
+    } else {
+      setActiveDropdown(name);
+    }
   };
 
   return (
@@ -68,8 +72,7 @@ const Sidebar = () => {
               <div
                 key={index}
                 className={`group w-full cursor-pointer rounded-xl px-4 py-3 text-[#737791] transition-all duration-300 ${
-                  (item.name === "Report" && isReportOpen) ||
-                  (item.name === "Akun" && isAkunOpen)
+                  activeDropdown === item.name
                     ? "bg-indigo-500 text-white"
                     : "hover:bg-indigo-500 hover:text-white"
                 }`}
@@ -80,16 +83,14 @@ const Sidebar = () => {
                     <span className="text-xl">{iconMap[item.icon]}</span>
                     <span className="text-[16px] font-medium">{item.name}</span>
                   </div>
-                  {(item.name === "Report" && isReportOpen) ||
-                  (item.name === "Akun" && isAkunOpen) ? (
+                  {activeDropdown === item.name ? (
                     <MdKeyboardArrowDown className="text-xl" />
                   ) : (
                     <MdKeyboardArrowRight className="text-xl" />
                   )}
                 </div>
 
-                {(item.name === "Report" && isReportOpen) ||
-                (item.name === "Akun" && isAkunOpen) ? (
+                {activeDropdown === item.name ? (
                   <div className="mt-2 flex flex-col gap-2 border-l-2 py-2 pl-8 transition-all duration-300">
                     {item.items.map((subItem, subIndex) => (
                       <Link
