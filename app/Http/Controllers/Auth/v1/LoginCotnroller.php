@@ -25,14 +25,14 @@ class LoginCotnroller extends Controller
       $request->PetugasAuth();
       $request->session()->regenerate();
 
-      return redirect()->intended('');
+      return redirect()->intended('test');
     }
 
     public function PesertaLogin(PesertaLoginRequest $request){
       $request->PesertaAuth();
       $request->session()->regenerate();
 
-      return redirect()->intended('');
+      return redirect()->intended('user.dashboard');
     }
 
 

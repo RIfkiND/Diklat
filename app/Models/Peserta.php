@@ -19,13 +19,13 @@ class Peserta extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'no_hp',
+        'email',
         'password',
     ];
 
-    public function getAuthIdentifierName(){
-      return  "no_hp";
-    }
+    // public function getAuthIdentifierName(){
+    //   return  "no_hp";
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,4 +48,7 @@ class Peserta extends Authenticatable
             'password' => 'hashed',
         ];
     }
-}
+    public function detail_peserta(){
+      return $this->hasOne(DetailPeserta::class);
+    }
+  }

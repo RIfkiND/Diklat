@@ -19,19 +19,19 @@ class RoleAuthMiddleware
     switch ($type) {
       case 'peserta':
           if (!Auth::guard('peserta')->check()) {
-              return redirect()->route('login.peserta');
+              return redirect()->route('Views.Auth.Peserta');
           }
           break;
 
       case 'petugas':
           if (!Auth::guard('petugas')->check()) {
-              return redirect()->route('login.petugas');
+              return redirect()->route('Views.Auth.Petugas');
           }
           break;
 
       case 'admins':
           if (!Auth::guard('admins')->check()) {
-              return redirect()->route('login.admin');
+              return redirect()->route('Views.Auth.Admin');
           }
           break;
 

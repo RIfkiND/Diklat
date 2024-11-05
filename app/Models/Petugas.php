@@ -29,8 +29,8 @@ class Petugas extends Authenticatable
     public function getAuthIdentifierName(){
       return "NIP";
     }
-    public function detail_peserta(){
-      return $this->hasOne(DetailPeserta::class);
+    public function detail_petugas(){
+      return $this->hasOne(DetailPetugas::class);
     }
 
     /**
