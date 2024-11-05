@@ -6,7 +6,7 @@ import { Head } from "@inertiajs/react";
 import DatePicker from "react-datepicker";
 import { FaArrowLeft } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import { userInputs } from "../../../../../Data/DataUser";
+import { userInputs } from "../../../../../../Data/DataUser";
 
 export default function UserDashboard() {
   return (
