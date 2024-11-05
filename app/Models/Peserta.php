@@ -49,6 +49,6 @@ class Peserta extends Authenticatable
         ];
     }
     public function detail_peserta(){
-      return $this->hasOne(DetailPeserta::class);
+      return $this->hasOne(BiodataPeserta::class);
     }
   }

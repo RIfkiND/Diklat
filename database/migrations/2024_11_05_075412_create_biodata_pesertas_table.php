@@ -12,8 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_pesertas', function (Blueprint $table) {
+        Schema::create('biodata_pesertas', function (Blueprint $table) {
             $table->id();
+            $table->string('sekolah');
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            $table->interger('no_hp');
             $table->foreignIdFor(Petugas::class);
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetailPeserta extends Model
+class BiodataPeserta extends Model
 {
 
   public function peserta(){
