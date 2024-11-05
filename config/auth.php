@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'peserta',
         ],
         'petugas' => [
             'driver' => 'session',
