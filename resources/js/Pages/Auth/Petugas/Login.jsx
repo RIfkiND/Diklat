@@ -37,7 +37,10 @@ export default function Login({ status }) {
           <div className="flex justify-between gap-12">
             <div className="basis-1/2">
               <div>
-                <h3 className="text-3xl font-bold text-primary mb-6">Login</h3>
+                <h3 className="text-3xl font-bold text-primary mb-6">
+                  {" "}
+                  Petugas Login
+                </h3>
               </div>
               <form onSubmit={submit} className="">
                 <div className="mb-6">
