@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'peserta'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'peserta'),
     ],
 
     /*
@@ -36,18 +36,18 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'peserta' => [
             'driver' => 'session',
             'provider' => 'peserta',
         ],
-        'petugas' => [
-            'driver' => 'session',
-            'provider' => 'petugas',
-        ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admin',
-        ],
+       'admins'=>[
+        'driver' => 'session',
+            'provider' => 'admins',
+       ],
+       'petugas'=>[
+        'driver' => 'session',
+          'provider' => 'petugas',
+       ],
 
     ],
 
@@ -79,7 +79,10 @@ return [
           'driver'=> 'eloquent',
           'model'=> env('AUTH_MODEL', App\Models\Admin::class)
         ],
-        'petugas'
+        'petugas'=>[
+          'driver'=> 'eloquent',
+          'model'=>  env('AUTH_MODEL', App\Models\Petugas::class)
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -106,8 +109,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'peserta' => [
+            'provider' => 'peserta',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

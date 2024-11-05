@@ -29,7 +29,7 @@ class LoginCotnroller extends Controller
     }
 
     public function PesertaLogin(PesertaLoginRequest $request){
-      $request->PeertaAuth();
+      $request->PesertaAuth();
       $request->session()->regenerate();
 
       return redirect()->intended('');

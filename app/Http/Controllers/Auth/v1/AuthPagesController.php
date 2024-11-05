@@ -15,4 +15,8 @@ class AuthPagesController extends Controller
         'status' => session('status'),
     ]);
     }
+
+    public function RegisterPager(){
+      return Inertia::render('Auth/Register');
+    }
 }
