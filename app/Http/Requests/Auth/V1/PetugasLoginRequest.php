@@ -36,7 +36,7 @@ class PetugasLoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function PetugasAuth(): void
     {
         $this->ensureIsNotRateLimited();
 

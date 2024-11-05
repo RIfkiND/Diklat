@@ -36,7 +36,7 @@ class PesertaLoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function PeertaAuth(): void
     {
         $this->ensureIsNotRateLimited();
 

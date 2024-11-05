@@ -36,7 +36,7 @@ class AdminLoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function AdminAuth(): void
     {
         $this->ensureIsNotRateLimited();
 

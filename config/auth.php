@@ -60,11 +60,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+      //peserta
+        'peserta' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Peserta::class),
         ],
-
+        //admin
+        'admins'=>[
+          'driver'=> 'eloquent',
+          'model'=> env('AUTH_MODEL', App\Models\Admin::class)
+        ],
+        'petugas'
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
