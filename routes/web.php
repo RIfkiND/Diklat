@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\UserFormRegister;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,12 +22,27 @@ Route::get('/dashboard/admin', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Admin
+// Admin Table User
+Route::get('/dashboard/admin/users/table/user', [AdminDashboardController::class, 'index'])->name('admin.users');
+// Admin Table User View and Edit
+Route::get('/dashboard/admin/users/table/user/view', function () {
+    return Inertia::render('Dashboard/Admin/Table/User/ViewData');
+})->name(name: 'admin.users.view');
+Route::get('/dashboard/admin/users/table/user/edit', function () {
+    return Inertia::render('Dashboard/Admin/Table/User/Edit');
+})->name(name: 'admin.users.edit');
+
+// Account Table User
+Route::get('/dashboard/admin/account/user', function () {
+    return Inertia::render('Dashboard/Admin/Account/TableUser');
+})->name(name: 'admin.account.user');
+// Account Table Petugas
+Route::get('/dashboard/admin/account/petugas', function () {
+    return Inertia::render('Dashboard/Admin/Account/TablePetugas');
+})->name(name: 'admin.account.petugas');
 
 
-Route::get('/test',function(){
-  return Inertia::render('test');
-})->middleware('role:admins')->name('test');
+
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/petugas.php';
 require __DIR__ . '/peserta.php';
