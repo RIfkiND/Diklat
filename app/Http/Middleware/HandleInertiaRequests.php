@@ -33,9 +33,22 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'peserta' => $request->user("peserta"),
-                'admins'=> $request->user("admins"),
-                'petugas'=> $request->user("petugas")
+                'peserta' => $request->user('peserta') ? [
+                    'id' => $request->user('peserta')->id,
+                    'name' => $request->user('peserta')->name,
+                    'role' => 'peserta'
+                ] : null,
+                'admins' => $request->user('admins') ? [
+                    'id' => $request->user('admins')->id,
+                    'name' => $request->user('admins')->name,
+                    'role' => 'admin'
+                ] : null,
+                'petugas' => $request->user('petugas') ? [
+                    'id' => $request->user('petugas')->id,
+                    'name' => $request->user('petugas')->name,
+                    'role' => 'petugas'
+                ] : null,
+                'user' => $request->user('peserta') ?? $request->user('admins') ?? $request->user('petugas'),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
