@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest; // Make sure you have this request
+use App\Http\Requests\Auth\V1\AdminLoginRequest; // Make sure you have this request
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +28,9 @@ class AdminAuthenticatedSessionController extends Controller
     /**
      * Handle an incoming admin authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(AdminLoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->AdminAuth();
         $request->session()->regenerate();
 
         // Check if the authenticated user is an admin

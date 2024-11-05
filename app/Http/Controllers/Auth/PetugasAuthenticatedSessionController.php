@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest; // Ensure you have this request
+use App\Http\Requests\Auth\V1\PetugasLoginRequest; // Ensure you have this request
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +28,9 @@ class PetugasAuthenticatedSessionController extends Controller
     /**
      * Handle an incoming petugas authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(PetugasLoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->PetugasAuth();
         $request->session()->regenerate();
 
         // Check if the authenticated user is a petugas
