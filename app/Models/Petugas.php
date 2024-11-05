@@ -23,8 +23,14 @@ class Petugas extends Authenticatable
         'password',
     ];
 
+
+
+
     public function getAuthIdentifierName(){
       return "NIP";
+    }
+    public function detail_peserta(){
+      return $this->hasOne(DetailPeserta::class);
     }
 
     /**

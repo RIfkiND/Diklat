@@ -9,14 +9,23 @@ use Inertia\Inertia;
 use Inertia\Response;
 class AuthPagesController extends Controller
 {
-    public function LoginPage(){
+  public function AdminLoginPage(): Response
+  {
+      return Inertia::render('AuthAdmin/Login', [
+          'status' => session('status'),
+      ]);
+  }
+    public function PesertaLoginPage(){
       return Inertia::render('Auth/Login', [
         'canResetPassword' => Route::has('password.request'),
         'status' => session('status'),
     ]);
     }
-
-    public function RegisterPager(){
-      return Inertia::render('Auth/Register');
+    public function PetugasLoginPage(): Response
+    {
+        return Inertia::render('AuthPetugas/Login', [
+            'status' => session('status'),
+        ]);
     }
+
 }
