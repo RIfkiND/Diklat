@@ -33,9 +33,16 @@ export const getNavItems = (role) => {
       : role === "admin"
         ? [
             {
-              name: "Dashboard Admin",
+              name: "Table",
               icon: "FaRegUser",
-              path: "/petugas/dashboard",
+              hasDropdown: true,
+              items: [
+                { name: "User", path: "/dashboard/admin/users/table/user" },
+                {
+                  name: "Petugas",
+                  path: "/dashboard/admin/users/table/petugas",
+                },
+              ],
             },
             {
               name: "Laporan Tugas",
