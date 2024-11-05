@@ -13,28 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create a general Peserta
-        Peserta::factory()->create([
-            'name' => 'Peserta Name',
-            'email' => 'Peserta@example.com',
-            'password' => Hash::make('Pesertapassword'),
-            'role' => 'peserta',
-        ]);
-
-        // Create an admin Peserta
-        Peserta::factory()->create([
-            'name' => 'Admin Name',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('adminpassword'),
-            'role' => 'petugas',
-        ]);
-
-        // Create a super admin Peserta
-        Peserta::factory()->create([
-            'name' => 'Super Admin Name',
-            'email' => 'superadmin@example.com',
-            'password' => Hash::make('superadminpassword'),
-            'role' => 'admin',
-        ]);
+      $this->call(PesertaSeeder::class);
+      $this->call(AdminSeeder::class);
+      $this->call(PetugasSeeder::class);
     }
 }
