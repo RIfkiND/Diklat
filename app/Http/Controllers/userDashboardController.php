@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UserDashboardController extends Controller
+class userDashboardController extends Controller
 {
   public function index()
   {
