@@ -7,8 +7,12 @@ use Inertia\Inertia;
 
 class PetugasController extends Controller
 {
-  public function render()
+  public function renderMonitoring()
   {
-    return Inertia::render('Petugas/MonitoringPeserta');
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta');
+  }
+  public function renderDataEdp()
+  {
+    return Inertia::render('Dashboard/Petugas/DataEdp');
   }
 }
