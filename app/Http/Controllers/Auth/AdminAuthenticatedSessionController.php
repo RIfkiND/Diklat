@@ -33,12 +33,17 @@ class AdminAuthenticatedSessionController extends Controller
         $request->AdminAuth();
         $request->session()->regenerate();
 
-        // Check if the authenticated user is an admin
-        if (Auth::user()->role === 'admin') {
+        // Check if the authenticated user exists in the admins table
+        $admin = Admin::where('email', $request->input('email'))->first();
+
+        if ($admin) {
+            // Redirect to the intended admin dashboard
             return redirect()->intended(route('dashboard')); // Adjust to your admin dashboard route
         }
 
-        return redirect('/')->with('error', 'You do not have access to this application.');
+        // If admin is not found, logout and redirect
+        Auth::logout();
+        return redirect('/admin/login')->with('error', 'Invalid credentials or account does not exist.');
     }
 
     /**
