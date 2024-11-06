@@ -7,10 +7,20 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Inertia } from "@inertiajs/inertia";
 
 export default function UserDashboard() {
-  const [selectedDates, setSelectedDates] = useState({});
-  const [selectedOptions, setSelectedOptions] = useState({});
+  const [biodata, setBiodata] = useState({
+    name: "",
+    kabupaten: "",
+    pelatihan: "",
+    periode_mulai: null,
+    sekolah: "",
+    provinsi: "",
+    nama_petugas_pembimbing: "",
+    periode_akhir: null,
+  });
+
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
 
@@ -74,7 +84,7 @@ export default function UserDashboard() {
         type: "select",
         name: "nama_petugas_pembimbing",
         autoComplete: "nama_petugas_pembimbing",
-        options: ["Option 1", "Option 2", "Option 3"], // Update this as needed
+        options: ["Option 1", "Option 2", "Option 3"],
       },
       {
         id: "8",
@@ -104,10 +114,12 @@ export default function UserDashboard() {
 
   const handleSelectChange = async (e, fieldName) => {
     const value = e.target.value;
-    setSelectedOptions((prev) => ({ ...prev, [fieldName]: value }));
+    setBiodata((prevBiodata) => ({
+      ...prevBiodata,
+      [fieldName]: value,
+    }));
 
     if (fieldName === "provinsi") {
-      // Fetch districts based on selected province
       const response = await fetch(
         `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
       );
@@ -117,18 +129,34 @@ export default function UserDashboard() {
   };
 
   const handleDateChange = (date, name) => {
-    setSelectedDates((prevDates) => ({
-      ...prevDates,
+    setBiodata((prevBiodata) => ({
+      ...prevBiodata,
       [name]: date,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBiodata((prevBiodata) => ({
+      ...prevBiodata,
+      [name]: value,
     }));
   };
 
   const submit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted with:", {
-      ...selectedOptions,
-      ...selectedDates,
+
+    // Debug: Log the biodata to verify if name and other fields are correctly set
+    console.log("Biodata being submitted:", biodata);
+
+    Inertia.post("/dashboard/user", biodata, {
+      onSuccess: () => {
+        console.log("Biodata berhasil ditambahkan");
+      },
+      onError: (errors) => {
+        console.error("Gagal menambahkan biodata:", errors);
+        alert("Error: " + JSON.stringify(errors));
+      },
     });
   };
 
@@ -138,7 +166,7 @@ export default function UserDashboard() {
 
       <DashboardLayout>
         <div className="p-4">
-          <form action="#" onSubmit={submit}>
+          <form onSubmit={submit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Inputs.map((column, columnIndex) => (
                 <div key={columnIndex}>
@@ -155,7 +183,7 @@ export default function UserDashboard() {
                       </InputLabel>
                       {field.type === "date" ? (
                         <DatePicker
-                          selected={selectedDates[field.name]}
+                          selected={biodata[field.name]}
                           onChange={(date) =>
                             handleDateChange(date, field.name)
                           }
@@ -168,7 +196,7 @@ export default function UserDashboard() {
                           id={field.id}
                           name={field.name}
                           className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                          value={selectedOptions[field.name] || ""}
+                          value={biodata[field.name] || ""}
                           onChange={(e) => handleSelectChange(e, field.name)}
                         >
                           <option value="" disabled>
@@ -188,6 +216,8 @@ export default function UserDashboard() {
                           id={field.id}
                           type={field.type}
                           name={field.name}
+                          value={biodata[field.name] || ""}
+                          onChange={handleInputChange}
                           className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                           autoComplete={field.autoComplete}
                         />
@@ -198,7 +228,10 @@ export default function UserDashboard() {
               ))}
 
               <div className="col-span-1 md:col-span-2 flex justify-center">
-                <PrimaryButton className="w-full max-w-xl flex items-center justify-center">
+                <PrimaryButton
+                  className="w-full max-w-xl flex items-center justify-center"
+                  onClick={submit}
+                >
                   Submit
                 </PrimaryButton>
               </div>
