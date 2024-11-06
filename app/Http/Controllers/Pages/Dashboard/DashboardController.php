@@ -22,4 +22,24 @@ class DashboardController extends Controller
   {
     return Inertia::render('Dashboard/Petugas/Data/Show');
   }
+  public function PetugasDaftarRtlPeserta()
+  {
+    return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow');
+  }
+  public function PetugasReportPendampinganRtl()
+  {
+    return Inertia::render('Dashboard/Petugas/Report/HasilPendampinganRtl/SelectUser');
+  }
+  public function PetugasReportPendampinganRtlSlug()
+  {
+    return Inertia::render('Dashboard/Petugas/Report/HasilPendampinganRtl/ReportPage');
+  }
+  public function PetugasReportPengolahanEdp()
+  {
+    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
+  }
+  public function PetugasReportPengolahanEdpSlug()
+  {
+    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/ReportPage');
+  }
 }
