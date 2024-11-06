@@ -10,14 +10,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
-class PetugasController extends Controller
+class PetugasFunctionController extends Controller
 {
   public function SearchPetugas(Request $request)
   {
 
     $search = $request->input('search', '');
 
-    $Petugass = Petugas::where('name', 'like', '%' . $search . '%')->paginate(8);
+    $Petugass = Petugas::where('name', 'like', '%' . $search . '%')
+    ->orWhere('NIP', 'like', '%' . $search . '%')
+    ->paginate(8);
+
 
     return Inertia::render('Dashboard/Admin/Account/TableUser', [
       'Petugass' => $Petugass,
@@ -26,14 +29,15 @@ class PetugasController extends Controller
   }
   public function CreatePetugas(StorePetugasRequest $request)
   {
+
     Petugas::create([
       'name' => $request->input('name'),
-      'email' => $request->input('email'),
-      'no_hp' => $request->input('no_hp'),
+      'NIP' => $request->input('nip'),
+      'no_hp'=>$request->input('no_hp'),
       'password' => Hash::make($request->input('password')),
     ]);
 
-    return redirect()->route('account.Petugas')->with('succes', 'Petugas Berhasil Ditambahkan');
+    return redirect()->route('account.petugas')->with('succes', 'Petugas Berhasil Ditambahkan');
   }
 
   public function UpdatePetugas($id, UpdatePetugasRequest $request)
@@ -43,8 +47,7 @@ class PetugasController extends Controller
 
     $Petugass->update([
       'name' => $request->input('name'),
-      'email' => $request->input('email'),
-      'no_hp' => $request->input('no_hp'),
+      'NIP' => $request->input('nip'),
       'password' => $request->filled('password') ? Hash::make($request->input('password')) : $Petugass->password,
     ]);
 

@@ -11,7 +11,7 @@ class UpdatePetugasRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdatePetugasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+          'name' => 'required|string|max:255',
+          'NIP' => 'required|integer|unique:petugas,NIP',
+          'password' => 'nullable|string|min:6',
         ];
     }
 }

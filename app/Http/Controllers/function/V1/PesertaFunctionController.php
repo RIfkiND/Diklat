@@ -9,7 +9,7 @@ use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-class PesertaController extends Controller
+class PesertaFunctionController extends Controller
 {
 
   public function SearchPeserta(Request $request)

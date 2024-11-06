@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer("NIP")->unique();
+            $table->integer("no_hp")->nullable()->unique();
             $table->string("password");
             $table->timestamps();
         });

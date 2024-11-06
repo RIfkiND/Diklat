@@ -7,11 +7,13 @@ import Modal from "@/Components/Modal";
 import CreateAccountPetugas from "@/Components/Form/CreateAccountPetugas";
 import ReadAccountPetugas from "@/Components/Form/Petugas/Read";
 import EditAccountPetugas from "@/Components/Form/Petugas/Edit";
-const TableAccountPetugas = () => {
+const TableAccountPetugas = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("create");
+  const [selectedPetugas, setSelectedPetugas] = useState(null);
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -27,74 +29,74 @@ const TableAccountPetugas = () => {
     };
   }, []);
 
-  const handleDelete = (userId) => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      console.log("Deleted user with ID:", userId);
+  const handleDelete = (petugasId) => {
+    if (confirm("Are you sure you want to delete this petugas?")) {
+      console.log("Deleted petugas with ID:", petugasId);
     }
   };
 
-  const data = [
-    {
-      id: 1,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 2,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 3,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 4,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 5,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 6,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 7,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 8,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 9,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 10,
-      nip: "1923456789",
-      nama: "Nama Contoh",
-      password: "Kabupaten Contoh",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 2,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 3,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 4,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 5,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 6,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 7,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 8,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 9,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 10,
+  //     nip: "1923456789",
+  //     nama: "Nama Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  // ];
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
@@ -105,6 +107,7 @@ const TableAccountPetugas = () => {
             onClick={() => {
               setIsModalOpen(!isModalOpen);
               setMode("create");
+              setSelectedPetugas(null);
             }}
           >
             Create Account
@@ -118,8 +121,12 @@ const TableAccountPetugas = () => {
         >
           <div className="p-6">
             {mode === "create" && <CreateAccountPetugas />}
-            {mode === "read" && <ReadAccountPetugas />}
-            {mode === "edit" && <EditAccountPetugas />}
+            {mode === "read" && (
+              <ReadAccountPetugas petugas={selectedPetugas} />
+            )}
+            {mode === "edit" && (
+              <EditAccountPetugas petugas={selectedPetugas} />
+            )}
           </div>
         </Modal>
       </div>
@@ -130,20 +137,20 @@ const TableAccountPetugas = () => {
               <th className="py-3 px-4">No</th>
               <th className="py-3 px-4">NIP</th>
               <th className="py-3 px-4">Nama</th>
-              <th className="py-3 px-4">Password</th>
+              <th className="py-3 px-4">No HP</th>
               <th className="py-3 px-4">Selengkapnya</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((user, index) => (
+            {data.data.map((petugas, index) => (
               <tr
                 key={index}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{user.nip}</td>
-                <td className="py-3 px-4">{user.nama}</td>
-                <td className="py-3 px-4">{user.password}</td>
+                <td className="py-3 px-4">{petugas.NIP}</td>
+                <td className="py-3 px-4">{petugas.name}</td>
+                <td className="py-3 px-4">{petugas.no_hp}</td>
                 <td className="py-3 px-4 relative flex justify-center ">
                   {available === "available" ? (
                     <>
@@ -151,15 +158,15 @@ const TableAccountPetugas = () => {
                         className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
                         onClick={() =>
                           setOpenDropdown(
-                            openDropdown === user.id ? null : user.id,
+                            openDropdown === petugas.id ? null : petugas.id,
                           )
                         }
                       >
                         <FaEllipsisV className="text-xl text-gray-600" />
                       </button>
-                      {openDropdown === user.id && (
+                      {openDropdown === petugas.id && (
                         <div
-                          className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
+                          className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
                           ref={dropdownRef}
                         >
                           <button
@@ -167,6 +174,7 @@ const TableAccountPetugas = () => {
                             onClick={() => {
                               setMode("read");
                               setIsModalOpen(true);
+                              setSelectedPetugas(petugas);
                             }}
                           >
                             <FaEye className="text-teal-600" />
@@ -177,6 +185,7 @@ const TableAccountPetugas = () => {
                             onClick={() => {
                               setMode("edit");
                               setIsModalOpen(true);
+                              setSelectedPetugas(petugas);
                             }}
                           >
                             <FaEdit className="text-blue-600" />
@@ -184,7 +193,7 @@ const TableAccountPetugas = () => {
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleDelete(user.id)}
+                            onClick={() => handleDelete(petugas.id)}
                           >
                             <FaTrash className="text-red-600" />
                             <span>Delete</span>

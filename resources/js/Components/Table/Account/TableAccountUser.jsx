@@ -16,6 +16,8 @@ const TableAccountUser = ({ data }) => {
   const [mode, setMode] = useState("create");
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery); // State for debounced search query
+  const [timer, setTimer] = useState(null); // Timer state to manage debounce
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -32,11 +34,23 @@ const TableAccountUser = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    // Trigger search whenever the search query changes
-    if (searchQuery !== "") {
-      router.get(route("peserta.search"), { search: searchQuery });
+    if (timer) {
+      clearTimeout(timer);
     }
-  }, [searchQuery]); // Effect will trigger whenever searchQuery changes
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  // Filter data based on the debounced search query
+  const filteredData = data.data.filter((user) =>
+    user.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+  );
 
   const handleDelete = (userId) => {
     if (confirm("Yakin Ingin Delete ?")) {
@@ -98,78 +112,74 @@ const TableAccountUser = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.data
-              .filter((user) =>
-                user.name.toLowerCase().includes(searchQuery.toLowerCase()),
-              )
-              .map((user, index) => (
-                <tr
-                  key={index}
-                  className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
-                >
-                  <td className="py-3 px-4">{index + 1}</td>
-                  <td className="py-3 px-4">{user.name}</td>
-                  <td className="py-3 px-4">{user.email}</td>
-                  <td className="py-3 px-4">{user.no_hp}</td>
-                  <td className="py-3 px-4 relative flex justify-center ">
-                    {available === "available" ? (
-                      <>
-                        <button
-                          className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                          onClick={() =>
-                            setOpenDropdown(
-                              openDropdown === user.id ? null : user.id,
-                            )
-                          }
-                        >
-                          <FaEllipsisV className="text-xl text-gray-600" />
-                        </button>
-                        {openDropdown === user.id && (
-                          <div
-                            className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
-                            ref={dropdownRef}
-                          >
-                            <button
-                              className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                              onClick={() => {
-                                setMode("read");
-                                setIsModalOpen(true);
-                                setSelectedUser(user); // Set selected user for read mode
-                              }}
-                            >
-                              <FaEye className="text-teal-600" />
-                              <span>View</span>
-                            </button>
-                            <button
-                              className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                              onClick={() => {
-                                setMode("edit");
-                                setIsModalOpen(true);
-                                setSelectedUser(user);
-                              }}
-                            >
-                              <FaEdit className="text-blue-600" />
-                              <span>Edit</span>
-                            </button>
-                            <button
-                              className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                              onClick={() => handleDelete(user.id)}
-                            >
-                              <FaTrash className="text-red-600" />
-                              <span>Delete</span>
-                            </button>
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <button className="w-full flex items-center gap-3 rounded-xl bg-slate-200 hover:bg-slate-300 py-3 px-4">
-                        <MdCancel className="text-lg text-slate-600" />
-                        <span>Cancelled</span>
+            {filteredData.map((user, index) => (
+              <tr
+                key={index}
+                className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
+              >
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">{user.name}</td>
+                <td className="py-3 px-4">{user.email}</td>
+                <td className="py-3 px-4">{user.no_hp}</td>
+                <td className="py-3 px-4 relative flex justify-center ">
+                  {available === "available" ? (
+                    <>
+                      <button
+                        className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
+                        onClick={() =>
+                          setOpenDropdown(
+                            openDropdown === user.id ? null : user.id,
+                          )
+                        }
+                      >
+                        <FaEllipsisV className="text-xl text-gray-600" />
                       </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                      {openDropdown === user.id && (
+                        <div
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
+                          ref={dropdownRef}
+                        >
+                          <button
+                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                            onClick={() => {
+                              setMode("read");
+                              setIsModalOpen(true);
+                              setSelectedUser(user); // Set selected user for read mode
+                            }}
+                          >
+                            <FaEye className="text-teal-600" />
+                            <span>View</span>
+                          </button>
+                          <button
+                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                            onClick={() => {
+                              setMode("edit");
+                              setIsModalOpen(true);
+                              setSelectedUser(user);
+                            }}
+                          >
+                            <FaEdit className="text-blue-600" />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                            onClick={() => handleDelete(user.id)}
+                          >
+                            <FaTrash className="text-red-600" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <button className="w-full flex items-center gap-3 rounded-xl bg-slate-200 hover:bg-slate-300 py-3 px-4">
+                      <MdCancel className="text-lg text-slate-600" />
+                      <span>Cancelled</span>
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
