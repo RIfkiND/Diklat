@@ -23,7 +23,9 @@ Route::get('/dashboard/admin', function () {
   return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
+
 
 
 require __DIR__ . '/Auth/auth.php';

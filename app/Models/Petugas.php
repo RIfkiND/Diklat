@@ -39,7 +39,6 @@ class Petugas extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -48,11 +47,5 @@ class Petugas extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-
-            'password' => 'hashed',
-        ];
-    }
+ 
 }

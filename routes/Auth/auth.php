@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\V1\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix'=>'Auth','as'=>'Views.Auth.' ], function(){
+Route::group(['prefix'=>'Auth','as'=>'Views.Auth.','middleware'=>'guest' ], function(){
   Route::get('/Admin/Login', [AuthPagesController::class, 'AdminLoginPage'])->name('Admin');
   Route::get('/Petugas/Login', [AuthPagesController::class, 'PetugasLoginPage'])->name('Petugas');
   Route::get('/Peserta/Login', [AuthPagesController::class, 'PesertaLoginPage'])->name('Peserta');

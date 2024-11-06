@@ -1,4 +1,3 @@
-import Modal from "@/Components/Modal";
 import Pagination from "@/Components/Pagination";
 import TableUser from "@/Components//Table/TableUser";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";

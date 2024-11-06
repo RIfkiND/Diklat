@@ -20,7 +20,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
           'role' => RoleAuthMiddleware::class,
       ]);
+
+      $middleware->validateCsrfTokens(except: [
+        'resend/*',
+    ]);
     })
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
