@@ -44,5 +44,5 @@ Route::get('/dashboard/admin/account/petugas', function () {
 
 
 require __DIR__ . '/Auth/auth.php';
-require __DIR__ . '/petugas.php';
-require __DIR__ . '/peserta.php';
+require __DIR__ . '/Pages/petugas.php';
+require __DIR__ . '/Pages/peserta.php';

@@ -8,7 +8,7 @@ const Header = () => {
   const { post } = useForm();
 
   const handleLogout = () => {
-    post(route("logout"));
+    post(route("Auth.V1.Logout"));
   };
 
   // Toggle dropdown visibility

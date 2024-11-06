@@ -24,8 +24,7 @@ const Sidebar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
-    // setRole(auth.user.role);
-    setRole("peserta");
+    setRole(auth.user?.role); // setRole("petugas");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 

@@ -18,10 +18,8 @@ Route::group(['prefix'=>'Auth/v1','as'=>'Auth.V1.Login.' ,'middleware'=>'guest']
   Route::post('/Peserta/Login', [LoginCotnroller::class, 'PesertaLogin'])->name('Peserta');
 });
 
-Route::group(['prefix'=>'Auth/v1','as'=>'Auth.V1.Logout.' ], function(){
-  Route::post('/Admin/Logout', [LogoutController::class, 'AdminLogout'])->name('Admin');
-  Route::post('/Petugas/logout', [LogoutController::class, 'PetugasLogout'])->name('Petugas');
-  Route::post('/Peserta/Logout', [LogoutController::class, 'PesertaLogout'])->name('Peserta');
+Route::group(['prefix'=>'Auth/v1','as'=>'Auth.V1.' ], function(){
+  Route::post('/Logout', [LogoutController::class, 'Logout'])->name('Logout');
 });
 
 

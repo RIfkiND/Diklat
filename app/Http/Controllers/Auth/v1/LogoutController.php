@@ -8,24 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
-    public function AdminLogout(Request $request){
-      Auth::guard('admins')->logout();
+    public function Logout(Request $request){
+      $guards = ['peserta', 'admins', 'petugas'];
 
-      $request->session()->invalidate();
-      $request->session()->regenerateToken();
-
-      return redirect('/');
-    }
-    public function PetugasLogout(Request $request){
-      Auth::guard('petugas')->logout();
-
-      $request->session()->invalidate();
-      $request->session()->regenerateToken();
-
-      return redirect('/');
-    }
-    public function PesertaLogout(Request $request){
-      Auth::guard('peserta')->logout();
+      foreach ($guards as $guard) {
+          if (Auth::guard($guard)->check()) {
+              Auth::guard($guard)->logout();
+              break;
+          }
+      }
 
       $request->session()->invalidate();
       $request->session()->regenerateToken();
