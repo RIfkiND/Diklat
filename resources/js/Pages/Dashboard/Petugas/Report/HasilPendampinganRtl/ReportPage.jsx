@@ -1,12 +1,9 @@
 import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
-import { MdCancel } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
 import ModalMonitoringPeserta from "@/Components/ModalMonitoringPeserta";
 import ModalViewPeserta from "@/Components/ModalViewPeserta";
-import Pagination from "./../../../../../Components/Pagination";
 
 const ReportPage = () => {
   const formFields = [
@@ -16,7 +13,67 @@ const ReportPage = () => {
     { label: "Kabupaten", type: "text", width: "w-[23%]" },
   ];
 
-  const [available] = useState("available");
+  const kegiatan = [
+    {
+      title: "Nama Kegiatan",
+      desk: "Membuat Perusaan Yang berfokus pada bidang teknologi",
+    },
+    {
+      title: "Tujuan",
+      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos? Exercitationem minima natus molestiae blanditiis dolor. ",
+    },
+    {
+      title: "Sasaran",
+      desk: "Guru Sejawat",
+    },
+    {
+      title: "Metode",
+      desk: "Luring",
+    },
+    {
+      title: "Tempat",
+      desk: "FastIncome",
+    },
+    {
+      title: "Waktu Pelaksanaan",
+      desk: "20/4/2024",
+    },
+  ];
+
+  const dataRtl = [
+    {
+      title: "Realisasi",
+      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
+    },
+    {
+      title: "Kendala",
+      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
+    },
+    {
+      title: "Solusi",
+      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
+    },
+  ];
+
+  const dataRtlBuktiDukung = [
+    {
+      title: "Undangan",
+      desk: "Ya",
+    },
+    {
+      title: "Daftar Hadir",
+      desk: "Ya",
+    },
+    {
+      title: "Link Foto",
+      desk: "https://example.com/foto",
+    },
+    {
+      title: "Link Video",
+      desk: "https://example.com/video",
+    },
+  ];
+
   const [addModal, setAddModal] = useState(false);
   const [viewRtl, setViewRtl] = useState(false);
 
@@ -40,13 +97,15 @@ const ReportPage = () => {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
         <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
-            <p className="text-sm lg:text-2xl font-bold">Monitoring Data EDP</p>
+            <p className="text-sm lg:text-2xl font-bold">
+              Reporting Data RTL Peserta
+            </p>
             <p className="text-xs lg:text-sm text-slate-200">
               Pantau Perkembangan, Wujudkan Keberhasilan!
             </p>
           </div>
 
-          <div className="relative w-[200px]  ">
+          <div className="relative w-[200px]">
             <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] absolute bottom-0 md:bottom-[-40px] right-0 md:right-5">
               <AnalyticsIlustration />
             </div>
@@ -73,55 +132,37 @@ const ReportPage = () => {
             ))}
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-9 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
-          <div className="overflow-x-auto scrollbar-none h-full">
-            <table className="w-full rounded-lg">
-              <thead>
-                <tr className="text-primary text-sm font-semibold">
-                  <th className="py-3 px-4">No</th>
-                  <th className="py-3 px-4">Nama Kegiatan</th>
-                  <th className="py-3 px-4">Tujuan</th>
-                  <th className="py-3 px-4">Sasaran</th>
-                  <th className="py-3 px-4">Metode</th>
-                  <th className="py-3 px-4">Tempat</th>
-                  <th className="py-3 px-4">Waktu Pelaksanaan</th>
-                  <th className="py-3 px-4">RTL</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...Array(10)].map((_, index) => (
-                  <tr
-                    key={index}
-                    className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer `}
-                  >
-                    <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4">Nama Kegiatan</td>
-                    <td className="py-3 px-4">Tujuan Contoh</td>
-                    <td className="py-3 px-4">Sasaran Contoh</td>
-                    <td className="py-3 px-4">Metode Contoh</td>
-                    <td className="py-3 px-4">Tempat Contoh</td>
-                    <td className="py-3 px-4">11/2/2024</td>
-                    <td className="py-3 px-4 ">
-                      {available === "available" ? (
-                        <button className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl">
-                          <FaEye className="text-xl text-teal-600" />
-                          <span className="text-sm">View</span>
-                        </button>
-                      ) : (
-                        <div className="flex items-center gap-3">
-                          <MdCancel className="text-xl text-red-500" />
-                          <span className="text-sm">Not Available</span>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-              <Pagination />
+        <div className="w-full col-span-12 lg:col-span-6 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
+          {kegiatan.map((item, index) => (
+            <div className="" key={index}>
+              <p className="text-primary font-semibold">{item.title}</p>
+              <p className="text-textPrimary font-semibold">{item.desk}</p>
             </div>
-          </div>
+          ))}
+        </div>
+        <div className="w-full col-span-12 lg:col-span-6 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
+          {dataRtl.map((item, index) => (
+            <div className="" key={index}>
+              <p className="text-primary font-semibold">{item.title}</p>
+              <p className="text-textPrimary font-semibold">{item.desk}</p>
+            </div>
+          ))}
+          {dataRtlBuktiDukung.map((item, index) => (
+            <div className="" key={index}>
+              <p className="text-primary font-semibold">{item.title}</p>
+              {item.title === "Link Foto" || item.title === "Link Video" ? (
+                <Link
+                  href={item.desk}
+                  target="_blank"
+                  className="text-blue-500 underline"
+                >
+                  {item.desk}
+                </Link>
+              ) : (
+                <p className="text-textPrimary font-semibold">{item.desk}</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
       {addModal && <ModalMonitoringPeserta onClose={handleCloseAddData} />}

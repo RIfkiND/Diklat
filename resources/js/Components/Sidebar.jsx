@@ -25,7 +25,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     // setRole(auth.user.role);
-    setRole("peserta");
+    setRole("petugas");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 
