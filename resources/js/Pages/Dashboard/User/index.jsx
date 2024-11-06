@@ -11,7 +11,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default function UserDashboard() {
   const [biodata, setBiodata] = useState({
-    name: "",
+    Fullname: "",
     kabupaten: "",
     pelatihan: "",
     periode_mulai: null,
@@ -28,9 +28,9 @@ export default function UserDashboard() {
     [
       {
         id: "1",
-        label: "Name",
+        label: "Nama Lengkap",
         type: "text",
-        name: "name",
+        name: "Fullname",
         autoComplete: "username",
       },
       {

@@ -15,7 +15,7 @@ class BiodataPeserta extends Model
   use HasFactory;
 
   protected $fillable = [
-    'name',
+    'fullname',
     'kabupaten',
     'pelatihan', // Add 'pelatihan' to the fillable array
     'periode_mulai',
@@ -23,5 +23,11 @@ class BiodataPeserta extends Model
     'provinsi',
     'nama_petugas_pembimbing',
     'periode_akhir',
+    'peserta_id',
 ];
+
+public function user()
+    {
+        return $this->belongsTo(Peserta::class, 'peserta_id');
+    }
 }

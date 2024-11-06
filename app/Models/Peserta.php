@@ -3,9 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\BiodataPeserta;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class Peserta extends Authenticatable
 {
@@ -50,5 +51,10 @@ class Peserta extends Authenticatable
     }
     public function detail_peserta(){
       return $this->hasOne(BiodataPeserta::class);
+    }
+
+    public function biodata()
+    {
+        return $this->hasOne(BiodataPeserta::class, 'peserta_id');
     }
   }

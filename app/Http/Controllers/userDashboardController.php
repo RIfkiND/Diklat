@@ -18,7 +18,7 @@ class userDashboardController extends Controller
 {
     // Validate form data
     $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
+        'fullname' => 'required|string|max:255',
         'kabupaten' => 'required|integer',
         'pelatihan' => 'required|string',
         'periode_mulai' => 'required|date', // You can still validate it as a date
@@ -27,6 +27,20 @@ class userDashboardController extends Controller
         'nama_petugas_pembimbing' => 'required|string',
         'periode_akhir' => 'required|date',
     ]);
+
+    // Menyimpan biodata peserta yang terhubung dengan pengguna yang sedang login
+    BiodataPeserta::create([
+      'fullname' => $request->fullname,
+      'kabupaten' => $request->kabupaten,
+      'pelatihan' => $request->pelatihan,
+      'periode_mulai' => $request->periode_mulai,
+      'sekolah' => $request->sekolah,
+      'provinsi' => $request->provinsi,
+      'nama_petugas_pembimbing' => $request->nama_petugas_pembimbing,
+      'periode_akhir' => $request->periode_akhir,
+      'user_id' => auth()->user()->id, // Mengambil ID user yang sedang login
+  ]);
+
 
     // Convert the dates to MySQL format (YYYY-MM-DD HH:MM:SS)
     $validatedData['periode_mulai'] = Carbon::parse($validatedData['periode_mulai'])->format('Y-m-d H:i:s');

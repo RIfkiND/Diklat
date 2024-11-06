@@ -19,9 +19,7 @@ Route::group(['prefix'=>'Auth/v1','as'=>'Auth.V1.Login.' ,'middleware'=>'guest']
 });
 
 Route::group(['prefix'=>'Auth/v1','as'=>'Auth.V1.Logout.' ], function(){
-  Route::post('/Admin/Logout', [LogoutController::class, 'AdminLogout'])->name('Admin');
-  Route::post('/Petugas/logout', [LogoutController::class, 'PetugasLogout'])->name('Petugas');
-  Route::post('/Peserta/Logout', [LogoutController::class, 'PesertaLogout'])->name('Peserta');
+  Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 });
 
 

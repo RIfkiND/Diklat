@@ -8,28 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
-    public function AdminLogout(Request $request){
-      Auth::guard('admins')->logout();
+  public function logout(Request $request)
+  {
+      // Menggunakan guard yang sesuai berdasarkan pengguna yang sedang login
+      Auth::logout();
 
+      // Menghapus session
       $request->session()->invalidate();
       $request->session()->regenerateToken();
 
-      return redirect('/');
-    }
-    public function PetugasLogout(Request $request){
-      Auth::guard('petugas')->logout();
-
-      $request->session()->invalidate();
-      $request->session()->regenerateToken();
-
-      return redirect('/');
-    }
-    public function PesertaLogout(Request $request){
-      Auth::guard('peserta')->logout();
-
-      $request->session()->invalidate();
-      $request->session()->regenerateToken();
-
-      return redirect('/');
-    }
+      // Redirect ke halaman login atau halaman lain
+      return redirect('/login');
+  }
 }
