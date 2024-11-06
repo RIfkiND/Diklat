@@ -4,7 +4,7 @@ import TextInput from "../TextInput";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PrimaryButton from "../PrimaryButton";
 
-const CreateAccount = () => {
+const CreateAccountPetugas = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -13,10 +13,25 @@ const CreateAccount = () => {
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary ">
-        CreateAccount
+        Create Account Petugas
       </h3>
       <form action="#">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="flex flex-col gap-2">
+            <InputLabel
+              htmlFor="nip"
+              className="block text-sm font-medium text-gray-700"
+            >
+              NIP
+            </InputLabel>
+            <TextInput
+              id="nip"
+              name="nip"
+              type="text"
+              className=" block w-full border border-gray-300 rounded-md p-2"
+              placeholder="1923456789"
+            />
+          </div>
           <div className="flex flex-col gap-2">
             <InputLabel
               htmlFor="name"
@@ -28,38 +43,8 @@ const CreateAccount = () => {
               id="name"
               name="name"
               type="text"
-              className=" block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Name"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </InputLabel>
-            <TextInput
-              id="email"
-              name="email"
-              type="email"
-              className=" block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Email@example.com"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="no_hp"
-              className="block text-sm font-medium text-gray-700"
-            >
-              No HP
-            </InputLabel>
-            <TextInput
-              id="no_hp"
-              name="no_hp"
-              type="number"
-              className=" block w-full border border-gray-300 rounded-md p-2 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              placeholder="08211"
+              className="block w-full border border-gray-300 rounded-md p-2"
+              placeholder="Royhan"
             />
           </div>
           <div className="flex flex-col gap-2 relative">
@@ -100,4 +85,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default CreateAccountPetugas;
