@@ -3,33 +3,19 @@ import InputLabel from "../InputLabel";
 import TextInput from "../TextInput";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PrimaryButton from "../PrimaryButton";
-import { useForm } from "@inertiajs/react";
 
-const CreateAccount = () => {
+const CreateAccountUser = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const { data, setData, post, processing, errors } = useForm({
-    name: "",
-    email: "",
-    no_hp: "",
-    password: "",
-  });
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
-
-  function submit(e) {
-    e.preventDefault();
-    post(route("admin.add.peserta"));
-  }
-
   return (
     <>
-      <h3 className="text-xl mb-6 font-semibold text-center text-primary">
-        Create Account
+      <h3 className="text-xl mb-6 font-semibold text-center text-primary ">
+        Create Account User
       </h3>
-      <form onSubmit={submit}>
+      <form action="#">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -42,14 +28,9 @@ const CreateAccount = () => {
               id="name"
               name="name"
               type="text"
-              value={data.name}
-              onChange={(e) => setData("name", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
+              className=" block w-full border border-gray-300 rounded-md p-2"
               placeholder="Name"
             />
-            {errors.name && (
-              <span className="text-red-500 text-sm">{errors.name}</span>
-            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -62,14 +43,9 @@ const CreateAccount = () => {
               id="email"
               name="email"
               type="email"
-              value={data.email}
-              onChange={(e) => setData("email", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
+              className=" block w-full border border-gray-300 rounded-md p-2"
               placeholder="Email@example.com"
             />
-            {errors.email && (
-              <span className="text-red-500 text-sm">{errors.email}</span>
-            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -82,14 +58,9 @@ const CreateAccount = () => {
               id="no_hp"
               name="no_hp"
               type="number"
-              value={data.no_hp}
-              onChange={(e) => setData("no_hp", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
+              className=" block w-full border border-gray-300 rounded-md p-2 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               placeholder="08211"
             />
-            {errors.no_hp && (
-              <span className="text-red-500 text-sm">{errors.no_hp}</span>
-            )}
           </div>
           <div className="flex flex-col gap-2 relative">
             <InputLabel
@@ -102,15 +73,13 @@ const CreateAccount = () => {
               id="password"
               name="password"
               type={isPasswordVisible ? "text" : "password"}
-              value={data.password}
-              onChange={(e) => setData("password", e.target.value)}
               className="relative block w-full border border-gray-300 rounded-md p-2"
               placeholder="********"
             />
             <button
               type="button"
               onClick={togglePasswordVisibility}
-              className="absolute right-4 -translate-y-1/2 bottom-0 transform"
+              className="absolute right-4 -translate-y-1/2 bottom-0 transform "
               aria-label={isPasswordVisible ? "Hide password" : "Show password"}
             >
               {isPasswordVisible ? (
@@ -119,18 +88,11 @@ const CreateAccount = () => {
                 <AiFillEye className="h-5 w-5" />
               )}
             </button>
-            {errors.password && (
-              <span className="text-red-500 text-sm">{errors.password}</span>
-            )}
           </div>
         </div>
         <div className="col-span-1 lg:col-span-3 items-center flex justify-center gap-4 flex-col">
-          <PrimaryButton
-            type="submit"
-            className="w-full max-w-xs tracking-normal flex items-center justify-center"
-            disabled={processing}
-          >
-            {processing ? "Saving..." : "Save"}
+          <PrimaryButton className="w-full max-w-xs tracking-normal flex items-center justify-center">
+            Save
           </PrimaryButton>
         </div>
       </form>
@@ -138,4 +100,4 @@ const CreateAccount = () => {
   );
 };
 
-export default CreateAccount;
+export default CreateAccountUser;

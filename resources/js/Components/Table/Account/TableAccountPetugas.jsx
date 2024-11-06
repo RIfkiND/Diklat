@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { router } from "@inertiajs/react";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
-import FilterByEndTime from "@/Components/FilterByEndTime";
 import Search from "@/Components/Search";
+import PrimaryButton from "@/Components/PrimaryButton";
+import Modal from "@/Components/Modal";
+import CreateAccountPetugas from "@/Components/Form/CreateAccountPetugas";
+import ReadAccountPetugas from "@/Components/Form/Petugas/Read";
+import EditAccountPetugas from "@/Components/Form/Petugas/Edit";
 const TableAccountPetugas = () => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mode, setMode] = useState("create");
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -23,14 +27,6 @@ const TableAccountPetugas = () => {
     };
   }, []);
 
-  const handleView = () => {
-    router.visit(route("admin.users.view"));
-  };
-
-  const handleEdit = () => {
-    router.visit(route("admin.users.edit"));
-  };
-
   const handleDelete = (userId) => {
     if (confirm("Are you sure you want to delete this user?")) {
       console.log("Deleted user with ID:", userId);
@@ -40,115 +36,101 @@ const TableAccountPetugas = () => {
   const data = [
     {
       id: 1,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 2,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 3,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 4,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 5,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 6,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 7,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 8,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 9,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
     {
       id: 10,
+      nip: "1923456789",
       nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
+      password: "Kabupaten Contoh",
     },
   ];
   return (
     <>
-      <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-        <Search />
-        <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-          <FilterByStartTime />
-          <FilterByEndTime />
+      <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
+        <div className="flex gap-5 justify-between w-full flex-wrap">
+          <Search />
+          <PrimaryButton
+            className="rounded-xl flex items-center md:justify-center justify-start tracking-tight capitalize w-full md:w-auto "
+            onClick={() => {
+              setIsModalOpen(!isModalOpen);
+              setMode("create");
+            }}
+          >
+            Create Account
+          </PrimaryButton>
         </div>
+        <Modal
+          show={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          maxWidth="xl"
+          className="w-full"
+        >
+          <div className="p-6">
+            {mode === "create" && <CreateAccountPetugas />}
+            {mode === "read" && <ReadAccountPetugas />}
+            {mode === "edit" && <EditAccountPetugas />}
+          </div>
+        </Modal>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full rounded-lg">
+        <table className="w-full rounded-lg text-center">
           <thead>
             <tr className="text-primary text-sm font-semibold">
               <th className="py-3 px-4">No</th>
+              <th className="py-3 px-4">NIP</th>
               <th className="py-3 px-4">Nama</th>
-              <th className="py-3 px-4">Sekolah</th>
-              <th className="py-3 px-4">Provinsi</th>
-              <th className="py-3 px-4">Kabupaten</th>
-              <th className="py-3 px-4">Nama Pelatihan</th>
-              <th className="py-3 px-4">Periode</th>
+              <th className="py-3 px-4">Password</th>
               <th className="py-3 px-4">Selengkapnya</th>
             </tr>
           </thead>
@@ -159,13 +141,10 @@ const TableAccountPetugas = () => {
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4">{user.nip}</td>
                 <td className="py-3 px-4">{user.nama}</td>
-                <td className="py-3 px-4">{user.sekolah}</td>
-                <td className="py-3 px-4">{user.provinsi}</td>
-                <td className="py-3 px-4">{user.kabupaten}</td>
-                <td className="py-3 px-4">{user.pelatihan}</td>
-                <td className="py-3 px-4">{user.periode}</td>
-                <td className="py-3 px-4 relative ">
+                <td className="py-3 px-4">{user.password}</td>
+                <td className="py-3 px-4 relative flex justify-center ">
                   {available === "available" ? (
                     <>
                       <button
@@ -185,14 +164,20 @@ const TableAccountPetugas = () => {
                         >
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleView(user.id)}
+                            onClick={() => {
+                              setMode("read");
+                              setIsModalOpen(true);
+                            }}
                           >
                             <FaEye className="text-teal-600" />
                             <span>View</span>
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleEdit(user.id)}
+                            onClick={() => {
+                              setMode("edit");
+                              setIsModalOpen(true);
+                            }}
                           >
                             <FaEdit className="text-blue-600" />
                             <span>Edit</span>

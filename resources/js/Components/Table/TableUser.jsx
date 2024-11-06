@@ -24,11 +24,11 @@ const TableUser = () => {
   }, []);
 
   const handleView = () => {
-    router.visit(route("admin.users.view"));
+    router.visit(route("peserta.view"));
   };
 
   const handleEdit = () => {
-    router.visit(route("admin.users.edit"));
+    router.visit(route("peserta.edit"));
   };
 
   const handleDelete = (userId) => {

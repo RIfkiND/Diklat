@@ -15,32 +15,29 @@ class DashboardPageController extends Controller
   }
 
   // Admin Table User
-  public function viewUser()
+  public function ViewPeserta()
   {
     return Inertia::render('Dashboard/Admin/Table/User/ViewData');
   }
 
-  public function editUser()
+  public function EditPeserta()
   {
     return Inertia::render('Dashboard/Admin/Table/User/Edit');
   }
 
   // Account Table User
-  public function accountUser()
+  public function AccountPeserta()
   {
-    $pesertas = Peserta::latest()->paginate(8);
+    $pesertas = Peserta::latest()->paginate(2);
 
     return Inertia::render('Dashboard/Admin/Account/TableUser',compact('pesertas'));
   }
 
   // Account Table Petugas
-  public function accountPetugas()
+  public function AccountPetugas()
   {
     return Inertia::render('Dashboard/Admin/Account/TablePetugas');
   }
 
-  public function viewDataUser()
-  {
-    return Inertia::render('Dashboard/Admin/Table/User/View/ViewData');
-  }
+
 }

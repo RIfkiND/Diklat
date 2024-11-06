@@ -25,7 +25,7 @@ export default function AccountUser({ pesertas }) {
         <TableAccountUser data={pesertas} />
 
         <div className="mt-5 flex items-center justify-center">
-          <Pagination />
+          <Pagination paginateItems={pesertas} />
         </div>
 
         {/* <Modal show={isModalOpen} onClose={closeModal} maxWidth="xl">

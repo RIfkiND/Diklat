@@ -47,11 +47,5 @@ class Petugas extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-
-            'password' => 'hashed',
-        ];
-    }
+ 
 }

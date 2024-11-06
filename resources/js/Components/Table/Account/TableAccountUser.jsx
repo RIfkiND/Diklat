@@ -4,7 +4,7 @@ import { MdCancel } from "react-icons/md";
 import Search from "@/Components/Search";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
-import CreateAccount from "@/Components/Form/CreateAccount";
+import CreateAccount from "@/Components/Form/CreateAccountUser";
 import ReadAccount from "@/Components/Form/User/Read";
 import EditAccount from "@/Components/Form/User/Edit";
 
@@ -59,7 +59,7 @@ const TableAccountUser = ({ data }) => {
         >
           <div className="p-6">
             {mode === "create" && <CreateAccount />}
-            {mode === "read" && <ReadAccount user={selectedUser} />} {/* Pass selected user */}
+            {mode === "read" && <ReadAccount user={selectedUser} />}
             {mode === "edit" && <EditAccount user={selectedUser} />}
           </div>
         </Modal>
@@ -72,7 +72,6 @@ const TableAccountUser = ({ data }) => {
               <th className="py-3 px-4">Nama</th>
               <th className="py-3 px-4">Email</th>
               <th className="py-3 px-4">No HP</th>
-              <th className="py-3 px-4">Password</th>
               <th className="py-3 px-4">Selengkapnya</th>
             </tr>
           </thead>
@@ -86,7 +85,6 @@ const TableAccountUser = ({ data }) => {
                 <td className="py-3 px-4">{user.name}</td>
                 <td className="py-3 px-4">{user.email}</td>
                 <td className="py-3 px-4">{user.no_hp}</td>
-                <td className="py-3 px-4">{user.password}</td>
                 <td className="py-3 px-4 relative flex justify-center ">
                   {available === "available" ? (
                     <>
