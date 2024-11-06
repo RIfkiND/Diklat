@@ -34,7 +34,7 @@ export default function Pagination() {
     </div>
   );
 }
- import { Link } from '@inertiajs/react'
+//  import { Link } from '@inertiajs/react'
 // import { Link } from "@inertiajs/react";
 // const Pagination = ({ paginateItems, className }) => {
 //   if (paginateItems.last_page == 1) return;
