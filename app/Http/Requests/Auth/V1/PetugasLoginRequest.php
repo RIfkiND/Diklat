@@ -27,7 +27,7 @@ class PetugasLoginRequest extends FormRequest
     {
         return [
             'NIP' => ['required','numeric','min:1','max:30'],
-            'password' => ['required', 'string','min:1','max:10'],
+            'password' => ['required', 'string','min:1','max:15'],
         ];
     }
 

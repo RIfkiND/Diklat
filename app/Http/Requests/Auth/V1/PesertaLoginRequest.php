@@ -27,7 +27,7 @@ class PesertaLoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email','min:1','max:30'],
-            'password' => ['required', 'string','min:1','max:10'],
+            'password' => ['required', 'string','min:1','max:15'],
         ];
     }
 

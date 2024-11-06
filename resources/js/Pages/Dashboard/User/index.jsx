@@ -7,7 +7,6 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Inertia } from "@inertiajs/inertia";
 
 export default function UserDashboard() {
   const [biodata, setBiodata] = useState({
