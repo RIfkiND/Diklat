@@ -1,20 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import MonitorIlustration from "../../../Components/MonitorIlustration";
-import Pagination from "../../../Components/Pagination";
 import Search from "@/Components/Search";
-import { MdCancel } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
 import FilterByEndTime from "@/Components/FilterByEndTime";
 import FilterByStartTime from "@/Components/FilteraBySrartTime";
+import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
+import { RiFile2Line2 } from "react-icons/ri";
+import Pagination from "./../../../../../Components/Pagination";
 
-const MonitoringPeserta = () => {
-  const handleView = () => {
-    router.visit(route("petugas.daftar-rtl-peserta"));
+const SelectUser = () => {
+  const [selectedRow, setSelectedRow] = useState(null); // Track selected row
+  const tableRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleShowData = () => {
+    if (selectedRow !== null) {
+      router.visit(route("Petugas.report-pengolahan-edp-slug"));
+    }
   };
 
-  const [available] = useState("available");
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        tableRef.current &&
+        !tableRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setSelectedRow(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <AuthenticatedLayout
@@ -26,17 +46,17 @@ const MonitoringPeserta = () => {
     >
       <Head title="Dashboard" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
-        <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px]">
+        <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
-            <p className="text-sm lg:text-2xl font-bold">Monitoring Peserta</p>
+            <p className="text-sm lg:text-2xl font-bold">Reporting Data EDP</p>
             <p className="text-xs lg:text-sm text-slate-200">
               Pantau Perkembangan, Wujudkan Keberhasilan!
             </p>
           </div>
 
-          <div className="relative w-[200px] overflow-hidden ">
+          <div className="relative w-[200px]  ">
             <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] absolute bottom-0 md:bottom-[-40px] right-0 md:right-5">
-              <MonitorIlustration />
+              <AnalyticsIlustration />
             </div>
           </div>
         </div>
@@ -49,7 +69,10 @@ const MonitoringPeserta = () => {
           </div>
         </div>
 
-        <div className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 lg:col-span-12 row-span-6 rounded-2xl relative">
+        <div
+          ref={tableRef}
+          className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 lg:col-span-9 row-span-6 rounded-2xl relative"
+        >
           <div className="relative">
             <div className="overflow-x-auto scrollbar-none h-full">
               <table className="w-full rounded-lg">
@@ -62,14 +85,16 @@ const MonitoringPeserta = () => {
                     <th className="py-3 px-4">Kabupaten</th>
                     <th className="py-3 px-4">Nama Pelatihan</th>
                     <th className="py-3 px-4">Periode</th>
-                    <th className="py-3 px-4">Selengkapnya</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[...Array(10)].map((_, index) => (
                     <tr
                       key={index}
-                      className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer `}
+                      className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
+                        selectedRow === index ? "bg-indigo-100" : ""
+                      }`}
+                      onClick={() => setSelectedRow(index)}
                     >
                       <td className="py-3 px-4">{index + 1}</td>
                       <td className="py-3 px-4">Nama Contoh</td>
@@ -78,22 +103,6 @@ const MonitoringPeserta = () => {
                       <td className="py-3 px-4">Kabupaten Contoh</td>
                       <td className="py-3 px-4">Pelatihan Contoh</td>
                       <td className="py-3 px-4">2023</td>
-                      <td className="py-3 px-4 ">
-                        {available === "available" ? (
-                          <button
-                            onClick={handleView}
-                            className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                          >
-                            <FaEye className="text-xl text-teal-600" />
-                            <span className="text-sm">View</span>
-                          </button>
-                        ) : (
-                          <div className="flex items-center gap-3">
-                            <MdCancel className="text-xl text-red-500" />
-                            <span className="text-sm">Not Available</span>
-                          </div>
-                        )}
-                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -104,9 +113,24 @@ const MonitoringPeserta = () => {
             </div>
           </div>
         </div>
+
+        <button
+          ref={buttonRef}
+          onClick={handleShowData}
+          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
+            selectedRow !== null
+              ? " hover:bg-indigo-700 cursor-pointer"
+              : "opacity-50 cursor-not-allowed"
+          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
+        >
+          <span className={`flex items-center font-bold gap-2 text-white `}>
+            <RiFile2Line2 className="text-2xl" />
+            Tampilkan Rekap
+          </span>
+        </button>
       </div>
     </AuthenticatedLayout>
   );
 };
 
-export default MonitoringPeserta;
+export default SelectUser;

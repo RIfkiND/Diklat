@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import MonitorIlustration from "../../../Components/MonitorIlustration";
-import Pagination from "../../../Components/Pagination";
 import Search from "@/Components/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import FilterByEndTime from "@/Components/FilterByEndTime";
 import FilterByStartTime from "@/Components/FilteraBySrartTime";
+import MonitorIlustration from "./../../../../../Components/MonitorIlustration";
+import Pagination from "./../../../../../Components/Pagination";
 
-const MonitoringPeserta = () => {
+const SelectUser = () => {
   const handleView = () => {
-    router.visit(route("petugas.daftar-rtl-peserta"));
+    router.visit(route("Petugas.report-pendampingan-rtl-slug"));
   };
 
   const [available] = useState("available");
@@ -109,4 +109,4 @@ const MonitoringPeserta = () => {
   );
 };
 
-export default MonitoringPeserta;
+export default SelectUser;
