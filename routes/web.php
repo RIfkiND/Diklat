@@ -22,6 +22,12 @@ Route::get('/dashboard/admin', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/test', function () {
+return Inertia::render('Dashboard/Admin/Table/User/ViewData');
+});
+
+
+
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';
 require __DIR__ . '/Pages/peserta.php';

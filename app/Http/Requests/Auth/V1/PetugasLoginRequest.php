@@ -26,8 +26,8 @@ class PetugasLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'NIP' => ['required','numeric','min:1','max:30'],
-            'password' => ['required', 'string','min:1','max:15'],
+            'NIP' => ['required','numeric'],
+            'password' => ['required', 'string','min:1','max:30'],
         ];
     }
 
