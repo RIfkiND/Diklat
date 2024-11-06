@@ -1,17 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { router } from "@inertiajs/react";
-// import FilterByStartTime from "@/Components/FilteraBySrartTime";
-// import FilterByEndTime from "@/Components/FilterByEndTime";
 import Search from "@/Components/Search";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
 import CreateAccount from "@/Components/Form/CreateAccount";
+import ReadAccount from "@/Components/Form/User/Read";
+import EditAccount from "@/Components/Form/User/Edit";
+
 const TableAccountUser = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mode, setMode] = useState("create");
+  const [selectedUser, setSelectedUser] = useState(null); // New state for selected user
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -27,102 +29,28 @@ const TableAccountUser = ({ data }) => {
     };
   }, []);
 
-  const handleView = () => {
-    router.visit(route("admin.users.view"));
-  };
-
-  const handleEdit = () => {
-    router.visit(route("admin.users.edit"));
-  };
-
   const handleDelete = (userId) => {
     if (confirm("Are you sure you want to delete this user?")) {
       console.log("Deleted user with ID:", userId);
     }
   };
 
-  // const data = [
-  //   {
-  //     id: 1,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 2,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 3,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 4,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 5,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 6,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 7,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 8,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 9,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  //   {
-  //     id: 10,
-  //     nama: "Nama Contoh",
-  //     email: "Sekolah Contoh",
-  //     no_hp: "Provinsi Contoh",
-  //     password: "Kabupaten Contoh",
-  //   },
-  // ];
   return (
     <>
-      <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-        <Search />
-        <PrimaryButton
-          className="rounded-xl w-full lg:w-[15%] flex items-center md:justify-center justify-start tracking-normal capitalize"
-          onClick={() => setIsModalOpen(!isModalOpen)}
-        >
-          Create Account
-        </PrimaryButton>
+      <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
+        <div className="flex gap-5 justify-between w-full flex-wrap">
+          <Search />
+          <PrimaryButton
+            className="rounded-xl flex items-center md:justify-center justify-start tracking-tight capitalize w-full md:w-auto "
+            onClick={() => {
+              setIsModalOpen(!isModalOpen);
+              setMode("create");
+              setSelectedUser(null); // Clear selected user for create mode
+            }}
+          >
+            Create Account
+          </PrimaryButton>
+        </div>
         <Modal
           show={isModalOpen}
           onClose={() => setIsModalOpen(false)}
@@ -130,7 +58,9 @@ const TableAccountUser = ({ data }) => {
           className="w-full"
         >
           <div className="p-6">
-            <CreateAccount />
+            {mode === "create" && <CreateAccount />}
+            {mode === "read" && <ReadAccount user={selectedUser} />} {/* Pass selected user */}
+            {mode === "edit" && <EditAccount user={selectedUser} />}
           </div>
         </Modal>
       </div>
@@ -172,19 +102,27 @@ const TableAccountUser = ({ data }) => {
                       </button>
                       {openDropdown === user.id && (
                         <div
-                          className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
                           ref={dropdownRef}
                         >
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleView(user.id)}
+                            onClick={() => {
+                              setMode("read");
+                              setIsModalOpen(true);
+                              setSelectedUser(user); // Set selected user for read mode
+                            }}
                           >
                             <FaEye className="text-teal-600" />
                             <span>View</span>
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleEdit(user.id)}
+                            onClick={() => {
+                              setMode("edit");
+                              setIsModalOpen(true);
+                              setSelectedUser(user); // Set selected user for edit mode
+                            }}
                           >
                             <FaEdit className="text-blue-600" />
                             <span>Edit</span>
