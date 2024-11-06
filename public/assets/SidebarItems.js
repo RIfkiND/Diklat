@@ -25,24 +25,23 @@ export const getNavItems = (role) => {
             icon: "FiFileText",
             hasDropdown: true,
             items: [
-              { name: "Hasil Pendampingan RTL", path: "/rtl-report" },
-              { name: "Hasil Pengolahan EDP", path: "/edp-report" },
+              {
+                name: "Hasil Pendampingan RTL",
+                path: "/dashboard/petugas/report/hasil-pendampingan-rtl",
+              },
+              {
+                name: "Hasil Pengolahan EDP",
+                path: "/dashboard/petugas/report/hasil-pengolahan-edp",
+              },
             ],
           },
         ]
       : role === "admin"
         ? [
             {
-              name: "Table",
+              name: "Table User",
               icon: "FaRegUser",
-              hasDropdown: true,
-              items: [
-                { name: "User", path: "/dashboard/admin/users/table/user" },
-                {
-                  name: "Petugas",
-                  path: "/dashboard/admin/users/table/petugas",
-                },
-              ],
+              path: "/dashboard/admin/users/table/user",
             },
             {
               name: "Laporan Tugas",
@@ -58,8 +57,11 @@ export const getNavItems = (role) => {
               icon: "FaRegUser",
               hasDropdown: true,
               items: [
-                { name: "Peserta", path: "/admin/peserta" },
-                { name: "Petugas", path: "/admin/petugas" },
+                { name: "Peserta", path: "/dashboard/admin/account/user" },
+                {
+                  name: "Petugas",
+                  path: "/dashboard/admin/account/petugas",
+                },
               ],
             },
           ]
