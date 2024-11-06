@@ -14,8 +14,8 @@ class CreateBiodataPesertasTable extends Migration
     public function up()
     {
         Schema::create('biodata_pesertas', function (Blueprint $table) {
-            $table->id(); // ID untuk tabel ini, auto increment
-            $table->string('name'); // Nama peserta
+            $table->id();
+            $table->string('name'); 
             $table->string('kabupaten'); // Kabupaten
             $table->string('pelatihan'); // Nama pelatihan
             $table->date('periode_mulai'); // Periode mulai (tanggal)

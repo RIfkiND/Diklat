@@ -1,7 +1,8 @@
-<?php
+  <?php
 
 use App\Http\Controllers\AdminDashboardController;
-
+use Illuminate\Routing\Route;
+use Inertia\Inertia;
 // Admin
 Route::get('/dashboard/admin/users/table/user', [AdminDashboardController::class, 'index'])->name('admin.users');
 
