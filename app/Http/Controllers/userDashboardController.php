@@ -7,46 +7,36 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\BiodataPeserta;
 
-class UserDashboardController extends Controller
+class userDashboardController extends Controller
 {
-    public function index()
-    {
-        // Mengembalikan tampilan untuk user dashboard
-        return Inertia::render('Dashboard/User/index');
-    }
+  public function index()
+  {
+    return Inertia::render('Dashboard/User/index');
+  }
 
-    public function addBiodata(Request $request)
+  public function addBiodata(Request $request)
 {
-    // Validasi form data
+    // Validate form data
     $validatedData = $request->validate([
-        'fullname' => 'required|string|max:255',
-        'kabupaten' => 'required|integer',
-        'pelatihan' => 'required|string',
-        'periode_mulai' => 'required|date',
-        'sekolah' => 'required|string',
-        'provinsi' => 'required|integer',
-        'nama_petugas_pembimbing' => 'required|string',
-        'periode_akhir' => 'required|date',
-    ]);
+      'fullname' => 'required|string|max:255',
+      'kabupaten' => 'required|integer',
+      'pelatihan' => 'required|string',
+      'periode_mulai' => 'required|date',
+      'sekolah' => 'required|string',
+      'provinsi' => 'required|integer',
+      'nama_petugas_pembimbing' => 'required|string',
+      'periode_akhir' => 'required|date',
+      'peserta_id' => 'required|integer',
+  ]);
 
-    // Menggunakan Carbon untuk mengonversi tanggal jika perlu
-    // Jika periode_mulai dan periode_akhir berupa format string tanggal, kita konversikan ke format Y-m-d
-    $validatedData['periode_mulai'] = Carbon::parse($validatedData['periode_mulai'])->format('Y-m-d');
-    $validatedData['periode_akhir'] = Carbon::parse($validatedData['periode_akhir'])->format('Y-m-d');
+    // Convert the dates to MySQL format (YYYY-MM-DD HH:MM:SS)
+    $validatedData['periode_mulai'] = Carbon::parse($validatedData['periode_mulai'])->format('Y-m-d H:i:s');
+    $validatedData['periode_akhir'] = Carbon::parse($validatedData['periode_akhir'])->format('Y-m-d H:i:s');
 
-    // Menyimpan biodata peserta yang terhubung dengan pengguna yang sedang login
-    BiodataPeserta::create([
-        'fullname' => $validatedData['fullname'],
-        'kabupaten' => $validatedData['kabupaten'],
-        'pelatihan' => $validatedData['pelatihan'],
-        'periode_mulai' => $validatedData['periode_mulai'],
-        'sekolah' => $validatedData['sekolah'],
-        'provinsi' => $validatedData['provinsi'],
-        'nama_petugas_pembimbing' => $validatedData['nama_petugas_pembimbing'],
-        'periode_akhir' => $validatedData['periode_akhir'],
-        'peserta_id' => auth()->user()->id, // Mengambil ID user yang sedang login
-    ]);
+    // Save data to the database
+    BiodataPeserta::create($validatedData);
 
     return redirect()->route('user.dashboard')->with('success', 'Biodata added successfully');
+  // dd($request->all());
 }
 }

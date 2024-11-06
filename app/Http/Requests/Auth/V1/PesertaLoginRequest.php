@@ -26,8 +26,8 @@ class PesertaLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'email','min:1','max:30'],
+            'password' => ['required', 'string','min:1','max:15'],
         ];
     }
 

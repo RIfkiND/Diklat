@@ -8,12 +8,11 @@ use App\Http\Controllers\AdminDashboardController;
 use Inertia\Inertia;
 
 //peserta
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['role:peserta'])->group(function () {
     Route::get('/dashboard/user', [UserDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('/dashboard/user/register', [UserFormRegister::class, 'index'])->name('user.register');
-
     Route::post('/dashboard/user', [UserDashboardController::class, 'addBiodata']);
-// });
+    Route::get('/dashboard/user/register', [UserFormRegister::class, 'index'])->name('user.register');
+});
 
 //admin
 Route::get('/dashboard/admin/users/table/user', [AdminDashboardController::class, 'index'])->name('admin.users');
