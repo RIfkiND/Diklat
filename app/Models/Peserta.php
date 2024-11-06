@@ -11,7 +11,7 @@ class Peserta extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
+    protected $table = 'pesertas';
     /**
      * The attributes that are mass assignable.
      *

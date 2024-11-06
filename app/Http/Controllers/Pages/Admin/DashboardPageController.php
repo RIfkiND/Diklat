@@ -28,7 +28,7 @@ class DashboardPageController extends Controller
   // Account Table User
   public function AccountPeserta()
   {
-    $pesertas = Peserta::latest()->paginate(2);
+    $pesertas = Peserta::latest()->paginate(8);
 
     return Inertia::render('Dashboard/Admin/Account/TableUser',compact('pesertas'));
   }
