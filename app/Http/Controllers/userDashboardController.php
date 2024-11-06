@@ -18,16 +18,16 @@ class userDashboardController extends Controller
 {
     // Validate form data
     $validatedData = $request->validate([
-      'fullname' => 'required|string|max:255',
-      'kabupaten' => 'required|integer',
-      'pelatihan' => 'required|string',
-      'periode_mulai' => 'required|date',
-      'sekolah' => 'required|string',
-      'provinsi' => 'required|integer',
-      'nama_petugas_pembimbing' => 'required|string',
-      'periode_akhir' => 'required|date',
-      'peserta_id' => 'required|integer',
-  ]);
+        'fullname' => 'required|string|max:255',
+        'kabupaten' => 'required|integer',
+        'pelatihan' => 'required|string',
+        'periode_mulai' => 'required|date',
+        'sekolah' => 'required|string',
+        'provinsi' => 'required|integer',
+        'nama_petugas_pembimbing' => 'required|string',
+        'periode_akhir' => 'required|date',
+        'peserta_id' => 'required|integer', // Make sure this is coming from the session or authentication
+    ]);
 
     // Convert the dates to MySQL format (YYYY-MM-DD HH:MM:SS)
     $validatedData['periode_mulai'] = Carbon::parse($validatedData['periode_mulai'])->format('Y-m-d H:i:s');
@@ -37,6 +37,6 @@ class userDashboardController extends Controller
     BiodataPeserta::create($validatedData);
 
     return redirect()->route('user.dashboard')->with('success', 'Biodata added successfully');
-  // dd($request->all());
 }
+
 }

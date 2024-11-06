@@ -13,6 +13,8 @@ class Peserta extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'pesertas'; // Ensure this matches your table name
+
     /**
      * The attributes that are mass assignable.
      *
@@ -53,7 +55,7 @@ class Peserta extends Authenticatable
       return $this->hasOne(BiodataPeserta::class);
     }
 
-    public function biodata()
+    public function biodataPeserta()
     {
         return $this->hasOne(BiodataPeserta::class, 'peserta_id');
     }

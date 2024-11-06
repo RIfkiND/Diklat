@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BiodataPeserta extends Model
 {
-    protected $table = 'biodata_peserta'; // Tentukan nama tabel yang benar
+    protected $table = 'biodata_pesertas'; // Ensure this matches your table name
 
     protected $fillable = [
         'fullname',

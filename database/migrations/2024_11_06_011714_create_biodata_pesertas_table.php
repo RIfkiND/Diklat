@@ -23,9 +23,9 @@ class CreateBiodataPesertasTable extends Migration
         $table->integer('provinsi');
         $table->string('nama_petugas_pembimbing');
         $table->dateTime('periode_akhir');
-        $table->unsignedBigInteger('peserta_id'); // pastikan tipe kolom ini sesuai
+        $table->unsignedBigInteger('peserta_id'); // Ensure this is unsignedBigInteger
 
-        // Foreign key constraint
+        // Add foreign key constraint with correct references
         $table->foreign('peserta_id')->references('id')->on('pesertas')->onDelete('cascade');
 
         $table->timestamps();
