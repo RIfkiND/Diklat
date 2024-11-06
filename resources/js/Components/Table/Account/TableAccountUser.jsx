@@ -15,9 +15,9 @@ const TableAccountUser = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("create");
   const [selectedUser, setSelectedUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery); // State for debounced search query
-  const [timer, setTimer] = useState(null); // Timer state to manage debounce
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {

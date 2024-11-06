@@ -7,13 +7,16 @@ import Modal from "@/Components/Modal";
 import CreateAccountPetugas from "@/Components/Form/CreateAccountPetugas";
 import ReadAccountPetugas from "@/Components/Form/Petugas/Read";
 import EditAccountPetugas from "@/Components/Form/Petugas/Edit";
+import { router } from "@inertiajs/react";
 const TableAccountPetugas = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("create");
   const [selectedPetugas, setSelectedPetugas] = useState(null);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -29,10 +32,44 @@ const TableAccountPetugas = ({ data }) => {
     };
   }, []);
 
-  const handleDelete = (petugasId) => {
-    if (confirm("Are you sure you want to delete this petugas?")) {
-      console.log("Deleted petugas with ID:", petugasId);
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
     }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+  const filteredData = data.data.filter((peserta) => {
+    const query = debouncedSearchQuery.toLowerCase();
+
+    if (!isNaN(query)) {
+      return peserta.NIP.toString().includes(query);
+    } else {
+      return peserta.name.toLowerCase().includes(query);
+    }
+  });
+  const handleDelete = (petugasId) => {
+    if (confirm("Yakin Ingin Delete Petugas ?")) {
+      router.delete(route("admin.delete.petugas", petugasId), {
+        onSuccess: () => {
+          console.log("Deleted Petugas :", petugasId);
+        },
+        onError: (error) => {
+          console.error("Error deleting Petugas:", error);
+          alert("Gagal Menghapus Petugas");
+        },
+      });
+    }
+  };
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
   };
 
   // const data = [
@@ -101,7 +138,7 @@ const TableAccountPetugas = ({ data }) => {
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
         <div className="flex gap-5 justify-between w-full flex-wrap">
-          <Search />
+          <Search onSearchChange={handleSearchChange} />
           <PrimaryButton
             className="rounded-xl flex items-center md:justify-center justify-start tracking-tight capitalize w-full md:w-auto "
             onClick={() => {
@@ -142,7 +179,7 @@ const TableAccountPetugas = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.data.map((petugas, index) => (
+            {filteredData.map((petugas, index) => (
               <tr
                 key={index}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"

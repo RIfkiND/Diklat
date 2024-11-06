@@ -48,11 +48,12 @@ class PetugasFunctionController extends Controller
     $Petugass->update([
       'name' => $request->input('name'),
       'NIP' => $request->input('nip'),
+      'no_hp'=> $request->input('no_hp'),
       'password' => $request->filled('password') ? Hash::make($request->input('password')) : $Petugass->password,
     ]);
 
 
-    return redirect()->route('account.Petugas')->with('success', 'Petugas successfully updated.');
+    return redirect()->route('account.petugas')->with('success', 'Petugas successfully updated.');
   }
 
 
@@ -62,6 +63,6 @@ class PetugasFunctionController extends Controller
 
     $Petugass->delete();
 
-    return redirect()->route('account.Petugas')->with('success', 'Petugas successfully deleted.');
+    return redirect()->route('account.petugas')->with('success', 'Petugas successfully deleted.');
   }
 }

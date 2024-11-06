@@ -23,7 +23,8 @@ class UpdatePetugasRequest extends FormRequest
     {
         return [
           'name' => 'required|string|max:255',
-          'NIP' => 'required|integer|unique:petugas,NIP',
+          'nip' => 'required|integer|unique:petugas,NIP',
+          'no_hp'=> 'required|numeric|unique:petugas,no_hp',
           'password' => 'nullable|string|min:6',
         ];
     }

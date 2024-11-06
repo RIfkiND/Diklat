@@ -5,13 +5,13 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
-const EditAccountPetugas = ({ peserta }) => {
+const EditAccountPetugas = ({ petugas }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { data, setData, put, processing, errors } = useForm({
-    name: peserta.name || "",
-    nip: peserta.nip || "",
-    no_hp: peserta.no_hp || "",
+    name: petugas.name || "",
+    nip: petugas.NIP || "",
+    no_hp: petugas.no_hp || "",
     password: "",
   });
 
@@ -21,7 +21,8 @@ const EditAccountPetugas = ({ peserta }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(route("admin.update.peserta", peserta.id), {
+    put(route("admin.update.petugas", petugas.id), {
+      data,
       onSuccess: () => {
         alert("Account updated successfully!");
       },
@@ -71,6 +72,26 @@ const EditAccountPetugas = ({ peserta }) => {
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name}</p>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <InputLabel
+              htmlFor="No Hp"
+              className="block text-sm font-medium text-gray-700"
+            >
+              No Hp
+            </InputLabel>
+            <TextInput
+              id="no_hp"
+              name="no_hp"
+              type="text"
+              value={data.no_hp}
+              onChange={(e) => setData("no_hp", e.target.value)}
+              className="block w-full border border-gray-300 rounded-md p-2"
+              placeholder="08.."
+            />
+            {errors.no_hp && (
+              <p className="text-red-500 text-sm">{errors.no_hp}</p>
             )}
           </div>
           <div className="flex flex-col gap-2 relative">
