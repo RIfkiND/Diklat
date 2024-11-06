@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuUserSquare2 } from "react-icons/lu";
-import { useForm } from "@inertiajs/react"; // Import useForm for logout action
+import { useForm, usePage } from "@inertiajs/react"; // Import useForm for logout action
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { post } = useForm();
-
+  const { auth } = usePage().props;
   const handleLogout = () => {
     post(route("Auth.V1.Logout"));
   };
@@ -26,8 +26,8 @@ const Header = () => {
         <div className="flex items-center gap-4">
           <LuUserSquare2 className="text-4xl text-slate-700" />
           <div>
-            <p className="font-semibold text-slate-700">Name Users</p>
-            <p className="mt-[-5px] text-sm text-slate-500">Role Users</p>
+            <p className="font-semibold text-slate-700">{auth.user.name}</p>
+            <p className="mt-[-5px] text-sm text-slate-500">{auth.user.role}</p>
           </div>
         </div>
         <div className="relative">

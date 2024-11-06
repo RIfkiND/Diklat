@@ -16,7 +16,7 @@ export default function Login({ status }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("Auth.V1.Admin.Login"), {
+    post(route("Auth.V1.Login.Admin"), {
       onFinish: () => reset("password"),
     });
   };

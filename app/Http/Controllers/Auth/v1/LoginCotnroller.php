@@ -18,7 +18,7 @@ class LoginCotnroller extends Controller
       $request->AdminAuth();
       $request->session()->regenerate();
 
-      return redirect()->intended('');
+      return redirect()->intended(default: route('admin.users'));
     }
 
     public function PetugasLogin(PetugasLoginRequest $request){
@@ -32,7 +32,7 @@ class LoginCotnroller extends Controller
       $request->PesertaAuth();
       $request->session()->regenerate();
 
-      return redirect()->intended('user.dashboard');
+      return redirect()->intended(route('user.dashboard'));
     }
 
 
