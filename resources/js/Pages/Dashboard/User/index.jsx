@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "@inertiajs/react"; // Import useForm for logout action
+
 export default function UserDashboard() {
-  //Biodata form
+  // Biodata form state management
   const { data, setData, post, reset } = useForm({
-    name: "",
+    fullname: "",
     kabupaten: "",
     pelatihan: "",
     periode_mulai: null,
@@ -20,11 +21,11 @@ export default function UserDashboard() {
     nama_petugas_pembimbing: "",
     periode_akhir: null,
   });
-  const [provinces, setProvinces] = useState([]); // for provinsi
-  const [districts, setDistricts] = useState([]); // for kabupaten
-  const [showPreview, setShowPreview] = useState(false); // for preview biodata
+  const [provinces, setProvinces] = useState([]); // For provinsi
+  const [districts, setDistricts] = useState([]); // For kabupaten
+  const [showPreview, setShowPreview] = useState(false); // For preview biodata
 
-  //   Fetch data provinsi dan kabupaten
+  // Fetch provinces data
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
@@ -41,13 +42,57 @@ export default function UserDashboard() {
     fetchProvinces();
   }, []);
 
+  // Handle select change for province and kabupaten
+  const handleSelectChange = async (e, fieldName) => {
+    const value = e.target.value;
+    setData(fieldName, value);
+
+    if (fieldName === "provinsi") {
+      const response = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
+      );
+      const data = await response.json();
+      setDistricts(data);
+    }
+  };
+
+  // Handle date change for datepicker
+  const handleDateChange = (date, name) => {
+    setData(name, date);
+  };
+
+  // Handle input change for text fields
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData(name, value);
+  };
+
+  // Submit the form
+  const submit = (e) => {
+    e.preventDefault();
+
+    post("/dashboard/user", {
+      onSuccess: () => {
+        console.log("Biodata berhasil ditambahkan");
+        reset(); // Reset form after successful submission
+      },
+      onError: (errors) => {
+        console.error("Gagal menambahkan biodata:", errors);
+      },
+    });
+  };
+
+  const handlePreviewToggle = () => {
+    setShowPreview(!showPreview); // Toggle preview
+  };
+
   const Inputs = [
     [
       {
         id: "1",
         label: "Nama Lengkap",
         type: "text",
-        name: "name",
+        name: "fullname",
         autoComplete: "username",
       },
       {
@@ -113,50 +158,6 @@ export default function UserDashboard() {
     ],
   ];
 
-  //   Handle select change untuk select provinsi
-  const handleSelectChange = async (e, fieldName) => {
-    const value = e.target.value;
-    setData(fieldName, value);
-
-    if (fieldName === "provinsi") {
-      const response = await fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
-      );
-      const data = await response.json();
-      setDistricts(data);
-    }
-  };
-
-  //   Handle date change untuk datepicker
-  const handleDateChange = (date, name) => {
-    setData(name, date);
-  };
-
-  //   Handle input change untuk input text
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setData(name, value);
-  };
-
-  //   Handle submit form biodata
-  const submit = (e) => {
-    e.preventDefault();
-    // console.log("Biodata being submitted:", biodata);
-
-    post("/dashboard/user", {
-      onSuccess: () => {
-        console.log("Biodata berhasil ditambahkan");
-        reset(); // Reset the form fields after successful submission
-      },
-      onError: (errors) => {
-        console.error("Gagal menambahkan biodata:", errors);
-      },
-    });
-  };
-  const handlePreviewToggle = () => {
-    setShowPreview(!showPreview); // Toggle preview
-  };
-
   return (
     <AuthenticatedLayout>
       <Head title="Biodata User" />
@@ -204,7 +205,7 @@ export default function UserDashboard() {
                               key={option.id || option}
                               value={option.id || option}
                             >
-                              {option.name || option}{" "}
+                              {option.name || option}
                             </option>
                           ))}
                         </select>
@@ -235,6 +236,8 @@ export default function UserDashboard() {
             </div>
           </form>
         </div>
+
+        {/* Preview Biodata */}
         {showPreview && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
@@ -246,7 +249,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.name || ""}
+                defaultValue={data.fullname || ""}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -291,7 +294,7 @@ export default function UserDashboard() {
             </div>
             <div className="flex flex-col gap-1">
               <InputLabel
-                htmlFor="nama_pelatihan"
+                htmlFor="pelatihan"
                 className="block text-sm font-medium text-gray-700"
               >
                 Nama Pelatihan
@@ -299,19 +302,6 @@ export default function UserDashboard() {
               <TextInput
                 type="text"
                 defaultValue={data.pelatihan || ""}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <InputLabel
-                htmlFor="petugas_pembimbing"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nama Petugas Pembimbing
-              </InputLabel>
-              <TextInput
-                type="text"
-                defaultValue={data.nama_petugas_pembimbing || ""}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -325,19 +315,6 @@ export default function UserDashboard() {
               <TextInput
                 type="text"
                 defaultValue={data.periode_mulai || ""}
-                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <InputLabel
-                htmlFor="periode_akhir"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Periode Akhir
-              </InputLabel>
-              <TextInput
-                type="text"
-                defaultValue={data.periode_akhir || ""}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>

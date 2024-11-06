@@ -25,14 +25,15 @@ class BiodataPesertaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|min:1',
-            'kabupaten' => 'required|integer|max:255|min:1',
-            'pelatihan' => 'required|string"|max:255|min:1',
+            'fullname' => 'required|string|max:255|min:1',
+            'kabupaten' => 'required|string|min:1',
+            'pelatihan' => 'required|string|max:255|min:1',
             'periode_mulai' => 'required|date|min:1',
             'sekolah' => 'required|string|min:1|max:255',
-            'provinsi' => 'required|integer|min:1|max:255',
+            'provinsi' => 'required|string|min:1|max:255',
             'nama_petugas_pembimbing' => 'required|string|max:255|min:1',
-            'periode_akhir' => 'required|date',
+            'periode_akhir' => 'required|date|min:1',
+            // 'peserta_id' => 'required|integer|min:1',
         ];
     }
 

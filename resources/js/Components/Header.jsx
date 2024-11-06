@@ -45,7 +45,7 @@ const Header = () => {
               <ul className="py-2 text-center">
                 <li
                   className="cursor-pointer px-4 py-2 text-slate-700 hover:bg-gray-100"
-                  onClick={handleLogout}
+                  onClick={handleLogout} // Panggil handleLogout untuk logout umum
                 >
                   Logout
                 </li>
