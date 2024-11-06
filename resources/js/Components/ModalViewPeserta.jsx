@@ -1,18 +1,6 @@
 import React from "react";
 
 const ModalViewPeserta = ({ onClose }) => {
-  const formFields = [
-    { label: "Nama", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
-    { label: "Sekolah", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
-    { label: "Provinsi", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
-    { label: "Kabupaten", type: "text", width: "w-[46.50%] md:w-[23.27%]" },
-  ];
-
-  const formFields2 = [
-    { label: "Nama Pelatihan", type: "text", width: "w-[50%]" },
-    { label: "Periode", type: "text", width: "w-[50%]" },
-  ];
-
   const textareaFields = [
     { label: "Realisasi", width: "w-[50%]" },
     { label: "Kendala", width: "w-[50%]" },
@@ -33,34 +21,6 @@ const ModalViewPeserta = ({ onClose }) => {
       ></button>
       <div className="w-[80%] md:w-[70%] h-[80%] bg-white rounded-2xl p-10 overflow-y-auto scrollbar-none z-40 flex flex-col gap-3">
         <p className="text-2xl text-slate-500 font-bold">Informasi</p>
-
-        <div className="w-full flex gap-5 flex-wrap">
-          {formFields.map((field, index) => (
-            <div key={index} className={field.width}>
-              <p className="text-base text-slate-700 font-bold pl-1">
-                {field.label}
-              </p>
-              <input
-                type={field.type}
-                className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className="w-full flex gap-5">
-          {formFields2.map((field, index) => (
-            <div key={index} className={field.width}>
-              <p className="text-base text-slate-700 font-bold pl-1">
-                {field.label}
-              </p>
-              <input
-                type={field.type}
-                className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-              />
-            </div>
-          ))}
-        </div>
 
         <div className="w-full flex gap-5">
           {textareaFields.map((field, index) => (

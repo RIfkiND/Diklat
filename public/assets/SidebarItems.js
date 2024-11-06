@@ -25,8 +25,14 @@ export const getNavItems = (role) => {
             icon: "FiFileText",
             hasDropdown: true,
             items: [
-              { name: "Hasil Pendampingan RTL", path: "/rtl-report" },
-              { name: "Hasil Pengolahan EDP", path: "/edp-report" },
+              {
+                name: "Hasil Pendampingan RTL",
+                path: "/dashboard/petugas/report/hasil-pendampingan-rtl",
+              },
+              {
+                name: "Hasil Pengolahan EDP",
+                path: "/dashboard/petugas/report/hasil-pengolahan-edp",
+              },
             ],
           },
         ]
