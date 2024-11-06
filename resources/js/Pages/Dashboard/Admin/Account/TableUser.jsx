@@ -5,7 +5,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import TableAccountUser from "@/Components/Table/Account/TableAccountUser";
 
-export default function AccountUser() {
+export default function AccountUser({ pesertas }) {
   //   const [isModalOpen, setIsModalOpen] = useState(false);
   //   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -23,7 +23,7 @@ export default function AccountUser() {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        <TableAccountUser />
+        <TableAccountUser data={pesertas} />
 
         <div className="mt-5 flex items-center justify-center">
           <Pagination />

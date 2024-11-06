@@ -18,10 +18,11 @@ class Peserta extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+      'name',
+      'email',
+      'no_hp',
+      'password',
+     ];
 
     // public function getAuthIdentifierName(){
     //   return  "no_hp";

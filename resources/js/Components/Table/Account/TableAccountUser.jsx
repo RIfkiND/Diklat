@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { router } from "@inertiajs/react";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
-import FilterByEndTime from "@/Components/FilterByEndTime";
+// import FilterByStartTime from "@/Components/FilteraBySrartTime";
+// import FilterByEndTime from "@/Components/FilterByEndTime";
 import Search from "@/Components/Search";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
 import CreateAccount from "@/Components/Form/CreateAccount";
-const TableAccountUser = () => {
+const TableAccountUser = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,78 +41,78 @@ const TableAccountUser = () => {
     }
   };
 
-  const data = [
-    {
-      id: 1,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 2,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 3,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 4,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 5,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 6,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 7,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 8,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 9,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-    {
-      id: 10,
-      nama: "Nama Contoh",
-      email: "Sekolah Contoh",
-      no_hp: "Provinsi Contoh",
-      password: "Kabupaten Contoh",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 2,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 3,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 4,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 5,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 6,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 7,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 8,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 9,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  //   {
+  //     id: 10,
+  //     nama: "Nama Contoh",
+  //     email: "Sekolah Contoh",
+  //     no_hp: "Provinsi Contoh",
+  //     password: "Kabupaten Contoh",
+  //   },
+  // ];
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
@@ -147,13 +147,13 @@ const TableAccountUser = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((user, index) => (
+            {data.data.map((user, index) => (
               <tr
                 key={index}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{user.nama}</td>
+                <td className="py-3 px-4">{user.name}</td>
                 <td className="py-3 px-4">{user.email}</td>
                 <td className="py-3 px-4">{user.no_hp}</td>
                 <td className="py-3 px-4">{user.password}</td>

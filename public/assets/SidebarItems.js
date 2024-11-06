@@ -39,7 +39,7 @@ export const getNavItems = (role) => {
       : role === "admin"
         ? [
             {
-              name: "Table User",
+              name: "Table Peserta",
               icon: "FaRegUser",
               path: "/dashboard/admin/users/table/user",
             },
