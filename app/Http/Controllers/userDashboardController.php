@@ -2,41 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 use App\Models\BiodataPeserta;
+use App\Models\Peserta;
+use App\Http\Requests\Post\V1\Peserta\BiodataPesertaRequest; // Import kelas request
 
-class userDashboardController extends Controller
+class UserDashboardController extends Controller
 {
-  public function index()
-  {
-    return Inertia::render('Dashboard/User/index');
+    public function index()
+    {
+        return Inertia::render('Dashboard/User/index');
+    }
+
+    public function addBiodata(BiodataPesertaRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        // Get the current logged-in user
+        $user = auth()->user(); // Get the logged-in user
+
+        // Assuming you have a relationship where each user is linked to a peserta
+        // Let's get the Peserta for the logged-in user
+        $peserta = Peserta::find($user->id); // Assuming user ID matches the peserta ID
+
+        if ($peserta) {
+            // Add the peserta_id to the validated data
+            $validatedData['peserta_id'] = $peserta->id;
+        } else {
+            // If no peserta found for the logged-in user, return an error
+            return redirect()->back()->with('error', 'Peserta not found.');
+        }
+
+        // Save the BiodataPeserta record to the database
+        try {
+            BiodataPeserta::create($validatedData);
+            return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            \Log::error('Failed to save biodata: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal menambahkan biodata.');
+        }
+    }
   }
-
-  public function addBiodata(Request $request)
-{
-    // Validate form data
-    $validatedData = $request->validate([
-        'fullname' => 'required|string|max:255',
-        'kabupaten' => 'required|integer',
-        'pelatihan' => 'required|string',
-        'periode_mulai' => 'required|date',
-        'sekolah' => 'required|string',
-        'provinsi' => 'required|integer',
-        'nama_petugas_pembimbing' => 'required|string',
-        'periode_akhir' => 'required|date',
-        'peserta_id' => 'required|integer', // Make sure this is coming from the session or authentication
-    ]);
-
-    // Convert the dates to MySQL format (YYYY-MM-DD HH:MM:SS)
-    $validatedData['periode_mulai'] = Carbon::parse($validatedData['periode_mulai'])->format('Y-m-d H:i:s');
-    $validatedData['periode_akhir'] = Carbon::parse($validatedData['periode_akhir'])->format('Y-m-d H:i:s');
-
-    // Save data to the database
-    BiodataPeserta::create($validatedData);
-
-    return redirect()->route('user.dashboard')->with('success', 'Biodata added successfully');
-}
-
-}

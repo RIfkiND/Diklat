@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BiodataPeserta extends Model
 {
-    protected $table = 'biodata_pesertas'; // Ensure this matches your table name
+    use HasFactory;
 
     protected $fillable = [
         'fullname',
@@ -19,12 +19,12 @@ class BiodataPeserta extends Model
         'provinsi',
         'nama_petugas_pembimbing',
         'periode_akhir',
-        'peserta_id',
+        'peserta_id', // ID peserta yang terkait dengan biodata
     ];
 
-    // Relasi ke model User
-    public function user()
+    // Relasi ke model Peserta (menggunakan peserta_id)
+    public function peserta()
     {
-        return $this->belongsTo(Peserta::class, 'peserta_id'); // Pastikan peserta_id merujuk ke tabel 'users'
+        return $this->belongsTo(Peserta::class, 'peserta_id'); // Menghubungkan biodata_peserta ke pesertas
     }
 }

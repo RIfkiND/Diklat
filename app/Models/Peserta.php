@@ -13,7 +13,7 @@ class Peserta extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $table = 'pesertas'; // Ensure this matches your table name
+    // protected $table = 'pesertas'; // Ensure this matches your table name
 
     /**
      * The attributes that are mass assignable.
@@ -51,12 +51,13 @@ class Peserta extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function detail_peserta(){
-      return $this->hasOne(BiodataPeserta::class);
-    }
-
     public function biodataPeserta()
     {
-        return $this->hasOne(BiodataPeserta::class, 'peserta_id');
+        return $this->hasOne(BiodataPeserta::class); // Menghubungkan Peserta ke BiodataPeserta
+    }
+
+    public function peserta()
+    {
+        return $this->hasOne(Peserta::class);
     }
   }

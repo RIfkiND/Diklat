@@ -7,10 +7,11 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Inertia } from "@inertiajs/inertia";
+import { useForm } from "@inertiajs/react"; // Import useForm for logout action
 
 export default function UserDashboard() {
-  const [biodata, setBiodata] = useState({
+  // Biodata form state management
+  const { data, setData, post, reset } = useForm({
     fullname: "",
     kabupaten: "",
     pelatihan: "",
@@ -20,9 +21,70 @@ export default function UserDashboard() {
     nama_petugas_pembimbing: "",
     periode_akhir: null,
   });
+  const [provinces, setProvinces] = useState([]); // For provinsi
+  const [districts, setDistricts] = useState([]); // For kabupaten
+  const [showPreview, setShowPreview] = useState(false); // For preview biodata
 
-  const [provinces, setProvinces] = useState([]);
-  const [districts, setDistricts] = useState([]);
+  // Fetch provinces data
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+        );
+        const data = await response.json();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  // Handle select change for province and kabupaten
+  const handleSelectChange = async (e, fieldName) => {
+    const value = e.target.value;
+    setData(fieldName, value);
+
+    if (fieldName === "provinsi") {
+      const response = await fetch(
+        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
+      );
+      const data = await response.json();
+      setDistricts(data);
+    }
+  };
+
+  // Handle date change for datepicker
+  const handleDateChange = (date, name) => {
+    setData(name, date);
+  };
+
+  // Handle input change for text fields
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData(name, value);
+  };
+
+  // Submit the form
+  const submit = (e) => {
+    e.preventDefault();
+
+    post("/dashboard/user", {
+      onSuccess: () => {
+        console.log("Biodata berhasil ditambahkan");
+        reset(); // Reset form after successful submission
+      },
+      onError: (errors) => {
+        console.error("Gagal menambahkan biodata:", errors);
+      },
+    });
+  };
+
+  const handlePreviewToggle = () => {
+    setShowPreview(!showPreview); // Toggle preview
+  };
 
   const Inputs = [
     [
@@ -35,13 +97,13 @@ export default function UserDashboard() {
       },
       {
         id: "2",
-        label: "Kabupaten",
+        label: "Provinsi",
         type: "select",
-        name: "kabupaten",
-        autoComplete: "kabupaten",
-        options: districts.map((district) => ({
-          id: district.id,
-          name: district.name,
+        name: "provinsi",
+        autoComplete: "provinsi",
+        options: provinces.map((province) => ({
+          id: province.id,
+          name: province.name,
         })),
       },
       {
@@ -69,13 +131,13 @@ export default function UserDashboard() {
       },
       {
         id: "6",
-        label: "Provinsi",
+        label: "Kabupaten",
         type: "select",
-        name: "provinsi",
-        autoComplete: "provinsi",
-        options: provinces.map((province) => ({
-          id: province.id,
-          name: province.name,
+        name: "kabupaten",
+        autoComplete: "kabupaten",
+        options: districts.map((district) => ({
+          id: district.id,
+          name: district.name,
         })),
       },
       {
@@ -96,76 +158,12 @@ export default function UserDashboard() {
     ],
   ];
 
-  useEffect(() => {
-    const fetchProvinces = async () => {
-      try {
-        const response = await fetch(
-          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
-        );
-        const data = await response.json();
-        setProvinces(data);
-      } catch (error) {
-        console.error("Error fetching provinces:", error);
-      }
-    };
-
-    fetchProvinces();
-  }, []);
-
-  const handleSelectChange = async (e, fieldName) => {
-    const value = e.target.value;
-    setBiodata((prevBiodata) => ({
-      ...prevBiodata,
-      [fieldName]: value,
-    }));
-
-    if (fieldName === "provinsi") {
-      const response = await fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
-      );
-      const data = await response.json();
-      setDistricts(data);
-    }
-  };
-
-  const handleDateChange = (date, name) => {
-    setBiodata((prevBiodata) => ({
-      ...prevBiodata,
-      [name]: date,
-    }));
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBiodata((prevBiodata) => ({
-      ...prevBiodata,
-      [name]: value,
-    }));
-  };
-
-  const submit = (e) => {
-    e.preventDefault();
-
-    // Debug: Log the biodata to verify if name and other fields are correctly set
-    console.log("Biodata being submitted:", biodata);
-
-    Inertia.post("/dashboard/user", biodata, {
-      onSuccess: () => {
-        console.log("Biodata berhasil ditambahkan");
-      },
-      onError: (errors) => {
-        console.error("Gagal menambahkan biodata:", errors);
-        alert("Error: " + JSON.stringify(errors));
-      },
-    });
-  };
-
   return (
     <AuthenticatedLayout>
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        <div className="p-4">
+        <div className="p-4 mb-6">
           <form onSubmit={submit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {Inputs.map((column, columnIndex) => (
@@ -183,7 +181,7 @@ export default function UserDashboard() {
                       </InputLabel>
                       {field.type === "date" ? (
                         <DatePicker
-                          selected={biodata[field.name]}
+                          selected={data[field.name]}
                           onChange={(date) =>
                             handleDateChange(date, field.name)
                           }
@@ -196,7 +194,7 @@ export default function UserDashboard() {
                           id={field.id}
                           name={field.name}
                           className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                          value={biodata[field.name] || ""}
+                          value={data[field.name] || ""}
                           onChange={(e) => handleSelectChange(e, field.name)}
                         >
                           <option value="" disabled>
@@ -207,7 +205,7 @@ export default function UserDashboard() {
                               key={option.id || option}
                               value={option.id || option}
                             >
-                              {option.name || option}{" "}
+                              {option.name || option}
                             </option>
                           ))}
                         </select>
@@ -216,7 +214,7 @@ export default function UserDashboard() {
                           id={field.id}
                           type={field.type}
                           name={field.name}
-                          value={biodata[field.name] || ""}
+                          value={data[field.name] || ""}
                           onChange={handleInputChange}
                           className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                           autoComplete={field.autoComplete}
@@ -230,7 +228,7 @@ export default function UserDashboard() {
               <div className="col-span-1 md:col-span-2 flex justify-center">
                 <PrimaryButton
                   className="w-full max-w-xl flex items-center justify-center"
-                  onClick={submit}
+                  onClick={handlePreviewToggle}
                 >
                   Submit
                 </PrimaryButton>
@@ -238,6 +236,90 @@ export default function UserDashboard() {
             </div>
           </form>
         </div>
+
+        {/* Preview Biodata */}
+        {showPreview && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="nama_lengkap"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nama Lengkap
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.fullname || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="sekolah"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Sekolah
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.sekolah || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="provinsi"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Provinsi
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.provinsi || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="kabupaten"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Kabupaten
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.kabupaten || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="pelatihan"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nama Pelatihan
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.pelatihan || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="periode_mulai"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Periode Mulai
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.periode_mulai || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+          </div>
+        )}
       </DashboardLayout>
     </AuthenticatedLayout>
   );
