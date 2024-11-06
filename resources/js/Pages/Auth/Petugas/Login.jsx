@@ -1,22 +1,21 @@
-import Checkbox from "@/Components/Checkbox";
 import Ilustrasion from "@/Components/Ilustrasion";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status }) {
   const { data, setData, post, processing, errors, reset } = useForm({
-    email: "",
+    NIP: "",
     password: "",
-    remember: false,
+    // remember: false,
   });
 
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("login"), {
+    post(route("Auth.V1.Login.Petugas"), {
       onFinish: () => reset("password"),
     });
   };
@@ -37,24 +36,27 @@ export default function Login({ status, canResetPassword }) {
           <div className="flex justify-between gap-12">
             <div className="basis-1/2">
               <div>
-                <h3 className="text-3xl font-bold text-primary mb-6">Login</h3>
+                <h3 className="text-3xl font-bold text-primary mb-6">
+                  {" "}
+                  Petugas Login
+                </h3>
               </div>
               <form onSubmit={submit} className="">
                 <div className="mb-6">
-                  <InputLabel htmlFor="email" value="Email" />
+                  <InputLabel htmlFor="NIP" value="NIP" />
 
                   <TextInput
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
+                    id="NIP"
+                    type="text"
+                    name="NIP"
+                    value={data.NIPl}
                     className="mt-1 block w-full"
-                    autoComplete="username"
+                    autoComplete="NIP"
                     isFocused={true}
-                    onChange={(e) => setData("email", e.target.value)}
+                    onChange={(e) => setData("NIP", e.target.value)}
                   />
 
-                  <InputError message={errors.email} className="mt-2" />
+                  <InputError message={errors.NIP} className="mt-2" />
                 </div>
 
                 <div className="mt-4 mb-6">
@@ -71,30 +73,6 @@ export default function Login({ status, canResetPassword }) {
                   />
 
                   <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 block mb-6">
-                  <label className="flex items-center justify-between">
-                    <div>
-                      <Checkbox
-                        name="remember"
-                        checked={data.remember}
-                        onChange={(e) => setData("remember", e.target.checked)}
-                      />
-                      <span className="ms-2 text-sm text-gray-600">
-                        Remember me
-                      </span>
-                    </div>
-
-                    {canResetPassword && (
-                      <Link
-                        href={route("password.request")}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Forgot your password?
-                      </Link>
-                    )}
-                  </label>
                 </div>
 
                 <div className="mt-4 flex w-full justify-between">

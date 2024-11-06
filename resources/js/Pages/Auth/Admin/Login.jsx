@@ -4,9 +4,9 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: "",
     password: "",
@@ -16,7 +16,7 @@ export default function Login({ status, canResetPassword }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("login"), {
+    post(route("Auth.V1.Admin.Login"), {
       onFinish: () => reset("password"),
     });
   };
@@ -37,7 +37,10 @@ export default function Login({ status, canResetPassword }) {
           <div className="flex justify-between gap-12">
             <div className="basis-1/2">
               <div>
-                <h3 className="text-3xl font-bold text-primary mb-6">Login</h3>
+                <h3 className="text-3xl font-bold text-primary mb-6">
+                  {" "}
+                  Admin Login
+                </h3>
               </div>
               <form onSubmit={submit} className="">
                 <div className="mb-6">
@@ -85,15 +88,6 @@ export default function Login({ status, canResetPassword }) {
                         Remember me
                       </span>
                     </div>
-
-                    {canResetPassword && (
-                      <Link
-                        href={route("password.request")}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        Forgot your password?
-                      </Link>
-                    )}
                   </label>
                 </div>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Petugas;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('petugas', function (Blueprint $table) {
+        Schema::create('biodata_pesertas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer("NIP")->unique();
-            $table->string("password");
+            $table->string('sekolah');
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            $table->interger('no_hp');
+            $table->foreignIdFor(Petugas::class);
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('petugas');
+        Schema::dropIfExists('detail_pesertas');
     }
 };

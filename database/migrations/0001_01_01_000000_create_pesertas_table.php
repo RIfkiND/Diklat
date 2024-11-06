@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pesertas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('no_hp')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

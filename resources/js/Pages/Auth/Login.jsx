@@ -16,7 +16,7 @@ export default function Login({ status, canResetPassword }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("login"), {
+    post(route("Auth.V1.Login.Peserta"), {
       onFinish: () => reset("password"),
     });
   };
@@ -37,7 +37,9 @@ export default function Login({ status, canResetPassword }) {
           <div className="flex justify-between gap-12">
             <div className="basis-1/2">
               <div>
-                <h3 className="text-3xl font-bold text-primary mb-6">Login</h3>
+                <h3 className="text-3xl font-bold text-primary mb-6">
+                  Peserta Login
+                </h3>
               </div>
               <form onSubmit={submit} className="">
                 <div className="mb-6">

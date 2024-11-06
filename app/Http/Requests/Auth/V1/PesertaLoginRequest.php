@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Auth\V1;  
+namespace App\Http\Requests\Auth\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Auth\Events\Lockout;
@@ -40,7 +40,7 @@ class PesertaLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('peserta')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
