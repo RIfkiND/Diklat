@@ -109,7 +109,7 @@ const TableAccountUser = ({ data }) => {
                       </button>
                       {openDropdown === user.id && (
                         <div
-                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
                           ref={dropdownRef}
                         >
                           <button
