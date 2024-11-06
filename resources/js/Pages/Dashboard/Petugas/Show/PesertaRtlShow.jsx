@@ -1,13 +1,8 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
-import Pagination from "./../../../../Components/Pagination";
-import { MdCancel } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
-import { RiAddCircleLine } from "react-icons/ri";
 import ModalMonitoringPeserta from "@/Components/ModalMonitoringPeserta";
-import ModalViewPeserta from "@/Components/ModalViewPeserta";
 
 const PesertaRtlShow = () => {
   const formFields = [
@@ -17,43 +12,66 @@ const PesertaRtlShow = () => {
     { label: "Kabupaten", type: "text", width: "w-[23%]" },
   ];
 
-  const [available] = useState("available");
-  const [addModal, setAddModal] = useState(false);
-  const [viewRtl, setViewRtl] = useState(false);
+  // kegiatan
+  const kegiatanLeft = [
+    { title: "Tujuan", desk: "Lorem ipsum dolor sit amet." },
+    { title: "sasaran", desk: "Lorem ipsum dolor sit amet." },
+  ];
 
-  const handleShowAddData = () => {
-    setAddModal(true);
-  };
-  const handleCloseAddData = () => {
-    setAddModal(false);
+  const kegiatanRight = [
+    { title: "Metode", desk: "Lorem ipsum dolor sit amet." },
+    { title: "Tempat", desk: "Lorem ipsum dolor sit amet." },
+  ];
+
+  const kegiatan = [
+    {
+      title_kegiatan:
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni",
+      kegiatanLeft: kegiatanLeft,
+      kegiatanRight: kegiatanRight,
+      date: "22/10/2024",
+    },
+  ];
+
+  const rtlLeft = [
+    { title: "Realisasi", desk: "Lorem ipsum dolor sit amet." },
+    { title: "Kendala", desk: "Lorem ipsum dolor sit amet." },
+  ];
+
+  const rtlRight = [{ title: "Solusi", desk: "Lorem ipsum dolor sit amet." }];
+
+  const buktiDukungLeft = [
+    { title: "Undangan", desk: "Ya" },
+    { title: "Daftar Hadir", desk: "Tidak" },
+  ];
+
+  const buktiDukungRight = [
+    { title: "Link Foto", desk: "Lorem ipsum dolor sit amet." },
+    { title: "Link Video", desk: "Lorem ipsum dolor sit amet." },
+  ];
+
+  const rtl = [
+    {
+      rtlLeft: rtlLeft,
+      rtlRight: rtlRight,
+      buktiDukungLeft: buktiDukungLeft,
+      buktiDukungRight: buktiDukungRight,
+    },
+  ];
+
+  const dataRtl = [
+    { kegiatan: kegiatan, rtl: rtl },
+    { kegiatan: kegiatan, rtl: [] }, // Empty rtl to test the 'No Data' scenario
+  ];
+
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
-  const handleShowViewRtl = () => {
-    setViewRtl(true);
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
-  const handleCloseViewRtl = () => {
-    setViewRtl(false);
-  };
-
-  const [selectedRow, setSelectedRow] = useState(null);
-  const tableRef = useRef(null);
-  const buttonRef = useRef(null);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        tableRef.current &&
-        !tableRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setSelectedRow(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <AuthenticatedLayout
@@ -100,82 +118,151 @@ const PesertaRtlShow = () => {
             ))}
           </div>
         </div>
-        <div
-          ref={tableRef}
-          className="w-full col-span-12 lg:col-span-9 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col"
-        >
-          <div className="overflow-x-auto scrollbar-none h-full">
-            <table className="w-full rounded-lg">
-              <thead>
-                <tr className="text-primary text-sm font-semibold">
-                  <th className="py-3 px-4">No</th>
-                  <th className="py-3 px-4">Nama Kegiatan</th>
-                  <th className="py-3 px-4">Tujuan</th>
-                  <th className="py-3 px-4">Sasaran</th>
-                  <th className="py-3 px-4">Metode</th>
-                  <th className="py-3 px-4">Tempat</th>
-                  <th className="py-3 px-4">Waktu Pelaksanaan</th>
-                  <th className="py-3 px-4">RTL</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...Array(10)].map((_, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => setSelectedRow(index)}
-                    className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
-                      selectedRow === index ? "bg-indigo-100" : ""
-                    }`}
-                  >
-                    <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4">Nama Kegiatan</td>
-                    <td className="py-3 px-4">Tujuan Contoh</td>
-                    <td className="py-3 px-4">Sasaran Contoh</td>
-                    <td className="py-3 px-4">Metode Contoh</td>
-                    <td className="py-3 px-4">Tempat Contoh</td>
-                    <td className="py-3 px-4">11/2/2024</td>
-                    <td className="py-3 px-4 ">
-                      {available === "available" ? (
-                        <button
-                          onClick={handleShowViewRtl}
-                          className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                        >
-                          <FaEye className="text-xl text-teal-600" />
-                          <span className="text-sm">View</span>
-                        </button>
-                      ) : (
-                        <div className="flex items-center gap-3">
-                          <MdCancel className="text-xl text-red-500" />
-                          <span className="text-sm">Not Available</span>
+
+        {dataRtl.map((item, index) => (
+          <div
+            className="w-full grid grid-cols-12 col-span-12 gap-5"
+            key={index}
+          >
+            {/* Kegiatan Section */}
+            <div className="w-full col-span-12 lg:col-span-7 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col items-center relative space-y-2">
+              <div className="flex items-center justify-center flex-col">
+                <p className="text-xl font-bold text-textPrimary">Kegiatan</p>
+                <p className="text-sm font-bold text-textSecondary">
+                  {item.kegiatan[0].title_kegiatan}
+                </p>
+              </div>
+              <div className="w-full flex justify-between">
+                {/* Left Section */}
+                <div className="space-y-4">
+                  {item.kegiatan[0].kegiatanLeft.map((leftItem, leftIndex) => (
+                    <div key={leftIndex}>
+                      <p className="text-base font-bold text-textPrimary">
+                        {leftItem.title}
+                      </p>
+                      <p className="text-sm font-bold text-textSecondary">
+                        {leftItem.desk}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Right Section */}
+                <div className="space-y-4">
+                  {item.kegiatan[0].kegiatanRight.map(
+                    (rightItem, rightIndex) => (
+                      <div key={rightIndex}>
+                        <p className="text-base font-bold text-textPrimary">
+                          {rightItem.title}
+                        </p>
+                        <p className="text-sm font-bold text-textSecondary">
+                          {rightItem.desk}
+                        </p>
+                      </div>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
+                {item.kegiatan[0].date}
+              </p>
+            </div>
+
+            {/* RTL Section */}
+            <div
+              className={`w-full col-span-12 lg:col-span-5 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col items-center space-y-1 ${item.rtl.length === 0 ? "opacity-50 cursor-pointer hover:opacity-100 transition-all duration-300" : ""}`}
+            >
+              {/* Check if RTL data is empty */}
+              {item.rtl.length === 0 ? (
+                <button
+                  onClick={handleOpenModal}
+                  className="flex justify-center items-center w-full h-full"
+                >
+                  <p className="text-xl font-bold text-textPrimary">
+                    Add Data RTL
+                  </p>
+                </button>
+              ) : (
+                <>
+                  <div className="flex items-center justify-center flex-col">
+                    <p className="text-xl font-bold text-textPrimary">RTL</p>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    {/* Left RTL Section */}
+                    <div className="space-y-4">
+                      {item.rtl[0].rtlLeft.map((rtlLeftItem, rtlLeftIndex) => (
+                        <div key={rtlLeftIndex}>
+                          <p className="text-sm font-bold text-textPrimary">
+                            {rtlLeftItem.title}
+                          </p>
+                          <p className="text-sm text-textSecondary">
+                            {rtlLeftItem.desk}
+                          </p>
                         </div>
+                      ))}
+                    </div>
+
+                    {/* Right RTL Section */}
+                    <div className="space-y-4">
+                      {item.rtl[0].rtlRight.map(
+                        (rtlRightItem, rtlRightIndex) => (
+                          <div key={rtlRightIndex}>
+                            <p className="text-base font-bold text-textPrimary">
+                              {rtlRightItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {rtlRightItem.desk}
+                            </p>
+                          </div>
+                        ),
                       )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-              <Pagination />
+                    </div>
+                  </div>
+
+                  {/* Bukti Dukung Section */}
+                  <div className="space-y-4 w-full">
+                    <p className="text-base font-bold text-textPrimary">
+                      Bukti Dukung
+                    </p>
+                    <div className="flex justify-between">
+                      <div className="space-y-2">
+                        {item.rtl[0].buktiDukungLeft.map(
+                          (buktiItem, buktiIndex) => (
+                            <div key={buktiIndex}>
+                              <p className="text-sm text-textPrimary font-bold">
+                                {buktiItem.title}
+                              </p>
+                              <p className="text-sm text-textSecondary">
+                                {buktiItem.desk}
+                              </p>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        {item.rtl[0].buktiDukungRight.map(
+                          (buktiItem, buktiIndex) => (
+                            <div key={buktiIndex}>
+                              <p className="text-sm text-textPrimary font-bold">
+                                {buktiItem.title}
+                              </p>
+                              <p className="text-sm text-textSecondary ">
+                                {buktiItem.desk}
+                              </p>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-        </div>
-        <button
-          ref={buttonRef}
-          onClick={handleShowAddData}
-          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectedRow !== null
-              ? " hover:bg-indigo-700 cursor-pointer"
-              : "opacity-50 cursor-not-allowed"
-          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
-        >
-          <span className={`flex items-center font-bold gap-2 text-white `}>
-            <RiAddCircleLine className="text-2xl" />
-            Tambahkan RTL
-          </span>
-        </button>
+        ))}
       </div>
-      {addModal && <ModalMonitoringPeserta onClose={handleCloseAddData} />}
-      {viewRtl && <ModalViewPeserta onClose={handleCloseViewRtl} />}
+      {openModal && <ModalMonitoringPeserta onClose={handleCloseModal} />}
     </AuthenticatedLayout>
   );
 };

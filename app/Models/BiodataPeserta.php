@@ -7,27 +7,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BiodataPeserta extends Model
 {
+    use HasFactory;
 
-  public function peserta(){
-    return $this->belongsTo(Peserta::class);
-  }
+    protected $fillable = [
+        'fullname',
+        'kabupaten',
+        'pelatihan',
+        'periode_mulai',
+        'sekolah',
+        'provinsi',
+        'nama_petugas_pembimbing',
+        'periode_akhir',
+        'peserta_id',
+    ];
 
-  use HasFactory;
-
-  protected $fillable = [
-    'fullname',
-    'kabupaten',
-    'pelatihan', // Add 'pelatihan' to the fillable array
-    'periode_mulai',
-    'sekolah',
-    'provinsi',
-    'nama_petugas_pembimbing',
-    'periode_akhir',
-    'peserta_id',
-];
-
-public function user()
+    // Relasi ke model User
+    public function user()
     {
-        return $this->belongsTo(Peserta::class, 'peserta_id');
+        return $this->belongsTo(User::class, 'peserta_id'); // Pastikan peserta_id merujuk ke tabel 'users'
+    }
+
+    // Relasi ke model Peserta
+    public function peserta()
+    {
+        return $this->belongsTo(Peserta::class); // Jika mengarah ke model Peserta
     }
 }

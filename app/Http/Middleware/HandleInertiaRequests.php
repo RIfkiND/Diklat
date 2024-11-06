@@ -30,12 +30,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user('peserta') ?? $request->user('admins') ?? $request->user('petugas');
+
         return [
             ...parent::share($request),
             'auth' => [
-                'peserta' => $request->user("peserta"),
-                'admins'=> $request->user("admins"),
-                'petugas'=> $request->user("petugas")
+                'user' => $user ? [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'role' => $user instanceof \App\Models\Peserta ? 'peserta' :
+                             ($user instanceof \App\Models\Admin ? 'admin' : 'petugas')
+                ] : null,
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
@@ -43,4 +48,5 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
     }
+
 }

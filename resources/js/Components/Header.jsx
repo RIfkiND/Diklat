@@ -8,16 +8,7 @@ const Header = () => {
   const { post } = useForm();
 
   const handleLogout = () => {
-    // Mengirim request POST ke route logout tanpa perlu memeriksa role
-    post(route("logout"))
-      .then(() => {
-        // Redirect ke halaman login setelah logout
-        window.location.href = "/login";
-      })
-      .catch((error) => {
-        // Tangani error jika ada
-        console.error(error);
-      });
+    post(route("Auth.V1.Logout"));
   };
 
   // Toggle dropdown visibility
