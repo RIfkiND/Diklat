@@ -25,7 +25,7 @@ export default function AccountPetugas({ petugas }) {
         <TableAccountPetugas data={petugas} />
 
         <div className="mt-5 flex items-center justify-center">
-          <Pagination />
+          <Pagination paginateItems={petugas} />
         </div>
 
         {/* <Modal show={isModalOpen} onClose={closeModal} maxWidth="xl">
