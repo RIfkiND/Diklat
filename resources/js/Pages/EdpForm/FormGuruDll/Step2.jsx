@@ -2,6 +2,7 @@ import React from "react";
 import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
 const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
+  //
   const tampilanProgram = [
     {
       title: "Adanya Dokumen / Rencana Program Pengimbasan",
