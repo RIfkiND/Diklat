@@ -135,7 +135,7 @@ const TableAccountPetugas = ({ data }) => {
   //   },
   // ];
   return (
-    <>
+    <div className="grid grid-cols-12 gap-5">
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
         <div className="flex gap-5 justify-between w-full flex-wrap">
           <Search onSearchChange={handleSearchChange} />
@@ -167,90 +167,94 @@ const TableAccountPetugas = ({ data }) => {
           </div>
         </Modal>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full rounded-lg text-center">
-          <thead>
-            <tr className="text-primary text-sm font-semibold">
-              <th className="py-3 px-4">No</th>
-              <th className="py-3 px-4">NIP</th>
-              <th className="py-3 px-4">Nama</th>
-              <th className="py-3 px-4">No HP</th>
-              <th className="py-3 px-4">Selengkapnya</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((petugas, index) => (
-              <tr
-                key={index}
-                className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
-              >
-                <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{petugas.NIP}</td>
-                <td className="py-3 px-4">{petugas.name}</td>
-                <td className="py-3 px-4">{petugas.no_hp}</td>
-                <td className="py-3 px-4 relative flex justify-center ">
-                  {available === "available" ? (
-                    <>
-                      <button
-                        className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                        onClick={() =>
-                          setOpenDropdown(
-                            openDropdown === petugas.id ? null : petugas.id,
-                          )
-                        }
-                      >
-                        <FaEllipsisV className="text-xl text-gray-600" />
-                      </button>
-                      {openDropdown === petugas.id && (
-                        <div
-                          className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
-                          ref={dropdownRef}
-                        >
+      <div className="group bg-white h-full col-span-12 lg:col-span-12 row-span-6 rounded-2xl relative">
+        <div className="relative">
+          <div className="overflow-x-auto">
+            <table className="w-full rounded-lg text-center">
+              <thead>
+                <tr className="text-primary text-sm font-semibold">
+                  <th className="py-3 px-4">No</th>
+                  <th className="py-3 px-4">NIP</th>
+                  <th className="py-3 px-4">Nama</th>
+                  <th className="py-3 px-4">No HP</th>
+                  <th className="py-3 px-4">Selengkapnya</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredData.map((petugas, index) => (
+                  <tr
+                    key={index}
+                    className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
+                  >
+                    <td className="py-3 px-4">{index + 1}</td>
+                    <td className="py-3 px-4">{petugas.NIP}</td>
+                    <td className="py-3 px-4">{petugas.name}</td>
+                    <td className="py-3 px-4">{petugas.no_hp}</td>
+                    <td className="py-3 px-4 relative flex justify-center ">
+                      {available === "available" ? (
+                        <>
                           <button
-                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => {
-                              setMode("read");
-                              setIsModalOpen(true);
-                              setSelectedPetugas(petugas);
-                            }}
+                            className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
+                            onClick={() =>
+                              setOpenDropdown(
+                                openDropdown === petugas.id ? null : petugas.id,
+                              )
+                            }
                           >
-                            <FaEye className="text-teal-600" />
-                            <span>View</span>
+                            <FaEllipsisV className="text-xl text-gray-600" />
                           </button>
-                          <button
-                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => {
-                              setMode("edit");
-                              setIsModalOpen(true);
-                              setSelectedPetugas(petugas);
-                            }}
-                          >
-                            <FaEdit className="text-blue-600" />
-                            <span>Edit</span>
-                          </button>
-                          <button
-                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleDelete(petugas.id)}
-                          >
-                            <FaTrash className="text-red-600" />
-                            <span>Delete</span>
-                          </button>
+                          {openDropdown === petugas.id && (
+                            <div
+                              className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
+                              ref={dropdownRef}
+                            >
+                              <button
+                                className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                                onClick={() => {
+                                  setMode("read");
+                                  setIsModalOpen(true);
+                                  setSelectedPetugas(petugas);
+                                }}
+                              >
+                                <FaEye className="text-teal-600" />
+                                <span>View</span>
+                              </button>
+                              <button
+                                className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                                onClick={() => {
+                                  setMode("edit");
+                                  setIsModalOpen(true);
+                                  setSelectedPetugas(petugas);
+                                }}
+                              >
+                                <FaEdit className="text-blue-600" />
+                                <span>Edit</span>
+                              </button>
+                              <button
+                                className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
+                                onClick={() => handleDelete(petugas.id)}
+                              >
+                                <FaTrash className="text-red-600" />
+                                <span>Delete</span>
+                              </button>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-3">
+                          <MdCancel className="text-xl text-red-500" />
+                          <span className="text-sm">Not Available</span>
                         </div>
                       )}
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-3">
-                      <MdCancel className="text-xl text-red-500" />
-                      <span className="text-sm">Not Available</span>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import TableAccountUser from "@/Components/Table/Account/TableAccountUser";
+import HeaderHome from "@/Components/Ui/HeaderHome";
 
 export default function AccountUser({ pesertas }) {
   //   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,15 @@ export default function AccountUser({ pesertas }) {
   return (
     <AuthenticatedLayout>
       <Head title="Biodata User" />
-
+      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <HeaderHome
+          title={"Account User"}
+          description={
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi praesentium ea."
+          }
+          content={"/images/ilustrasi/Analytics-amico.svg"}
+        />
+      </div>
       <DashboardLayout>
         <TableAccountUser data={pesertas} />
 

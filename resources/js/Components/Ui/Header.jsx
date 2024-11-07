@@ -26,8 +26,8 @@ const Header = () => {
         <div className="flex items-center gap-4">
           <LuUserSquare2 className="text-4xl text-slate-700" />
           <div>
-            <p className="font-semibold text-slate-700">{auth.user.name}</p>
-            <p className="mt-[-5px] text-sm text-slate-500">{auth.user.role}</p>
+            {/* <p className="font-semibold text-slate-700">{auth.user.name}</p> */}
+            {/* <p className="mt-[-5px] text-sm text-slate-500">{auth.user.role}</p> */}
           </div>
         </div>
         <div className="relative">

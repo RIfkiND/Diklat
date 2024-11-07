@@ -71,7 +71,10 @@ const Step2 = ({ prevStep, handleSubmit, handleChange, values }) => {
             pelatihan.
           </p>
         </div>
-        <MonitorIlustration className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]" />
+        <MonitorIlustration
+          images={"/images/ilustrasi/Monitor-bro.svg"}
+          className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]"
+        />
       </div>
 
       <div className="w-full mt-5">
