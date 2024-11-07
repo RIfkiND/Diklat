@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 
-export default function UserDashboard() {
+export default function UserDashboard({ pesertas }) {
   //   const [isModalOpen, setIsModalOpen] = useState(false);
   //   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -22,10 +22,10 @@ export default function UserDashboard() {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        <TableUser />
+        <TableUser data={pesertas} />
 
         <div className="mt-5 flex items-center justify-center">
-          <Pagination />
+          <Pagination paginateItems={pesertas} />
         </div>
 
         {/* <Modal show={isModalOpen} onClose={closeModal} maxWidth="xl">
