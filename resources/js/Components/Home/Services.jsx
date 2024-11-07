@@ -1,24 +1,34 @@
 import React from "react";
+import { FaRegUser } from "react-icons/fa";
+import { LuMonitorDot } from "react-icons/lu";
+import { FaRegFolderOpen } from "react-icons/fa6";
+
 const services = [
   {
     title: "Active User",
-    description: "We enjoy working with discerning clients ...",
-    iconPath: "M21.0375 1.2374C11.8125 ...", // SVG path data for icon
+    subtitle: "Over 100 Users",
+    description:
+      "Join a growing community of over 100 active users who trust our platform for its reliability, ease of use, and exceptional support. We strive to enhance your experience every step of the way.",
+    iconPath: <FaRegUser />,
   },
   {
-    title: "Based on Tailwind CSS",
-    description: "We enjoy working with discerning clients ...",
-    iconPath: "M9.89195 14.625C10.9995 ...", // SVG path data for icon
+    title: "Monitoring",
+    subtitle: "Effortless Monitoring",
+    description:
+      "Stay in control with real-time monitoring tools designed for simplicity and efficiency. Access insights, track progress, and make data-driven decisions with ease and accuracy.",
+    iconPath: <LuMonitorDot />,
   },
   {
-    title: "Customizable Layouts",
-    description: "We enjoy working with discerning clients ...",
-    iconPath: "M12.2063 1.9126H5.0625 ...", // SVG path data for icon
+    title: "Report",
+    subtitle: "Quick & Easy Reporting",
+    description:
+      "Generate comprehensive reports effortlessly. Our reporting tools allow you to compile, analyze, and share data in just a few clicks, helping you make informed decisions faster.",
+    iconPath: <FaRegFolderOpen />,
   },
 ];
 
 const Services = () => (
-  <section className="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+  <section className="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]" id="services">
     <div className="container mx-auto">
       <div className="text-center mb-12 lg:mb-20">
         <span className="block text-lg font-semibold text-primary mb-2">
@@ -30,16 +40,19 @@ const Services = () => (
       </div>
       <div className="flex flex-wrap -mx-4">
         {services.map((service, index) => (
-          <div key={index} className="w-full px-4 md:w-1/2 lg:w-1/3">
-            <div className="bg-white rounded-[20px] p-10 shadow-2 hover:shadow-lg mb-9">
-              <div className="flex items-center justify-center w-[70px] h-[70px] bg-primary rounded-2xl mb-8">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                  <path d={service.iconPath} fill="white" />
-                </svg>
+          <div key={index} className="w-full px-4 md:w-1/2 lg:w-1/3 ">
+            <div className="bg-white rounded-[20px] p-10 shadow-2 hover:shadow-primaryshadow mb-9 flex flex-col gap-3 h-[400px] transition-all duration-300 ease-in-out">
+              <div className="flex items-center justify-center w-[70px] h-[70px] bg-primary rounded-2xl ">
+                <div className="text-2xl text-white">{service.iconPath}</div>
               </div>
-              <h4 className="text-2xl font-semibold text-slate-700 mb-[14px]">
-                {service.title}
-              </h4>
+              <div className="flex flex-col">
+                <p className="text-2xl font-semibold text-slate-700">
+                  {service.title}
+                </p>
+                <p className=" font-semibold text-primary">
+                  {service.subtitle}
+                </p>
+              </div>
               <p className="text-textPrimary">{service.description}</p>
             </div>
           </div>

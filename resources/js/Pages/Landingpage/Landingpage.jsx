@@ -5,7 +5,7 @@ import React from "react";
 
 const Landingpage = () => {
   return (
-    <div className="h-full w-full mx-auto">
+    <div className="h-full w-full mx-auto px-10 scroll-smooth">
       <Navbar />
       <Hero />
       <Services />
