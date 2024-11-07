@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Rtl;
 use App\Models\BiodataPeserta;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,11 +53,16 @@ class Peserta extends Authenticatable
     }
     public function biodataPeserta()
     {
-        return $this->hasOne(BiodataPeserta::class); // Menghubungkan Peserta ke BiodataPeserta
+        return $this->hasOne(BiodataPeserta::class);
     }
 
     public function peserta()
     {
         return $this->hasOne(Peserta::class);
+    }
+
+    public function rtl()
+    {
+        return $this->hasOne(Rtl::class);
     }
   }
