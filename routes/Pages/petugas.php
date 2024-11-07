@@ -4,7 +4,7 @@ use App\Http\Controllers\Pages\Dashboard\PetugasController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::middleware(['role:petugas'])->group(function () {
+Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/monitoring-peserta', [PetugasController::class, 'Petugas'])->name('petugas.monitoring-peserta');
     Route::get('/dashboard/petugas/monitoring-peserta/daftar-rtl', [PetugasController::class, 'PetugasDaftarRtlPeserta'])->name('petugas.daftar-rtl-peserta');
     Route::get('/dashboard/petugas/data-edp', [PetugasController::class, 'PetugasDataEdp'])->name('petugas.data-edp');
@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/dashboard/petugas/report/hasil-pengolahan-edp', [PetugasController::class, "PetugasReportPengolahanEdp"])->name('Petugas.report-pengolahan-edp');
     Route::get('/dashboard/petugas/report/hasil-pengolahan-edp/slug', [PetugasController::class, "PetugasReportPengolahanEdpSlug"])->name('Petugas.report-pengolahan-edp-slug');
-// });
+});
