@@ -1,6 +1,6 @@
-import Pagination from "@/Components/Pagination";
 import TableMonitoringUser from "@/Components/Table/TableMonitoringUser";
 import HeaderHome from "@/Components/Ui/HeaderHome";
+import Pagination from "@/Components/Ui/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";

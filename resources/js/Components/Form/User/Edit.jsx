@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import PrimaryButton from "@/Components/PrimaryButton";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 
 const EditAccount = ({ user }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

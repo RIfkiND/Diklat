@@ -1,5 +1,5 @@
 import React from "react";
-import MonitorIlustration from "./../../../Components/MonitorIlustration";
+import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 
 const Step2 = ({ prevStep, handleSubmit, handleChange, values }) => {
   const tampilanGuru = [

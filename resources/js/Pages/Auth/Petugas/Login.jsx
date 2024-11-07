@@ -1,8 +1,8 @@
-import Ilustrasion from "@/Components/Ilustrasion";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import Ilustrasion from "@/Components/Image/Ilustrasion";
+import InputError from "@/Components/Ui/Input/InputError";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Login({ status }) {
