@@ -114,8 +114,11 @@ const Step2 = ({ prevStep, handleSubmit, handleChange, values }) => {
             </p>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5">
               {section.fields.map((field, index) => (
-                <div key={index} className="flex flex-col justify-between">
-                  <p className="text-primary font-bold">{field.title}</p>
+                <div
+                  key={index}
+                  className="flex flex-col justify-between gap-2"
+                >
+                  <p className="text-slate-700 font-bold">{field.title}</p>
                   {renderDropdown(field)}
                 </div>
               ))}
