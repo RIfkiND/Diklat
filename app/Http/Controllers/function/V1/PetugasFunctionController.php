@@ -34,7 +34,6 @@ class PetugasFunctionController extends Controller
       'name' => $request->input('name'),
       'NIP' => $request->input('nip'),
       'no_hp'=>$request->input('no_hp'),
-      'password' => Hash::make($request->input('password')),
     ]);
 
     return redirect()->route('account.petugas')->with('succes', 'Petugas Berhasil Ditambahkan');
@@ -49,7 +48,6 @@ class PetugasFunctionController extends Controller
       'name' => $request->input('name'),
       'NIP' => $request->input('nip'),
       'no_hp'=> $request->input('no_hp'),
-      'password' => $request->filled('password') ? Hash::make($request->input('password')) : $Petugass->password,
     ]);
 
 

@@ -25,7 +25,6 @@ class StorePetugasRequest extends FormRequest
           'name' => 'required|string|max:255',
           'nip' => 'required|unique:petugas,NIP',
           'no_hp'=>'required|numeric|unique:petugas,no_hp,',
-          'password' => 'required|string|min:8',
         ];
     }
 }

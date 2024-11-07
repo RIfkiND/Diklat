@@ -16,14 +16,12 @@ class PetugasSeeder extends Seeder
         DB::table('petugas')->insert([
             ['name'=>'Rifki',
                 'NIP' => 123456789,
-                'password' => Hash::make('password123'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
               'name'=>'Kaka',
                 'NIP' => 987654321,
-                'password' => Hash::make('password456'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

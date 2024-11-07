@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Petugas;
+
 class PetugasLoginRequest extends FormRequest
 {
     /**
@@ -26,8 +28,7 @@ class PetugasLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'NIP' => ['required','numeric'],
-            'password' => ['required', 'string','min:1','max:30'],
+            'NIP' => ['required', 'numeric'],
         ];
     }
 
@@ -40,7 +41,9 @@ class PetugasLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('petugas')->attempt($this->only('NIP', 'password'))) {
+        $petugas = Petugas::where('NIP', $this->NIP)->first();
+
+        if (! $petugas) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -48,11 +51,13 @@ class PetugasLoginRequest extends FormRequest
             ]);
         }
 
+        Auth::guard('petugas')->login($petugas);
+
         RateLimiter::clear($this->throttleKey());
     }
 
     /**
-     * Ensure the login request is not rate limited.
+     * Ensure the login request is not rate-limited.
      *
      * @throws \Illuminate\Validation\ValidationException
      */

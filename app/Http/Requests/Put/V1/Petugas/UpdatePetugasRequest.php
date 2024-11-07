@@ -25,7 +25,6 @@ class UpdatePetugasRequest extends FormRequest
           'name' => 'required|string|max:255',
           'nip' => 'required|integer|unique:petugas,NIP',
           'no_hp'=> 'required|numeric|unique:petugas,no_hp',
-          'password' => 'nullable|string|min:6',
         ];
     }
 }
