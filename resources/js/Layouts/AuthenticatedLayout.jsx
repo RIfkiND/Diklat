@@ -6,10 +6,10 @@ export default function AuthenticatedLayout({ children }) {
   return (
     <div className="flex h-screen w-screen overflow-x-hidden">
       <div className="">
-        <div className="hidden md:block md:w-[250px] relative h-full">
+        <div className="hidden lg:block md:w-[250px] relative h-full">
           <Sidebar />
         </div>
-        <div className="md:hidden absolute h-full z-[99]">
+        <div className="lg:hidden absolute h-full z-[99]">
           <MobileSidebar />
         </div>
       </div>
