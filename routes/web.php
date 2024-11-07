@@ -28,6 +28,13 @@ Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('
 Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
 
 
+// landingpage
+
+Route::get('/', function () {
+  return Inertia::render('Landingpage/Landingpage');
+})->name('landingpage');
+
+
 
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';
