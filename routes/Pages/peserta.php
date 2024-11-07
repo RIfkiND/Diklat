@@ -32,8 +32,5 @@ Route::get('/form-edp-send-link', [EdpFormController::class, 'renderSendLink'])-
 
 
 Route::post('/form/edp/siswa/proses',[EdpFunctionformController::class ,'EdpPostSiswa'])->name('post.edp.siswa');
-<<<<<<< HEAD
 
 Route::post('/form/edp/other/proses',[EdpFunctionformController::class ,'EdpPostOther'])->name('post.edp.other');
-=======
->>>>>>> 9d369328dc9db4baba9e7359204f382dde069f84
