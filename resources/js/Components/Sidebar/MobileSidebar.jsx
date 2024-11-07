@@ -6,7 +6,7 @@ import { TbAutomaticGearbox } from "react-icons/tb";
 import { FiFileText } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { getNavItems } from "./../../../public/assets/SidebarItems";
+import { getNavItems } from "@/Data/SidebarItems";
 
 const iconMap = {
   FaRegUser: <FaRegUser />,

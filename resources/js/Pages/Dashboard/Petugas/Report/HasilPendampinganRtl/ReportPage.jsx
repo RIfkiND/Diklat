@@ -1,9 +1,9 @@
 import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
-import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
-import ModalMonitoringPeserta from "@/Components/ModalMonitoringPeserta";
-import ModalViewPeserta from "@/Components/ModalViewPeserta";
+import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
+import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
+import ModalViewPeserta from "@/Components/Ui/Modal/ModalViewPeserta";
 
 const ReportPage = () => {
   const formFields = [

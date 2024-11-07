@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import InputLabel from "../InputLabel";
-import TextInput from "../TextInput";
+import InputLabel from "../Ui/InputLabel";
+import TextInput from "../Ui/Input/TextInput";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import PrimaryButton from "../PrimaryButton";
+import PrimaryButton from "../Ui/Button/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
 const CreateAccountPetugas = () => {

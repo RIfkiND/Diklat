@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Pagination from "@/Components/Pagination";
-import Search from "@/Components/Search";
+import Search from "@/Components/Ui/Input/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
-import Modal from "@/Components/Modal";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import Modal from "@/Components/Ui/Modal/Modal";
 import MonitoringUser from "@/Components/Form/Monitoring/Read";
 
 const TableMonitoringUser = () => {
@@ -82,9 +81,6 @@ const TableMonitoringUser = () => {
                 ))}
               </tbody>
             </table>
-            <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-              <Pagination />
-            </div>
           </div>
         </div>
       </div>

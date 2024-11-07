@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import MonitorIlustration from "../../../Components/MonitorIlustration";
-import Pagination from "../../../Components/Pagination";
-import Search from "@/Components/Search";
+import MonitorIlustration from "@/Components/Image/MonitorIlustration";
+import Pagination from "@/Components/Ui/Pagination";
+import Search from "@/Components/Ui/Input/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 
 const MonitoringPeserta = () => {
   const handleView = () => {

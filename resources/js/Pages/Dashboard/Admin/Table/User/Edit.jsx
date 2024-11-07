@@ -1,13 +1,13 @@
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import DatePicker from "react-datepicker";
 import { FaArrowLeft } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import { userInputs } from "../../../../../Data/DataUser";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { userInputs } from "@/Data/DataUser";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 
 export default function EditData() {
   return (

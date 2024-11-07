@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import Pagination from "../../../Components/Pagination";
-import Search from "@/Components/Search";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
-import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
+import Pagination from "@/Components/Ui/Pagination";
+import Search from "@/Components/Ui/Input/Search";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 
 const DataEdp = () => {

@@ -1,6 +1,6 @@
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
@@ -307,6 +307,19 @@ export default function UserDashboard() {
             </div>
             <div className="flex flex-col gap-1">
               <InputLabel
+                htmlFor="pelatihan"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nama Petugas Pembimbing
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.nama_petugas_pembimbing || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
                 htmlFor="periode_mulai"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -315,6 +328,19 @@ export default function UserDashboard() {
               <TextInput
                 type="text"
                 defaultValue={data.periode_mulai || ""}
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="periode_mulai"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Periode Akhir
+              </InputLabel>
+              <TextInput
+                type="text"
+                defaultValue={data.periode_akhir || ""}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
