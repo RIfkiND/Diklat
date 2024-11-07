@@ -5,7 +5,7 @@ import { FaRegUser } from "react-icons/fa";
 import { TbAutomaticGearbox } from "react-icons/tb";
 import { FiFileText } from "react-icons/fi";
 import { usePage } from "@inertiajs/react";
-import { getNavItems } from "./../../../public/assets/SidebarItems";
+import { getNavItems } from "@/Data/SidebarItems";
 
 const iconMap = {
   FaRegUser: <FaRegUser />,

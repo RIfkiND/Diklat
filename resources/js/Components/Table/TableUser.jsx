@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { router } from "@inertiajs/react";
-import FilterByStartTime from "../FilteraBySrartTime";
-import FilterByEndTime from "../FilterByEndTime";
-import Search from "../Search";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import Search from "@/Components/Ui/Input/Search";
 const TableUser = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);

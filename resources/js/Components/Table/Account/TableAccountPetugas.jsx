@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import Search from "@/Components/Search";
-import PrimaryButton from "@/Components/PrimaryButton";
-import Modal from "@/Components/Modal";
+import Search from "@/Components/Ui/Input/Search";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import Modal from "@/Components/Ui/Modal/Modal";
 import CreateAccountPetugas from "@/Components/Form/CreateAccountPetugas";
 import ReadAccountPetugas from "@/Components/Form/Petugas/Read";
 import EditAccountPetugas from "@/Components/Form/Petugas/Edit";

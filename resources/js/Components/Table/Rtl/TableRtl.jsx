@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import Search from "@/Components/Search";
-import PrimaryButton from "@/Components/PrimaryButton";
-import Modal from "@/Components/Modal";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import Search from "@/Components/Ui/Input/Search";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import Modal from "@/Components/Ui/Modal/Modal";
 import DaftarRtl from "@/Components/Form/Rtl/Daftar";
 import EditRtl from "@/Components/Form/Rtl/Edit";
 import ReadRtl from "@/Components/Form/Rtl/Read";

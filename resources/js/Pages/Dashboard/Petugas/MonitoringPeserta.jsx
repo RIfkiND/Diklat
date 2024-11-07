@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import MonitorIlustration from "../../../Components/MonitorIlustration";
-import Pagination from "../../../Components/Pagination";
-import Search from "@/Components/Search";
+import MonitorIlustration from "@/Components/Image/MonitorIlustration";
+import Pagination from "@/Components/Ui/Pagination";
+import Search from "@/Components/Ui/Input/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-// import FilterByEndTime from "@/Components/FilterByEndTime";
-// import FilterByStartTime from "@/Components/FilteraBySrartTime";
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 
 const MonitoringPeserta = ({ biodata }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +34,7 @@ const MonitoringPeserta = ({ biodata }) => {
 
   // Filter data based on the debounced search query
   const filteredData = biodata.data.filter((peserta) =>
-    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
   );
 
   const handleSearchChange = (query) => {
@@ -68,8 +68,8 @@ const MonitoringPeserta = ({ biodata }) => {
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
           <Search onChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-            {/* <FilterByStartTime />
-            <FilterByEndTime /> */}
+            <FilterByStartTime />
+            <FilterByEndTime />
           </div>
         </div>
 
