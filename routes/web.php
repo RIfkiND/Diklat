@@ -16,12 +16,12 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/dashboard', function () {
-  return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard/admin', function () {
-  return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//   return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard/admin', function () {
+//   return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp');

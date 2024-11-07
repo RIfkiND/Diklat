@@ -163,7 +163,7 @@ const TableUser = ({ data }) => {
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full rounded-lg">
+        <table className="w-full rounded-lg text-center">
           <thead>
             <tr className="text-primary text-sm font-semibold">
               <th className="py-3 px-4">No</th>
