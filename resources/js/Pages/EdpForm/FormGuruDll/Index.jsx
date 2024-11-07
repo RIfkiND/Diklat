@@ -51,7 +51,6 @@ const Index = () => {
     setData(name, value);
   };
 
-
   // const validateStep = () => {
   //   switch (step) {
   //     case 1:
@@ -96,8 +95,86 @@ const Index = () => {
     });
   };
 
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        // Check if all required fields in step 1 are filled
+        if (
+          !data.nama_responden ||
+          !data.jabatan_responden ||
+          !data.nama_institusi_sekolah ||
+          !data.kabupaten_kota ||
+          !data.no_whatsapp ||
+          !data.nama_tamatan_pelatihan ||
+          !data.nama_jenis_pelatihan ||
+          !data.tanggal_dimulai ||
+          !data.tanggal_selesai
+        ) {
+          alert("Please fill all required fields in Step 1.");
+          return false;
+        }
+        break;
+      case 2:
+        // Check if all required fields in step 2 are filled
+        if (
+          !data.adanya_dokumen ||
+          !data.kesesuaian_program ||
+          !data.adanya_dukungan ||
+          !data.adanya_jadwal_pelaksanaan ||
+          !data.dukungan_pihak_terkait ||
+          !data.ketersidaan_perangkat_fasilitas
+        ) {
+          alert("Please fill all required fields in Step 2.");
+          return false;
+        }
+        break;
+      case 3:
+        // Check if all required fields in step 2 are filled
+        if (
+          !data.adanya_silabus ||
+          !data.adanya_bahan_ajar ||
+          !data.adanya_lembar_evaluasi ||
+          !data.kesesuaian_metode_materi ||
+          !data.meningkatkan_interaksi ||
+          !data.melakukan_kegiatan_pra_pembelajaran ||
+          !data.melaksanakan_pemebelajaran ||
+          !data.menggunakan_keterampilan ||
+          !data.melaksanakan_refleksi ||
+          !data.melakukan_tindak_lanjut ||
+          !data.kesesuaian_pelaksanaan_evaluasi ||
+          !data.adanya_nilai_hasil_belajar ||
+          !data.adanya_analisis_belajar ||
+          !data.adanyan_program_tindak_lanjut
+        ) {
+          alert("Please fill all required fields in Step 2.");
+          return false;
+        }
+        break;
+
+      case 4:
+        // Check if all required fields in step 2 are filled
+        if (
+          !data.adanya_program_pengembangan_diri ||
+          !data.adanya_proposal_pembuatan_karya_tulis ||
+          !data.adanya_dukungan_pihak_terkait ||
+          !data.adanya_laporan_pelaksanaan_program ||
+          !data.adanya_karya_tulis_ilmiah ||
+          !data.adanya_karya_inovatif
+        ) {
+          alert("Please fill all required fields in Step 2.");
+          return false;
+        }
+        break;
+      default:
+        return true;
+    }
+    return true;
+  };
+
   const nextStep = () => {
-    setStep(step + 1);
+    if (validateStep()) {
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => {

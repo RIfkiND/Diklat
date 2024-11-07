@@ -52,7 +52,7 @@ const Step2 = ({ prevStep, handleSubmit, handleChange, values }) => {
       onChange={handleChange}
       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
     >
-      <option value="">Pilih</option> {/* Default option */}
+      <option value="">Pilih</option>
       <option value="ya">Ya</option>
       <option value="tidak">Tidak</option>
     </select>
