@@ -4,87 +4,109 @@ import TextInput from "@/Components/TextInput";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const Inputs = [
-  [
-    {
-      id: "1",
-      label: "Nama Kegiatan",
-      type: "text",
-      name: "nama_kegiatan",
-      autoComplete: "nama_kegiatan",
-    },
-    {
-      id: "2",
-      label: "Sasaran",
-      type: "select",
-      name: "sasaran",
-      autoComplete: "sasaran",
-      options: [
-        "Peserta Didik",
-        "Guru Sejawat",
-        "Kepala Sekolah",
-        "Alumni Pembimbing",
-      ],
-    },
-    {
-      id: "3",
-      label: "Tempat",
-      type: "text",
-      name: "tempat",
-      autoComplete: "tempat",
-    },
-  ],
-  [
-    {
-      id: "4",
-      label: "Tujuan",
-      type: "text",
-      name: "tujuan",
-      autoComplete: "tujuan",
-    },
-    {
-      id: "5",
-      label: "Metode",
-      type: "select",
-      name: "metode",
-      autoComplete: "metode",
-      options: ["Online", "Offline"],
-    },
-    {
-      id: "6",
-      label: "Waktu Pelaksanaan",
-      type: "date",
-      name: "waktu_pelaksanaan",
-      autoComplete: "waktu_pelaksanaan",
-    },
-  ],
-];
+import { useForm } from "@inertiajs/react";
 
 export default function DaptarRtl() {
   const [selectedDates, setSelectedDates] = useState({});
   const [selectedOptions, setSelectedOptions] = useState({});
+  const { data, setData, post, reset } = useForm({
+    nama_kegiatan: "",
+    sasaran: "",
+    tempat: "",
+    tujuan: "",
+    metode: "",
+    waktu_pelaksanaan: null,
+  });
 
   const handleDateChange = (date, name) => {
     setSelectedDates((prevDates) => ({
       ...prevDates,
       [name]: date,
     }));
+    setData(name, date);
   };
 
   const handleSelectChange = (event, name) => {
+    const value = event.target.value;
     setSelectedOptions((prevOptions) => ({
       ...prevOptions,
-      [name]: event.target.value,
+      [name]: value,
     }));
+    setData(name, value);
   };
+
+  const Inputs = [
+    [
+      {
+        id: "1",
+        label: "Nama Kegiatan",
+        type: "text",
+        name: "nama_kegiatan",
+        autoComplete: "nama_kegiatan",
+      },
+      {
+        id: "2",
+        label: "Sasaran",
+        type: "select",
+        name: "sasaran",
+        autoComplete: "sasaran",
+        options: [
+          "Peserta Didik",
+          "Guru Sejawat",
+          "Kepala Sekolah",
+          "Alumni Pembimbing",
+        ],
+      },
+      {
+        id: "3",
+        label: "Tempat",
+        type: "text",
+        name: "tempat",
+        autoComplete: "tempat",
+      },
+    ],
+    [
+      {
+        id: "4",
+        label: "Tujuan",
+        type: "text",
+        name: "tujuan",
+        autoComplete: "tujuan",
+      },
+      {
+        id: "5",
+        label: "Metode",
+        type: "select",
+        name: "metode",
+        autoComplete: "metode",
+        options: ["online", "offline"],
+      },
+      {
+        id: "6",
+        label: "Waktu Pelaksanaan",
+        type: "date",
+        name: "waktu_pelaksanaan",
+        autoComplete: "waktu_pelaksanaan",
+      },
+    ],
+  ];
 
   const submit = (e) => {
     e.preventDefault();
+    post("/dashboard/user/register", {
+      onSuccess: () => {
+        console.log("Data berhasil ditambahkan");
+        reset(); // Reset form after successful submission
+      },
+      onError: (errors) => {
+        console.error("Gagal menambahkan Data:", errors);
+      },
+    });
   };
+
   return (
-    <form action="#" onSubmit={submit} className="px-6 py-9 ">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+    <form onSubmit={submit} className="px-6 py-9">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {Inputs.map((column, columnIndex) => (
           <div key={columnIndex}>
             {column.map((field) => (
@@ -99,7 +121,7 @@ export default function DaptarRtl() {
                   <DatePicker
                     selected={selectedDates[field.name]}
                     onChange={(date) => handleDateChange(date, field.name)}
-                    className="mt-1 block w-full border border-gray-300 rounded-md p-2 "
+                    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     placeholderText="Choose a date"
                     dateFormat="dd/MM/yyyy"
                   />
@@ -127,6 +149,8 @@ export default function DaptarRtl() {
                     name={field.name}
                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                     autoComplete={field.autoComplete}
+                    value={data[field.name]}
+                    onChange={(e) => setData(field.name, e.target.value)}
                   />
                 )}
               </div>
