@@ -1,15 +1,8 @@
 import React from "react";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-// import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import TextInput from "@/Components/Ui/Input/TextInput";
 
 const ReadAccount = ({ user }) => {
-  // const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  // const togglePasswordVisibility = () => {
-  //   setIsPasswordVisible((prev) => !prev);
-  // };
-
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary ">

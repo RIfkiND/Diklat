@@ -1,4 +1,4 @@
-import MonitorIlustration from "@/Components/MonitorIlustration";
+import MonitorIlustration from "@/Components/Image/MonitorIlustration";
 
 export default function HeaderHome({ title, description }) {
   return (

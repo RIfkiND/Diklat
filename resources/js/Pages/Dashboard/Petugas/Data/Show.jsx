@@ -1,7 +1,7 @@
-import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
+import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { Head } from "@inertiajs/react";
 import React from "react";
-import AuthenticatedLayout from "./../../../../Layouts/AuthenticatedLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 const Show = () => {
   const formFields = [

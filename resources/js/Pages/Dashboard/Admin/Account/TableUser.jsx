@@ -1,4 +1,4 @@
-import Pagination from "@/Components/Pagination";
+import Pagination from "@/Components/Ui/Pagination";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
