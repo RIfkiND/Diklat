@@ -5,7 +5,9 @@ use App\Http\Controllers\UserFormRegister;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\EdpFormController;
-    
+use App\Http\Controllers\function\V1\EdpFunctionformController;
+
+
 //peserta
 Route::middleware(['role:peserta'])->group(function () {
     Route::get('/dashboard/user', [UserDashboardController::class, 'index'])->name('user.dashboard');
@@ -17,8 +19,10 @@ Route::middleware(['role:peserta'])->group(function () {
 
 
 //form
-Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp');
-Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
-Route::get('/form-edp-send-link', [EdpFormController::class, 'renderSendLink'])->name('form-edp');
+Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp.siswa');
+Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp.other');
+Route::get('/form-edp-send-link', [EdpFormController::class, 'renderSendLink'])->name('form-edp.link');
 
+
+Route::post('/form/edp/siswa/proses',[EdpFunctionformController::class ,'EdpPostSiswa'])->name('post.edp.siswa');
 
