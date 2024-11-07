@@ -1,44 +1,29 @@
 import React from "react";
-import MonitorIlustration from "./../../Components/MonitorIlustration";
+import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step1 = ({ nextStep, handleChange, values }) => {
-  const identitasResponden = [
+const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
+  const identitasTamatanPelatihan = [
     {
-      title: "Nama Responden",
+      title: "Nama Tamatan Pelatihan",
       type: "text",
-      name: "nama_responden",
+      name: "nama_tamatan",
       isDropdown: false,
     },
     {
-      title: "Jabatan Responded",
-      name: "jabatan_responden",
-      isDropdown: true,
-      subInfo: {
-        name1: "Siswa",
-        name2: "Guru Kolega / Teman Sejawat",
-        name3: "Guru Tamatan Pelatihan",
-        name4: "Pimpinan / Kepala Sekolah",
-      },
-    },
-    {
-      title: "Nama Institusi / Sekolah",
-      name: "institusi",
+      title: "Nama Jenis Pelatihan Yang DIikuti",
       type: "text",
+      name: "jenis_pelatihan",
+      isDropdown: false,
     },
     {
-      title: "Kabupaten / Kota",
-      name: "kabupaten",
-      type: "text",
+      title: "Tanggal Dimulai",
+      name: "tanggal_dimulai",
+      type: "date",
     },
     {
-      title: "No Whatsapp",
-      name: "no_whatsapp",
-      type: "number",
-    },
-    {
-      title: "Email",
-      name: "email",
-      type: "email",
+      title: "Tanggal Selesai",
+      name: "selesai",
+      type: "date",
     },
   ];
 
@@ -59,11 +44,11 @@ const Step1 = ({ nextStep, handleChange, values }) => {
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
-          Informasi Responden
+          Identitas Tamatan Pelatihan Yang Dinilai
         </p>
 
-        <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-10 gap-y-6">
-          {identitasResponden.map((field, index) => (
+        <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
+          {identitasTamatanPelatihan.map((field, index) => (
             <div key={index} className="space-y-2">
               <p className="text-primary font-bold">{field.title}</p>
               {field.isDropdown ? (
@@ -73,11 +58,10 @@ const Step1 = ({ nextStep, handleChange, values }) => {
                   onChange={handleChange}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
-                  {Object.values(field.subInfo).map((option, idx) => (
-                    <option key={idx} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  <option value="">Pilih opsi</option>
+                  {/* Add your dropdown options here if needed */}
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
                 </select>
               ) : (
                 <input
@@ -91,10 +75,17 @@ const Step1 = ({ nextStep, handleChange, values }) => {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-2 mt-4 w-full">
+        <div className="grid grid-cols-2 gap-5 mt-5">
+          <button
+            onClick={prevStep}
+            className="bg-slate-500 py-2 px-4 rounded-lg text-white border border-slate-500 hover:text-slate-500 hover:bg-white transition-all duration-300"
+          >
+            Sebelumnya
+          </button>
+
           <button
             onClick={nextStep}
-            className="bg-indigo-500 py-2 px-4 rounded-lg text-white border border-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-300 col-start-2"
+            className="bg-indigo-500 py-2 px-4 rounded-lg text-white border border-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-300"
           >
             Next
           </button>
@@ -104,4 +95,4 @@ const Step1 = ({ nextStep, handleChange, values }) => {
   );
 };
 
-export default Step1;
+export default Step2;

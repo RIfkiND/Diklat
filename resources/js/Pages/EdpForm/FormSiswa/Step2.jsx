@@ -1,18 +1,29 @@
 import React from "react";
-import MonitorIlustration from "./../../Components/MonitorIlustration";
+import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
-  const jenisResponden = [
+const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
+  const identitasTamatanPelatihan = [
     {
-      title: "Jenis Peran",
-      name: "jenis_peran", // Ensure this matches formValues.jenis_peran
-      isDropdown: true,
-      subInfo: {
-        name1: "siswa", // Change to lowercase to match the condition
-        name2: "Guru Kolega / Teman Sejawat",
-        name3: "Guru Tamatan Pelatihan",
-        name4: "Pimpinan / Kepala Sekolah",
-      },
+      title: "Nama Tamatan Pelatihan",
+      type: "text",
+      name: "nama_tamatan",
+      isDropdown: false,
+    },
+    {
+      title: "Nama Jenis Pelatihan Yang DIikuti",
+      type: "text",
+      name: "jenis_pelatihan",
+      isDropdown: false,
+    },
+    {
+      title: "Tanggal Dimulai",
+      name: "tanggal_dimulai",
+      type: "date",
+    },
+    {
+      title: "Tanggal Selesai",
+      name: "selesai",
+      type: "date",
     },
   ];
 
@@ -33,11 +44,11 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
-          Informasi Responden
+          Identitas Tamatan Pelatihan Yang Dinilai
         </p>
 
-        <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-10 gap-y-6">
-          {jenisResponden.map((field, index) => (
+        <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
+          {identitasTamatanPelatihan.map((field, index) => (
             <div key={index} className="space-y-2">
               <p className="text-primary font-bold">{field.title}</p>
               {field.isDropdown ? (
@@ -47,11 +58,10 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
                   onChange={handleChange}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
-                  {Object.values(field.subInfo).map((option, idx) => (
-                    <option key={idx} value={option.toLowerCase()}>
-                      {option.charAt(0).toUpperCase() + option.slice(1)}
-                    </option>
-                  ))}
+                  <option value="">Pilih opsi</option>
+                  {/* Add your dropdown options here if needed */}
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
                 </select>
               ) : (
                 <input
@@ -68,7 +78,7 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
         <div className="grid grid-cols-2 gap-5 mt-5">
           <button
             onClick={prevStep}
-            className="bg-slate-500 col-start-1 py-1 rounded-lg text-white border border-slate-500 hover:text-slate-500 hover:bg-white transition-all duration-300"
+            className="bg-slate-500 py-2 px-4 rounded-lg text-white border border-slate-500 hover:text-slate-500 hover:bg-white transition-all duration-300"
           >
             Sebelumnya
           </button>
@@ -85,4 +95,4 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
   );
 };
 
-export default Step3;
+export default Step2;

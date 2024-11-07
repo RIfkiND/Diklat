@@ -1,10 +1,10 @@
 import React from "react";
-import MonitorIlustration from "./../../Components/MonitorIlustration";
+import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
-  const tampilanProgram = [
+const Step4Siswa = ({ nextStep, prevStep, handleChange, values }) => {
+  const tampilanGuru = [
     {
-      title: "Adanya Dokumen / Rencana Program Pengimbasan",
+      title: "Tampilan Menarik",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -12,7 +12,7 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title: "Kesesuaian Program Pengimbasan dengan Materi Pelatihan",
+      title: "Sabar",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -20,8 +20,7 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title:
-        "Adanya Dukungan Pihak terkait dalam Penyusunan Program Pengimbasan",
+      title: "Tidak Pilih Kasih",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -30,9 +29,9 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
     },
   ];
 
-  const komunikasiDgPelaksanaan = [
+  const komunikasiDgSiswa = [
     {
-      title: "Ada Jadwal dengan Pelaksanaan Pengimbasan",
+      title: "Sering Membantu Siswa Dalam Kesulitan",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -40,7 +39,7 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title: "Dukungan Pihak Terkait dalam Pelaksanaan Pengimbasan",
+      title: "Praktis Dalam Menjawab Pertanyaan",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -48,7 +47,62 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title: "Ketersediaan Perangkat dan Fasilitas Pengimbasan",
+      title: "Memberikan Motivasi Untuk Maju",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+  ];
+
+  const pengelolaanKelas = [
+    {
+      title: "Pemberian Tugas Secara Jelas",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+    {
+      title: "Menciptakan Proses Pembelajaran Yang Menyenangkan",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+    {
+      title: "Tepat Waktu Masuk, Istirahat Dan Belajar",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+  ];
+
+  const penguasaanMateri = [
+    {
+      title: "Penyampaian Materi Mudah Dipahami",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+    {
+      title:
+        "Penggunaan Alat Pendukung / Media Dan Peralatan Pendukung Dalam Pembelajaran",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+    {
+      title: "Mengaitkan Materi Dengan Realitas Kehidupan",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -74,7 +128,7 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
-          Komponen Pengimbasan ( Kolega )
+          Komponen Pelaksanaan Pembelajaran
         </p>
 
         <div className="w-full shadow-primaryshadow p-5 mt-5 gap-x-10 gap-y-6">
@@ -85,11 +139,10 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
             <p className="text-sm text-textPrimary pt-3">
               Dalam rangka memperoleh gambaran yang tepat mengenai Dampak
               terhadap Peningkatan Kualitas dan Kompetensi Pendidik dan Tenaga
-              Kependidikan melalui Pelatihan, mohon kiranya Bapak/Ibu/Saudara
-              dapat memberikan jawaban atas pertanyaan / pernyataan di bawah ini
-              sesuai dengan pendapat
+              Kependidikan melalui pelatihan, mohon kiranya Anda dapat
+              memberikan jawaban atas pertanyaan/pernyataan di bawah ini sesuai
+              dengan pendapat Anda.
             </p>
-            <p className="text-sm text-textPrimary pt-3">Bapak/Ibu/Saudara</p>
             <p className="text-sm text-textPrimary pt-3">
               Perhatikan, pada setiap aspek terdapat tiga (3) indikator atau
               lebih. Anda dapat memilih jawaban "Ya" (jika sesuai dengan
@@ -108,12 +161,20 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
         {/* Sections for "Tampilan Guru", "Komunikasi Dengan Siswa", etc. */}
         {[
           {
-            title: "Program Pengimbasan",
-            fields: tampilanProgram,
+            title: "Tampilan Guru",
+            fields: tampilanGuru,
           },
           {
-            title: "Pelaksanaan Pengimbasan",
-            fields: komunikasiDgPelaksanaan,
+            title: "Komunikasi Dengan Siswa",
+            fields: komunikasiDgSiswa,
+          },
+          {
+            title: "Pengelolaan Kelas",
+            fields: pengelolaanKelas,
+          },
+          {
+            title: "Penguasaan Materi",
+            fields: penguasaanMateri,
           },
         ].map((section, idx) => (
           <div
@@ -178,4 +239,4 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
   );
 };
 
-export default Step4;
+export default Step4Siswa;
