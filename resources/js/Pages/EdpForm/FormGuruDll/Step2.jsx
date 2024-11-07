@@ -1,5 +1,5 @@
 import React from "react";
-import MonitorIlustration from "./../../../Components/MonitorIlustration";
+import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 
 const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
   //
@@ -126,8 +126,11 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
             </p>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5">
               {section.fields.map((field, index) => (
-                <div key={index} className="flex flex-col justify-between">
-                  <p className="text-primary font-bold">{field.title}</p>
+                <div
+                  key={index}
+                  className="flex flex-col justify-between gap-2"
+                >
+                  <p className="text-slate-700 font-bold">{field.title}</p>
                   {field.isDropdown ? (
                     <select
                       name={field.name}
@@ -152,12 +155,6 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
             </div>
           </div>
         ))}
-
-        <div className="w-full shadow-primaryshadow p-5 mt-5">
-          <p className="text-primary font-bold">Saran Dan Masukan</p>
-
-          <textarea className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"></textarea>
-        </div>
 
         <div className="w-full grid grid-cols-2 gap-4 mt-5">
           <button

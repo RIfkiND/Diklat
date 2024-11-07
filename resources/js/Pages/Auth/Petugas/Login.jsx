@@ -1,14 +1,13 @@
-import Ilustrasion from "@/Components/Ilustrasion";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import Ilustrasion from "@/Components/Image/Ilustrasion";
+import InputError from "@/Components/Ui/Input/InputError";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Login({ status }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     NIP: "",
-    password: "",
     // remember: false,
   });
 
@@ -57,7 +56,7 @@ export default function Login({ status }) {
 
                   <InputError message={errors.NIP} className="mt-2" />
                 </div>
-
+                {/*
                 <div className="mt-4 mb-6">
                   <InputLabel htmlFor="password" value="Password" />
 
@@ -72,7 +71,7 @@ export default function Login({ status }) {
                   />
 
                   <InputError message={errors.password} className="mt-2" />
-                </div>
+                </div> */}
 
                 <div className="mt-4 flex w-full justify-between">
                   <PrimaryButton

@@ -1,5 +1,5 @@
 import React from "react";
-import MonitorIlustration from "./../../../Components/MonitorIlustration";
+import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 
 const Step1 = ({ nextStep, handleChange, values }) => {
   const identitasResponden = [
@@ -81,7 +81,7 @@ const Step1 = ({ nextStep, handleChange, values }) => {
         <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-10 gap-y-6">
           {identitasResponden.map((field, index) => (
             <div key={index} className="space-y-2">
-              <p className="text-primary font-bold">{field.title}</p>
+              <p className="text-slate-700 font-bold">{field.title}</p>
               {field.isDropdown ? (
                 <select
                   name={field.name}

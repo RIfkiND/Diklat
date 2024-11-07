@@ -1,6 +1,6 @@
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

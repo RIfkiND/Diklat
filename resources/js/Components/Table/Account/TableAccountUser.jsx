@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import Search from "@/Components/Search";
-import PrimaryButton from "@/Components/PrimaryButton";
-import Modal from "@/Components/Modal";
+import Search from "@/Components/Ui/Input/Search";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import Modal from "@/Components/Ui/Modal/Modal";
 import CreateAccount from "@/Components/Form/CreateAccountUser";
 import ReadAccount from "@/Components/Form/User/Read";
 import EditAccount from "@/Components/Form/User/Edit";
@@ -52,6 +52,9 @@ const TableAccountUser = ({ data }) => {
     user.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
   );
 
+  const handleSearchChange = (query) => {
+    setSearchQuery(query); // Update the search query state
+  };
   const handleDelete = (userId) => {
     if (confirm("Yakin Ingin Delete ?")) {
       router.delete(route("admin.delete.peserta", userId), {
@@ -64,11 +67,6 @@ const TableAccountUser = ({ data }) => {
         },
       });
     }
-  };
-
-  // Function to handle search query change from the Search component
-  const handleSearchChange = (query) => {
-    setSearchQuery(query); // Update the search query state
   };
 
   return (

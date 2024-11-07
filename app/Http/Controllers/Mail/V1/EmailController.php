@@ -4,20 +4,26 @@ namespace App\Http\Controllers\Mail\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Resend\Laravel\Facades\Resend;
 class EmailController extends Controller
 {
-    public function SendEmail(Request $request){
-      // $order = Order::findOrFail($request->order_id);
+  public function SendEmail(Request $request)
+  {
+
+      $jabatanResponden = $request->input('jabatan_responden');
+
+      $formLink = ($jabatanResponden === 'siswa')
+          ? route('form-edp.siswa')
+          : route('form-edp.other');
 
 
-      // Resend::emails()->send([
-      //     'from' => 'Acme <onboarding@resend.dev>',
-      //     'to' => [$request->user()->email],
-      //     'subject' => 'hello world',
-      //     'html' => (new OrderShipped($order))->render(),
-      // ]);
+      Resend::emails()->send([
+          'from' => 'Acme <onboarding@resend.dev>',
+          'to' => [$request->input('email')],
+          'subject' => 'Form Link',
+          'html' => view('emails.form_link', ['formLink' => $formLink])->render(),
+      ]);
 
-      // return redirect('/orders');
-    }
+      return redirect('/');
+  }
 }

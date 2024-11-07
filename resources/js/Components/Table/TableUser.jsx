@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { router } from "@inertiajs/react";
-import FilterByStartTime from "../FilteraBySrartTime";
-import FilterByEndTime from "../FilterByEndTime";
-import Search from "../Search";
-const TableUser = () => {
+import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+import Search from "@/Components/Ui/Input/Search";
+const TableUser = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +26,27 @@ const TableUser = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  const filteredData = data.data.filter((peserta) =>
+    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+  );
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+  };
   const handleView = () => {
     router.visit(route("peserta.view"));
   };
@@ -32,107 +56,107 @@ const TableUser = () => {
   };
 
   const handleDelete = (userId) => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      console.log("Deleted user with ID:", userId);
+    if (confirm("Are you sure you want to delete this peserta?")) {
+      console.log("Deleted peserta with ID:", userId);
     }
   };
 
-  const data = [
-    {
-      id: 1,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 2,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 3,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 4,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 5,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 6,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 7,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 8,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 9,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 10,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 2,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 3,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 4,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 5,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 6,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 7,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 8,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 9,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  //   {
+  //     id: 10,
+  //     nama: "Nama Contoh",
+  //     sekolah: "Sekolah Contoh",
+  //     provinsi: "Provinsi Contoh",
+  //     kabupaten: "Kabupaten Contoh",
+  //     pelatihan: "Pelatihan Contoh",
+  //     periode: "2023",
+  //   },
+  // ];
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-        <Search />
+        <Search onSearchChange={handleSearchChange} />
         <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
           <FilterByStartTime />
           <FilterByEndTime />
@@ -153,53 +177,57 @@ const TableUser = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((user, index) => (
+            {filteredData.map((peserta, index) => (
               <tr
                 key={index}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{user.nama}</td>
-                <td className="py-3 px-4">{user.sekolah}</td>
-                <td className="py-3 px-4">{user.provinsi}</td>
-                <td className="py-3 px-4">{user.kabupaten}</td>
-                <td className="py-3 px-4">{user.pelatihan}</td>
-                <td className="py-3 px-4">{user.periode}</td>
-                <td className="py-3 px-4 relative flex justify-center">
+                <td className="py-3 px-4">{peserta.name}</td>
+                <td className="py-3 px-4">{peserta.sekolah || "Tidak Ada"}</td>
+                <td className="py-3 px-4">{peserta.provinsi || "Tidak Ada"}</td>
+                <td className="py-3 px-4">
+                  {peserta.kabupaten || "Tidak Ada"}
+                </td>
+                <td className="py-3 px-4">
+                  {peserta.pelatihan || "Tidak Ada"}
+                </td>
+                <td className="py-3 px-4">{peserta.periode || "Tidak Ada"}</td>
+                <td className="py-3 px-4 relative ">
                   {available === "available" ? (
                     <>
                       <button
                         className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
                         onClick={() =>
                           setOpenDropdown(
-                            openDropdown === user.id ? null : user.id,
+                            openDropdown === peserta.id ? null : peserta.id,
                           )
                         }
                       >
                         <FaEllipsisV className="text-xl text-gray-600" />
                       </button>
-                      {openDropdown === user.id && (
+                      {openDropdown === peserta.id && (
                         <div
                           className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
                           ref={dropdownRef}
                         >
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleView(user.id)}
+                            onClick={() => handleView(peserta.id)}
                           >
                             <FaEye className="text-teal-600" />
                             <span>View</span>
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleEdit(user.id)}
+                            onClick={() => handleEdit(peserta.id)}
                           >
                             <FaEdit className="text-blue-600" />
                             <span>Edit</span>
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleDelete(user.id)}
+                            onClick={() => handleDelete(peserta.id)}
                           >
                             <FaTrash className="text-red-600" />
                             <span>Delete</span>

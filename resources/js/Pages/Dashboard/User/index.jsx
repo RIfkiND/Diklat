@@ -1,6 +1,6 @@
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
+import TextInput from "@/Components/Ui/Input/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
@@ -18,12 +18,14 @@ export default function UserDashboard() {
     periode_mulai: null,
     sekolah: "",
     provinsi: "",
-    nama_petugas_pembimbing: "",
+    nama_petugas_pembimbing1: "",
+    nama_petugas_pembimbing2: "",
     periode_akhir: null,
   });
   const [provinces, setProvinces] = useState([]); // For provinsi
   const [districts, setDistricts] = useState([]); // For kabupaten
   const [showPreview, setShowPreview] = useState(false); // For preview biodata
+  const [showBiodata, setShowBiodata] = useState(true); // For biodata form
 
   // Fetch provinces data
   useEffect(() => {
@@ -74,16 +76,14 @@ export default function UserDashboard() {
     post("/dashboard/user", {
       onSuccess: () => {
         console.log("Biodata berhasil ditambahkan");
-        reset(); // Reset form after successful submission
+        setShowBiodata(false); // Hide the form
+        setShowPreview(true); // Show the preview
       },
       onError: (errors) => {
         console.error("Gagal menambahkan biodata:", errors);
+        reset(); // Reset the form
       },
     });
-  };
-
-  const handlePreviewToggle = () => {
-    setShowPreview(!showPreview); // Toggle preview
   };
 
   const Inputs = [
@@ -143,14 +143,22 @@ export default function UserDashboard() {
       },
       {
         id: "7",
-        label: "Nama Petugas Pembimbing",
+        label: "Nama Petugas Pembimbing 1",
         type: "select",
-        name: "nama_petugas_pembimbing",
+        name: "nama_petugas_pembimbing1",
         autoComplete: "nama_petugas_pembimbing",
         options: ["Option 1", "Option 2", "Option 3"],
       },
       {
         id: "8",
+        label: "Nama Petugas Pembimbing 2",
+        type: "select",
+        name: "nama_petugas_pembimbing2",
+        autoComplete: "nama_petugas_pembimbing",
+        options: ["Option 1", "Option 2", "Option 3"],
+      },
+      {
+        id: "9",
         label: "Periode Akhir",
         type: "date",
         name: "periode_akhir",
@@ -164,83 +172,85 @@ export default function UserDashboard() {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        <div className="p-4 mb-6">
-          <form onSubmit={submit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Inputs.map((column, columnIndex) => (
-                <div key={columnIndex}>
-                  {column.map((field) => (
-                    <div
-                      key={field.id}
-                      className="mb-4 col-span-2 md:col-span-1"
-                    >
-                      <InputLabel
-                        htmlFor={field.id}
-                        className="block text-sm font-medium text-gray-700"
+        {showBiodata && (
+          <div className="p-4 mb-6">
+            <form onSubmit={submit} className="text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {Inputs.map((column, columnIndex) => (
+                  <div key={columnIndex}>
+                    {column.map((field) => (
+                      <div
+                        key={field.id}
+                        className="mb-4 col-span-2 md:col-span-1"
                       >
-                        {field.label}
-                      </InputLabel>
-                      {field.type === "date" ? (
-                        <DatePicker
-                          selected={data[field.name]}
-                          onChange={(date) =>
-                            handleDateChange(date, field.name)
-                          }
-                          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                          placeholderText="Choose a date"
-                          dateFormat="dd/MM/yyyy"
-                        />
-                      ) : field.type === "select" ? (
-                        <select
-                          id={field.id}
-                          name={field.name}
-                          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                          value={data[field.name] || ""}
-                          onChange={(e) => handleSelectChange(e, field.name)}
+                        <InputLabel
+                          htmlFor={field.id}
+                          className="block text-sm font-medium text-gray-700"
                         >
-                          <option value="" disabled>
-                            Pilih {field.label}
-                          </option>
-                          {field.options.map((option) => (
-                            <option
-                              key={option.id || option}
-                              value={option.id || option}
-                            >
-                              {option.name || option}
+                          {field.label}
+                        </InputLabel>
+                        {field.type === "date" ? (
+                          <DatePicker
+                            selected={data[field.name]}
+                            onChange={(date) =>
+                              handleDateChange(date, field.name)
+                            }
+                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            placeholderText="Choose a date"
+                            dateFormat="dd/MM/yyyy"
+                          />
+                        ) : field.type === "select" ? (
+                          <select
+                            id={field.id}
+                            name={field.name}
+                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            value={data[field.name] || ""}
+                            onChange={(e) => handleSelectChange(e, field.name)}
+                          >
+                            <option value="" disabled>
+                              Pilih {field.label}
                             </option>
-                          ))}
-                        </select>
-                      ) : (
-                        <TextInput
-                          id={field.id}
-                          type={field.type}
-                          name={field.name}
-                          value={data[field.name] || ""}
-                          onChange={handleInputChange}
-                          className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                          autoComplete={field.autoComplete}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
+                            {field.options.map((option) => (
+                              <option
+                                key={option.id || option}
+                                value={option.id || option}
+                              >
+                                {option.name || option}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <TextInput
+                            id={field.id}
+                            type={field.type}
+                            name={field.name}
+                            value={data[field.name] || ""}
+                            onChange={handleInputChange}
+                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            autoComplete={field.autoComplete}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
 
-              <div className="col-span-1 md:col-span-2 flex justify-center">
-                <PrimaryButton
-                  className="w-full max-w-xl flex items-center justify-center"
-                  onClick={handlePreviewToggle}
-                >
-                  Submit
-                </PrimaryButton>
+                <div className="col-span-1 md:col-span-2 flex justify-center">
+                  <PrimaryButton
+                    className="w-full max-w-xl flex items-center justify-center"
+                    type="submit"
+                  >
+                    Submit
+                  </PrimaryButton>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
+        )}
 
         {/* Preview Biodata */}
         {showPreview && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
             <div className="flex flex-col gap-1">
               <InputLabel
                 htmlFor="nama_lengkap"
@@ -250,7 +260,8 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.fullname || ""}
+                value={data.fullname || ""}
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -263,7 +274,8 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.sekolah || ""}
+                value={data.sekolah || ""}
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -276,7 +288,8 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.provinsi || ""}
+                value={data.provinsi || ""}
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -289,7 +302,8 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.kabupaten || ""}
+                value={data.kabupaten || ""}
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -302,7 +316,36 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.pelatihan || ""}
+                value={data.pelatihan || ""}
+                readOnly
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="nama_petugas_pembimbing1"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nama Petugas Pembimbing 1
+              </InputLabel>
+              <TextInput
+                type="text"
+                value={data.nama_petugas_pembimbing1 || ""}
+                readOnly
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="nama_petugas_pembimbing2"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nama Petugas Pembimbing 2
+              </InputLabel>
+              <TextInput
+                type="text"
+                value={data.nama_petugas_pembimbing2 || ""}
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>
@@ -315,7 +358,30 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                defaultValue={data.periode_mulai || ""}
+                value={
+                  data.periode_mulai
+                    ? data.periode_mulai.toLocaleDateString()
+                    : ""
+                }
+                readOnly
+                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <InputLabel
+                htmlFor="periode_akhir"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Periode Akhir
+              </InputLabel>
+              <TextInput
+                type="text"
+                value={
+                  data.periode_akhir
+                    ? data.periode_akhir.toLocaleDateString()
+                    : ""
+                }
+                readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
             </div>

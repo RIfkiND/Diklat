@@ -1,4 +1,4 @@
-import Pagination from "@/Components/Pagination";
+import Pagination from "@/Components/Ui/Pagination";
 import TableRtlUser from "@/Components/Table/Rtl/TableRtl";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";

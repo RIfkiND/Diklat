@@ -9,51 +9,35 @@ use Illuminate\Notifications\Notifiable;
 
 class Petugas extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+  /** @use HasFactory<\Database\Factories\UserFactory> */
+  use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'NIP',
-        'no_hp',
-        'password',
-    ];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array<int, string>
+   */
+  protected $fillable = [
+    'name',
+    'NIP',
+    'no_hp',
+  ];
+  public function getAuthIdentifierName()
+  {
+    return "NIP";
+  }
+  public function detail_petugas()
+  {
+    return $this->hasOne(DetailPetugas::class);
+  }
 
-
-
-
-    public function getAuthIdentifierName(){
-      return "NIP";
-    }
-    public function detail_petugas(){
-      return $this->hasOne(DetailPetugas::class);
-    }
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-      'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'password' => 'hashed',
-        ];
-    }
+  /**
+   * The attributes that should be hidden for serialization.
+   *
+   * @var array<int, string>
+   */
+  protected $hidden = [
+    'remember_token',
+  ];
 
 }
