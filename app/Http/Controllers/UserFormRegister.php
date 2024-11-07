@@ -13,10 +13,10 @@ class UserFormRegister extends Controller
 {
     public function index()
     {
-      $rtls = Rtl::all();
-      return Inertia::render('Dashboard/User/DiklatRegister', [
-        'Rtl' => $rtls,
-    ]);
+        $rtls = Rtl::all();
+        return Inertia::render('Dashboard/User/DiklatRegister', [
+            'Rtl' => $rtls,
+        ]);
     }
 
     public function addKegiatan(RtlRequest $request): RedirectResponse
@@ -55,5 +55,10 @@ class UserFormRegister extends Controller
         $rtls->delete();
 
         return redirect()->route('user.register')->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function Monitoring()
+    {
+        return Inertia::render('Dashboard/User/Monitoring');
     }
 }

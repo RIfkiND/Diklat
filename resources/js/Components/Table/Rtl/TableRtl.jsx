@@ -5,7 +5,7 @@ import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 import Search from "@/Components/Ui/Input/Search";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
-import Modal from "@/Components/Modal";
+import Modal from "@/Components/Ui/Modal/Modal";
 import DaptarRtl from "@/Components/Form/Rtl/Daftar";
 import EditRtl from "@/Components/Form/Rtl/Edit";
 import ReadRtl from "@/Components/Form/Rtl/Read";
@@ -69,7 +69,7 @@ const TableRtlUser = ({ data }) => {
           >
             <div className="p-6">
               {ismode === "create" && <DaptarRtl />}
-              {ismode === "edit" && <EditRtl />}
+              {/* {ismode === "edit" && <EditRtl />} */}
               {ismode === "read" && <ReadRtl />}
             </div>
           </Modal>
@@ -128,7 +128,7 @@ const TableRtlUser = ({ data }) => {
                             <FaEye className="text-teal-600" />
                             <span>View</span>
                           </button>
-                          <button
+                          {/* <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                             onClick={() => {
                               setIsMode("edit");
@@ -137,7 +137,7 @@ const TableRtlUser = ({ data }) => {
                           >
                             <FaEdit className="text-blue-600" />
                             <span>Edit</span>
-                          </button>
+                          </button> */}
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                             onClick={() => handleDelete(user.id)}

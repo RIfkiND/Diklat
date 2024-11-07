@@ -1,9 +1,8 @@
 import React from "react";
 import HeroImage from "../Image/HeroImage";
-
 const Hero = () => {
   return (
-    <div className="relative bg-white pb-[110px] mt-[50px]" id="home">
+    <div className="relative pb-[110px] mt-[50px]" id="home">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 lg:w-5/12">
