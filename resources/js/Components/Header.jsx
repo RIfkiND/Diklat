@@ -38,13 +38,13 @@ const Header = () => {
           />
           {isDropdownOpen && (
             <div
-              className={`absolute right-0 mt-2 w-32 transform rounded-lg bg-white shadow-md transition-transform duration-200 ease-out ${
+              className={`absolute right-0 mt-2 w-32 z-50 transform rounded-lg bg-white shadow-md transition-transform duration-200 ease-out ${
                 isDropdownOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
               }`}
             >
               <ul className="py-2 text-center">
                 <li
-                  className="cursor-pointer px-4 py-2 text-slate-700 hover:bg-gray-100"
+                  className="cursor-pointer px-4 py-2 text-slate-700 hover:bg-gray-100 "
                   onClick={handleLogout} // Panggil handleLogout untuk logout umum
                 >
                   Logout
