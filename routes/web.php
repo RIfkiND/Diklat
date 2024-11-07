@@ -24,6 +24,7 @@ Route::get('/dashboard/admin', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp');
 Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
 
 
