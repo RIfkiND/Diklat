@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Pages\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\BiodataPeserta;
+use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,7 +12,8 @@ class PetugasController extends Controller
 {
   public function Petugas()
   {
-    return Inertia::render('Dashboard/Petugas/MonitoringPeserta');
+    $biodata = BiodataPeserta::latest()->paginate(8);
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', compact('biodata'));
   }
 
   public function PetugasDataEdp()

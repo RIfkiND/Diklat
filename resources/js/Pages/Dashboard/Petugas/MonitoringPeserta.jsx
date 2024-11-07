@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import MonitorIlustration from "../../../Components/MonitorIlustration";
@@ -9,12 +9,37 @@ import { FaEye } from "react-icons/fa";
 import FilterByEndTime from "@/Components/FilterByEndTime";
 import FilterByStartTime from "@/Components/FilteraBySrartTime";
 
-const MonitoringPeserta = () => {
+const MonitoringPeserta = ({ biodata }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
+
   const handleView = () => {
     router.visit(route("petugas.daftar-rtl-peserta"));
   };
 
-  const [available] = useState("available");
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  // Filter data based on the debounced search query
+  const filteredData = biodata.data.filter((peserta) =>
+    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+  );
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query); // Update the search query state
+  };
 
   return (
     <AuthenticatedLayout
@@ -27,14 +52,13 @@ const MonitoringPeserta = () => {
       <Head title="Dashboard" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
         <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px]">
-          <div className="">
+          <div>
             <p className="text-sm lg:text-2xl font-bold">Monitoring Peserta</p>
             <p className="text-xs lg:text-sm text-slate-200">
               Pantau Perkembangan, Wujudkan Keberhasilan!
             </p>
           </div>
-
-          <div className="relative w-[200px] overflow-hidden ">
+          <div className="relative w-[200px] overflow-hidden">
             <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] absolute bottom-0 md:bottom-[-40px] right-0 md:right-5">
               <MonitorIlustration />
             </div>
@@ -42,7 +66,7 @@ const MonitoringPeserta = () => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search />
+          <Search onChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
             <FilterByStartTime />
             <FilterByEndTime />
@@ -66,40 +90,61 @@ const MonitoringPeserta = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[...Array(10)].map((_, index) => (
-                    <tr
-                      key={index}
-                      className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer `}
-                    >
-                      <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">Nama Contoh</td>
-                      <td className="py-3 px-4">Sekolah Contoh</td>
-                      <td className="py-3 px-4">Provinsi Contoh</td>
-                      <td className="py-3 px-4">Kabupaten Contoh</td>
-                      <td className="py-3 px-4">Pelatihan Contoh</td>
-                      <td className="py-3 px-4">2023</td>
-                      <td className="py-3 px-4 ">
-                        {available === "available" ? (
-                          <button
-                            onClick={handleView}
-                            className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                          >
-                            <FaEye className="text-xl text-teal-600" />
-                            <span className="text-sm">View</span>
-                          </button>
-                        ) : (
-                          <div className="flex items-center gap-3">
-                            <MdCancel className="text-xl text-red-500" />
-                            <span className="text-sm">Not Available</span>
-                          </div>
-                        )}
+                  {filteredData.length > 0 ? (
+                    filteredData.map((peserta, index) => (
+                      <tr
+                        key={peserta.id}
+                        className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
+                      >
+                        <td className="py-3 px-4">{index + 1}</td>
+                        <td className="py-3 px-4">{peserta.fullname}</td>
+                        <td className="py-3 px-4">
+                          {peserta.sekolah || "tidak ada"}
+                        </td>
+                        <td className="py-3 px-4">
+                          {peserta.provinsi || "tidak ada"}
+                        </td>
+                        <td className="py-3 px-4">
+                          {peserta.kabupaten || "tidak ada"}
+                        </td>
+                        <td className="py-3 px-4">
+                          {peserta.nama_petugas_pembimbing || "tidak ada"}
+                        </td>
+                        <td className="py-3 px-4">
+                          {peserta.periode_awal || "tidak ada"}
+                        </td>
+                        <td className="py-3 px-4">
+                          {peserta.available ? (
+                            <button
+                              onClick={handleView}
+                              className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
+                            >
+                              <FaEye className="text-xl text-teal-600" />
+                              <span className="text-sm">View</span>
+                            </button>
+                          ) : (
+                            <div className="flex items-center gap-3">
+                              <MdCancel className="text-xl text-red-500" />
+                              <span className="text-sm">Not Available</span>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan="8"
+                        className="text-center py-5 text-gray-500 text-lg font-bold "
+                      >
+                        Tidak ada data
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-                {/* <Pagination /> */}
+                <Pagination paginateItems={biodata} />
               </div>
             </div>
           </div>
