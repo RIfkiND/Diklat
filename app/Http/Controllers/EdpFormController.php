@@ -15,4 +15,8 @@ class EdpFormController extends Controller
   {
     return Inertia::render('EdpForm/FormSiswa/Index');
   }
+  public function renderSendLink()
+  {
+    return Inertia::render('EdpForm/SendLink');
+  }
 }
