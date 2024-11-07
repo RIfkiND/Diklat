@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Post\V1;
+namespace App\Http\Controllers\function\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\V1\Peserta\StorePesertaRequest;
@@ -9,7 +9,7 @@ use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-class PesertaController extends Controller
+class PesertaFunctionController extends Controller
 {
 
   public function SearchPeserta(Request $request)
@@ -17,7 +17,7 @@ class PesertaController extends Controller
 
     $search = $request->input('search', '');
 
-    $pesertas = Peserta::where('name', 'like', '%' . $search . '%')->get();
+    $pesertas = Peserta::where('name', 'like', '%' . $search . '%')->paginate(8);
 
     return Inertia::render('Dashboard/Admin/Account/TableUser', [
       'pesertas' => $pesertas,

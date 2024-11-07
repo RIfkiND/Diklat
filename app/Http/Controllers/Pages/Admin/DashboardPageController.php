@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +12,9 @@ class DashboardPageController extends Controller
 {
   public function Dashboard()
   {
-    return Inertia::render('Dashboard/Admin/Table/Users');
+    $pesertas = Peserta::latest()->paginate(2);
+
+    return Inertia::render('Dashboard/Admin/Table/Users',compact('pesertas'));
   }
 
   // Admin Table User
@@ -28,7 +31,7 @@ class DashboardPageController extends Controller
   // Account Table User
   public function AccountPeserta()
   {
-    $pesertas = Peserta::latest()->paginate(8);
+    $pesertas = Peserta::latest()->paginate(2);
 
     return Inertia::render('Dashboard/Admin/Account/TableUser',compact('pesertas'));
   }
@@ -36,7 +39,8 @@ class DashboardPageController extends Controller
   // Account Table Petugas
   public function AccountPetugas()
   {
-    return Inertia::render('Dashboard/Admin/Account/TablePetugas');
+    $petugas = Petugas::latest()->paginate(8);
+    return Inertia::render('Dashboard/Admin/Account/TablePetugas',compact('petugas'));
   }
 
 
