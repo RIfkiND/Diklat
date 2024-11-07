@@ -1,19 +1,11 @@
 import React from "react";
 import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
+const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
   //
-  const tampilanProgram = [
+  const programPengembangan = [
     {
-      title: "Adanya Dokumen / Rencana Program Pengimbasan",
-      isDropdown: true,
-      subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
-      },
-    },
-    {
-      title: "Kesesuaian Program Pengimbasan dengan Materi Pelatihan",
+      title: "Adanya Program Pengembangan diri",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -22,7 +14,15 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
     },
     {
       title:
-        "Adanya Dukungan Pihak terkait dalam Penyusunan Program Pengimbasan",
+        "Adanya proposal pembuatan Karya Tulis Ilmiah / Inovatif / bukti karya",
+      isDropdown: true,
+      subInfo: {
+        val1: "Ya",
+        val2: "Tidak",
+      },
+    },
+    {
+      title: "Adanya dukungan pihak terkait",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -31,9 +31,9 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
     },
   ];
 
-  const komunikasiDgPelaksanaan = [
+  const pelaksanaanPengembangan = [
     {
-      title: "Ada Jadwal dengan Pelaksanaan Pengimbasan",
+      title: "Adanya Laporan Pelaksanaan Program Pengembangan Diri",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -41,7 +41,7 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title: "Dukungan Pihak Terkait dalam Pelaksanaan Pengimbasan",
+      title: "Adanya Karya Tulis Ilmiah",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -49,7 +49,7 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
       },
     },
     {
-      title: "Ketersediaan Perangkat dan Fasilitas Pengimbasan",
+      title: "Adanya Karya  Inovatif",
       isDropdown: true,
       subInfo: {
         val1: "Ya",
@@ -75,53 +75,25 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
-          Komponen Pengimbasan ( Kolega )
+          KOMPONEN PENGEMBANGAN KEPROFESIAN BERKELANJUTAN
         </p>
-
-        <div className="w-full shadow-primaryshadow p-5 mt-5 gap-x-10 gap-y-6">
-          <p className="text-xl font-semibold text-primary">
-            PETUNJUK PENGISIAN
-          </p>
-          <div className="w-full">
-            <p className="text-sm text-textPrimary pt-3">
-              Dalam rangka memperoleh gambaran yang tepat mengenai Dampak
-              terhadap Peningkatan Kualitas dan Kompetensi Pendidik dan Tenaga
-              Kependidikan melalui Pelatihan, mohon kiranya Bapak/Ibu/Saudara
-              dapat memberikan jawaban atas pertanyaan / pernyataan di bawah ini
-              sesuai dengan pendapat
-            </p>
-            <p className="text-sm text-textPrimary pt-3">Bapak/Ibu/Saudara</p>
-            <p className="text-sm text-textPrimary pt-3">
-              Perhatikan, pada setiap aspek terdapat tiga (3) indikator atau
-              lebih. Anda dapat memilih jawaban "Ya" (jika sesuai dengan
-              kenyataan/buktinya) dan atau jawaban "Tidak" (jika tidak sesuai
-              dengan kenyataan/buktinya) masing-masing indikator. Pemberian
-              tanda check harus disertai dengan bukti fisik.
-            </p>
-            <p className="text-sm text-textPrimary pt-3">
-              Instrumen ini bukan alat untuk mengukur prestasi kerja Anda, akan
-              tetapi hanya digunakan untuk pengumpulan data monitoring dan
-              evaluasi dampak diklat.
-            </p>
-          </div>
-        </div>
 
         {/* Sections for "Tampilan Guru", "Komunikasi Dengan Siswa", etc. */}
         {[
           {
-            title: "Program Pengimbasan",
-            fields: tampilanProgram,
+            title: "PROGRAM PENGEMBANGAN",
+            fields: programPengembangan,
           },
           {
-            title: "Pelaksanaan Pengimbasan",
-            fields: komunikasiDgPelaksanaan,
+            title: "PELAKSANAAN PENGEMBANGAN",
+            fields: pelaksanaanPengembangan,
           },
         ].map((section, idx) => (
           <div
             key={idx}
             className="w-full shadow-primaryshadow p-5 mt-5 gap-x-10 gap-y-6"
           >
-            <p className="text-xl font-semibold text-primary">
+            <p className="text-xl font-semibold text-primary capitalize">
               {section.title}
             </p>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5">
@@ -130,7 +102,9 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
                   key={index}
                   className="flex flex-col justify-between gap-2"
                 >
-                  <p className="text-slate-700 font-bold">{field.title}</p>
+                  <p className="text-slate-700 font-bold capitalize">
+                    {field.title}
+                  </p>
                   {field.isDropdown ? (
                     <select
                       name={field.name}
@@ -156,6 +130,12 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
           </div>
         ))}
 
+        <div className="w-full shadow-primaryshadow p-5 mt-5">
+          <p className="text-primary font-bold">Saran Dan Masukan</p>
+
+          <textarea className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"></textarea>
+        </div>
+
         <div className="w-full grid grid-cols-2 gap-4 mt-5">
           <button
             onClick={prevStep}
@@ -168,7 +148,7 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
             onClick={nextStep}
             className="bg-indigo-500 py-2 px-4 rounded-lg text-white border border-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-300"
           >
-            Next
+            Submit
           </button>
         </div>
       </div>
@@ -176,4 +156,4 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
   );
 };
 
-export default Step2;
+export default Step4;
