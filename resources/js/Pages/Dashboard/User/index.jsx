@@ -109,9 +109,10 @@ export default function UserDashboard() {
       {
         id: "3",
         label: "Nama Pelatihan",
-        type: "text",
+        type: "select",
         name: "pelatihan",
         autoComplete: "pelatihan",
+        options: ["Option 1", "Option 2", "Option 3"],
       },
       {
         id: "4",

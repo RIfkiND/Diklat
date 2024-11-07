@@ -16,11 +16,10 @@ class UserFormRegister extends Controller
       $rtls = Rtl::all();
       return Inertia::render('Dashboard/User/DiklatRegister', [
         'Rtl' => $rtls,
-        'available' => 'available',
     ]);
     }
 
-    public function addForm(RtlRequest $request): RedirectResponse
+    public function addKegiatan(RtlRequest $request): RedirectResponse
     {
         $validatedData = $request->validated();
 
@@ -36,5 +35,25 @@ class UserFormRegister extends Controller
         Rtl::create($data);
 
         return redirect()->route('user.register')->with('success', 'Data berhasil ditambahkan!');
+    }
+
+    public function editKegiatan(RtlRequest $request, $id): RedirectResponse
+    {
+        $validatedData = $request->validated();
+
+        $rtls = Rtl::findOrFail($id);
+
+        $rtls->update($validatedData);
+
+        return redirect()->route('user.register')->with('success', 'Data berhasil diubah!');
+    }
+
+    public function DeleteKegiatan($id)
+    {
+        $rtls = Rtl::findOrFail($id);
+
+        $rtls->delete();
+
+        return redirect()->route('user.register')->with('success', 'Data berhasil dihapus!');
     }
 }

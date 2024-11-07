@@ -5,14 +5,14 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function DiklatRegister() {
+export default function DiklatRegister({ Rtl }) {
   return (
     <AuthenticatedLayout>
       <Head title="Diklat Register" />
 
       <DashboardLayout>
         <div className="p-4">
-          <TableRtlUser />
+          <TableRtlUser data={Rtl} />
         </div>
         <div className="flex justify-center">{/* <Pagination /> */}</div>
       </DashboardLayout>

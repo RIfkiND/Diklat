@@ -6,10 +6,12 @@ import FilterByEndTime from "@/Components/FilterByEndTime";
 import Search from "@/Components/Search";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
-import DaptarRtl from "@/Components/Form/Rtl/Daptar";
+import DaptarRtl from "@/Components/Form/Rtl/Daftar";
 import EditRtl from "@/Components/Form/Rtl/Edit";
 import ReadRtl from "@/Components/Form/Rtl/Read";
-const TableRtlUser = () => {
+import { router } from "@inertiajs/react";
+
+const TableRtlUser = ({ data }) => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
@@ -30,22 +32,19 @@ const TableRtlUser = () => {
   }, []);
 
   const handleDelete = (userId) => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      console.log("Deleted user with ID:", userId);
+    if (confirm("Yakin Ingin Delete ?")) {
+      router.delete(route("user.register.delete", userId), {
+        onSuccess: () => {
+          console.log("Deleted Peserta with ID:", userId);
+        },
+        onError: (error) => {
+          console.error("Error deleting user:", error);
+          alert("There was an error deleting the user.");
+        },
+      });
     }
   };
 
-  const data = [
-    {
-      id: 1,
-      namaKegiatan: "Nama Contoh",
-      sasaran: "Sekolah Contoh",
-      metode: "Provinsi Contoh",
-      tempat: "Kabupaten Contoh",
-      waktuPelaksanaan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-  ];
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
@@ -92,15 +91,15 @@ const TableRtlUser = () => {
           <tbody>
             {data.map((user, index) => (
               <tr
-                key={index}
+                key={user.id}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{user.namaKegiatan}</td>
+                <td className="py-3 px-4">{user.nama_kegiatan}</td>
                 <td className="py-3 px-4">{user.sasaran}</td>
                 <td className="py-3 px-4">{user.metode}</td>
                 <td className="py-3 px-4">{user.tempat}</td>
-                <td className="py-3 px-4">{user.waktuPelaksanaan}</td>
+                <td className="py-3 px-4">{user.waktu_pelaksanaan}</td>
                 <td className="py-3 px-4 relative flex justify-center">
                   {available === "available" ? (
                     <>
@@ -116,7 +115,7 @@ const TableRtlUser = () => {
                       </button>
                       {openDropdown === user.id && (
                         <div
-                          className="absolute right-0  top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
                           ref={dropdownRef}
                         >
                           <button

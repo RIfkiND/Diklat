@@ -139,7 +139,7 @@ const TableUser = () => {
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full rounded-lg">
+        <table className="w-full rounded-lg text-center">
           <thead>
             <tr className="text-primary text-sm font-semibold">
               <th className="py-3 px-4">No</th>
@@ -165,7 +165,7 @@ const TableUser = () => {
                 <td className="py-3 px-4">{user.kabupaten}</td>
                 <td className="py-3 px-4">{user.pelatihan}</td>
                 <td className="py-3 px-4">{user.periode}</td>
-                <td className="py-3 px-4 relative ">
+                <td className="py-3 px-4 relative flex justify-center">
                   {available === "available" ? (
                     <>
                       <button

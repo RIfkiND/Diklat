@@ -10,11 +10,10 @@ const Step1 = ({ nextStep, handleChange, values }) => {
       isDropdown: false,
     },
     {
-      title: "Jabatan Responded",
+      title: "Jabatan Responden",
       name: "jabatan_responden",
       isDropdown: true,
       subInfo: {
-        name1: "Siswa",
         name2: "Guru Kolega / Teman Sejawat",
         name3: "Guru Tamatan Pelatihan",
         name4: "Pimpinan / Kepala Sekolah",
@@ -36,9 +35,26 @@ const Step1 = ({ nextStep, handleChange, values }) => {
       type: "number",
     },
     {
-      title: "Email",
-      name: "email",
-      type: "email",
+      title: "Nama Tamatan Pelatihan",
+      type: "text",
+      name: "nama_tamatan",
+      isDropdown: false,
+    },
+    {
+      title: "Nama Jenis Pelatihan Yang DIikuti",
+      type: "text",
+      name: "jenis_pelatihan",
+      isDropdown: false,
+    },
+    {
+      title: "Tanggal Dimulai",
+      name: "tanggal_dimulai",
+      type: "date",
+    },
+    {
+      title: "Tanggal Selesai",
+      name: "selesai",
+      type: "date",
     },
   ];
 

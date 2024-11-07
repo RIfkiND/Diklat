@@ -26,6 +26,14 @@ Route::get('/dashboard/admin', function () {
 
 Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp');
 Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
+Route::get('/form-edp-send-link', [EdpFormController::class, 'renderSendLink'])->name('form-edp');
+
+
+// landingpage
+
+Route::get('/', function () {
+  return Inertia::render('Landingpage/Landingpage');
+})->name('landingpage');
 
 
 
