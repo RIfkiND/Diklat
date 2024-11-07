@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
 
 const Index = () => {
   const [step, setStep] = useState(1);
@@ -42,6 +44,24 @@ const Index = () => {
     case 2:
       return (
         <Step2
+          nextStep={nextStep}
+          prevStep={prevStep}
+          handleChange={handleChange}
+          values={formValues}
+        />
+      );
+    case 3:
+      return (
+        <Step3
+          nextStep={nextStep}
+          prevStep={prevStep}
+          handleChange={handleChange}
+          values={formValues}
+        />
+      );
+    case 4:
+      return (
+        <Step4
           nextStep={nextStep}
           prevStep={prevStep}
           handleChange={handleChange}
