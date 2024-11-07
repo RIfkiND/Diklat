@@ -1,65 +1,76 @@
 import { React, useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
-  const [navbarOpen, setNavbarOpen] = useState(false);
-
-  // Navigation items to map
   const navItems = [
-    { name: "Home", href: "#" },
-    { name: "Services", href: "#" },
+    { name: "Home", href: "home" },
+    { name: "Services", href: "services" },
   ];
 
+  const handleScroll = (targetId) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const [openNav, setOpenNav] = useState(false);
+
   return (
-    <header className="flex w-full items-center bg-white">
-      <div className="container mx-auto">
-        <div className="relative -mx-4 flex items-center justify-between">
-          <div className="w-60 max-w-full px-4">
+    <header className="w-full flex items-center justify-between">
+      <div className="flex items-center gap-10">
+        <div className="">
+          <p className="py-5 text-2xl font-bold text-primary">BBPPMPV BMTI</p>
+        </div>
+        <div className="items-center gap-5 hidden md:flex">
+          {navItems.map((item, index) => (
+            <div className="" key={index}>
+              <button
+                onClick={() => handleScroll(item.href)}
+                className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
+              >
+                {item.name}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="hidden md:block">
+        <a
+          href="auth/petugas/login"
+          className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/80 transition-all duration-300 ease-in-out"
+        >
+          Login
+        </a>
+      </div>
+
+      {/* Mobile menu button */}
+      <div className="relative md:hidden block z-50">
+        <AiOutlineMenu
+          className="text-2xl cursor-pointer"
+          onClick={() => setOpenNav(!openNav)}
+        />
+
+        {/* Mobile menu */}
+        {openNav && (
+          <div className="absolute top-6 right-0 bg-white shadow-lg w-40 py-5">
+            {navItems.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => handleScroll(item.href)}
+                className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
+              >
+                {item.name}
+              </button>
+            ))}
             <a
-              href="#"
-              className="block w-full py-5 text-2xl font-bold text-primary"
+              href="auth/petugas/login"
+              className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
             >
-              BBPPMPV BMTI
+              Login
             </a>
           </div>
-          <div className="flex w-full items-center justify-between px-4">
-            <div>
-              <button
-                onClick={() => setNavbarOpen(!navbarOpen)}
-                className={`absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden ${navbarOpen ? "navbarTogglerActive" : ""}`}
-                id="navbarToggler"
-              >
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color"></span>
-              </button>
-              <nav
-                id="navbarCollapse"
-                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none ${!navbarOpen ? "hidden" : ""}`}
-              >
-                <ul className="block lg:flex">
-                  {navItems.map((item, index) => (
-                    <li key={index}>
-                      <a
-                        href={item.href}
-                        className="flex py-2 text-base font-medium text-slate-700 hover:text-primary lg:ml-12 lg:inline-flex duration-300 transition-all ease-in-out"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-              <a
-                href="#"
-                className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/80 transition-all duration-300 ease-in-out"
-              >
-                Login
-              </a>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </header>
   );
