@@ -103,9 +103,9 @@ const PesertaRtlShow = () => {
             Data Profile Peserta
           </p>
 
-          <div className="flex min-w-[150px] items-center justify-between gap-8">
+          <div className="flex w-full items-center justify-between gap-2 flex-wrap">
             {formFields.map((field, index) => (
-              <div key={index} className="w-[50%]">
+              <div key={index} className="w-full md:w-[200px] flex flex-col ">
                 <p className="text-base text-textPrimary font-bold pl-1">
                   {field.label}
                 </p>
