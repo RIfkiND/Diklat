@@ -25,7 +25,7 @@ export default function Login({ status, canResetPassword }) {
     <section className="w-full relative">
       <div className="h-1/4 w-full bg-primary absolute z-10"></div>
       <div className="z-50 relative flex h-screen w-screen items-center overflow-hidden px-2">
-        <div className="relative flex w-[60%] flex-col space-y-5 rounded-lg border bg-white px-10 py-16 shadow-primaryshadow sm:mx-auto">
+        <div className="relative flex grow md:grow-0 w-[60%] flex-col space-y-5 rounded-lg border bg-white px-10 py-16 shadow-primaryshadow sm:mx-auto">
           <Head title="Log in" />
 
           {status && (
@@ -35,7 +35,7 @@ export default function Login({ status, canResetPassword }) {
           )}
 
           <div className="flex justify-between gap-12">
-            <div className="basis-1/2">
+            <div className="xl:basis-1/2 basis-full">
               <div>
                 <h3 className="text-3xl font-bold text-primary mb-6">
                   Peserta Login
@@ -109,7 +109,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
               </form>
             </div>
-            <div className="basis-1/2">
+            <div className="basis-1/2 hidden xl:block">
               <Ilustrasion />
             </div>
           </div>
