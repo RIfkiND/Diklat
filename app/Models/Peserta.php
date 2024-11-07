@@ -65,4 +65,7 @@ class Peserta extends Authenticatable
     {
         return $this->hasOne(Rtl::class);
     }
+    public function pelatihan(){
+      return $this->belongsTo(Pelatihan::class);
+    }
   }

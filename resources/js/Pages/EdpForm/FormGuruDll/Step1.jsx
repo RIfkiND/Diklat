@@ -21,12 +21,12 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     },
     {
       title: "Nama Institusi / Sekolah",
-      name: "institusi",
+      name: "nama_institusi_sekolah",
       type: "text",
     },
     {
       title: "Kabupaten / Kota",
-      name: "kabupaten",
+      name: "kabupaten_kota",
       type: "text",
     },
     {
@@ -37,13 +37,13 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     {
       title: "Nama Tamatan Pelatihan",
       type: "text",
-      name: "nama_tamatan",
+      name: "nama_tamatan_pelatihan",
       isDropdown: false,
     },
     {
       title: "Nama Jenis Pelatihan Yang DIikuti",
       type: "text",
-      name: "jenis_pelatihan",
+      name: "nama_jenis_pelatihan",
       isDropdown: false,
     },
     {
@@ -53,7 +53,7 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     },
     {
       title: "Tanggal Selesai",
-      name: "selesai",
+      name: "tanggal_selesai",
       type: "date",
     },
   ];

@@ -6,26 +6,29 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
   const penyusunanRencana = [
     {
       title: "Adanya Silabus / RPP / Modul Ajar",
+      name: "adanya_silabus",
       isDropdown: true,
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya Bahan Ajar / Media Pembelajaran",
       isDropdown: true,
+      name: "adanya_bahan_ajar",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya Lembar Evaluasi / Asesmen Hasil Belajar",
       isDropdown: true,
+      name: "adanya_lembar_evaluasi",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -34,35 +37,40 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
     {
       title: "Kesesuaian Metode Dengan Materi",
       isDropdown: true,
+      name: "kesesuaian_metode_materi",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Meningkatkan Interaksi Pembelajaran",
       isDropdown: true,
+      name: "meningkatkan_interaksi",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title:
         "Melakukan Kegiatan Pra Pembelajaran ( Kesiapan Ruang, Alat / Media Dan Siswa )",
       isDropdown: true,
+      name: "melakukan_kegiatan_pra_pembelajaran",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title:
         "Melaksanakan Pembelajaran Sesuai Kompetensi Dan Waktu Yang Akan Dicapai",
       isDropdown: true,
+      name: "melaksanakan_pemebelajaran",
+
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
@@ -70,24 +78,27 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
         "Menggunakan keterampilan untuk memelihara dan meningkatkan interaksi pembelajaran secara individu dan Memanfaatkan sumber / dan media dalam pembelajaran",
       isDropdown: true,
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Melaksanakan refleksi dengan melibatkan siswa",
       isDropdown: true,
+      name: "melaksanakan_refleksi",
+
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Melakukan tindak lanjut pembelajaran dengan tugas pengayaan",
       isDropdown: true,
+      name: "melakukan_tindak_lanjut",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -96,33 +107,37 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
     {
       title: "Kesesuaian pelaksanaan evaluasi dengan disain",
       isDropdown: true,
+      name: "kesesuaian_pelaksanaan_evaluasi",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya nilai hasil belajar",
       isDropdown: true,
+      name: "adanya_nilai_hasil_belajar",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya analisis hasil belajar",
+      name: "adanya_analisis_belajar",
       isDropdown: true,
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya program tindak lanjut",
       isDropdown: true,
+      name: "adanyan_program_tindak_lanjut",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -186,8 +201,8 @@ const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
                       onChange={handleChange}
                       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                     >
-                      <option value="">{field.subInfo.val1}</option>
-                      <option value="">{field.subInfo.val2}</option>
+                      <option value="ya">{field.subInfo.val1}</option>
+                      <option value="tidak">{field.subInfo.val2}</option>
                     </select>
                   ) : (
                     <input

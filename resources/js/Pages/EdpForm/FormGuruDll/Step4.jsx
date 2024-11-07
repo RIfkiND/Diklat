@@ -1,32 +1,35 @@
 import React from "react";
 import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
+const Step4 = ({ handleSubmit, prevStep, handleChange, values }) => {
   //
   const programPengembangan = [
     {
       title: "Adanya Program Pengembangan diri",
       isDropdown: true,
+      name: "adanya_program_pengembangan_diri",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title:
         "Adanya proposal pembuatan Karya Tulis Ilmiah / Inovatif / bukti karya",
       isDropdown: true,
+      name: "adanya_proposal_pembuatan_karya_tulis",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya dukungan pihak terkait",
       isDropdown: true,
+      name: "adanya_dukungan_pihak_terkait",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -35,25 +38,28 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
     {
       title: "Adanya Laporan Pelaksanaan Program Pengembangan Diri",
       isDropdown: true,
+      name: "adanya_laporan_pelaksanaan_program",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya Karya Tulis Ilmiah",
       isDropdown: true,
+      name: "adanya_karya_tulis_ilmiah",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Adanya Karya  Inovatif",
       isDropdown: true,
+      name: "adanya_karya_inovatif",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -112,8 +118,8 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
                       onChange={handleChange}
                       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                     >
-                      <option value="">{field.subInfo.val1}</option>
-                      <option value="">{field.subInfo.val2}</option>
+                      <option value="ya">{field.subInfo.val1}</option>
+                      <option value="tidak">{field.subInfo.val2}</option>
                     </select>
                   ) : (
                     <input
@@ -133,7 +139,12 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
         <div className="w-full shadow-primaryshadow p-5 mt-5">
           <p className="text-primary font-bold">Saran Dan Masukan</p>
 
-          <textarea className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"></textarea>
+          <textarea
+            name="saran_masukan"
+            value={values.saran_masukan || ""}
+            onChange={handleChange}
+            className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
+          ></textarea>
         </div>
 
         <div className="w-full grid grid-cols-2 gap-4 mt-5">
@@ -145,7 +156,7 @@ const Step4 = ({ nextStep, prevStep, handleChange, values }) => {
           </button>
 
           <button
-            onClick={nextStep}
+            onClick={handleSubmit}
             className="bg-indigo-500 py-2 px-4 rounded-lg text-white border border-indigo-500 hover:text-indigo-500 hover:bg-white transition-all duration-300"
           >
             Submit

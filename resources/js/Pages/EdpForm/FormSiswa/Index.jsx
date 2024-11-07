@@ -7,7 +7,7 @@ const Index = () => {
   const [step, setStep] = useState(1);
 
   // Initialize useForm with your form fields
-  const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, post, errors } = useForm({
     nama_responden: "",
     nama_institusi_sekolah: "",
     kabupaten_kota: "",
@@ -37,13 +37,47 @@ const Index = () => {
     setData(name, value);
   };
 
+  // Add validation before moving to the next step
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        // Check if all required fields in step 1 are filled
+        if (
+          !data.nama_responden ||
+          !data.nama_institusi_sekolah ||
+          !data.kabupaten_kota ||
+          !data.no_whatsapp ||
+          !data.email
+        ) {
+          alert("Please fill all required fields in Step 1.");
+          return false;
+        }
+        break;
+      case 2:
+        // Check if all required fields in step 2 are filled
+        if (
+          !data.nama_tamatan_pelatihan ||
+          !data.nama_jenis_pelatihan ||
+          !data.tanggal_dimulai ||
+          !data.tanggal_selesai
+        ) {
+          alert("Please fill all required fields in Step 2.");
+          return false;
+        }
+        break;
+      default:
+        return true;
+    }
+    return true;
+  };
+
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route("post.edp.siswa"), {
       data,
       onSuccess: () => {
-        alert("edp created successfully!");
+        alert("EDP created successfully!");
       },
       onError: (errors) => {
         console.error("Form submission errors:", errors);
@@ -53,7 +87,9 @@ const Index = () => {
 
   // Handle next step
   const nextStep = () => {
-    setStep(step + 1);
+    if (validateStep()) {
+      setStep(step + 1);
+    }
   };
 
   // Handle previous step

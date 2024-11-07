@@ -7,26 +7,29 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
     {
       title: "Adanya Dokumen / Rencana Program Pengimbasan",
       isDropdown: true,
+      name: "adanya_dokumen",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Kesesuaian Program Pengimbasan dengan Materi Pelatihan",
       isDropdown: true,
+      name: "kesesuaian_program",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title:
         "Adanya Dukungan Pihak terkait dalam Penyusunan Program Pengimbasan",
       isDropdown: true,
+      name: "adanya_dukungan",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -35,25 +38,28 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
     {
       title: "Ada Jadwal dengan Pelaksanaan Pengimbasan",
       isDropdown: true,
+      name: "adanya_jadwal_pelaksanaan",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Dukungan Pihak Terkait dalam Pelaksanaan Pengimbasan",
       isDropdown: true,
+      name: "dukungan_pihak_terkait",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
     {
       title: "Ketersediaan Perangkat dan Fasilitas Pengimbasan",
       isDropdown: true,
+      name: "ketersidaan_perangkat_fasilitas",
       subInfo: {
-        val1: "Ya",
-        val2: "Tidak",
+        val1: "ya",
+        val2: "tidak",
       },
     },
   ];
@@ -93,8 +99,8 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
             <p className="text-sm text-textPrimary pt-3">Bapak/Ibu/Saudara</p>
             <p className="text-sm text-textPrimary pt-3">
               Perhatikan, pada setiap aspek terdapat tiga (3) indikator atau
-              lebih. Anda dapat memilih jawaban "Ya" (jika sesuai dengan
-              kenyataan/buktinya) dan atau jawaban "Tidak" (jika tidak sesuai
+              lebih. Anda dapat memilih jawaban "ya" (jika sesuai dengan
+              kenyataan/buktinya) dan atau jawabat "Tidak" (jika tidak sesuai
               dengan kenyataan/buktinya) masing-masing indikator. Pemberian
               tanda check harus disertai dengan bukti fisik.
             </p>
@@ -138,8 +144,8 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
                       onChange={handleChange}
                       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                     >
-                      <option value="">{field.subInfo.val1}</option>
-                      <option value="">{field.subInfo.val2}</option>
+                      <option value="ya">{field.subInfo.val1}</option>
+                      <option value="tidak">{field.subInfo.val2}</option>
                     </select>
                   ) : (
                     <input
