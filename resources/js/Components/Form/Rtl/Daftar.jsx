@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "@inertiajs/react";
 
-export default function DaptarRtl() {
+export default function DaftarRtl() {
   const [selectedDates, setSelectedDates] = useState({});
   const [selectedOptions, setSelectedOptions] = useState({});
   const { data, setData, post, reset } = useForm({
