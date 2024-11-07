@@ -3,7 +3,6 @@ import { Link } from "@inertiajs/react";
 const Pagination = ({ paginateItems, className }) => {
   if (paginateItems.last_page === 1) return;
 
-
   return (
     <nav className={className}>
       <ul className="flex items-center space-x-2">
@@ -25,19 +24,6 @@ const Pagination = ({ paginateItems, className }) => {
             </button>
           )}
         </li>
-
-      {/* Next Button */}
-      <button className="bg-indigo-500 text-white px-3 py-1 rounded-md shadow hover:bg-indigo-600">
-        Next
-      </button>
-    </div>
-  );
-}
-//  import { Link } from '@inertiajs/react'
-// import { Link } from "@inertiajs/react";
-// const Pagination = ({ paginateItems, className }) => {
-//   if (paginateItems.last_page == 1) return;
-
 
         {/* Nomor Halaman */}
         {paginateItems.links.slice(1, -1).map((link) => (

@@ -12,7 +12,9 @@ class DashboardPageController extends Controller
 {
   public function Dashboard()
   {
-    return Inertia::render('Dashboard/Admin/Table/Users');
+    $pesertas = Peserta::latest()->paginate(2);
+
+    return Inertia::render('Dashboard/Admin/Table/Users',compact('pesertas'));
   }
 
   // Admin Table User
