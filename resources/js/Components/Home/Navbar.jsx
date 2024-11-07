@@ -37,7 +37,7 @@ const Navbar = () => {
       </div>
       <div className="hidden md:block">
         <a
-          href="auth/petugas/login"
+          href="Auth/Peserta/Login"
           className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/80 transition-all duration-300 ease-in-out"
         >
           Login
@@ -64,7 +64,7 @@ const Navbar = () => {
               </button>
             ))}
             <a
-              href="auth/petugas/login"
+              href="auth/peserta/login"
               className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
             >
               Login

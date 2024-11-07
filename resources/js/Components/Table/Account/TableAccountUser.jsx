@@ -69,11 +69,6 @@ const TableAccountUser = ({ data }) => {
     }
   };
 
-  // Function to handle search query change from the Search component
-  const handleSearchChange = (query) => {
-    setSearchQuery(query); // Update the search query state
-  };
-
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
