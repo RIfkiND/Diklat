@@ -14,13 +14,10 @@ class UserFormRegister extends Controller
     public function index()
     {
       $rtls = Rtl::all();
-
-      // Debugging
-      // dd($rtls); // This will dump the data and stop the execution
-
       return Inertia::render('Dashboard/User/DiklatRegister', [
-          'rtls' => $rtls
-      ]);
+        'Rtl' => $rtls,
+        'available' => 'available',
+    ]);
     }
 
     public function addForm(RtlRequest $request): RedirectResponse
