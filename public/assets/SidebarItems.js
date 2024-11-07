@@ -7,6 +7,11 @@ export const getNavItems = (role) => {
           icon: "FaRegUser",
           path: "/dashboard/user/register",
         },
+        {
+          name: "Monitoring",
+          icon: "FaRegUser",
+          path: "/dashboard/user/monitoring",
+        },
       ]
     : role === "petugas"
       ? [
