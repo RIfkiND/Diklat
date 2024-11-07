@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-import Pagination from "@/Components/Ui/Pagination";
+// import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
 // import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 // import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
@@ -108,7 +108,7 @@ const DataEdp = () => {
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-                <Pagination />
+                {/* <Pagination /> */}
               </div>
             </div>
           </div>
