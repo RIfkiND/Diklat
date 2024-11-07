@@ -19,8 +19,7 @@ return new class extends Migration
             $table->enum('sasaran', ['Peserta Didik', 'Guru Sejawat', 'Kepala Sekolah','Alumni Pembimbing']);
             $table->enum('metode', ['online', 'offline']);
             $table->string('tempat');
-            $table->dateTime('periode_awal');
-            $table->dateTime('periode_akhir')->nullable();
+            $table->dateTime('waktu_pelaksanaan');
             $table->foreignIdFor(Peserta::class);
             $table->timestamps();
         });

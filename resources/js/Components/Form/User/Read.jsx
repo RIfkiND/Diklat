@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+// import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const ReadAccount = ({ user }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  // const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
+  // const togglePasswordVisibility = () => {
+  //   setIsPasswordVisible((prev) => !prev);
+  // };
 
   return (
     <>
@@ -53,7 +53,7 @@ const ReadAccount = ({ user }) => {
               readOnly
             />
           </div>
-          <div className="flex flex-col gap-2 relative">
+          {/* <div className="flex flex-col gap-2 relative">
             <InputLabel htmlFor="password">Password</InputLabel>
             <TextInput
               id="password"
@@ -76,7 +76,7 @@ const ReadAccount = ({ user }) => {
                 <AiFillEye className="h-5 w-5" />
               )}
             </button>
-          </div>
+          </div> */}
         </div>
       </form>
     </>

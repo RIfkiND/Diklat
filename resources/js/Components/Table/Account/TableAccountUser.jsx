@@ -7,6 +7,7 @@ import Modal from "@/Components/Modal";
 import CreateAccount from "@/Components/Form/CreateAccountUser";
 import ReadAccount from "@/Components/Form/User/Read";
 import EditAccount from "@/Components/Form/User/Edit";
+import { router } from "@inertiajs/react";
 
 const TableAccountUser = ({ data }) => {
   const [available] = useState("available");
@@ -30,8 +31,16 @@ const TableAccountUser = ({ data }) => {
   }, []);
 
   const handleDelete = (userId) => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      console.log("Deleted user with ID:", userId);
+    if (confirm("Yakin Ingin Delete ?")) {
+      router.delete(route("admin.delete.peserta", userId), {
+        onSuccess: () => {
+          console.log("Deleted Peserta with ID:", userId);
+        },
+        onError: (error) => {
+          console.error("Error deleting user:", error);
+          alert("There was an error deleting the user.");
+        },
+      });
     }
   };
 
@@ -100,7 +109,7 @@ const TableAccountUser = ({ data }) => {
                       </button>
                       {openDropdown === user.id && (
                         <div
-                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
                           ref={dropdownRef}
                         >
                           <button
@@ -119,7 +128,7 @@ const TableAccountUser = ({ data }) => {
                             onClick={() => {
                               setMode("edit");
                               setIsModalOpen(true);
-                              setSelectedUser(user); // Set selected user for edit mode
+                              setSelectedUser(user);
                             }}
                           >
                             <FaEdit className="text-blue-600" />

@@ -1,14 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { router } from "@inertiajs/react";
-import FilterByStartTime from "../FilteraBySrartTime";
-import FilterByEndTime from "../FilterByEndTime";
-import Search from "../Search";
-const TableUser = () => {
+import FilterByStartTime from "@/Components/FilteraBySrartTime";
+import FilterByEndTime from "@/Components/FilterByEndTime";
+import Search from "@/Components/Search";
+import PrimaryButton from "@/Components/PrimaryButton";
+import Modal from "@/Components/Modal";
+import DaptarRtl from "@/Components/Form/Rtl/Daptar";
+import EditRtl from "@/Components/Form/Rtl/Edit";
+import ReadRtl from "@/Components/Form/Rtl/Read";
+const TableRtlUser = () => {
   const [available] = useState("available");
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ismode, setIsMode] = useState("create");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -23,14 +29,6 @@ const TableUser = () => {
     };
   }, []);
 
-  const handleView = () => {
-    router.visit(route("peserta.view"));
-  };
-
-  const handleEdit = () => {
-    router.visit(route("peserta.edit"));
-  };
-
   const handleDelete = (userId) => {
     if (confirm("Are you sure you want to delete this user?")) {
       console.log("Deleted user with ID:", userId);
@@ -40,92 +38,11 @@ const TableUser = () => {
   const data = [
     {
       id: 1,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 2,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 3,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 4,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 5,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 6,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 7,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 8,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 9,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
-      periode: "2023",
-    },
-    {
-      id: 10,
-      nama: "Nama Contoh",
-      sekolah: "Sekolah Contoh",
-      provinsi: "Provinsi Contoh",
-      kabupaten: "Kabupaten Contoh",
-      pelatihan: "Pelatihan Contoh",
+      namaKegiatan: "Nama Contoh",
+      sasaran: "Sekolah Contoh",
+      metode: "Provinsi Contoh",
+      tempat: "Kabupaten Contoh",
+      waktuPelaksanaan: "Pelatihan Contoh",
       periode: "2023",
     },
   ];
@@ -136,19 +53,39 @@ const TableUser = () => {
         <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
           <FilterByStartTime />
           <FilterByEndTime />
+          <PrimaryButton
+            className="w-full md:w-auto rounded-xl tracking-tight capitalize"
+            onClick={() => {
+              setIsModalOpen(!isModalOpen);
+              setIsMode("create");
+            }}
+          >
+            Daptar RTL
+          </PrimaryButton>
+          <Modal
+            show={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            maxWidth="2xl"
+            className="w-full"
+          >
+            <div className="p-6">
+              {ismode === "create" && <DaptarRtl />}
+              {ismode === "edit" && <EditRtl />}
+              {ismode === "read" && <ReadRtl />}
+            </div>
+          </Modal>
         </div>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full rounded-lg">
+        <table className="w-full rounded-lg text-center">
           <thead>
             <tr className="text-primary text-sm font-semibold">
               <th className="py-3 px-4">No</th>
-              <th className="py-3 px-4">Nama</th>
-              <th className="py-3 px-4">Sekolah</th>
-              <th className="py-3 px-4">Provinsi</th>
-              <th className="py-3 px-4">Kabupaten</th>
-              <th className="py-3 px-4">Nama Pelatihan</th>
-              <th className="py-3 px-4">Periode</th>
+              <th className="py-3 px-4">Nama Kegiatan</th>
+              <th className="py-3 px-4">Sasaran</th>
+              <th className="py-3 px-4">Metode</th>
+              <th className="py-3 px-4">Tempat</th>
+              <th className="py-3 px-4">Waktu Pelaksanaan</th>
               <th className="py-3 px-4">Selengkapnya</th>
             </tr>
           </thead>
@@ -159,13 +96,12 @@ const TableUser = () => {
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
               >
                 <td className="py-3 px-4">{index + 1}</td>
-                <td className="py-3 px-4">{user.nama}</td>
-                <td className="py-3 px-4">{user.sekolah}</td>
-                <td className="py-3 px-4">{user.provinsi}</td>
-                <td className="py-3 px-4">{user.kabupaten}</td>
-                <td className="py-3 px-4">{user.pelatihan}</td>
-                <td className="py-3 px-4">{user.periode}</td>
-                <td className="py-3 px-4 relative ">
+                <td className="py-3 px-4">{user.namaKegiatan}</td>
+                <td className="py-3 px-4">{user.sasaran}</td>
+                <td className="py-3 px-4">{user.metode}</td>
+                <td className="py-3 px-4">{user.tempat}</td>
+                <td className="py-3 px-4">{user.waktuPelaksanaan}</td>
+                <td className="py-3 px-4 relative flex justify-center">
                   {available === "available" ? (
                     <>
                       <button
@@ -185,14 +121,20 @@ const TableUser = () => {
                         >
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleView(user.id)}
+                            onClick={() => {
+                              setIsMode("read");
+                              setIsModalOpen(true);
+                            }}
                           >
                             <FaEye className="text-teal-600" />
                             <span>View</span>
                           </button>
                           <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => handleEdit(user.id)}
+                            onClick={() => {
+                              setIsMode("edit");
+                              setIsModalOpen(true);
+                            }}
                           >
                             <FaEdit className="text-blue-600" />
                             <span>Edit</span>
@@ -223,4 +165,4 @@ const TableUser = () => {
   );
 };
 
-export default TableUser;
+export default TableRtlUser;
