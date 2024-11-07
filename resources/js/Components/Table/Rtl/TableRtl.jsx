@@ -6,7 +6,7 @@ import FilterByEndTime from "@/Components/FilterByEndTime";
 import Search from "@/Components/Search";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
-import DaptarRtl from "@/Components/Form/Rtl/Daptar";
+import DaftarRtl from "@/Components/Form/Rtl/Daftar";
 import EditRtl from "@/Components/Form/Rtl/Edit";
 import ReadRtl from "@/Components/Form/Rtl/Read";
 const TableRtlUser = () => {
@@ -54,13 +54,13 @@ const TableRtlUser = () => {
           <FilterByStartTime />
           <FilterByEndTime />
           <PrimaryButton
-            className="w-full md:w-auto rounded-xl tracking-tight capitalize"
+            className="w-full md:w-auto rounded-xl capitalize"
             onClick={() => {
               setIsModalOpen(!isModalOpen);
               setIsMode("create");
             }}
           >
-            Daptar RTL
+            Daftar RTL
           </PrimaryButton>
           <Modal
             show={isModalOpen}
@@ -69,7 +69,7 @@ const TableRtlUser = () => {
             className="w-full"
           >
             <div className="p-6">
-              {ismode === "create" && <DaptarRtl />}
+              {ismode === "create" && <DaftarRtl />}
               {ismode === "edit" && <EditRtl />}
               {ismode === "read" && <ReadRtl />}
             </div>
@@ -101,7 +101,7 @@ const TableRtlUser = () => {
                 <td className="py-3 px-4">{user.metode}</td>
                 <td className="py-3 px-4">{user.tempat}</td>
                 <td className="py-3 px-4">{user.waktuPelaksanaan}</td>
-                <td className="py-3 px-4 relative flex justify-center">
+                <td className="py-3 px-4 relative z-50 flex justify-center">
                   {available === "available" ? (
                     <>
                       <button
