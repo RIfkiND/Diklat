@@ -4,8 +4,8 @@ import { Head, router } from "@inertiajs/react";
 import Search from "@/Components/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
+// import FilterByEndTime from "@/Components/FilterByEndTime";
+// import FilterByStartTime from "@/Components/FilteraBySrartTime";
 import MonitorIlustration from "./../../../../../Components/MonitorIlustration";
 import Pagination from "./../../../../../Components/Pagination";
 
@@ -44,8 +44,8 @@ const SelectUser = () => {
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
           <Search />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-            <FilterByStartTime />
-            <FilterByEndTime />
+            {/* <FilterByStartTime />
+            <FilterByEndTime /> */}
           </div>
         </div>
 
@@ -99,7 +99,7 @@ const SelectUser = () => {
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-                <Pagination />
+                {/* <Pagination /> */}
               </div>
             </div>
           </div>

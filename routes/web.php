@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\EdpFormController;
-use App\Http\Controllers\UserFormRegister;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,17 +13,13 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/dashboard', function () {
-  return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard/admin', function () {
-  return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//   return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard/admin', function () {
+//   return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/form-edp-siswa', [EdpFormController::class, 'renderSiswa'])->name('form-edp');
-Route::get('/form-edp', [EdpFormController::class, 'render'])->name('form-edp');
-Route::get('/form-edp-send-link', [EdpFormController::class, 'renderSendLink'])->name('form-edp');
 
 
 // landingpage

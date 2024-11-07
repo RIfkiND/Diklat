@@ -1,7 +1,7 @@
 import React from "react";
 import MonitorIlustration from "./../../../Components/MonitorIlustration";
 
-const Step1 = ({ nextStep, handleChange, values }) => {
+const Step1 = ({ nextStep, handleChange, values, errors }) => {
   const identitasResponden = [
     {
       title: "Nama Responden",
@@ -11,12 +11,12 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     },
     {
       title: "Nama Institusi / Sekolah",
-      name: "institusi",
+      name: "nama_institusi_sekolah",
       type: "text",
     },
     {
       title: "Kabupaten / Kota",
-      name: "kabupaten",
+      name: "kabupaten_kota",
       type: "text",
     },
     {
@@ -32,13 +32,13 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     {
       title: "Nama Tamatan Pelatihan",
       type: "text",
-      name: "nama_tamatan",
+      name: "nama_tamatan_pelatihan",
       isDropdown: false,
     },
     {
       title: "Nama Jenis Pelatihan Yang DIikuti",
       type: "text",
-      name: "jenis_pelatihan",
+      name: "nama_jenis_pelatihan",
       isDropdown: false,
     },
     {
@@ -48,7 +48,7 @@ const Step1 = ({ nextStep, handleChange, values }) => {
     },
     {
       title: "Tanggal Selesai",
-      name: "selesai",
+      name: "tanggal_selesai",
       type: "date",
     },
   ];
@@ -84,20 +84,24 @@ const Step1 = ({ nextStep, handleChange, values }) => {
                   onChange={handleChange}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
-                  {Object.values(field.subInfo).map((option, idx) => (
-                    <option key={idx} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {/* Assuming there are some options for dropdown */}
                 </select>
               ) : (
-                <input
-                  name={field.name}
-                  type={field.type || "text"}
-                  value={values[field.name] || ""}
-                  onChange={handleChange}
-                  className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-                />
+                <div>
+                  <input
+                    name={field.name}
+                    type={field.type || "text"}
+                    value={values[field.name] || ""}
+                    onChange={handleChange}
+                    className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
+                  />
+                  {/* Display error if it exists */}
+                  {errors[field.name] && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors[field.name]}
+                    </p>
+                  )}
+                </div>
               )}
             </div>
           ))}

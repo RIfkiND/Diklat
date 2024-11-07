@@ -3,8 +3,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import Pagination from "../../../Components/Pagination";
 import Search from "@/Components/Search";
-import FilterByEndTime from "@/Components/FilterByEndTime";
-import FilterByStartTime from "@/Components/FilteraBySrartTime";
+// import FilterByEndTime from "@/Components/FilterByEndTime";
+// import FilterByStartTime from "@/Components/FilteraBySrartTime";
 import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 
@@ -64,8 +64,8 @@ const DataEdp = () => {
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
           <Search />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-            <FilterByStartTime />
-            <FilterByEndTime />
+            {/* <FilterByStartTime />
+            <FilterByEndTime /> */}
           </div>
         </div>
 
@@ -108,7 +108,7 @@ const DataEdp = () => {
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-                <Pagination />
+                {/* <Pagination /> */}
               </div>
             </div>
           </div>

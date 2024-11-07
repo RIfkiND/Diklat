@@ -52,6 +52,9 @@ const TableAccountUser = ({ data }) => {
     user.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
   );
 
+  const handleSearchChange = (query) => {
+    setSearchQuery(query); // Update the search query state
+  };
   const handleDelete = (userId) => {
     if (confirm("Yakin Ingin Delete ?")) {
       router.delete(route("admin.delete.peserta", userId), {
