@@ -1,6 +1,6 @@
 import React from "react";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import TextInput from "@/Components/Ui/Input/TextInput";
 
 const ReadAccountPetugas = ({ petugas }) => {
   return (

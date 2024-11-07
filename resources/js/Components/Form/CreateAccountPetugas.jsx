@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import InputLabel from "../InputLabel";
-import TextInput from "../TextInput";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import PrimaryButton from "../PrimaryButton";
 import { useForm } from "@inertiajs/react";
+import InputLabel from "@/Components/Ui/Input/InputLabel";
+import TextInput from "@/Components/Ui/Input/TextInput";
+import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 
 const CreateAccountPetugas = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

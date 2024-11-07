@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import AnalyticsIlustration from "@/Components/AnalyticsIlustration";
-import ModalMonitoringPeserta from "@/Components/ModalMonitoringPeserta";
+import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
+import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 
 const PesertaRtlShow = () => {
   const formFields = [

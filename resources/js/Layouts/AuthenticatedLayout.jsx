@@ -1,6 +1,6 @@
-import Header from "@/Components/Header";
-import MobileSidebar from "@/Components/MobileSidebar";
-import Sidebar from "@/Components/Sidebar";
+import Header from "@/Components/Ui/Header";
+import MobileSidebar from "@/Components/Sidebar/MobileSidebar";
+import Sidebar from "@/Components/Sidebar/Sidebar";
 
 export default function AuthenticatedLayout({ children }) {
   return (
