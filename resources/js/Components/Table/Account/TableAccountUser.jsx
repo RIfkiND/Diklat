@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import Search from "@/Components/Search";
@@ -14,7 +14,10 @@ const TableAccountUser = ({ data }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState("create");
-  const [selectedUser, setSelectedUser] = useState(null); // New state for selected user
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -30,6 +33,25 @@ const TableAccountUser = ({ data }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  // Filter data based on the debounced search query
+  const filteredData = data.data.filter((user) =>
+    user.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+  );
+
   const handleDelete = (userId) => {
     if (confirm("Yakin Ingin Delete ?")) {
       router.delete(route("admin.delete.peserta", userId), {
@@ -44,11 +66,16 @@ const TableAccountUser = ({ data }) => {
     }
   };
 
+  // Function to handle search query change from the Search component
+  const handleSearchChange = (query) => {
+    setSearchQuery(query); // Update the search query state
+  };
+
   return (
     <>
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative gap-5 z-50 w-full">
         <div className="flex gap-5 justify-between w-full flex-wrap">
-          <Search />
+          <Search onSearchChange={handleSearchChange} />
           <PrimaryButton
             className="rounded-xl flex items-center md:justify-center justify-start tracking-tight capitalize w-full md:w-auto "
             onClick={() => {
@@ -85,7 +112,7 @@ const TableAccountUser = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.data.map((user, index) => (
+            {filteredData.map((user, index) => (
               <tr
                 key={index}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
@@ -109,7 +136,7 @@ const TableAccountUser = ({ data }) => {
                       </button>
                       {openDropdown === user.id && (
                         <div
-                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
+                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-10"
                           ref={dropdownRef}
                         >
                           <button
@@ -145,10 +172,10 @@ const TableAccountUser = ({ data }) => {
                       )}
                     </>
                   ) : (
-                    <div className="flex items-center gap-3">
-                      <MdCancel className="text-xl text-red-500" />
-                      <span className="text-sm">Not Available</span>
-                    </div>
+                    <button className="w-full flex items-center gap-3 rounded-xl bg-slate-200 hover:bg-slate-300 py-3 px-4">
+                      <MdCancel className="text-lg text-slate-600" />
+                      <span>Cancelled</span>
+                    </button>
                   )}
                 </td>
               </tr>

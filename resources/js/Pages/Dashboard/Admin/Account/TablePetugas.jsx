@@ -4,7 +4,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import TableAccountPetugas from "@/Components/Table/Account/TableAccountPetugas";
 
-export default function AccountPetugas() {
+export default function AccountPetugas({ petugas }) {
   //   const [isModalOpen, setIsModalOpen] = useState(false);
   //   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -22,7 +22,7 @@ export default function AccountPetugas() {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        <TableAccountPetugas />
+        <TableAccountPetugas data={petugas} />
 
         <div className="mt-5 flex items-center justify-center">
           <Pagination />

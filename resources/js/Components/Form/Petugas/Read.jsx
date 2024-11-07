@@ -1,14 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const ReadAccountPetugas = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
+const ReadAccountPetugas = ({ petugas }) => {
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary ">
@@ -27,9 +21,10 @@ const ReadAccountPetugas = () => {
               id="nip"
               name="nip"
               type="text"
-              defaultValue="1923456789"
+              defaultValue={petugas?.NIP || ""}
               className=" block w-full border border-gray-300 rounded-md p-2"
               placeholder="1923456789"
+              readOnly
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -43,38 +38,28 @@ const ReadAccountPetugas = () => {
               id="name"
               name="name"
               type="text"
-              defaultValue="Royhan"
+              defaultValue={petugas?.name || ""}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="Royhan"
+              readOnly
             />
           </div>
-          <div className="flex flex-col gap-2 relative">
+          <div className="flex flex-col gap-2">
             <InputLabel
-              htmlFor="password"
+              htmlFor="name"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              Name
             </InputLabel>
             <TextInput
-              id="password"
-              name="password"
-              type={isPasswordVisible ? "text" : "password"}
-              defaultValue="Royhan Mc Cool"
-              className="relative block w-full border border-gray-300 rounded-md p-2"
-              placeholder="********"
+              id="no_hp"
+              name="no_hp"
+              type="text"
+              defaultValue={petugas?.no_hp || ""}
+              className="block w-full border border-gray-300 rounded-md p-2"
+              placeholder="Royhan"
+              readOnly
             />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-4 -translate-y-1/2 bottom-0 transform "
-              aria-label={isPasswordVisible ? "Hide password" : "Show password"}
-            >
-              {isPasswordVisible ? (
-                <AiFillEyeInvisible className="h-5 w-5" />
-              ) : (
-                <AiFillEye className="h-5 w-5" />
-              )}
-            </button>
           </div>
         </div>
       </form>
