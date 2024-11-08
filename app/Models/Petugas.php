@@ -20,7 +20,7 @@ class Petugas extends Authenticatable
   protected $fillable = [
     'name',
     'NIP',
-    'no_hp',
+    'unit_kerja',
   ];
   public function getAuthIdentifierName()
   {

@@ -1,22 +1,14 @@
-import React, { useState } from "react";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import React from "react";
 import { useForm } from "@inertiajs/react";
 import InputLabel from "@/Components/Ui/Input/InputLabel";
 import TextInput from "@/Components/Ui/Input/TextInput";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 
 const CreateAccountPetugas = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
-
   const { data, setData, post, processing, errors } = useForm({
     name: "",
     nip: "",
-    no_hp: "",
-    password: "",
+    unit_kerja: "",
   });
 
   const handleSubmit = (e) => {
@@ -79,54 +71,22 @@ const CreateAccountPetugas = () => {
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
-              htmlFor="no_hp"
+              htmlFor="unit_kerja"
               className="block text-sm font-medium text-gray-700"
             >
               No HP
             </InputLabel>
             <TextInput
-              id="no_hp"
-              name="no_hp"
+              id="unit_kerja"
+              name="unit_kerja"
               type="number"
-              value={data.no_hp}
-              onChange={(e) => setData("no_hp", e.target.value)}
+              value={data.unit_kerja}
+              onChange={(e) => setData("unit_kerja", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="08211"
             />
-            {errors.no_hp && (
-              <p className="text-red-500 text-sm">{errors.no_hp}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2 relative">
-            <InputLabel
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </InputLabel>
-            <TextInput
-              id="password"
-              name="password"
-              type={isPasswordVisible ? "text" : "password"}
-              value={data.password}
-              onChange={(e) => setData("password", e.target.value)}
-              className="relative block w-full border border-gray-300 rounded-md p-2"
-              placeholder="********"
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-4 -translate-y-1/2 bottom-0 transform"
-              aria-label={isPasswordVisible ? "Hide password" : "Show password"}
-            >
-              {isPasswordVisible ? (
-                <AiFillEyeInvisible className="h-5 w-5" />
-              ) : (
-                <AiFillEye className="h-5 w-5" />
-              )}
-            </button>
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
+            {errors.unit_kerja && (
+              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
             )}
           </div>
         </div>
