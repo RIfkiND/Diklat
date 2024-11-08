@@ -21,7 +21,6 @@ class AdminSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Tambahkan lebih banyak data admin di sini jika diperlukan
         ]);
     }
 }
