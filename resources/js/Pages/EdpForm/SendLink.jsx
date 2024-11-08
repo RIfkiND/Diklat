@@ -15,10 +15,10 @@ const SendLink = () => {
       name: "jabatan_responden",
       isDropdown: true,
       subInfo: {
-        name1: "Siswa",
-        name2: "Guru Kolega / Teman Sejawat",
-        name3: "Guru Tamatan Pelatihan",
-        name4: "Pimpinan / Kepala Sekolah",
+        "Siswa": "Siswa",
+        "Guru Kolega / Teman Sejawat": "Guru Kolega / Teman Sejawat",
+        "Guru Tamatan Pelatihan": "Guru Tamatan Pelatihan",
+        "Pimpinan / Kepala Sekolah": "Pimpinan / Kepala Sekolah",
       },
     },
   ];
@@ -30,7 +30,7 @@ const SendLink = () => {
 
   function submit(e) {
     e.preventDefault();
-    post(route("form-edp.link")); // Assuming this is the correct route
+    post(route("send.email"));
   }
 
   return (
@@ -70,9 +70,12 @@ const SendLink = () => {
                   onChange={(e) => setData(field.name, e.target.value)}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
-                  {Object.entries(field.subInfo).map(([key, value], idx) => (
-                    <option key={idx} value={key}>
-                      {value}
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {Object.entries(field.subInfo).map(([label, value], idx) => (
+                    <option key={idx} value={value}>
+                      {label}
                     </option>
                   ))}
                 </select>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mail\V1\EmailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,7 @@ Route::get('/', function () {
   return Inertia::render('Landingpage/Landingpage');
 })->name('landingpage');
 
+Route::post('send/email',[EmailController::class,'SendEmail'])->name('send.email');
 
 
 require __DIR__ . '/Auth/auth.php';
