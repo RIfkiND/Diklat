@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import React from "react";
 
 const faqs = [
@@ -57,8 +58,7 @@ const FAQ = () => {
             <p className="text-gray-50">
               Didn’t find the answer you are looking for?{" "}
               <a
-                href="#"
-                title=""
+                href="mailto:bbppmpv.bmti@kemdikbud.go.id"
                 className="text-yellow-300 transition-all duration-200 hover:text-yellow-400 focus:text-yellow-400 hover:underline"
               >
                 Contact our support
