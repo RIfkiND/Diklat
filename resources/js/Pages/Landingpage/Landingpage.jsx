@@ -1,3 +1,4 @@
+import DownloadSurat from "@/Components/Home/DownloadSurat";
 import FAQ from "@/Components/Home/FAQ";
 import Hero from "@/Components/Home/Hero";
 import Navbar from "@/Components/Home/Navbar";
@@ -15,6 +16,7 @@ const Landingpage = () => {
         <Navbar />
         <Hero />
         <Services />
+        <DownloadSurat />
         <FAQ />
       </div>
     </div>
