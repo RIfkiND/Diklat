@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('detail_petugas', function (Blueprint $table) {
             $table->id();
             $table->integer("no_hp")->nullable();
-            $table->string("unit_kerja")->nullable();
+            $table->bigInteger('unit_kerja')->nullable()->default(23);
             $table->foreignIdFor(Petugas::class);
             $table->timestamps();
         });
