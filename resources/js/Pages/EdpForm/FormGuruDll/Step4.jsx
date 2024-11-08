@@ -8,29 +8,17 @@ const Step4 = ({ handleSubmit, prevStep, handleChange, values }) => {
       title: "Adanya Program Pengembangan diri",
       isDropdown: true,
       name: "adanya_program_pengembangan_diri",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title:
         "Adanya proposal pembuatan Karya Tulis Ilmiah / Inovatif / bukti karya",
       isDropdown: true,
       name: "adanya_proposal_pembuatan_karya_tulis",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Adanya dukungan pihak terkait",
       isDropdown: true,
       name: "adanya_dukungan_pihak_terkait",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
   ];
 
@@ -39,28 +27,16 @@ const Step4 = ({ handleSubmit, prevStep, handleChange, values }) => {
       title: "Adanya Laporan Pelaksanaan Program Pengembangan Diri",
       isDropdown: true,
       name: "adanya_laporan_pelaksanaan_program",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Adanya Karya Tulis Ilmiah",
       isDropdown: true,
       name: "adanya_karya_tulis_ilmiah",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Adanya Karya  Inovatif",
       isDropdown: true,
       name: "adanya_karya_inovatif",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
   ];
 
@@ -77,7 +53,10 @@ const Step4 = ({ handleSubmit, prevStep, handleChange, values }) => {
             pelatihan.
           </p>
         </div>
-        <MonitorIlustration className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]" />
+        <MonitorIlustration
+          images={"/images/ilustrasi/Monitor-bro.svg"}
+          className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]"
+        />
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
@@ -118,8 +97,9 @@ const Step4 = ({ handleSubmit, prevStep, handleChange, values }) => {
                       onChange={handleChange}
                       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                     >
-                      <option value="ya">{field.subInfo.val1}</option>
-                      <option value="tidak">{field.subInfo.val2}</option>
+                      <option value="">Pilih</option>
+                      <option value="ya">Ya</option>
+                      <option value="tidak">Tidak</option>
                     </select>
                   ) : (
                     <input

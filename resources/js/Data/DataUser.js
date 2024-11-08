@@ -9,12 +9,20 @@ export const userInputs = [
       value: "Nama Contoh",
     },
     {
-      id: "2",
+      id: "3",
       label: "Kabupaten",
       type: "text",
       name: "kabupaten",
       autoComplete: "off",
       value: "Kabupaten Contoh",
+    },
+    {
+      id: "15",
+      label: "Nama Petugas Pembimbing 2",
+      type: "text",
+      name: "nama_petugas_pembimbing_2",
+      autoComplete: "off",
+      value: "Rifki-Kun",
     },
     {
       id: "3",
@@ -36,16 +44,7 @@ export const userInputs = [
       id: "5",
       label: "Undangan",
       type: "select",
-      name: "tempat",
-      autoComplete: "off",
-      value: "Ada",
-      options: ["Ada", "Tidak Ada"],
-    },
-    {
-      id: "6",
-      label: "Foto",
-      type: "select",
-      name: "foto",
+      name: "undangan",
       autoComplete: "off",
       value: "Ada",
       options: ["Ada", "Tidak Ada"],
@@ -85,7 +84,6 @@ export const userInputs = [
       autoComplete: "off",
       value: "Offline",
     },
-
     {
       id: "11",
       label: "Periode Mulai",
@@ -98,7 +96,16 @@ export const userInputs = [
       id: "12",
       label: "Video",
       type: "select",
-      name: "tempat",
+      name: "video",
+      autoComplete: "off",
+      value: "Ada",
+      options: ["Ada", "Tidak Ada"],
+    },
+    {
+      id: "6",
+      label: "Foto",
+      type: "select",
+      name: "foto",
       autoComplete: "off",
       value: "Ada",
       options: ["Ada", "Tidak Ada"],
@@ -124,9 +131,9 @@ export const userInputs = [
     },
     {
       id: "15",
-      label: "Nama Petugas Pembimbing",
+      label: "Nama Petugas Pembimbing 1",
       type: "text",
-      name: "nama_petugas_pembimbing",
+      name: "nama_petugas_pembimbing_1",
       autoComplete: "off",
       value: "Rifki-Kun",
     },
@@ -136,7 +143,7 @@ export const userInputs = [
       type: "text",
       name: "waktu_pelaksanaan",
       autoComplete: "off",
-      value: " 10/10/2023 - 11/11/2023",
+      value: "10/10/2023 - 11/11/2023",
     },
     {
       id: "17",
@@ -146,7 +153,6 @@ export const userInputs = [
       autoComplete: "off",
       value: "11/11/2023",
     },
-
     {
       id: "18",
       label: "Daftar Hadir",
@@ -156,7 +162,6 @@ export const userInputs = [
       value: "Ada",
       options: ["Ada", "Tidak Ada"],
     },
-
     {
       id: "19",
       label: "Tujuan",
@@ -164,7 +169,7 @@ export const userInputs = [
       name: "tujuan",
       autoComplete: "off",
       value:
-        " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur totam soluta perspiciatis.",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur totam soluta perspiciatis.",
     },
   ],
 ];

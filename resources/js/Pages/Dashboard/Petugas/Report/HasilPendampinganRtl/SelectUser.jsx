@@ -36,7 +36,9 @@ const SelectUser = () => {
 
           <div className="relative w-[200px]  ">
             <div className="w-[200px] h-[200px] absolute bottom-[-40px] right-0 md:right-5">
-              <MonitorIlustration />
+              <MonitorIlustration
+                images={"/images/ilustrasi/Monitor-bro.svg"}
+              />
             </div>
           </div>
         </div>

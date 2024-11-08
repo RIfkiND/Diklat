@@ -51,7 +51,7 @@ const TableRtlUser = ({ data }) => {
   };
 
   return (
-    <>
+    <div className="grid grid-cols-12 gap-5">
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
         <Search />
         <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
@@ -80,7 +80,7 @@ const TableRtlUser = ({ data }) => {
           </Modal>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto col-span-12">
         <table className="w-full rounded-lg text-center">
           <thead>
             <tr className="text-primary text-sm font-semibold">
@@ -167,7 +167,7 @@ const TableRtlUser = ({ data }) => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 
