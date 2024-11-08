@@ -33,7 +33,7 @@ class PetugasFunctionController extends Controller
     Petugas::create([
       'name' => $request->input('name'),
       'NIP' => $request->input('nip'),
-      'no_hp'=>$request->input('no_hp'),
+      'unit_kerja'=>$request->input('unit_kerja'),
     ]);
 
     return redirect()->route('account.petugas')->with('succes', 'Petugas Berhasil Ditambahkan');
@@ -47,7 +47,7 @@ class PetugasFunctionController extends Controller
     $Petugass->update([
       'name' => $request->input('name'),
       'NIP' => $request->input('nip'),
-      'no_hp'=> $request->input('no_hp'),
+      'unit_kerja'=>$request->input('unit_kerja'),
     ]);
 
 

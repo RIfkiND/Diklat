@@ -15,20 +15,12 @@ class AdminSeeder extends Seeder
     {
         DB::table('admins')->insert([
             [
-                'name' => 'terangbulan',
-                'email' => 'banana@cumail.com',
-                'password' => Hash::make('ambatron'),
+                'name' => 'ambatron',
+                'email' => 'terangbulan@cus.com',
+                'password' => Hash::make('Ambatron123_-'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'name' => 'Admin Dua',
-                'email' => 'admin2@example.com',
-                'password' => Hash::make('password456'),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // Tambahkan lebih banyak data admin di sini jika diperlukan
         ]);
     }
 }

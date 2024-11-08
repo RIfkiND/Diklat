@@ -11,7 +11,7 @@ const EditAccountPetugas = ({ petugas }) => {
   const { data, setData, put, processing, errors } = useForm({
     name: petugas.name || "",
     nip: petugas.NIP || "",
-    no_hp: petugas.no_hp || "",
+    unit_kerja: petugas.unit_kerja || "",
     password: "",
   });
 
@@ -82,16 +82,16 @@ const EditAccountPetugas = ({ petugas }) => {
               No Hp
             </InputLabel>
             <TextInput
-              id="no_hp"
-              name="no_hp"
+              id="unit_kerja"
+              name="unit_kerja"
               type="text"
-              value={data.no_hp}
-              onChange={(e) => setData("no_hp", e.target.value)}
+              value={data.unit_kerja}
+              onChange={(e) => setData("unit_kerja", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="08.."
             />
-            {errors.no_hp && (
-              <p className="text-red-500 text-sm">{errors.no_hp}</p>
+            {errors.unit_kerja && (
+              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
             )}
           </div>
           <div className="flex flex-col gap-2 relative">
