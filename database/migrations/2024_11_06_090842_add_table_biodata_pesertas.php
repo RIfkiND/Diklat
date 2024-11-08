@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Petugas;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,8 @@ return new class extends Migration
             $table->string('sekolah');
             $table->string('provinsi');
             $table->string('nama_petugas_pembimbing1');
-            $table->string('nama_petugas_pembimbing2');
+            $table->foreignIdFor(Petugas::class);
+            $table->foreignIdFor(Petugas::class);
             $table->dateTime('periode_akhir');
             $table->foreignId('peserta_id')->constrained('pesertas');
             $table->timestamps();
