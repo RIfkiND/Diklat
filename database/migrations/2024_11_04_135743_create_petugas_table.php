@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('petugas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer("NIP")->unique();
-            $table->string('unit_kerja');
+            $table->string("NIP")->unique();
+            $table->string('unit_kerja')->nullable();
             $table->timestamps();
         });
     }

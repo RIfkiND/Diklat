@@ -31,9 +31,7 @@ export default function UserDashboard() {
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const response = await fetch(
-          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
-        );
+        const response = await fetch("https://wilayah.id/api/provinces.json");
         const data = await response.json();
         // Manipulasi data untuk hanya menyimpan nama provinsi
         const provinceNames = data.map((province) => ({
@@ -56,7 +54,7 @@ export default function UserDashboard() {
 
     if (fieldName === "provinsi") {
       const response = await fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
+        `https://wilayah.id/api/regencies/[PROVINCE_CODE].json`,
       );
       const data = await response.json();
       // Manipulasi data untuk hanya menyimpan nama kabupaten
