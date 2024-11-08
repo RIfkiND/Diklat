@@ -31,8 +31,8 @@ const MobileSidebar = () => {
   };
 
   useEffect(() => {
-    // setRole(auth.user.role);
-    setRole("petugas");
+    setRole(auth.user.role);
+    // setRole("petugas");
     setActivePath(window.location.pathname);
   }, [auth, url]);
 
@@ -51,7 +51,7 @@ const MobileSidebar = () => {
       <button
         onClick={handleToggleSide}
         className={`absolute transition-all duration-300 ease-in-out top-3 ${
-          openSide ? "left-[200px]" : "left-5"
+          openSide ? "left-[190px]" : "left-5"
         }`}
       >
         {openSide ? (

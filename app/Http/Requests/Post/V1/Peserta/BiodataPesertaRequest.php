@@ -31,7 +31,8 @@ class BiodataPesertaRequest extends FormRequest
             'periode_mulai' => 'required|date|min:1',
             'sekolah' => 'required|string|min:1|max:255',
             'provinsi' => 'required|string|min:1|max:255',
-            'nama_petugas_pembimbing' => 'required|string|max:255|min:1',
+            'nama_petugas_pembimbing1' => 'required|string|max:255|min:1',
+            'nama_petugas_pembimbing2' => 'required|string|max:255|min:1',
             'periode_akhir' => 'required|date|min:1',
             // 'peserta_id' => 'required|integer|min:1',
         ];
