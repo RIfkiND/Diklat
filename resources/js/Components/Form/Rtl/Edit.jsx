@@ -5,62 +5,6 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Inputs = [
-  [
-    {
-      id: "1",
-      label: "Nama Kegiatan",
-      type: "text",
-      name: "nama_kegiatan",
-      autoComplete: "nama_kegiatan",
-    },
-    {
-      id: "2",
-      label: "Sasaran",
-      type: "select",
-      name: "sasaran",
-      autoComplete: "sasaran",
-      options: [
-        "Peserta Didik",
-        "Guru Sejawat",
-        "Kepala Sekolah",
-        "Alumni Pembimbing",
-      ],
-    },
-    {
-      id: "3",
-      label: "Tempat",
-      type: "text",
-      name: "tempat",
-      autoComplete: "tempat",
-    },
-  ],
-  [
-    {
-      id: "4",
-      label: "Tujuan",
-      type: "text",
-      name: "tujuan",
-      autoComplete: "tujuan",
-    },
-    {
-      id: "5",
-      label: "Metode",
-      type: "select",
-      name: "metode",
-      autoComplete: "metode",
-      options: ["Online", "Offline"],
-    },
-    {
-      id: "6",
-      label: "Waktu Pelaksanaan",
-      type: "date",
-      name: "waktu_pelaksanaan",
-      autoComplete: "waktu_pelaksanaan",
-    },
-  ],
-];
-
 export default function EditRtl() {
   const [selectedDates, setSelectedDates] = useState({});
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -79,11 +23,77 @@ export default function EditRtl() {
     }));
   };
 
-  const submit = (e) => {
+  const Inputs = [
+    [
+      {
+        id: "1",
+        label: "Nama Kegiatan",
+        type: "text",
+        name: "nama_kegiatan",
+        autoComplete: "nama_kegiatan",
+      },
+      {
+        id: "2",
+        label: "Sasaran",
+        type: "select",
+        name: "sasaran",
+        autoComplete: "sasaran",
+        options: [
+          "Peserta Didik",
+          "Guru Sejawat",
+          "Kepala Sekolah",
+          "Alumni Pembimbing",
+        ],
+      },
+      {
+        id: "3",
+        label: "Tempat",
+        type: "text",
+        name: "tempat",
+        autoComplete: "tempat",
+      },
+    ],
+    [
+      {
+        id: "4",
+        label: "Tujuan",
+        type: "text",
+        name: "tujuan",
+        autoComplete: "tujuan",
+      },
+      {
+        id: "5",
+        label: "Metode",
+        type: "select",
+        name: "metode",
+        autoComplete: "metode",
+        options: ["Online", "Offline"],
+      },
+      {
+        id: "6",
+        label: "Waktu Pelaksanaan",
+        type: "date",
+        name: "waktu_pelaksanaan",
+        autoComplete: "waktu_pelaksanaan",
+      },
+    ],
+  ];
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    put("/user/register/{id}", {
+      onSuccess: () => {
+        console.log("Data berhasil ditambahkan");
+        reset(); // Reset form after successful submission
+      },
+      onError: (errors) => {
+        console.error("Gagal menambahkan Data:", errors);
+      },
+    });
   };
+
   return (
-    <form action="#" onSubmit={submit} className="px-6 py-9 ">
+    <form onSubmit={handleSubmit} className="px-6 py-9 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
         {Inputs.map((column, columnIndex) => (
           <div key={columnIndex}>

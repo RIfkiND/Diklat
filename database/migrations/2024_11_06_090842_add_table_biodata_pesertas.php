@@ -14,17 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('biodata_pesertas', function (Blueprint $table) {
-            $table->id(); // ID, auto increment primary key
-            $table->string('fullname'); // Kolom untuk nama lengkap peserta
-            $table->string('kabupaten'); // Kolom untuk kabupaten (mungkin ID atau kode kabupaten)
-            $table->string('pelatihan'); // Kolom untuk pelatihan yang diikuti
-            $table->dateTime('periode_mulai'); // Kolom untuk tanggal mulai pelatihan
-            $table->string('sekolah'); // Kolom untuk nama sekolah peserta
-            $table->string('provinsi'); // Kolom untuk provinsi (mungkin ID atau kode provinsi)
-            $table->string('nama_petugas_pembimbing'); // Kolom untuk nama petugas pembimbing
-            $table->dateTime('periode_akhir'); // Kolom untuk tanggal akhir pelatihan
-            $table->foreignId('peserta_id')->constrained('pesertas'); // Kolom untuk ID peserta, merujuk ke tabel 'pesertas'
-            $table->timestamps(); // Kolom created_at dan updated_at
+            $table->id();
+            $table->string('fullname');
+            $table->string('kabupaten');
+            $table->string('pelatihan');
+            $table->dateTime('periode_mulai');
+            $table->string('sekolah');
+            $table->string('provinsi');
+            $table->string('nama_petugas_pembimbing1');
+            $table->string('nama_petugas_pembimbing2');
+            $table->dateTime('periode_akhir');
+            $table->foreignId('peserta_id')->constrained('pesertas');
+            $table->timestamps();
         });
     }
 
