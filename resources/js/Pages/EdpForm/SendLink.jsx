@@ -15,7 +15,7 @@ const SendLink = () => {
       name: "jabatan_responden",
       isDropdown: true,
       subInfo: {
-        "Siswa": "Siswa",
+        Siswa: "Siswa",
         "Guru Kolega / Teman Sejawat": "Guru Kolega / Teman Sejawat",
         "Guru Tamatan Pelatihan": "Guru Tamatan Pelatihan",
         "Pimpinan / Kepala Sekolah": "Pimpinan / Kepala Sekolah",
