@@ -25,12 +25,12 @@ const SendLink = () => {
 
   const { data, setData, post, processing } = useForm({
     email: "",
-    jabatan_responden: "",
+    jabatan_responden: "", // Set initial value as empty string
   });
 
   function submit(e) {
     e.preventDefault();
-    post(route("form-edp.link")); // Assuming this is the correct route
+    post(route("form-edp.link"));
   }
 
   return (
@@ -70,6 +70,9 @@ const SendLink = () => {
                   onChange={(e) => setData(field.name, e.target.value)}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
+                  <option value="" disabled>
+                    Select an option
+                  </option>
                   {Object.entries(field.subInfo).map(([key, value], idx) => (
                     <option key={idx} value={key}>
                       {value}

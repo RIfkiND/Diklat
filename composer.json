@@ -13,6 +13,7 @@
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
         "resend/resend-laravel": "^0.14.0",
+        "resend/resend-php": "^0.12.0",
         "tightenco/ziggy": "^2.3"
     },
     "require-dev": {
