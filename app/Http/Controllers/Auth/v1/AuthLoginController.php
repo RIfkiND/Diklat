@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Auth\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Auth\V1\AdminLoginRequest;
 use App\Http\Requests\Auth\V1\PesertaLoginRequest;
 use App\Http\Requests\Auth\V1\PetugasLoginRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 

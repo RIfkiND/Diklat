@@ -1,4 +1,6 @@
-export default function MonitorIlustration({ images, ...props }) {
+import React from "react";
+
+const MonitorIlustration = ({ images, ...props }) => {
   return (
     <img
       src={images}
@@ -7,4 +9,6 @@ export default function MonitorIlustration({ images, ...props }) {
       {...props}
     />
   );
-}
+};
+
+export default MonitorIlustration;
