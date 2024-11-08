@@ -13,18 +13,7 @@ class PesertaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('pesertas')->insert([
-          [
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'password' => Hash::make('password123'), // Hashing the password
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],
-
-        ]);
-
-          DB::table('peserta')->insert([
+          DB::table('pesertas')->insert([
             ['name' => 'SAIDI SETIAWAN', 'no_hp' => '81540923927', 'password' => bcrypt('81540923927'), 'tamatan' => 'Matematika Berbasis Kejuruan'],
             ['name' => 'Erniasih, S.Pd., Gr.', 'no_hp' => '83875292957', 'password' => bcrypt('83875292957'), 'tamatan' => 'Pelatihan Bahasa Inggris Berbasis Kejuruan'],
             ['name' => 'IRFAN FAUZIYAN, S.Pd', 'no_hp' => '81287556454', 'password' => bcrypt('81287556454'), 'tamatan' => 'Commercial Building Electrical Installation'],
@@ -58,7 +47,7 @@ class PesertaSeeder extends Seeder
             ['name' => 'Surya Eka Dwi Purba', 'no_hp' => '85725959297', 'password' => bcrypt('85725959297'), 'tamatan' => 'IIW Welding Specialist'],
             ['name' => 'HUSNI NURIL LATIFAH', 'no_hp' => '85728166595', 'password' => bcrypt('85728166595'), 'tamatan' => 'BIM - Pemodelan Arsitektur Bangunan dengan Aplikasi Berbasis BIM (Revit)'],
             ['name' => 'Ahmad Taufiq Tambunan, S.Pd', 'no_hp' => '85270547364', 'password' => bcrypt('85270547364'), 'tamatan' => 'Building Automation System Based KNX Protocol'],
-            ['name' => 'Maryuwono, S.Pd', 'no_hp' => '8,95E+16', 'password' => bcrypt('8,95E+16'), 'tamatan' => 'Pemetaan Tematik Menggunakan UAV'],
+            ['name' => 'Maryuwono, S.Pd', 'no_hp' => '89516', 'password' => bcrypt('89516'), 'tamatan' => 'Pemetaan Tematik Menggunakan UAV'],
             ['name' => 'CANDRA ARI UNTORO, S.Pd.', 'no_hp' => '89506164339', 'password' => bcrypt('89506164339'), 'tamatan' => 'Membuat Model 3D dengan CAD'],
             ['name' => 'YOHANES SRI WIJAYANTO', 'no_hp' => '8562888552', 'password' => bcrypt('8562888552'), 'tamatan' => 'Membuat Model 3D dengan CAD'],
             ['name' => 'YULIUS RONALDO DWIYATMOKO, S.Pd.', 'no_hp' => '81393711195', 'password' => bcrypt('81393711195'), 'tamatan' => 'Commercial Building Electrical Installation'],
@@ -99,8 +88,8 @@ class PesertaSeeder extends Seeder
             ['name' => 'Rianti Mayasari, S.Pd.', 'no_hp' => '81804804774', 'password' => bcrypt('81804804774'), 'tamatan' => 'Bahasa Inggris Berbasis Kejuruan'],
             ['name' => 'JAMALUDIN BAGUS DERMAWAN, S.PD.', 'no_hp' => '85740050984', 'password' => bcrypt('85740050984'), 'tamatan' => 'Pengoperasian Mesin Bubut Dasar dan Kompleks'],
             ['name' => 'NURHIDAYAT, S.T.', 'no_hp' => '82136981867', 'password' => bcrypt('82136981867'), 'tamatan' => 'Electrical Equipment Monitoring and Control System'],
-            ['name' => 'WAHYU IMAM MA\'RIFAT, S.Pd.', 'no_hp' => '85643189632', 'password' => bcrypt('85643189632'), 'tamatan' => 'Industrial Control Application Based PLC'],
-            ['name' => 'Yudho Kuncoro, S.Pd.', 'no_hp' => '8,95E+16', 'password' => bcrypt('8,95E+16'), 'tamatan' => 'BIM - Pemodelan Arsitektur Menggunakan Autodesk Revit. Angk 2'],
+            ['name' => 'WAHYU IMAM MARIFAT, S.Pd.', 'no_hp' => '85643189632', 'password' => bcrypt('85643189632'), 'tamatan' => 'Industrial Control Application Based PLC'],
+            ['name' => 'Yudho Kuncoro, S.Pd.', 'no_hp' => '89516', 'password' => bcrypt('89516'), 'tamatan' => 'BIM - Pemodelan Arsitektur Menggunakan Autodesk Revit. Angk 2'],
             ['name' => 'Muhamad Hadik Zaeni, S.Pd', 'no_hp' => '85801228870', 'password' => bcrypt('85801228870'), 'tamatan' => 'Membuat Model 3D dengan CAD'],
             ['name' => 'AKHMAD ARIFIN, S.Pd', 'no_hp' => '81568428483', 'password' => bcrypt('81568428483'), 'tamatan' => 'Pemrograman dan Aplikasi Mikrokontroler'],
             ['name' => 'Muhamad Muhsin, S.T.', 'no_hp' => '81310685593', 'password' => bcrypt('81310685593'), 'tamatan' => 'Pengoperasian Mesin Bubut Dasar dan Kompleks'],
@@ -195,7 +184,7 @@ class PesertaSeeder extends Seeder
             ['name' => 'JUWITA NUJHATUSSOLIHAH', 'no_hp' => '82117119872', 'password' => bcrypt('82117119872'), 'tamatan' => 'Pemetaan Tematik Menggunakan UAV'],
             ['name' => 'Meliani Ramdhaniati, S.Pd., M.Pd.', 'no_hp' => '85320162006', 'password' => bcrypt('85320162006'), 'tamatan' => 'BIM - Pemodelan Arsitektur Menggunakan Autodesk Revit. Angk 2'],
             ['name' => 'Deries Rivaldy, S,Pd., M.Pd.', 'no_hp' => '85777867201', 'password' => bcrypt('85777867201'), 'tamatan' => 'Dokumentasi 2D Pekerjaan Konstruksi Bangunan Gedung Menggunakan Autocad'],
-            ['name' => 'OSIANNI PERTIWI, M. Pd.', 'no_hp' => '6,29E+18', 'password' => bcrypt('6,29E+18'), 'tamatan' => 'Penginderaan Jauh Menggunakan LIDAR'],
+            ['name' => 'OSIANNI PERTIWI, M. Pd.', 'no_hp' => '62918', 'password' => bcrypt('62918'), 'tamatan' => 'Penginderaan Jauh Menggunakan LIDAR'],
             ['name' => 'Moh. Igal Subagja, S.Pd.', 'no_hp' => '81382884643', 'password' => bcrypt('81382884643'), 'tamatan' => 'BIM - Pemodelan Arsitektur Menggunakan Autodesk Revit. Angk 2'],
             ['name' => 'Syamsu Anwar, S.Pd. Gr.', 'no_hp' => '87736011700', 'password' => bcrypt('87736011700'), 'tamatan' => 'Electrical Equipment Monitoring and Control System'],
             ['name' => 'Deni, S.T', 'no_hp' => '85722906141', 'password' => bcrypt('85722906141'), 'tamatan' => 'Membuat Model 3D dengan CAD'],
@@ -230,7 +219,7 @@ class PesertaSeeder extends Seeder
             ['name' => 'YANTO, S.Pd.', 'no_hp' => '85352426436', 'password' => bcrypt('85352426436'), 'tamatan' => 'Teknik Pengelasan GTAW bagi Guru'],
             ['name' => 'Deni Rhamadani, S.ST.', 'no_hp' => '87828510770', 'password' => bcrypt('87828510770'), 'tamatan' => 'IIW Welding Specialist'],
             ['name' => 'AGUS DWIYANTA, S. ST.', 'no_hp' => '83148123132', 'password' => bcrypt('83148123132'), 'tamatan' => 'Pengoperasian Mesin Bubut dan Frais'],
-            ['name' => 'Sunoto Tirta Putra, S.Pd.T., M.A.', 'no_hp' => '8,95E+16', 'password' => bcrypt('8,95E+16'), 'tamatan' => 'Industrial Control Application Based PLC'],
+            ['name' => 'Sunoto Tirta Putra, S.Pd.T., M.A.', 'no_hp' => '89516', 'password' => bcrypt('89516'), 'tamatan' => 'Industrial Control Application Based PLC'],
             ['name' => 'Carwin, S.ST', 'no_hp' => '85351862395', 'password' => bcrypt('85351862395'), 'tamatan' => 'Membuat Model 3D dengan CAD'],
             ['name' => 'JOHAN SAINIMA PERDANA, ST', 'no_hp' => '82299973270', 'password' => bcrypt('82299973270'), 'tamatan' => 'IIW Welding Specialist Batch 2'],
             ['name' => 'Imam Muhammad Tubagus Zulfikar, S.T.', 'no_hp' => '83148005977', 'password' => bcrypt('83148005977'), 'tamatan' => 'Welding Inspector Basic'],

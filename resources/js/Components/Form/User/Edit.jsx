@@ -10,8 +10,8 @@ const EditAccount = ({ user }) => {
 
   const { data, setData, put, processing, errors } = useForm({
     name: user.name || "",
-    email: user.email || "",
     no_hp: user.no_hp || "",
+    tamatan: user.tamatan || "",
     password: "",
   });
 
@@ -56,22 +56,22 @@ const EditAccount = ({ user }) => {
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
-              htmlFor="email"
+              htmlFor="no_hp"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              no_hp
             </InputLabel>
             <TextInput
-              id="email"
-              name="email"
-              type="email"
-              value={data.email}
-              onChange={(e) => setData("email", e.target.value)}
+              id="tamatan"
+              name="tamatan"
+              type="text"
+              value={data.tamatan}
+              onChange={(e) => setData("no_hp", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Email@example.com"
+              placeholder="no_hp@example.com"
             />
-            {errors.email && (
-              <span className="text-red-500 text-xs">{errors.email}</span>
+            {errors.tamatan && (
+              <span className="text-red-500 text-xs">{errors.tamatan}</span>
             )}
           </div>
           <div className="flex flex-col gap-2">
