@@ -14,6 +14,7 @@ export default function MonitoringUser() {
         <HeaderHome
           title={"Monitoring User"}
           description={"Pantau Perkembangan, Wujudkan Keberayan!"}
+          content={"/images/ilustrasi/Monitor-bro.svg"}
         />
       </div>
 

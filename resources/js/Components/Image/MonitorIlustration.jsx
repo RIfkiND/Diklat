@@ -1,7 +1,7 @@
-export default function MonitorIlustration(props) {
+export default function MonitorIlustration({ images, ...props }) {
   return (
     <img
-      src="/images/ilustrasi/Monitor-bro.svg"
+      src={images}
       alt="Monitor illustration"
       className="w-full h-full"
       {...props}
