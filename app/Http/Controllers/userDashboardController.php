@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use App\Models\BiodataPeserta;
 use App\Models\Peserta;
+use App\Models\Petugas;
 use App\Http\Requests\Post\V1\Peserta\BiodataPesertaRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,7 +16,9 @@ class UserDashboardController extends Controller
 {
     public function index(): \Inertia\Response
     {
-        return Inertia::render('Dashboard/User/index');
+
+      $petugas = Petugas::all();
+        return Inertia::render('Dashboard/User/index',compact("petugas"));
     }
 
     public function addBiodata(BiodataPesertaRequest $request): RedirectResponse
