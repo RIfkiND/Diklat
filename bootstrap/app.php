@@ -33,7 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
       //     \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
       //     \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
       // ]);
-
+          
 
         $middleware->alias([
           'role' => RoleAuthMiddleware::class,
