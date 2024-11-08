@@ -12,7 +12,7 @@ class EmailController extends Controller
 
       $jabatanResponden = $request->input('jabatan_responden');
 
-      $formLink = ($jabatanResponden === 'siswa')
+      $formLink = ($jabatanResponden === 'Siswa')
           ? route('form-edp.siswa')
           : route('form-edp.other');
 
