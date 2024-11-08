@@ -15,13 +15,13 @@ class EmailController extends Controller
       $formLink = ($jabatanResponden === 'Siswa')
           ? route('form-edp.siswa')
           : route('form-edp.other');
-
+      $sender = $request->input('email');
 
       Resend::emails()->send([
           'from' => 'BMTI <BMTI@gmail.com>',
           'to' => [$request->input('email')],
           'subject' => 'Form Link',
-          'html' => view('emails.form_link', ['formLink' => $formLink])->render(),
+          'html' => view('emails.form_link', ['formLink' => $formLink ,'sender'=> $sender])->render(),
       ]);
 
       return redirect('/');

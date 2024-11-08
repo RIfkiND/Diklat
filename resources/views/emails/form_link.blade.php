@@ -82,13 +82,13 @@
                     </div>
 
                     <div class="email-body">
-                      <p>Dear [Recipient Name],</p>
+                      <p>Dear {{ $sender }}p>
                       <p>We value your opinion! Please take a moment to fill out our survey. Your feedback helps us improve our service.</p>
                       <p>Click the button below to start the survey:</p>
                       <a href="{{ $formLink }}" class="btn">Access the Form</a>
                       <p>If you have any questions, feel free to reach out to us.</p>
                   </div>
-                  
+
                     <!-- Footer -->
                     <div class="email-footer">
                         <p>&copy; 2024 Your Company. All rights reserved.</p>
