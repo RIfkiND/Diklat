@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { router } from "@inertiajs/react";
-import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
-import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 import Search from "@/Components/Ui/Input/Search";
 const TableUser = ({ data }) => {
   const [available] = useState("available");
@@ -157,10 +155,6 @@ const TableUser = ({ data }) => {
     <div className="grid grid-cols-12 gap-5">
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
         <Search onSearchChange={handleSearchChange} />
-        <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-          <FilterByStartTime />
-          <FilterByEndTime />
-        </div>
       </div>
       <div className="group bg-white h-full col-span-12 lg:col-span-12 row-span-6 rounded-2xl relative">
         <div className="relative">

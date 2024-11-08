@@ -1,23 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import InputLabel from "@/Components/Ui/Input/InputLabel";
 import TextInput from "@/Components/Ui/Input/TextInput";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 import { useForm } from "@inertiajs/react";
 
 const EditAccountPetugas = ({ petugas }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const { data, setData, put, processing, errors } = useForm({
     name: petugas.name || "",
     nip: petugas.NIP || "",
     unit_kerja: petugas.unit_kerja || "",
-    password: "",
   });
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,7 +71,7 @@ const EditAccountPetugas = ({ petugas }) => {
               htmlFor="No Hp"
               className="block text-sm font-medium text-gray-700"
             >
-              No Hp
+              Unit_kerja
             </InputLabel>
             <TextInput
               id="unit_kerja"
@@ -92,38 +84,6 @@ const EditAccountPetugas = ({ petugas }) => {
             />
             {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2 relative">
-            <InputLabel
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </InputLabel>
-            <TextInput
-              id="password"
-              name="password"
-              type={isPasswordVisible ? "text" : "password"}
-              value={data.password}
-              onChange={(e) => setData("password", e.target.value)}
-              className="relative block w-full border border-gray-300 rounded-md p-2"
-              placeholder="********"
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-4 -translate-y-1/2 bottom-0 transform"
-              aria-label={isPasswordVisible ? "Hide password" : "Show password"}
-            >
-              {isPasswordVisible ? (
-                <AiFillEyeInvisible className="h-5 w-5" />
-              ) : (
-                <AiFillEye className="h-5 w-5" />
-              )}
-            </button>
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
             )}
           </div>
         </div>

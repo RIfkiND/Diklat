@@ -52,12 +52,12 @@ const ReadAccountPetugas = ({ petugas }) => {
               Name
             </InputLabel>
             <TextInput
-              id="no_hp"
-              name="no_hp"
+              id="unit_kerja"
+              name="unit_kerja"
               type="text"
-              defaultValue={petugas?.no_hp || ""}
+              defaultValue={petugas?.unit_kerja || ""}
               className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Royhan"
+              placeholder="Rpl"
               readOnly
             />
           </div>

@@ -21,6 +21,7 @@ class Petugas extends Authenticatable
     'name',
     'NIP',
     'unit_kerja',
+    'no_hp'
   ];
   public function getAuthIdentifierName()
   {

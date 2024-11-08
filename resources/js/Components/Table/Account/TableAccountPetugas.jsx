@@ -176,7 +176,7 @@ const TableAccountPetugas = ({ data }) => {
                   <th className="py-3 px-4">No</th>
                   <th className="py-3 px-4">NIP</th>
                   <th className="py-3 px-4">Nama</th>
-                  <th className="py-3 px-4">No HP</th>
+                  <th className="py-3 px-4">Unit Kerja</th>
                   <th className="py-3 px-4">Selengkapnya</th>
                 </tr>
               </thead>
@@ -189,7 +189,7 @@ const TableAccountPetugas = ({ data }) => {
                     <td className="py-3 px-4">{index + 1}</td>
                     <td className="py-3 px-4">{petugas.NIP}</td>
                     <td className="py-3 px-4">{petugas.name}</td>
-                    <td className="py-3 px-4">{petugas.no_hp}</td>
+                    <td className="py-3 px-4">{petugas.unit_kerja}</td>
                     <td className="py-3 px-4 relative flex justify-center ">
                       {available === "available" ? (
                         <>
