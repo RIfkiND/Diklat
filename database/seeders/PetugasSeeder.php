@@ -16,12 +16,14 @@ class PetugasSeeder extends Seeder
         DB::table('petugas')->insert([
             ['name'=>'Rifki',
                 'NIP' => 123456789,
+                'unit_kerja'=> 'rpl',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
               'name'=>'Kaka',
                 'NIP' => 987654321,
+                'unit_kerja'=> 'rpl',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -23,9 +23,9 @@ class UpdatePesertaRequest extends FormRequest
     {
         return [
           'name' => 'required|string|max:255',
-          'email' => 'required|email|unique:pesertas,email',
-          'no_hp' => 'required|string|max:15',
-          'password' => 'nullable|min:6',
+            'tamatan' => 'required|string|min:1|max:255',
+            'no_hp' => 'nullable|integer|unique:pesertas,no_hp',
+            'password' => 'nullable|string|min:8',
         ];
     }
 }
