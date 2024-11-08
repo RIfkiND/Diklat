@@ -17,7 +17,8 @@ class BiodataPeserta extends Model
         'periode_mulai',
         'sekolah',
         'provinsi',
-        'nama_petugas_pembimbing',
+        'nama_petugas_pembimbing1',
+        'nama_petugas_pembimbing2',
         'periode_akhir',
         'peserta_id', // ID peserta yang terkait dengan biodata
     ];
