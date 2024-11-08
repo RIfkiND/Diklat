@@ -28,8 +28,8 @@ class PesertaFunctionController extends Controller
   {
     Peserta::create([
       'name' => $request->input('name'),
-      'email' => $request->input('email'),
       'no_hp' => $request->input('no_hp'),
+      'tamatan'=> $request->input('tamatan'),
       'password' => Hash::make($request->input('password')),
     ]);
 
@@ -42,9 +42,9 @@ class PesertaFunctionController extends Controller
 
 
     $pesertas->update([
-      'name' => $request->input('name'),
-      'email' => $request->input('email'),
+    'name' => $request->input('name'),
       'no_hp' => $request->input('no_hp'),
+      'tamatan'=> $request->input('tamatan'),
       'password' => $request->filled('password') ? Hash::make($request->input('password')) : $pesertas->password,
     ]);
 
