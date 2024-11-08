@@ -21,20 +21,7 @@ class PesertaSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ],
-        [
-            'name' => 'Jane Smith',
-            'email' => 'jane.smith@example.com',
-            'password' => Hash::make('password123'), // Hashing the password
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],
-        [
-            'name' => 'Alice Johnson',
-            'email' => 'alice.johnson@example.com',
-            'password' => Hash::make('password123'), // Hashing the password
-            'created_at' => now(),
-            'updated_at' => now(),
-        ],
+       
         ]);
     }
 }

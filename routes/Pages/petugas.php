@@ -11,7 +11,6 @@ Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/data-edp/show', [PetugasController::class, 'PetugasDataEdpShow'])->name('petugas.data-edp-show');
 
     // Report
-
     Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl', [PetugasController::class, "PetugasReportPendampinganRtl"])->name('Petugas.report-pendampingan-rtl');
     Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl/slug', [PetugasController::class, "PetugasReportPendampinganRtlSlug"])->name('Petugas.report-pendampingan-rtl-slug');
 
