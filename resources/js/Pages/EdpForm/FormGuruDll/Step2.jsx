@@ -8,29 +8,17 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
       title: "Adanya Dokumen / Rencana Program Pengimbasan",
       isDropdown: true,
       name: "adanya_dokumen",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Kesesuaian Program Pengimbasan dengan Materi Pelatihan",
       isDropdown: true,
       name: "kesesuaian_program",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title:
         "Adanya Dukungan Pihak terkait dalam Penyusunan Program Pengimbasan",
       isDropdown: true,
       name: "adanya_dukungan",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
   ];
 
@@ -39,28 +27,16 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
       title: "Ada Jadwal dengan Pelaksanaan Pengimbasan",
       isDropdown: true,
       name: "adanya_jadwal_pelaksanaan",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Dukungan Pihak Terkait dalam Pelaksanaan Pengimbasan",
       isDropdown: true,
       name: "dukungan_pihak_terkait",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
     {
       title: "Ketersediaan Perangkat dan Fasilitas Pengimbasan",
       isDropdown: true,
       name: "ketersidaan_perangkat_fasilitas",
-      subInfo: {
-        val1: "ya",
-        val2: "tidak",
-      },
     },
   ];
 
@@ -147,8 +123,9 @@ const Step2 = ({ nextStep, prevStep, handleChange, values }) => {
                       onChange={handleChange}
                       className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                     >
-                      <option value="ya">{field.subInfo.val1}</option>
-                      <option value="tidak">{field.subInfo.val2}</option>
+                      <option value="">Pilih</option>
+                      <option value="ya">Ya</option>
+                      <option value="tidak">Tidak</option>
                     </select>
                   ) : (
                     <input

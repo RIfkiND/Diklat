@@ -13,11 +13,6 @@ const Step1 = ({ nextStep, handleChange, values }) => {
       title: "Jabatan Responden",
       name: "jabatan_responden",
       isDropdown: true,
-      subInfo: {
-        name2: "Guru Kolega / Teman Sejawat",
-        name3: "Guru Tamatan Pelatihan",
-        name4: "Pimpinan / Kepala Sekolah",
-      },
     },
     {
       title: "Nama Institusi / Sekolah",
@@ -92,11 +87,16 @@ const Step1 = ({ nextStep, handleChange, values }) => {
                   onChange={handleChange}
                   className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 >
-                  {Object.values(field.subInfo).map((option, idx) => (
-                    <option key={idx} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  <option value="">Pilih</option>
+                  <option value="Guru Kolega / Teman Sejawat">
+                    Guru Kolega / Teman Sejawat
+                  </option>
+                  <option value="Guru Tamatan Pelatihan">
+                    Guru Tamatan Pelatihan
+                  </option>
+                  <option value="Pimpinan / Kepala Sekolah">
+                    Pimpinan / Kepala Sekolah
+                  </option>
                 </select>
               ) : (
                 <input
