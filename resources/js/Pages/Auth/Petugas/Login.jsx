@@ -45,7 +45,7 @@ export default function Login({ status }) {
 
                   <TextInput
                     id="NIP"
-                    type="text"
+                    type="number"
                     name="NIP"
                     value={data.NIPl}
                     className="mt-1 block w-full"

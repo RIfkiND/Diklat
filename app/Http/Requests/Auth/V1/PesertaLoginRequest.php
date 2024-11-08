@@ -26,7 +26,7 @@ class PesertaLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email','min:1','max:30'],
+            'no_hp' => ['required', 'integer','digits_between:10,15'],
             'password' => ['required', 'string','min:1','max:15'],
         ];
     }
@@ -40,11 +40,11 @@ class PesertaLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('peserta')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('peserta')->attempt($this->only('no_hp', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'no_hp' => trans('auth.failed'),
             ]);
         }
 
@@ -67,7 +67,7 @@ class PesertaLoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'no_hp' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -79,6 +79,6 @@ class PesertaLoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('no_hp')).'|'.$this->ip());
     }
 }

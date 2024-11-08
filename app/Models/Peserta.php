@@ -21,14 +21,14 @@ class Peserta extends Authenticatable
      */
     protected $fillable = [
       'name',
-      'email',
       'no_hp',
+      'tamatan',
       'password',
      ];
 
-    // public function getAuthIdentifierName(){
-    //   return  "no_hp";
-    // }
+    public function getAuthIdentifierName(){
+      return  "no_hp";
+    }
 
     /**
      * The attributes that should be hidden for serialization.
