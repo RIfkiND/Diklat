@@ -3,8 +3,8 @@ import MonitorIlustration from "@/Components/Image/MonitorIlustration";
 
 const DownloadSurat = () => {
   return (
-    <div className="w-full h-full rounded-2xl p-8 bg-primary text-white flex justify-between gap-5">
-      <div className="w-[500px] flex flex-col justify-between">
+    <div className="w-full h-full rounded-2xl p-8 bg-primary text-white flex justify-between gap-5 flex-wrap">
+      <div className="w-[500px] flex flex-col justify-between gap-5 sm:gap-0">
         <div className="">
           <p className="text-2xl font-bold capitalize">
             download invitation letter
