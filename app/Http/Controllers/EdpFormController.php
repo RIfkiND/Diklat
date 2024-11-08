@@ -19,4 +19,8 @@ class EdpFormController extends Controller
   {
     return Inertia::render('EdpForm/SendLink');
   }
+  public function renderFinish()
+  {
+    return Inertia::render('EdpForm/EdpFinish');
+  }
 }
