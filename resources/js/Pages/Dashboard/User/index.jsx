@@ -27,6 +27,12 @@ export default function UserDashboard() {
   const [showPreview, setShowPreview] = useState(false); // For preview biodata
   const [showBiodata, setShowBiodata] = useState(true); // For biodata form
 
+  // preview biodata
+  const [previewBiodata, setPreviewBiodata] = useState({
+    provinsi: "",
+    kabupaten: "",
+  });
+
   // Fetch provinces data
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -50,7 +56,9 @@ export default function UserDashboard() {
   // Handle select change for province and kabupaten
   const handleSelectChange = async (e, fieldName) => {
     const value = e.target.value;
+    const text = e.target.options[e.target.selectedIndex].text;
     setData(fieldName, value);
+    setPreviewData(fieldName, text);
 
     if (fieldName === "provinsi") {
       const response = await fetch(
@@ -66,6 +74,12 @@ export default function UserDashboard() {
     }
   };
 
+  const setPreviewData = (fieldName, text) => {
+    setPreviewBiodata((prevState) => ({
+      ...prevState,
+      [fieldName]: text,
+    }));
+  };
   // Handle date change for datepicker
   const handleDateChange = (date, name) => {
     setData(name, date);
@@ -414,7 +428,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.provinsi || ""}
+                value={previewBiodata.provinsi || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -428,7 +442,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.kabupaten || ""}
+                value={previewBiodata.kabupaten || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
