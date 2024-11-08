@@ -30,23 +30,29 @@ class UserFormRegister extends Controller
             return redirect()->back()->withErrors(['error' => 'Peserta record not found for the authenticated user.']);
         }
 
-        $data = array_merge($request->validated(), ['peserta_id' => $peserta->id]);
+        // Manipulasi tanggal untuk menghilangkan waktu
+        if (isset($validatedData['waktu_pelaksanaan'])) {
+            $validatedData['waktu_pelaksanaan'] = Carbon::parse($validatedData['waktu_pelaksanaan'])->format('Y-m-d');
+        }
+
+        $data = array_merge($validatedData, ['peserta_id' => $peserta->id]);
 
         Rtl::create($data);
 
         return redirect()->route('user.register')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function editKegiatan(RtlRequest $request, $id): RedirectResponse
-    {
-        $validatedData = $request->validated();
 
-        $rtls = Rtl::findOrFail($id);
+    // public function editKegiatan(RtlRequest $request, $id): RedirectResponse
+    // {
+    //     $validatedData = $request->validated();
 
-        $rtls->update($validatedData);
+    //     $rtls = Rtl::findOrFail($id);
 
-        return redirect()->route('user.register')->with('success', 'Data berhasil diubah!');
-    }
+    //     $rtls->update($validatedData);
+
+    //     return redirect()->route('user.register')->with('success', 'Data berhasil diubah!');
+    // }
 
     public function DeleteKegiatan($id)
     {
@@ -55,10 +61,5 @@ class UserFormRegister extends Controller
         $rtls->delete();
 
         return redirect()->route('user.register')->with('success', 'Data berhasil dihapus!');
-    }
-
-    public function Monitoring()
-    {
-        return Inertia::render('Dashboard/User/Monitoring');
     }
 }

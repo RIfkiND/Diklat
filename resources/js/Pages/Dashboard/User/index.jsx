@@ -35,7 +35,12 @@ export default function UserDashboard() {
           "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
         );
         const data = await response.json();
-        setProvinces(data);
+        // Manipulasi data untuk hanya menyimpan nama provinsi
+        const provinceNames = data.map((province) => ({
+          id: province.id,
+          name: province.name,
+        }));
+        setProvinces(provinceNames);
       } catch (error) {
         console.error("Error fetching provinces:", error);
       }
@@ -54,7 +59,12 @@ export default function UserDashboard() {
         `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
       );
       const data = await response.json();
-      setDistricts(data);
+      // Manipulasi data untuk hanya menyimpan nama kabupaten
+      const districtNames = data.map((district) => ({
+        id: district.id,
+        name: district.name,
+      }));
+      setDistricts(districtNames);
     }
   };
 
@@ -101,10 +111,7 @@ export default function UserDashboard() {
         type: "select",
         name: "provinsi",
         autoComplete: "provinsi",
-        options: provinces.map((province) => ({
-          id: province.id,
-          name: province.name,
-        })),
+        options: provinces,
       },
       {
         id: "3",
@@ -177,7 +184,7 @@ export default function UserDashboard() {
           "Pemasangan Dudukan Modul dan Kelistrikan PLTS Tipe Off Grid Terpusat",
           "Pemetaan Tematik Menggunakan UAV",
           "Pemasangan Dudukan Modul dan Kelistrikan PLTS Tipe Off Grid Terpusat",
-          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil"
+          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil",
         ],
       },
       {
@@ -186,7 +193,36 @@ export default function UserDashboard() {
         type: "select",
         name: "nama_petugas_pembimbing2",
         autoComplete: "nama_petugas_pembimbing",
-        options: ["Option 1", "Option 2", "Option 3"],
+        options: [
+          "Agustina Tineke Morita M., S.ST, M.Pd.",
+          "Tubagus Kurniawan, S.T., M.Pd.",
+          "Iwan Purwawiana Yusman, S.ST.",
+          "Erwin Danismaya, S.E., M.Ak.",
+          "Sutarni, S.Pd.",
+          "Mohammad Ainul Fikri, S.Pd.",
+          "Edy Bina Christian Meliala, S.T.",
+          "Okky Ardhiansyah, S.ST.",
+          "Melva Ida Hernawati, S.H., M.Si.",
+          "Bubun, S.Kom.",
+          "Sumarna, S.E.",
+          "Akhmad Syaripudin, S.Si., M.T.",
+          "Aryati Kapilani, S.Pd.",
+          "Harry Suryahadi, S.E., M.M.",
+          "Ipan Ilmansyah Hidayat, S.E.",
+          "Sotarduga Hutabarat",
+          "Amin Rustandi",
+          "Ahmad Talenta",
+          "Nunuy Nuraini, A.Md.",
+          "Agung Defari Adhirajasa, A.Md.",
+          "Akim",
+          "Gin Gin Ginanjar, S.Pd.",
+          "Agung Sumirat, S.Pd.",
+          "Sardin Sintha, S.ST.",
+          "Yudi Wahyuno",
+          "Siti Supartika",
+          "Adin Maulana, S.S.T.",
+          "Andri Dwiningsih, A.Md.",
+        ],
       },
       {
         id: "5",
@@ -210,10 +246,7 @@ export default function UserDashboard() {
         type: "select",
         name: "kabupaten",
         autoComplete: "kabupaten",
-        options: districts.map((district) => ({
-          id: district.id,
-          name: district.name,
-        })),
+        options: districts,
       },
       {
         id: "8",
@@ -221,7 +254,36 @@ export default function UserDashboard() {
         type: "select",
         name: "nama_petugas_pembimbing1",
         autoComplete: "nama_petugas_pembimbing",
-        options: ["Option 1", "Option 2", "Option 3"],
+        options: [
+          "Agustina Tineke Morita M., S.ST, M.Pd.",
+          "Tubagus Kurniawan, S.T., M.Pd.",
+          "Iwan Purwawiana Yusman, S.ST.",
+          "Erwin Danismaya, S.E., M.Ak.",
+          "Sutarni, S.Pd.",
+          "Mohammad Ainul Fikri, S.Pd.",
+          "Edy Bina Christian Meliala, S.T.",
+          "Okky Ardhiansyah, S.ST.",
+          "Melva Ida Hernawati, S.H., M.Si.",
+          "Bubun, S.Kom.",
+          "Sumarna, S.E.",
+          "Akhmad Syaripudin, S.Si., M.T.",
+          "Aryati Kapilani, S.Pd.",
+          "Harry Suryahadi, S.E., M.M.",
+          "Ipan Ilmansyah Hidayat, S.E.",
+          "Sotarduga Hutabarat",
+          "Amin Rustandi",
+          "Ahmad Talenta",
+          "Nunuy Nuraini, A.Md.",
+          "Agung Defari Adhirajasa, A.Md.",
+          "Akim",
+          "Gin Gin Ginanjar, S.Pd.",
+          "Agung Sumirat, S.Pd.",
+          "Sardin Sintha, S.ST.",
+          "Yudi Wahyuno",
+          "Siti Supartika",
+          "Adin Maulana, S.S.T.",
+          "Andri Dwiningsih, A.Md.",
+        ],
       },
       {
         id: "9",

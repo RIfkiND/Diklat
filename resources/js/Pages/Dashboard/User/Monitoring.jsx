@@ -6,7 +6,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function MonitoringUser() {
+export default function MonitoringUser({ BiodataPeserta }) {
   return (
     <AuthenticatedLayout>
       <Head title="Diklat Register" />
@@ -19,7 +19,7 @@ export default function MonitoringUser() {
 
       <DashboardLayout>
         <div className="p-4">
-          <TableMonitoringUser />
+          <TableMonitoringUser data={BiodataPeserta} />
         </div>
         <div className="flex justify-center">{/* <Pagination /> */}</div>
       </DashboardLayout>

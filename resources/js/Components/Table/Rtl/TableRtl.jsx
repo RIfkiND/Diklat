@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
+import { FaEllipsisV, FaEye, FaTrash } from "react-icons/fa"; // add faEdit
 import { MdCancel } from "react-icons/md";
 import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
@@ -7,7 +7,7 @@ import Search from "@/Components/Ui/Input/Search";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 import Modal from "@/Components/Ui/Modal/Modal";
 import DaptarRtl from "@/Components/Form/Rtl/Daftar";
-import EditRtl from "@/Components/Form/Rtl/Edit";
+// import EditRtl from "@/Components/Form/Rtl/Edit";
 import ReadRtl from "@/Components/Form/Rtl/Read";
 import { router } from "@inertiajs/react";
 
@@ -17,6 +17,11 @@ const TableRtlUser = ({ data }) => {
   const dropdownRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ismode, setIsMode] = useState("create");
+
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -99,7 +104,9 @@ const TableRtlUser = ({ data }) => {
                 <td className="py-3 px-4">{user.sasaran}</td>
                 <td className="py-3 px-4">{user.metode}</td>
                 <td className="py-3 px-4">{user.tempat}</td>
-                <td className="py-3 px-4">{user.waktu_pelaksanaan}</td>
+                <td className="py-3 px-4">
+                  {formatDate(user.waktu_pelaksanaan)}
+                </td>
                 <td className="py-3 px-4 relative flex justify-center">
                   {available === "available" ? (
                     <>

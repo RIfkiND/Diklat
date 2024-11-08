@@ -20,9 +20,9 @@
               $table->string('email')->unique();
               $table->string('nama_tamatan_pelatihan');
               $table->string('nama_jenis_pelatihan');
-
               $table->dateTime('tanggal_dimulai');
               $table->dateTime('tanggal_selesai');
+
               $table->string('tampilan_menarik')->default('ya');
               $table->string('sabar')->default('ya');
               $table->string('pilih_kasih')->default('ya');

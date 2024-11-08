@@ -7,7 +7,7 @@ import { FaEye } from "react-icons/fa";
 // import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 // import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import MonitorIlustration from "@/Components/Image/MonitorIlustration";
-import Pagination from "@/Components/Ui/Pagination";
+// import Pagination from "@/Components/Ui/Pagination";
 
 const SelectUser = () => {
   const handleView = () => {
@@ -26,16 +26,16 @@ const SelectUser = () => {
     >
       <Head title="Dashboard" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
-        <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px]">
+        <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
-            <p className="text-sm lg:text-2xl font-bold">Monitoring Peserta</p>
-            <p className="text-xs lg:text-sm text-slate-200">
+            <p className="text-lg lg:text-2xl font-bold">Monitoring Peserta</p>
+            <p className="text-base lg:text-sm text-slate-200">
               Pantau Perkembangan, Wujudkan Keberhasilan!
             </p>
           </div>
 
-          <div className="relative w-[200px] overflow-hidden ">
-            <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] absolute bottom-0 md:bottom-[-40px] right-0 md:right-5">
+          <div className="relative w-[200px]  ">
+            <div className="w-[200px] h-[200px] absolute bottom-[-40px] right-0 md:right-5">
               <MonitorIlustration />
             </div>
           </div>
