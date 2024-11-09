@@ -9,12 +9,12 @@ import React from "react";
 
 const Landingpage = () => {
   return (
-    <div className="overflow-x-hidden w-screen relative">
+    <div className="overflow-x-hidden w-screen relative md:px-0 px-10">
       <Head title="Home" />
       <Circle className="absolute top-[-40rem] left-[-20rem] z-[-999] opacity-50" />
       <Circle className="absolute top-[35rem] right-[-25rem] z-[-999] opacity-70" />
       <Circle className="absolute top-[75rem] left-[-20rem] z-[-999] opacity-60" />
-      <div className="h-full w-full mx-auto px-10 scroll-smooth md:max-w-[80%]">
+      <div className="h-full w-full mx-auto scroll-smooth md:max-w-[80%]">
         <Navbar />
         <Hero />
         <Services />
