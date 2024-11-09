@@ -367,7 +367,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.pelatihan || ""}
+                value={data.pelatihan_id || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
