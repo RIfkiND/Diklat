@@ -106,7 +106,7 @@ const TableAccountUser = ({ data }) => {
                 <tr className="text-primary text-sm font-semibold">
                   <th className="py-3 px-4">No</th>
                   <th className="py-3 px-4">Nama</th>
-                  <th className="py-3 px-4">Email</th>
+                  <th className="py-3 px-4">tamatan</th>
                   <th className="py-3 px-4">No HP</th>
                   <th className="py-3 px-4">Selengkapnya</th>
                 </tr>
@@ -119,7 +119,7 @@ const TableAccountUser = ({ data }) => {
                   >
                     <td className="py-3 px-4">{index + 1}</td>
                     <td className="py-3 px-4">{user.name}</td>
-                    <td className="py-3 px-4">{user.email}</td>
+                    <td className="py-3 px-4">{user.tamatan}</td>
                     <td className="py-3 px-4">{user.no_hp}</td>
                     <td className="py-3 px-4 relative flex justify-center ">
                       {available === "available" ? (

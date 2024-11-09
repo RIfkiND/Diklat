@@ -24,7 +24,7 @@ class StorePesertaRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'tamatan' => 'required|string|min:1|max:255',
-            'no_hp' => 'nullable|integer|unique:pesertas,no_hp',
+            'no_hp' => 'required|unique:pesertas,no_hp',
             'password' => 'required|string|min:8',
         ];
     }
