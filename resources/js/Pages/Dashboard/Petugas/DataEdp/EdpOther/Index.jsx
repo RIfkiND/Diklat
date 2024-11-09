@@ -8,14 +8,18 @@ import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 
-const Index = () => {
+const Index = ({ EdpOther }) => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
   const tableRef = useRef(null);
   const buttonRef = useRef(null);
 
   const handleShowData = () => {
     if (selectedRow !== null) {
-      router.visit(route("petugas.dataedp-edp-other.show"));
+      const selectedData = EdpOther[selectedRow];
+      router.visit(route("petugas.dataedp-edp-other.show"), {
+        method: "get",
+        data: { selectedData },
+      });
     }
   };
 
@@ -93,7 +97,7 @@ const Index = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {[...Array(10)].map((_, index) => (
+                  {EdpOther.map((user, index) => (
                     <tr
                       key={index}
                       className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
@@ -102,15 +106,23 @@ const Index = () => {
                       onClick={() => setSelectedRow(index)}
                     >
                       <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">Novax</td>
-                      <td className="py-3 px-4">SMKN 1 Pluto</td>
-                      <td className="py-3 px-4">Ciamis</td>
-                      <td className="py-3 px-4">0858696969</td>
-                      <td className="py-3 px-4">Email@mail.com</td>
-                      <td className="py-3 px-4">Pembuatan Kaca Pasir</td>
-                      <td className="py-3 px-4">Pembuatan Kaca</td>
-                      <td className="py-3 px-4">12/3/2024</td>
-                      <td className="py-3 px-4">22/4/2024</td>
+                      <td className="py-3 px-4">{user.nama_responden}</td>
+                      <td className="py-3 px-4">
+                        {user.nama_institusi_sekolah}
+                      </td>
+                      <td className="py-3 px-4">{user.kabupaten_kota}</td>
+                      <td className="py-3 px-4">{user.no_whatsapp}</td>
+                      <td className="py-3 px-4">{user.email}</td>
+                      <td className="py-3 px-4">
+                        {user.nama_tamatan_pelatihan}
+                      </td>
+                      <td className="py-3 px-4">{user.nama_jenis_pelatihan}</td>
+                      <td className="py-3 px-4">
+                        {user.formatted_tanggal_dimulai}
+                      </td>
+                      <td className="py-3 px-4">
+                        {user.formatted_tanggal_selesai}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

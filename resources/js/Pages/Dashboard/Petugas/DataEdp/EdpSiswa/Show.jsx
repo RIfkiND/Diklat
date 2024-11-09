@@ -1,35 +1,37 @@
 import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
-import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
-import ModalViewPeserta from "@/Components/Ui/Modal/ModalViewPeserta";
 
 const Show = () => {
+  const { selectedData } = usePage().props;
+
+  const convertToYesNo = (value) => (value ? "YA" : "TIDAK");
+
   const formFields = [
-    { label: "Nama", type: "text" },
-    { label: "Sekolah", type: "text" },
-    { label: "Kabupaten / Kota", type: "text" },
-    { label: "No Whatsapp", type: "text" },
-    { label: "Email", type: "text" },
+    { label: "Nama", value: selectedData.nama_responden },
+    { label: "Sekolah", value: selectedData.nama_institusi_sekolah },
+    { label: "Kabupaten / Kota", value: selectedData.kabupaten_kota },
+    { label: "No Whatsapp", value: selectedData.no_whatsapp },
+    { label: "Email", value: selectedData.email },
   ];
 
   const kegiatan = [
     {
       title: "Tamatan Pelatihan",
-      desk: "Membuat Perusaan Yang berfokus pada bidang teknologi",
+      desk: selectedData.nama_tamatan_pelatihan,
     },
     {
       title: "Pelatihan Yang DIikuti",
-      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos? Exercitationem minima natus molestiae blanditiis dolor. ",
+      desk: selectedData.nama_jenis_pelatihan,
     },
     {
       title: "Tanggal Dimulai",
-      desk: "10/2/2024",
+      desk: selectedData.formatted_tanggal_dimulai,
     },
     {
       title: "Tanggal Selesai",
-      desk: "10/4/2024",
+      desk: selectedData.formatted_tanggal_selesai,
     },
   ];
 
@@ -39,15 +41,15 @@ const Show = () => {
       body: [
         {
           title: "Tampilan Menarik",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.tampilan_menarik),
         },
         {
           title: "Sabar",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.sabar),
         },
         {
           title: "Tidak Pilih Kasih",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.pilih_kasih),
         },
       ],
     },
@@ -56,15 +58,15 @@ const Show = () => {
       body: [
         {
           title: "Sering Membantu Siswa Dalam Kesulitan",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.sering_membantu_siswa),
         },
         {
           title: "Praktis Dalam Menjawab Pertanyaan",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.praktis_dalam_menjawab),
         },
         {
           title: "Memberikan Motivasi Untuk Maju",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.memberikan_motivasi),
         },
       ],
     },
@@ -73,15 +75,15 @@ const Show = () => {
       body: [
         {
           title: "Pemberian Tugas Secara Jelas",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.pemberian_tugas),
         },
         {
           title: "Menciptakan Proses Pembelajaran Yang Menyenangkan",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.menciptakan_pembelajaran),
         },
         {
           title: "Tepat Waktu Masuk, Istirahat Dan Belajar",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.tepat_waktu),
         },
       ],
     },
@@ -90,65 +92,20 @@ const Show = () => {
       body: [
         {
           title: "Penyampaian Materi Mudah Dipahami",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.penyampaian_materi),
         },
         {
           title:
             "Penggunaan Alat Pendukung / Media Dan Peralatan Pendukung Dalam Pembelajaran",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.penggunaan_media),
         },
         {
           title: "Mengaitkan Materi Dengan Realitas Kehidupan",
-          desk: "YA",
+          desk: convertToYesNo(selectedData.mengaitkan_materi),
         },
       ],
     },
   ];
-
-  const dataRtl = [
-    {
-      title: "Realisasi",
-      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
-    },
-    {
-      title: "Kendala",
-      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
-    },
-    {
-      title: "Solusi",
-      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos?",
-    },
-  ];
-
-  const dataRtlBuktiDukung = [
-    {
-      title: "Undangan",
-      desk: "Ya",
-    },
-    {
-      title: "Daftar Hadir",
-      desk: "Ya",
-    },
-    {
-      title: "Link Foto",
-      desk: "https://example.com/foto",
-    },
-    {
-      title: "Link Video",
-      desk: "https://example.com/video",
-    },
-  ];
-
-  const [addModal, setAddModal] = useState(false);
-  const [viewRtl, setViewRtl] = useState(false);
-
-  const handleCloseAddData = () => {
-    setAddModal(false);
-  };
-
-  const handleCloseViewRtl = () => {
-    setViewRtl(false);
-  };
 
   return (
     <AuthenticatedLayout
@@ -189,7 +146,8 @@ const Show = () => {
                   {field.label}
                 </p>
                 <input
-                  type={field.type}
+                  type="text"
+                  value={field.value}
                   disabled
                   className="rounded-lg text-sm text-textPrimary scrollbar-none bg-slate-50 border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 />
@@ -231,8 +189,6 @@ const Show = () => {
           ))}
         </div>
       </div>
-      {addModal && <ModalMonitoringPeserta onClose={handleCloseAddData} />}
-      {viewRtl && <ModalViewPeserta onClose={handleCloseViewRtl} />}
     </AuthenticatedLayout>
   );
 };

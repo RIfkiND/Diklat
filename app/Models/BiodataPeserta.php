@@ -13,12 +13,12 @@ class BiodataPeserta extends Model
     protected $fillable = [
         'fullname',
         'kabupaten',
-        'pelatihan',
+        'pelatihan_id',
         'periode_mulai',
         'sekolah',
         'provinsi',
-        'nama_petugas_pembimbing1',
-        'nama_petugas_pembimbing2',
+        'petugas_id_1',
+        'petugas_id_2',
         'periode_akhir',
         'peserta_id', // ID peserta yang terkait dengan biodata
     ];
@@ -27,5 +27,17 @@ class BiodataPeserta extends Model
     public function peserta()
     {
         return $this->belongsTo(Peserta::class, 'peserta_id'); // Menghubungkan biodata_peserta ke pesertas
+    }
+    public function petugas1()
+    {
+      return $this->belongsTo(Petugas::class, 'petugas_id_1');
+    }
+
+    public function pelatihan(){
+      return $this->belongsTo(Pelatihan::class);
+    }
+    public function petugas2()
+    {
+      return $this->belongsTo(Petugas::class, 'petugas_id_2');
     }
 }

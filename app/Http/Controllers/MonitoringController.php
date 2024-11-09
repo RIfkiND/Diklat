@@ -11,16 +11,18 @@ use Carbon\Carbon;
 
 class MonitoringController extends Controller
 {
-    public function Monitoring()
-    {
-        $biodata_pesertas = BiodataPeserta::all()->map(function ($peserta) {
-            $peserta->formatted_periode_mulai = Carbon::parse($peserta->periode_mulai)->format('Y-m-d');
-            $peserta->formatted_periode_akhir = Carbon::parse($peserta->periode_akhir)->format('Y-m-d');
-            return $peserta;
-        });
+  public function Monitoring()
+  {
+    $biodata_pesertas = BiodataPeserta::with("pelatihan")
+    ->paginate(5)
+    ->through(function ($peserta) {
+        $peserta->formatted_periode_mulai = Carbon::parse($peserta->periode_mulai)->format('Y-m-d');
+        $peserta->formatted_periode_akhir = Carbon::parse($peserta->periode_akhir)->format('Y-m-d');
+        return $peserta;
+    });
 
-        return Inertia::render('Dashboard/User/Monitoring', [
-            'BiodataPeserta' => $biodata_pesertas,
-        ]);
-    }
+return Inertia::render('Dashboard/User/Monitoring', [
+    'BiodataPeserta' => $biodata_pesertas,
+]);
+  }
 }

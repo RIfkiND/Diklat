@@ -7,25 +7,32 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useForm } from "@inertiajs/react"; // Import useForm for logout action
+import { useForm } from "@inertiajs/react"; // Import useForm for form handling
 
-export default function UserDashboard() {
+export default function UserDashboard({ petugas, pelatihans }) {
   // Biodata form state management
   const { data, setData, post, reset } = useForm({
     fullname: "",
     kabupaten: "",
-    pelatihan: "",
+    pelatihan_id: "",
     periode_mulai: null,
     sekolah: "",
     provinsi: "",
-    nama_petugas_pembimbing1: "",
-    nama_petugas_pembimbing2: "",
+    petugas_id_1: "",
+    petugas_id_2: "",
     periode_akhir: null,
   });
+
   const [provinces, setProvinces] = useState([]); // For provinsi
   const [districts, setDistricts] = useState([]); // For kabupaten
   const [showPreview, setShowPreview] = useState(false); // For preview biodata
   const [showBiodata, setShowBiodata] = useState(true); // For biodata form
+
+  // preview biodata
+  const [previewBiodata, setPreviewBiodata] = useState({
+    provinsi: "",
+    kabupaten: "",
+  });
 
   // Fetch provinces data
   useEffect(() => {
@@ -35,7 +42,6 @@ export default function UserDashboard() {
           "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
         );
         const data = await response.json();
-        // Manipulasi data untuk hanya menyimpan nama provinsi
         const provinceNames = data.map((province) => ({
           id: province.id,
           name: province.name,
@@ -45,29 +51,53 @@ export default function UserDashboard() {
         console.error("Error fetching provinces:", error);
       }
     };
-
     fetchProvinces();
   }, []);
 
   // Handle select change for province and kabupaten
+
   const handleSelectChange = async (e, fieldName) => {
     const value = e.target.value;
+    const text = e.target.options[e.target.selectedIndex].text;
     setData(fieldName, value);
+    setPreviewData(fieldName, text);
 
     if (fieldName === "provinsi") {
+      const selectedProvince = provinces.find(
+        (province) => province.id === parseInt(value),
+      );
+      if (selectedProvince) {
+        // Store the name of the province, not the ID
+        setData("provinsi", selectedProvince.name);
+      }
+
+      // Fetch the districts for the selected province
       const response = await fetch(
         `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
       );
       const data = await response.json();
-      // Manipulasi data untuk hanya menyimpan nama kabupaten
       const districtNames = data.map((district) => ({
         id: district.id,
         name: district.name,
       }));
       setDistricts(districtNames);
+    } else if (fieldName === "kabupaten") {
+      const selectedDistrict = districts.find(
+        (district) => district.id === parseInt(value),
+      );
+      if (selectedDistrict) {
+        // Store the name of the district, not the ID
+        setData("kabupaten", selectedDistrict.name);
+      }
     }
   };
 
+  const setPreviewData = (fieldName, text) => {
+    setPreviewBiodata((prevState) => ({
+      ...prevState,
+      [fieldName]: text,
+    }));
+  };
   // Handle date change for datepicker
   const handleDateChange = (date, name) => {
     setData(name, date);
@@ -83,7 +113,29 @@ export default function UserDashboard() {
   const submit = (e) => {
     e.preventDefault();
 
-    post("/dashboard/user", {
+    // Find the name for the selected province (provinsi) based on the id
+    const selectedProvince = provinces.find(
+      (province) => province.id === parseInt(data.provinsi),
+    );
+    const provinceName = selectedProvince
+      ? selectedProvince.name
+      : data.provinsi; // Default to ID if not found
+
+    // Find the name for the selected district (kabupaten) based on the ID
+    const selectedDistrict = districts.find(
+      (district) => district.id === parseInt(data.kabupaten),
+    );
+    const districtName = selectedDistrict
+      ? selectedDistrict.name
+      : data.kabupaten; // Default to ID if not found
+
+    // Prepare the data to be submitted
+    post(route("add.biodata"), {
+      data: {
+        ...data,
+        provinsi: provinceName, // Send the province name
+        kabupaten: districtName, // Send the district name
+      },
       onSuccess: () => {
         console.log("Biodata berhasil ditambahkan");
         setShowBiodata(false); // Hide the form
@@ -117,112 +169,23 @@ export default function UserDashboard() {
         id: "3",
         label: "Nama Pelatihan",
         type: "select",
-        name: "pelatihan",
+        name: "pelatihan_id",
         autoComplete: "pelatihan",
-        options: [
-          "Matematika Berbasis Kejuruan",
-          "Pelatihan Bahasa Inggris Berbasis Kejuruan",
-          "Commercial Building Electrical Installation",
-          "Pengukur Kecepatan Motor BLDC dan Level Baterai Berbasis Mikrokontroler",
-          "Perawatan Sistem AC Kendaraan",
-          "Industrial Control Application Based PLC",
-          "Metrologi (Pengukuran)",
-          "Pemrograman CNC dengan Mastercam",
-          "Pengoperasian Mesin CNC",
-          "Electrical Equipment Monitoring and Control System",
-          "Finishing Kayu",
-          "Pemetaan Topografi",
-          "BIM - Pemodelan Arsitektur Menggunakan Autodesk Revit. Angk 2",
-          "Penginderaan Jauh Menggunakan LIDAR",
-          "Membangun Bisnis Makanan Ringan",
-          "Membangun Komunikasi dengan Bantuan Teknologi bagi Guru Project IPAS",
-          "Perawatan Berkala Kendaraan Ringan",
-          "Membangun Jaringan Lokal dan Internet",
-          "Teknik Pengelasan Flux Core Arc Welding (FCAW) bagi Guru",
-          "Welding Inspector Basic Batch 2",
-          "IIW Welding Specialist",
-          "BIM - Pemodelan Arsitektur Bangunan dengan Aplikasi Berbasis BIM (Revit)",
-          "Building Automation System Based KNX Protocol",
-          "Pemetaan Tematik Menggunakan UAV",
-          "Membuat Model 3D dengan CAD",
-          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil",
-          "Matematika Terapan Berbasis Kejuruan",
-          "Dokumentasi 2D Pekerjaan Konstruksi Bangunan Gedung Menggunakan Autocad",
-          "Network Internet Service",
-          "Penggunaan Peralatan dan Pengoperasian Mesin Pengerjaan Kayu",
-          "Mengembangkan Proyek Kreatif Berbasis Artificial Intelegence untuk Mendorong Kewirausahaan di SMK",
-          "Pengoperasian Peralatan Kerja Kayu",
-          "Pengoperasian Mesin Bubut dan Frais",
-          "Bahasa Inggris Berbasis Kejuruan",
-          "Pengoperasian Mesin Bubut Dasar dan Kompleks",
-          "Pemrograman dan Aplikasi Mikrokontroler",
-          "Sistem Informasi Geografis",
-          "RAB Konstruksi Bangunan Dengan Aplikasi Microsoft Project",
-          "Lingkungan Sebagai Sumber Energi Bagi Guru Projek IPAS",
-          "Ducting System Batch 1",
-          "Game Edukasi 3 Dimensi",
-          "Bahasa Inggris Berbasis Kejuruan (Angkatan 2)",
-          "Welding Inspector Basic",
-          "Teknik Pengelasan GTAW bagi Guru",
-          "Pengenalan Dasar Perawatan Alat Berat",
-          "Motion Graphic",
-          "Pembuatan dan Pengoperasian Instalasi Reaktor Biodiesel",
-          "Desain Grafis",
-          "Pemasangan Dudukan Modul dan Kelistrikan PLTS Tipe Off Grid Terpusat",
-          "Pengelasan Shielded Metal ARC Welding (SMAW) Angkatan 5",
-          "Bahan Bakar Biodiesel",
-          "Pelatihan Bahan Bakar Bioetanol",
-          "Web Programming",
-          "Aplikasi Android",
-          "Manajerial Kepala Sekolah",
-          "Pemasangan Instalasi Biogas Konstruksi Serat Kaca untuk Pembakaran Skala Rumah Tangga",
-          "Mengembangkan Proyek Kreatif Berbasis Artificial Intelegence untuk Mendorong Kewirausahaan di SMK",
-          "Building Automation System Based KNX Protocol",
-          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil",
-          "Pemetaan Tematik Menggunakan UAV",
-          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil",
-          "Pemasangan Dudukan Modul dan Kelistrikan PLTS Tipe Off Grid Terpusat",
-          "Pemetaan Tematik Menggunakan UAV",
-          "Pemasangan Dudukan Modul dan Kelistrikan PLTS Tipe Off Grid Terpusat",
-          "Pemasangan Komponen Mekanikal Pembangkit Listrik Tenaga Bayu (PLTB) Skala Kecil",
-        ],
+        options: pelatihans.map((pelatihan) => ({
+          id: pelatihan.id,
+          name: pelatihan.name,
+        })),
       },
       {
         id: "4",
         label: "Nama Petugas Pembimbing 2",
         type: "select",
-        name: "nama_petugas_pembimbing2",
+        name: "petugas_id_2",
         autoComplete: "nama_petugas_pembimbing",
-        options: [
-          "Agustina Tineke Morita M., S.ST, M.Pd.",
-          "Tubagus Kurniawan, S.T., M.Pd.",
-          "Iwan Purwawiana Yusman, S.ST.",
-          "Erwin Danismaya, S.E., M.Ak.",
-          "Sutarni, S.Pd.",
-          "Mohammad Ainul Fikri, S.Pd.",
-          "Edy Bina Christian Meliala, S.T.",
-          "Okky Ardhiansyah, S.ST.",
-          "Melva Ida Hernawati, S.H., M.Si.",
-          "Bubun, S.Kom.",
-          "Sumarna, S.E.",
-          "Akhmad Syaripudin, S.Si., M.T.",
-          "Aryati Kapilani, S.Pd.",
-          "Harry Suryahadi, S.E., M.M.",
-          "Ipan Ilmansyah Hidayat, S.E.",
-          "Sotarduga Hutabarat",
-          "Amin Rustandi",
-          "Ahmad Talenta",
-          "Nunuy Nuraini, A.Md.",
-          "Agung Defari Adhirajasa, A.Md.",
-          "Akim",
-          "Gin Gin Ginanjar, S.Pd.",
-          "Agung Sumirat, S.Pd.",
-          "Sardin Sintha, S.ST.",
-          "Yudi Wahyuno",
-          "Siti Supartika",
-          "Adin Maulana, S.S.T.",
-          "Andri Dwiningsih, A.Md.",
-        ],
+        options: petugas.map((pembimbing) => ({
+          id: pembimbing.id,
+          name: pembimbing.name,
+        })),
       },
       {
         id: "5",
@@ -252,38 +215,12 @@ export default function UserDashboard() {
         id: "8",
         label: "Nama Petugas Pembimbing 1",
         type: "select",
-        name: "nama_petugas_pembimbing1",
+        name: "petugas_id_1",
         autoComplete: "nama_petugas_pembimbing",
-        options: [
-          "Agustina Tineke Morita M., S.ST, M.Pd.",
-          "Tubagus Kurniawan, S.T., M.Pd.",
-          "Iwan Purwawiana Yusman, S.ST.",
-          "Erwin Danismaya, S.E., M.Ak.",
-          "Sutarni, S.Pd.",
-          "Mohammad Ainul Fikri, S.Pd.",
-          "Edy Bina Christian Meliala, S.T.",
-          "Okky Ardhiansyah, S.ST.",
-          "Melva Ida Hernawati, S.H., M.Si.",
-          "Bubun, S.Kom.",
-          "Sumarna, S.E.",
-          "Akhmad Syaripudin, S.Si., M.T.",
-          "Aryati Kapilani, S.Pd.",
-          "Harry Suryahadi, S.E., M.M.",
-          "Ipan Ilmansyah Hidayat, S.E.",
-          "Sotarduga Hutabarat",
-          "Amin Rustandi",
-          "Ahmad Talenta",
-          "Nunuy Nuraini, A.Md.",
-          "Agung Defari Adhirajasa, A.Md.",
-          "Akim",
-          "Gin Gin Ginanjar, S.Pd.",
-          "Agung Sumirat, S.Pd.",
-          "Sardin Sintha, S.ST.",
-          "Yudi Wahyuno",
-          "Siti Supartika",
-          "Adin Maulana, S.S.T.",
-          "Andri Dwiningsih, A.Md.",
-        ],
+        options: petugas.map((pembimbing) => ({
+          id: pembimbing.id,
+          name: pembimbing.name,
+        })),
       },
       {
         id: "9",
@@ -416,7 +353,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.provinsi || ""}
+                value={previewBiodata.provinsi || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -430,7 +367,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.kabupaten || ""}
+                value={previewBiodata.kabupaten || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -444,7 +381,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.pelatihan || ""}
+                value={data.pelatihan_id || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -458,7 +395,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.nama_petugas_pembimbing1 || ""}
+                value={data.petugas_id_1 || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -472,7 +409,7 @@ export default function UserDashboard() {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.nama_petugas_pembimbing2 || ""}
+                value={data.petugas_id_1 || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
