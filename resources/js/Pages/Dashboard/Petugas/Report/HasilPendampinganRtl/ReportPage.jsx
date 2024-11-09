@@ -95,7 +95,7 @@ const ReportPage = () => {
     >
       <Head title="Dashboard Report Data" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
-        <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
+        <div className="bg-indigo-400 text-white shadow-xl pt-2 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
             <p className="text-lg lg:text-2xl font-bold">
               Reporting Data RTL Peserta
@@ -106,7 +106,7 @@ const ReportPage = () => {
           </div>
 
           <div className="relative w-[200px]">
-            <div className="w-[200px] h-[200px] absolute bottom-[-40px] right-0 md:right-5">
+            <div className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] absolute bottom-[-10px] md:bottom-[-40px] right-0 md:right-5">
               <AnalyticsIlustration />
             </div>
           </div>
