@@ -14,7 +14,7 @@ const CreateAccountUser = () => {
 
   const { data, setData, post, processing, errors } = useForm({
     name: "",
-    email: "",
+    tamatan: "",
     no_hp: "",
     password: "",
   });
@@ -61,22 +61,22 @@ const CreateAccountUser = () => {
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
-              htmlFor="email"
+              htmlFor="tamatan"
               className="block text-sm font-medium text-gray-700"
             >
-              Email
+              tamatan
             </InputLabel>
             <TextInput
-              id="email"
-              name="email"
-              type="email"
-              value={data.email}
-              onChange={(e) => setData("email", e.target.value)}
+              id="tamatan"
+              name="tamatan"
+              type="tamatan"
+              value={data.tamatan}
+              onChange={(e) => setData("tamatan", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Email@example.com"
+              placeholder="tamatan"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+            {errors.tamatan && (
+              <p className="text-red-500 text-sm">{errors.tamatan}</p>
             )}
           </div>
           <div className="flex flex-col gap-2">

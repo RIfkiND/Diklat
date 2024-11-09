@@ -23,14 +23,14 @@ const ReadAccount = ({ user }) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <InputLabel htmlFor="email">Email</InputLabel>
+            <InputLabel htmlFor="tamatan">tamatan</InputLabel>
             <TextInput
-              id="email"
-              name="email"
-              type="email"
-              defaultValue={user?.email || ""}
+              id="tamatan"
+              name="tamatan"
+              type="text"
+              defaultValue={user?.tamatan || ""}
               className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Email@example.com"
+              placeholder="Rekayasa"
               readOnly
             />
           </div>
