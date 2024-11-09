@@ -1,13 +1,19 @@
 import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
+import Select from "react-select";
 
 const Step1 = ({ nextStep, handleChange, values, errors }) => {
   const identitasResponden = [
     {
       title: "Nama Responden",
-      type: "text",
+      type: "select",
       name: "nama_responden",
-      isDropdown: false,
+      options: [
+        { value: "1", label: "Kikun Berulah" },
+        { value: "2", label: "Royhan mc cool" },
+        { value: "3", label: "Bambang" },
+        { value: "4", label: "Kepo" },
+      ],
     },
     {
       title: "Nama Institusi / Sekolah",
@@ -66,8 +72,10 @@ const Step1 = ({ nextStep, handleChange, values, errors }) => {
             pelatihan.
           </p>
         </div>
-        <MonitorIlustration                 images={"/images/ilustrasi/Monitor-bro.svg"}
- className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]" />
+        <MonitorIlustration
+          images={"/images/ilustrasi/Monitor-bro.svg"}
+          className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]"
+        />
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
@@ -78,15 +86,26 @@ const Step1 = ({ nextStep, handleChange, values, errors }) => {
           {identitasResponden.map((field, index) => (
             <div key={index} className="space-y-2">
               <p className="text-slate-700 font-bold">{field.title}</p>
-              {field.isDropdown ? (
-                <select
+              {field.type === "select" ? (
+                <Select
                   name={field.name}
-                  value={values[field.name] || ""}
-                  onChange={handleChange}
-                  className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-                >
-                  {/* Assuming there are some options for dropdown */}
-                </select>
+                  placeholder={`Pilih ${field.title}`}
+                  options={field.options || []}
+                  value={
+                    field.options
+                      ? field.options.find(
+                          (option) => option.value === values[field.name],
+                        )
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleChange({
+                      target: { name: field.name, value: selectedOption.value },
+                    })
+                  }
+                  isSearchable // Optional, allows searching in dropdown
+                  classNamePrefix="react-select"
+                />
               ) : (
                 <div>
                   <input

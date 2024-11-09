@@ -17,3 +17,41 @@
     -moz-appearance: textfield;
   }
 }
+
+/* Styling React Select with Tailwind CSS */
+/* Menghilangkan outline untuk kontrol */
+.react-select__control {
+  @apply rounded-lg text-sm text-slate-700 border border-gray-400 transition-colors duration-300 outline-none !important;
+}
+
+/* Menghilangkan outline pada saat fokus */
+.react-select__control--is-focused {
+  @apply border-primary !important;
+  outline: none !important; /* Menghilangkan outline biru */
+}
+
+/* Menu dropdown */
+.react-select__menu {
+  @apply rounded-lg shadow-lg;
+}
+
+/* Option pada dropdown */
+.react-select__option {
+  @apply px-4 py-2 text-sm text-slate-700 hover:bg-primary hover:text-white cursor-pointer !important;
+}
+
+/* Option yang dipilih */
+.react-select__option--is-selected {
+  @apply text-white bg-primary !important;
+}
+
+/* Option yang difokuskan */
+.react-select__option--is-focused {
+  @apply bg-primary text-white !important;
+}
+
+/* Menghilangkan outline global pada elemen yang difokuskan */
+.react-select__control:focus,
+.react-select__option:focus {
+  outline: none !important;
+}
