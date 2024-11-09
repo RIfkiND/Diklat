@@ -32,6 +32,9 @@ export default function UserDashboard({ petugas, pelatihans }) {
   const [previewBiodata, setPreviewBiodata] = useState({
     provinsi: "",
     kabupaten: "",
+    pelatihan_id: "",
+    petugas_id_1: "",
+    petugas_id_2: "",
   });
 
   // Fetch provinces data
@@ -381,7 +384,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.pelatihan_id || ""}
+                value={previewBiodata.pelatihan_id || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -395,7 +398,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.petugas_id_1 || ""}
+                value={previewBiodata.petugas_id_1 || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
@@ -409,7 +412,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
               </InputLabel>
               <TextInput
                 type="text"
-                value={data.petugas_id_1 || ""}
+                value={previewBiodata.petugas_id_2 || ""}
                 readOnly
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2"
               />
