@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Edp extends Model
 {
   protected $fillable = [
-    'nama_responden',
+    'peserta_id',
     'nama_institusi_sekolah',
     'kabupaten_kota',
     'no_whatsapp',
@@ -36,4 +36,8 @@ protected $casts = [
     'tanggal_dimulai' => 'datetime',
     'tanggal_selesai' => 'datetime',
 ];
+
+public function peserta (){
+  return $this->belongsTo(Peserta::class);
+}
 }

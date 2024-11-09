@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EdpOther extends Model
 {
   protected $fillable = [
-    'nama_responden',
+    'peserta_id',
     'nama_institusi_sekolah',
     'kabupaten_kota',
     'no_whatsapp',
@@ -44,4 +44,8 @@ class EdpOther extends Model
     'adanya_karya_inovatif',
     'saran_masukan',
 ];
+
+public function peserta (){
+  return $this->belongsTo(Peserta::class);
+}
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import MonitorIlustration from "../../Components/Image/MonitorIlustration";
-import { useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 
 const SendLink = () => {
   const inputs = [
