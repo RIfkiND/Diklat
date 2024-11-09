@@ -11,7 +11,7 @@ import TextInput from "@/Components/Ui/Input/TextInput";
 export default function ViewData() {
   return (
     <AuthenticatedLayout>
-      <Head title="User" />
+      <Head title="Read User" />
 
       <DashboardLayout>
         <div className="p-4">

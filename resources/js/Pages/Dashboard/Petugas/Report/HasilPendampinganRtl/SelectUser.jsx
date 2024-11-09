@@ -24,7 +24,7 @@ const SelectUser = () => {
         </h2>
       }
     >
-      <Head title="Dashboard" />
+      <Head title="Dashboard Monitoring" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
         <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">

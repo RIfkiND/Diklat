@@ -20,7 +20,7 @@ export default function AccountUser({ pesertas }) {
   //   };
   return (
     <AuthenticatedLayout>
-      <Head title="Biodata User" />
+      <Head title="Create Account User" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <HeaderHome
           title={"Account User"}
