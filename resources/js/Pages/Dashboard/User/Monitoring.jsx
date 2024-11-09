@@ -22,7 +22,10 @@ export default function MonitoringUser({ BiodataPeserta }) {
         <div className="p-4">
           <TableMonitoringUser data={BiodataPeserta} />
         </div>
-        <div className="flex justify-center">{/* <Pagination /> */}</div>
+        <div className="flex justify-center">
+          {" "}
+          <Pagination paginateItems={BiodataPeserta} />
+        </div>
       </DashboardLayout>
     </AuthenticatedLayout>
   );

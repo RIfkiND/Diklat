@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Search from "@/Components/Ui/Input/Search";
 import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
-import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import Modal from "@/Components/Ui/Modal/Modal";
 import MonitoringUser from "@/Components/Form/Monitoring/Read";
 
@@ -83,8 +81,6 @@ const TableMonitoringUser = ({ data }) => {
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
         <Search />
         <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-          <FilterByStartTime />
-          <FilterByEndTime />
           <Modal
             show={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -116,7 +112,7 @@ const TableMonitoringUser = ({ data }) => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((user, index) => (
+                {data.data.map((user, index) => (
                   <tr
                     key={index}
                     className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer `}
