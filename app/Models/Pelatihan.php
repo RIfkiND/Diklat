@@ -9,7 +9,7 @@ class Pelatihan extends Model
     protected $fillable =[
       'name'
     ];
-    public function peserta(){
-      return $this->hasMany(Peserta::class);
+    public function BiodataPeserta(){
+      return $this->hasMany(BiodataPeserta::class);
     }
 }

@@ -59,7 +59,7 @@ const TableMonitoringUser = ({ data }) => {
                     <td className="py-3 px-4">{user.sekolah}</td>
                     <td className="py-3 px-4">{user.provinsi}</td>
                     <td className="py-3 px-4">{user.kabupaten}</td>
-                    <td className="py-3 px-4">{user.pelatihan}</td>
+                    <td className="py-3 px-4">{user.pelatihan.name}</td>
                     <td className="py-3 px-4">
                       {user.formatted_periode_mulai}
                     </td>

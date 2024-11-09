@@ -32,6 +32,15 @@ class Petugas extends Authenticatable
     return $this->hasOne(DetailPetugas::class);
   }
 
+  public function biodataPesertaAsPetugas1()
+  {
+      return $this->hasMany(BiodataPeserta::class, 'petugas_id_1');
+  }
+
+  public function biodataPesertaAsPetugas2()
+  {
+      return $this->hasMany(BiodataPeserta::class, 'petugas_id_2');
+  }
   /**
    * The attributes that should be hidden for serialization.
    *

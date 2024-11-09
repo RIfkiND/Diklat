@@ -13,7 +13,7 @@ class MonitoringController extends Controller
 {
     public function Monitoring()
     {
-        $biodata_pesertas = BiodataPeserta::all()->map(function ($peserta) {
+        $biodata_pesertas = BiodataPeserta::with(["pelatihan"])->get()->map(function ($peserta) {
             $peserta->formatted_periode_mulai = Carbon::parse($peserta->periode_mulai)->format('Y-m-d');
             $peserta->formatted_periode_akhir = Carbon::parse($peserta->periode_akhir)->format('Y-m-d');
             return $peserta;
