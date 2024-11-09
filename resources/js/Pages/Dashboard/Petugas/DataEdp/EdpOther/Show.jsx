@@ -1,33 +1,35 @@
 import { React, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 
 const Show = () => {
+  const { selectedData } = usePage().props;
+
   const formFields = [
-    { label: "Nama", type: "text" },
-    { label: "Sekolah", type: "text" },
-    { label: "Kabupaten / Kota", type: "text" },
-    { label: "No Whatsapp", type: "text" },
-    { label: "Email", type: "text" },
+    { label: "Nama", value: selectedData.nama_responden },
+    { label: "Sekolah", value: selectedData.nama_institusi_sekolah },
+    { label: "Kabupaten / Kota", value: selectedData.kabupaten_kota },
+    { label: "No Whatsapp", value: selectedData.no_whatsapp },
+    { label: "Email", value: selectedData.email },
   ];
 
   const kegiatan = [
     {
       title: "Tamatan Pelatihan",
-      desk: "Membuat Perusaan Yang berfokus pada bidang teknologi",
+      desk: selectedData.nama_tamatan_pelatihan,
     },
     {
       title: "Pelatihan Yang DIikuti",
-      desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos? Exercitationem minima natus molestiae blanditiis dolor. ",
+      desk: selectedData.nama_jenis_pelatihan,
     },
     {
       title: "Tanggal Dimulai",
-      desk: "10/2/2024",
+      desk: selectedData.formatted_tanggal_dimulai,
     },
     {
       title: "Tanggal Selesai",
-      desk: "10/4/2024",
+      desk: selectedData.formatted_tanggal_selesai,
     },
   ];
 
@@ -37,16 +39,16 @@ const Show = () => {
       body: [
         {
           title: "Adanya Dokumen / Rencana Program Pengimbasan",
-          desk: "YA",
+          desk: selectedData.adanya_dokumen ? "YA" : "TIDAK",
         },
         {
           title: "Kesesuaian Program Pengimbasan dengan Materi Pelatihan",
-          desk: "YA",
+          desk: selectedData.kesesuaian_program ? "YA" : "TIDAK",
         },
         {
           title:
             "Adanya Dukungan Pihak terkait dalam Penyusunan Program Pengimbasan",
-          desk: "YA",
+          desk: selectedData.adanya_dukungan ? "YA" : "TIDAK",
         },
       ],
     },
@@ -55,15 +57,15 @@ const Show = () => {
       body: [
         {
           title: "Ada Jadwal dengan Pelaksanaan Pengimbasan",
-          desk: "YA",
+          desk: selectedData.adanya_jadwal_pelaksanaan ? "YA" : "TIDAK",
         },
         {
           title: "Dukungan Pihak Terkait dalam Pelaksanaan Pengimbasan",
-          desk: "YA",
+          desk: selectedData.dukungan_pihak_terkait ? "YA" : "TIDAK",
         },
         {
           title: "Ketersediaan Perangkat dan Fasilitas Pengimbasan",
-          desk: "YA",
+          desk: selectedData.ketersidaan_perangkat_fasilitas ? "YA" : "TIDAK",
         },
       ],
     },
@@ -76,15 +78,15 @@ const Show = () => {
       body: [
         {
           title: "Adanya Silabus / RPP / Modul Ajar",
-          desk: "YA",
+          desk: selectedData.adanya_silabus ? "YA" : "TIDAK",
         },
         {
           title: "Adanya Bahan Ajar / Media Pembelajaran",
-          desk: "YA",
+          desk: selectedData.adanya_bahan_ajar ? "YA" : "TIDAK",
         },
         {
           title: "Adanya Lembar Evaluasi / Asesmen Hasil Belajar",
-          desk: "YA",
+          desk: selectedData.adanya_lembar_evaluasi ? "YA" : "TIDAK",
         },
       ],
     },
@@ -93,53 +95,57 @@ const Show = () => {
       body: [
         {
           title: "Kesesuaian Metode Dengan Materi",
-          desk: "YA",
+          desk: selectedData.kesesuaian_metode_materi ? "YA" : "TIDAK",
         },
         {
           title: "Meningkatkan Interaksi Pembelajaran",
-          desk: "YA",
+          desk: selectedData.meningkatkan_interaksi ? "YA" : "TIDAK",
         },
         {
           title:
             "Melakukan Kegiatan Pra Pembelajaran ( Kesiapan Ruang, Alat / Media Dan Siswa )",
-          desk: "YA",
+          desk: selectedData.melakukan_kegiatan_pra_pembelajaran
+            ? "YA"
+            : "TIDAK",
         },
         {
           title:
             "Melaksanakan Pembelajaran Sesuai Kompetensi Dan Waktu Yang Akan Dicapai",
-          desk: "YA",
+          desk: selectedData.melaksanakan_pemebelajaran ? "YA" : "TIDAK",
         },
         {
           title:
             "Menggunakan keterampilan untuk memelihara dan meningkatkan interaksi pembelajaran secara individu dan Memanfaatkan sumber / dan media dalam pembelajaran",
-          desk: "YA",
+          desk: selectedData.menggunakan_keterampilan ? "YA" : "TIDAK",
         },
         {
           title: "Melaksanakan refleksi dengan melibatkan siswa",
-          desk: "YA",
+          desk: selectedData.melaksanakan_refleksi ? "YA" : "TIDAK",
         },
         {
           title: "Melakukan tindak lanjut pembelajaran dengan tugas pengayaan",
-          desk: "YA",
+          desk: selectedData.melakukan_tindak_lanjut ? "YA" : "TIDAK",
         },
       ],
+    },
+    {
       header: "Pelaksanaan Evaluasi Pembelajaran",
       body: [
         {
           title: "Kesesuaian pelaksanaan evaluasi dengan disain",
-          desk: "YA",
+          desk: selectedData.kesesuaian_pelaksanaan_evaluasi ? "YA" : "TIDAK",
         },
         {
           title: "Adanya nilai hasil belajar",
-          desk: "YA",
+          desk: selectedData.adanya_nilai_hasil_belajar ? "YA" : "TIDAK",
         },
         {
           title: "Adanya analisis hasil belajar",
-          desk: "YA",
+          desk: selectedData.adanya_analisis_belajar ? "YA" : "TIDAK",
         },
         {
           title: "Adanya program tindak lanjut",
-          desk: "YA",
+          desk: selectedData.adanyan_program_tindak_lanjut ? "YA" : "TIDAK",
         },
       ],
     },
@@ -151,16 +157,18 @@ const Show = () => {
       body: [
         {
           title: "Adanya Program Pengembangan diri",
-          desk: "YA",
+          desk: selectedData.adanya_program_pengembangan_diri ? "YA" : "TIDAK",
         },
         {
           title:
             "Adanya proposal pembuatan Karya Tulis Ilmiah / Inovatif / bukti karya",
-          desk: "YA",
+          desk: selectedData.adanya_proposal_pembuatan_karya_tulis
+            ? "YA"
+            : "TIDAK",
         },
         {
           title: "Adanya dukungan pihak terkait",
-          desk: "YA",
+          desk: selectedData.adanya_dukungan_pihak_terkait ? "YA" : "TIDAK",
         },
       ],
     },
@@ -169,23 +177,26 @@ const Show = () => {
       body: [
         {
           title: "Adanya Laporan Pelaksanaan Program Pengembangan Diri",
-          desk: "YA",
+          desk: selectedData.adanya_laporan_pelaksanaan_program
+            ? "YA"
+            : "TIDAK",
         },
         {
           title: "Adanya Karya Tulis Ilmiah",
-          desk: "YA",
+          desk: selectedData.adanya_karya_tulis_ilmiah ? "YA" : "TIDAK",
         },
         {
           title: "Adanya Karya Inovatif",
-          desk: "YA",
+          desk: selectedData.adanya_karya_inovatif ? "YA" : "TIDAK",
         },
       ],
     },
   ];
+
   const saranDanMasukan = [
     {
       header: "Saran Dan Masukan",
-      desk: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatum perferendis distinctio doloribus dolore excepturi voluptates fugit, quisquam voluptatem expedita consequatur sit quam tenetur. Veritatis necessitatibus numquam quos distinctio, nostrum delectus!",
+      desk: selectedData.saran_masukan,
     },
   ];
 
@@ -228,7 +239,8 @@ const Show = () => {
                   {field.label}
                 </p>
                 <input
-                  type={field.type}
+                  type="text"
+                  value={field.value}
                   disabled
                   className="rounded-lg text-sm text-textPrimary scrollbar-none bg-slate-50 border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 />

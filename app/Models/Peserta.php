@@ -51,10 +51,10 @@ class Peserta extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function biodataPeserta()
-    {
-        return $this->hasOne(BiodataPeserta::class);
-    }
+    // public function biodataPeserta()
+    // {
+    //     return $this->hasOne(BiodataPeserta::class);
+    // }
 
     public function peserta()
     {
@@ -67,5 +67,9 @@ class Peserta extends Authenticatable
     }
     public function pelatihan(){
       return $this->belongsTo(Pelatihan::class);
+    }
+    public function biodataPeserta()
+    {
+        return $this->hasOne(BiodataPeserta::class, 'peserta_id');
     }
   }

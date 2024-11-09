@@ -39,7 +39,7 @@ class PetugasController extends Controller
   }
   public function PetugasReportPengolahanEdp()
   {
-    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
+  return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
   }
   public function PetugasReportPengolahanEdpSlug()
   {
