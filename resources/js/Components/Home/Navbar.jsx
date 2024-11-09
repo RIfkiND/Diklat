@@ -25,6 +25,7 @@ const Navbar = () => {
   const [dropOpen, setDropOpen] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [dropOpenMobile, setDropOpenMobile] = useState(false);
+  const [dropAuth, setDropAuth] = useState(false);
 
   return (
     <header className="w-full flex items-center justify-between">
@@ -48,14 +49,64 @@ const Navbar = () => {
 
       <div className="hidden md:block">
         {auth.user ? (
-          <div className="flex items-center gap-5">
-            <span className="text-primary font-medium">{auth.user.name}</span>
+          <div className="flex items-center gap-5 relative">
             <button
-              onClick={handleLogout}
-              className="text-primary hover:text-white border border-primary px-4 py-2 rounded-xl transition-all duration-300 ease-in-out hover:bg-primary"
+              className="gap-5 flex items-center"
+              onClick={() => setDropAuth(!dropAuth)}
             >
-              Logout
+              <span className="text-primary font-medium">{auth.user.name}</span>
+              <IoIosArrowDown
+                className={`transition-transform duration-300 ease-in-out transform ${dropAuth ? "rotate-180" : "rotate-0"}`}
+              />
             </button>
+
+            {dropAuth && (
+              <div className="absolute top-7 left-[-10px] z-20 bg-white w-48 px-4 py-2 rounded-xl shadow-primaryshadow">
+                {auth.user.role === "peserta" ? (
+                  <div className="flex gap-2 flex-col">
+                    <Link
+                      href={route("user.dashboard")}
+                      className="transition-all duration-300 ease-in-out hover:text-primary"
+                    >
+                      Dashboard Peserta
+                    </Link>
+                    <Link
+                      href={route("form-edp.link")}
+                      className="transition-all duration-300 ease-in-out hover:text-primary"
+                    >
+                      Send Link EDP
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className=" transition-all duration-300 ease-in-out text-left"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href={route("petugas.monitoring-peserta")}
+                      className="transition-all duration-300 ease-in-out hover:text-primary"
+                    >
+                      Dashboard Petugas
+                    </Link>
+                    <Link
+                      href={route("form-edp.link")}
+                      className="transition-all duration-300 ease-in-out hover:text-primary"
+                    >
+                      Send Link EDP
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className=" transition-all duration-300 ease-in-out hover:text-primary text-left"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div
@@ -108,15 +159,52 @@ const Navbar = () => {
             ))}
             {auth.user ? (
               <div className="px-4 py-2">
-                <span className="block text-slate-700 font-medium">
+                <span className="block text-slate-700 font-medium mb-4">
                   {auth.user.name}
                 </span>
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left py-2 text-slate-700 hover:text-primary transition-all duration-300 ease-in-out"
-                >
-                  Logout
-                </button>
+                {auth.user.role === "peserta" ? (
+                  <div className="flex gap-2 flex-col">
+                    <Link
+                      href={route("user.dashboard")}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary  transition-all duration-300 ease-in-out"
+                    >
+                      Dashboard Peserta
+                    </Link>
+                    <Link
+                      href={route("form-edp.link")}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out"
+                    >
+                      Send Link EDP
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out text-left"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href={route("petugas.monitoring-peserta")}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out"
+                    >
+                      Dashboard Petugas
+                    </Link>
+                    <Link
+                      href={route("form-edp.link")}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out"
+                    >
+                      Send Link EDP
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out text-left"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div
