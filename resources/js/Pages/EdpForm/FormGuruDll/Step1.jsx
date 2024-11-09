@@ -1,6 +1,7 @@
 import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 import Select from "react-select";
+import { Head } from "@inertiajs/react";
 
 const Step1 = ({ nextStep, handleChange, values }) => {
   const identitasResponden = [
@@ -69,6 +70,7 @@ const Step1 = ({ nextStep, handleChange, values }) => {
 
   return (
     <div className="w-full max-w-[700px] mx-auto h-full p-5">
+      <Head title="Form Edp" />
       <div className="w-full h-[150px] bg-primary rounded-xl relative overflow-hidden pt-5 pl-5">
         <div>
           <p className="text-2xl font-bold text-white">
