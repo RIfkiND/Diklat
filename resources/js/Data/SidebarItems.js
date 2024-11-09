@@ -23,7 +23,17 @@ export const getNavItems = (role) => {
           {
             name: "Data EDP",
             icon: "TbAutomaticGearbox",
-            path: "/dashboard/petugas/data-edp",
+            hasDropdown: true,
+            items: [
+              {
+                name: "EDP Peserta",
+                path: "/dashboard/petugas/edp/edp-peserta",
+              },
+              {
+                name: "EDP Kolega, Pimpinan, Guru",
+                path: "/dashboard/petugas/edp/edp-other",
+              },
+            ],
           },
           {
             name: "Report",

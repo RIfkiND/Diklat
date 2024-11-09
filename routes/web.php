@@ -29,7 +29,7 @@ Route::get('/', function () {
   return Inertia::render('Landingpage/Landingpage');
 })->name('landingpage');
 
-Route::post('send/email',[EmailController::class,'SendEmail'])->name('send.email');
+Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.email');
 
 
 require __DIR__ . '/Auth/auth.php';

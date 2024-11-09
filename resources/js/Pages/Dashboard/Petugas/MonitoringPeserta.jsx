@@ -9,7 +9,7 @@ import { FaEye } from "react-icons/fa";
 import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 
-const MonitoringPeserta = () => {
+const MonitoringPeserta = ({ biodata }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
