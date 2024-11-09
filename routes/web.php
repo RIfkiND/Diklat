@@ -29,7 +29,24 @@ Route::get('/', function () {
   return Inertia::render('Landingpage/Landingpage');
 })->name('landingpage');
 
-Route::post('send/email',[EmailController::class,'SendEmail'])->name('send.email');
+Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.email');
+
+
+// edp
+
+Route::get('/dashboard/petugas/edp/edp-peserta', function () {
+  return Inertia::render('Dashboard/Petugas/DataEdp/EdpSiswa/Index');
+});
+Route::get('/dashboard/petugas/edp/edp-peserta/show', function () {
+  return Inertia::render('Dashboard/Petugas/DataEdp/EdpSiswa/Show');
+})->name('petugas.dataedp-edp-siswa.show');
+
+Route::get('/dashboard/petugas/edp/edp-other', function () {
+  return Inertia::render('Dashboard/Petugas/DataEdp/EdpOther/Index');
+});
+Route::get('/dashboard/petugas/edp/edp-other/show', function () {
+  return Inertia::render('Dashboard/Petugas/DataEdp/EdpOther/Show');
+})->name('petugas.dataedp-edp-other.show');
 
 
 require __DIR__ . '/Auth/auth.php';

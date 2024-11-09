@@ -5,38 +5,103 @@ import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 import ModalViewPeserta from "@/Components/Ui/Modal/ModalViewPeserta";
 
-const ReportPage = () => {
+const Show = () => {
   const formFields = [
-    { label: "Nama", type: "text", width: "w-[23%]" },
-    { label: "Sekolah", type: "text", width: "w-[23%]" },
-    { label: "Provinsi", type: "text", width: "w-[23%]" },
-    { label: "Kabupaten", type: "text", width: "w-[23%]" },
+    { label: "Nama", type: "text" },
+    { label: "Sekolah", type: "text" },
+    { label: "Kabupaten / Kota", type: "text" },
+    { label: "No Whatsapp", type: "text" },
+    { label: "Email", type: "text" },
   ];
 
   const kegiatan = [
     {
-      title: "Nama Kegiatan",
+      title: "Tamatan Pelatihan",
       desk: "Membuat Perusaan Yang berfokus pada bidang teknologi",
     },
     {
-      title: "Tujuan",
+      title: "Pelatihan Yang DIikuti",
       desk: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, modi beatae iure porro, reiciendis molestiae earum qui, distinctio nostrum doloremque aliquam cumque ea quos? Exercitationem minima natus molestiae blanditiis dolor. ",
     },
     {
-      title: "Sasaran",
-      desk: "Guru Sejawat",
+      title: "Tanggal Dimulai",
+      desk: "10/2/2024",
     },
     {
-      title: "Metode",
-      desk: "Luring",
+      title: "Tanggal Selesai",
+      desk: "10/4/2024",
+    },
+  ];
+
+  const komponenPelaksanaanPembelajaran = [
+    {
+      header: "Tampilan Guru",
+      body: [
+        {
+          title: "Tampilan Menarik",
+          desk: "YA",
+        },
+        {
+          title: "Sabar",
+          desk: "YA",
+        },
+        {
+          title: "Tidak Pilih Kasih",
+          desk: "YA",
+        },
+      ],
     },
     {
-      title: "Tempat",
-      desk: "FastIncome",
+      header: "Komunikasi Dengan Siswa",
+      body: [
+        {
+          title: "Sering Membantu Siswa Dalam Kesulitan",
+          desk: "YA",
+        },
+        {
+          title: "Praktis Dalam Menjawab Pertanyaan",
+          desk: "YA",
+        },
+        {
+          title: "Memberikan Motivasi Untuk Maju",
+          desk: "YA",
+        },
+      ],
     },
     {
-      title: "Waktu Pelaksanaan",
-      desk: "20/4/2024",
+      header: "Pengelolaan Kelas",
+      body: [
+        {
+          title: "Pemberian Tugas Secara Jelas",
+          desk: "YA",
+        },
+        {
+          title: "Menciptakan Proses Pembelajaran Yang Menyenangkan",
+          desk: "YA",
+        },
+        {
+          title: "Tepat Waktu Masuk, Istirahat Dan Belajar",
+          desk: "YA",
+        },
+      ],
+    },
+    {
+      header: "Penguasaan Materi",
+      body: [
+        {
+          title: "Penyampaian Materi Mudah Dipahami",
+          desk: "YA",
+        },
+        {
+          title:
+            "Penggunaan Alat Pendukung / Media Dan Peralatan Pendukung Dalam Pembelajaran",
+          desk: "YA",
+        },
+        {
+          title: "Mengaitkan Materi Dengan Realitas Kehidupan",
+          desk: "YA",
+        },
+      ],
     },
   ];
 
@@ -93,7 +158,7 @@ const ReportPage = () => {
         </h2>
       }
     >
-      <Head title="Dashboard Report Data" />
+      <Head title="Dashboard Reporting Data RTL" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
         <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
@@ -112,14 +177,14 @@ const ReportPage = () => {
           </div>
         </div>
 
-        <div className="w-full col-span-12 lg:col-span-12 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
+        <div className="w-full h-full col-span-12 lg:col-span-12 row-span-6 shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
           <p className="text-2xl text-slate-500 font-bold">
             Data Profile Peserta
           </p>
 
-          <div className="flex min-w-[150px] items-center justify-between gap-8">
+          <div className="grid grid-cols-4 gap-5 w-full">
             {formFields.map((field, index) => (
-              <div key={index} className="w-[50%]">
+              <div key={index} className="col-span-2 md:col-span-1">
                 <p className="text-base text-textPrimary font-bold pl-1">
                   {field.label}
                 </p>
@@ -132,6 +197,7 @@ const ReportPage = () => {
             ))}
           </div>
         </div>
+
         <div className="w-full col-span-12 lg:col-span-6 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
           {kegiatan.map((item, index) => (
             <div className="" key={index}>
@@ -141,26 +207,26 @@ const ReportPage = () => {
           ))}
         </div>
         <div className="w-full col-span-12 lg:col-span-6 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col">
-          {dataRtl.map((item, index) => (
-            <div className="" key={index}>
-              <p className="text-primary font-semibold">{item.title}</p>
-              <p className="text-textPrimary font-semibold">{item.desk}</p>
-            </div>
-          ))}
-          {dataRtlBuktiDukung.map((item, index) => (
-            <div className="" key={index}>
-              <p className="text-primary font-semibold">{item.title}</p>
-              {item.title === "Link Foto" || item.title === "Link Video" ? (
-                <Link
-                  href={item.desk}
-                  target="_blank"
-                  className="text-blue-500 underline"
-                >
-                  {item.desk}
-                </Link>
-              ) : (
-                <p className="text-textPrimary font-semibold">{item.desk}</p>
-              )}
+          {komponenPelaksanaanPembelajaran.map((item, index) => (
+            <div key={index}>
+              <p className="text-primary font-semibold text-xl">
+                {item.header}
+              </p>
+
+              {item.body.map((bodyItem, bodyIndex) => (
+                <div key={bodyIndex} className="flex w-full p-2">
+                  <div className="flex-1 p-2 mr-2">
+                    <p className="text-slate-700 font-semibold">
+                      {bodyItem.title}
+                    </p>
+                  </div>
+                  <div className="flex-1 p-2">
+                    <p className="text-textPrimary font-semibold">
+                      {bodyItem.desk}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -171,4 +237,4 @@ const ReportPage = () => {
   );
 };
 
-export default ReportPage;
+export default Show;

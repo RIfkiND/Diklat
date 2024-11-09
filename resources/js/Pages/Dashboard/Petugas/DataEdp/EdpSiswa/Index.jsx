@@ -8,14 +8,14 @@ import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 
-const DataEdp = () => {
+const Index = () => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
   const tableRef = useRef(null);
   const buttonRef = useRef(null);
 
   const handleShowData = () => {
     if (selectedRow !== null) {
-      router.visit(route("petugas.data-edp-show"));
+      router.visit(route("petugas.dataedp-edp-siswa.show"));
     }
   };
 
@@ -44,11 +44,13 @@ const DataEdp = () => {
         </h2>
       }
     >
-      <Head title="Dashboard Monitoring" />
+      <Head title="Dashboard Monitoring Edp Peserta" />
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 pb-12 w-full h-full grid grid-cols-12 gap-5">
         <div className="bg-indigo-400 text-white shadow-xl pt-5 px-5 col-span-12 row-span-2 rounded-2xl flex justify-between h-[150px] overflow-hidden">
           <div className="">
-            <p className="text-lg lg:text-2xl font-bold">Monitoring Data EDP</p>
+            <p className="text-lg lg:text-2xl font-bold">
+              Monitoring Data EDP Peserta
+            </p>
             <p className="text-base lg:text-sm text-slate-200">
               Pantau Perkembangan, Wujudkan Keberhasilan!
             </p>
@@ -81,10 +83,13 @@ const DataEdp = () => {
                     <th className="py-3 px-4">No</th>
                     <th className="py-3 px-4">Nama</th>
                     <th className="py-3 px-4">Sekolah</th>
-                    <th className="py-3 px-4">Provinsi</th>
-                    <th className="py-3 px-4">Kabupaten</th>
-                    <th className="py-3 px-4">Nama Pelatihan</th>
-                    <th className="py-3 px-4">Periode</th>
+                    <th className="py-3 px-4">Kabupaten / Kota</th>
+                    <th className="py-3 px-4">No Whatsapp</th>
+                    <th className="py-3 px-4">Email</th>
+                    <th className="py-3 px-4">Tamatan Pelatihan</th>
+                    <th className="py-3 px-4">Pelatihan Yang DIikuti</th>
+                    <th className="py-3 px-4">Tanggal Dimulai</th>
+                    <th className="py-3 px-4">Tanggal Selesai</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -97,12 +102,15 @@ const DataEdp = () => {
                       onClick={() => setSelectedRow(index)}
                     >
                       <td className="py-3 px-4">{index + 1}</td>
-                      <td className="py-3 px-4">Nama Contoh</td>
-                      <td className="py-3 px-4">Sekolah Contoh</td>
-                      <td className="py-3 px-4">Provinsi Contoh</td>
-                      <td className="py-3 px-4">Kabupaten Contoh</td>
-                      <td className="py-3 px-4">Pelatihan Contoh</td>
-                      <td className="py-3 px-4">2023</td>
+                      <td className="py-3 px-4">Novax</td>
+                      <td className="py-3 px-4">SMKN 1 Pluto</td>
+                      <td className="py-3 px-4">Ciamis</td>
+                      <td className="py-3 px-4">0858696969</td>
+                      <td className="py-3 px-4">Email@mail.com</td>
+                      <td className="py-3 px-4">Pembuatan Kaca Pasir</td>
+                      <td className="py-3 px-4">Pembuatan Kaca</td>
+                      <td className="py-3 px-4">12/3/2024</td>
+                      <td className="py-3 px-4">22/4/2024</td>
                     </tr>
                   ))}
                 </tbody>
@@ -133,4 +141,4 @@ const DataEdp = () => {
   );
 };
 
-export default DataEdp;
+export default Index;

@@ -4,11 +4,13 @@ import Hero from "@/Components/Home/Hero";
 import Navbar from "@/Components/Home/Navbar";
 import Services from "@/Components/Home/Services";
 import Circle from "@/Components/Image/Circle";
+import { Head } from "@inertiajs/react";
 import React from "react";
 
 const Landingpage = () => {
   return (
     <div className="overflow-x-hidden w-screen relative">
+      <Head title="Home" />
       <Circle className="absolute top-[-40rem] left-[-20rem] z-[-999] opacity-50" />
       <Circle className="absolute top-[35rem] right-[-25rem] z-[-999] opacity-70" />
       <Circle className="absolute top-[75rem] left-[-20rem] z-[-999] opacity-60" />

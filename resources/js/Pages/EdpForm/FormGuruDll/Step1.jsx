@@ -1,18 +1,33 @@
 import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
+import Select from "react-select";
+import { Head } from "@inertiajs/react";
 
 const Step1 = ({ nextStep, handleChange, values }) => {
   const identitasResponden = [
     {
       title: "Nama Responden",
-      type: "text",
+      type: "select",
       name: "nama_responden",
-      isDropdown: false,
+      options: [
+        { value: "1", label: "Kikun Berulah" },
+        { value: "2", label: "Royhan mc cool" },
+        { value: "3", label: "Bambang" },
+        { value: "4", label: "Kepo" },
+      ],
     },
     {
       title: "Jabatan Responden",
       name: "jabatan_responden",
-      isDropdown: true,
+      type: "select",
+      options: [
+        {
+          value: "1",
+          label: "Guru Kolega / Teman Sejawat",
+        },
+        { value: "2", label: " Guru Tamatan Pelatihan" },
+        { value: "3", label: " Pimpinan / Kepala Sekolah" },
+      ],
     },
     {
       title: "Nama Institusi / Sekolah",
@@ -55,6 +70,7 @@ const Step1 = ({ nextStep, handleChange, values }) => {
 
   return (
     <div className="w-full max-w-[700px] mx-auto h-full p-5">
+      <Head title="Form Edp" />
       <div className="w-full h-[150px] bg-primary rounded-xl relative overflow-hidden pt-5 pl-5">
         <div>
           <p className="text-2xl font-bold text-white">
@@ -80,24 +96,26 @@ const Step1 = ({ nextStep, handleChange, values }) => {
           {identitasResponden.map((field, index) => (
             <div key={index} className="space-y-2">
               <p className="text-slate-700 font-bold">{field.title}</p>
-              {field.isDropdown ? (
-                <select
+              {field.type === "select" ? (
+                <Select
                   name={field.name}
-                  value={values[field.name] || ""}
-                  onChange={handleChange}
-                  className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-                >
-                  <option value="">Pilih</option>
-                  <option value="Guru Kolega / Teman Sejawat">
-                    Guru Kolega / Teman Sejawat
-                  </option>
-                  <option value="Guru Tamatan Pelatihan">
-                    Guru Tamatan Pelatihan
-                  </option>
-                  <option value="Pimpinan / Kepala Sekolah">
-                    Pimpinan / Kepala Sekolah
-                  </option>
-                </select>
+                  placeholder={`Pilih ${field.title}`}
+                  options={field.options || []}
+                  value={
+                    field.options
+                      ? field.options.find(
+                          (option) => option.value === values[field.name],
+                        )
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleChange({
+                      target: { name: field.name, value: selectedOption.value },
+                    })
+                  }
+                  isSearchable // Optional, allows searching in dropdown
+                  classNamePrefix="react-select"
+                />
               ) : (
                 <input
                   name={field.name}

@@ -26,7 +26,7 @@ export default function Login({ status }) {
       <div className="h-1/4 w-full bg-primary absolute z-10"></div>
       <div className="z-50 relative flex h-screen w-screen items-center overflow-hidden px-2">
         <div className="relative flex grow md:grow-0 w-[60%] flex-col space-y-5 rounded-lg border bg-white px-10 py-16 shadow-primaryshadow sm:mx-auto">
-          <Head title="Log in" />
+          <Head title="Login Admin" />
 
           {status && (
             <div className="mb-4 text-sm font-medium text-green-600">

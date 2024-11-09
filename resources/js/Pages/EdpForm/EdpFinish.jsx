@@ -1,9 +1,11 @@
 import MonitorIlustration from "@/Components/Image/MonitorIlustration";
+import { Head } from "@inertiajs/react";
 import React from "react";
 
 const EdpFinish = () => {
   return (
     <div className="w-full max-w-[700px] mx-auto h-full p-5">
+      <Head title="Form Evaluasi" />
       <div className="w-full h-[150px] bg-primary rounded-xl relative overflow-hidden pt-5 pl-5">
         <div>
           <p className="text-2xl font-bold text-white">

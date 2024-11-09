@@ -12,7 +12,7 @@ import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 export default function EditData() {
   return (
     <AuthenticatedLayout>
-      <Head title="User" />
+      <Head title="Edit User" />
 
       <DashboardLayout>
         <div className="p-4">
