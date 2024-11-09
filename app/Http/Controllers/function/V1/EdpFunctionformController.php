@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Log;
 class EdpFunctionformController extends Controller
 {
     public function EdpPostSiswa(EdpformRequest $request){
-    
+
 
     Edp::create($request->validated());
-    return redirect()->route('form-edp.siswa')->with('success', 'Edp Berhasil Ditambahkan');
+    return redirect('/')->with('success', 'Edp Berhasil Ditambahkan');
     }
 
     public function EdpPostOther(EdpOtherFormRequet $request){
@@ -24,7 +24,7 @@ class EdpFunctionformController extends Controller
 
       EdpOther::create($request->validated());
 
-      return redirect()->route('form-edp.siswa')->with('success', 'Edp Berhasil Ditambahkan');
+      return redirect('/')->with('success', 'Edp Berhasil Ditambahkan');
     }
 
 

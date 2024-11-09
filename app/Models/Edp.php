@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Edp extends Model
 {
   protected $fillable = [
-    'peserta_id',
+    'nama_responden',
     'nama_institusi_sekolah',
     'kabupaten_kota',
     'no_whatsapp',

@@ -7,14 +7,14 @@ const Step1 = ({ nextStep, handleChange, values }) => {
   const identitasResponden = [
     {
       title: "Nama Responden",
-      type: "select",
+      type: "text",
       name: "nama_responden",
-      options: [
-        { value: "1", label: "Kikun Berulah" },
-        { value: "2", label: "Royhan mc cool" },
-        { value: "3", label: "Bambang" },
-        { value: "4", label: "Kepo" },
-      ],
+      // options: [
+      //   { value: "1", label: "Kikun Berulah" },
+      //   { value: "2", label: "Royhan mc cool" },
+      //   { value: "3", label: "Bambang" },
+      //   { value: "4", label: "Kepo" },
+      // ],
     },
     {
       title: "Jabatan Responden",
@@ -22,11 +22,14 @@ const Step1 = ({ nextStep, handleChange, values }) => {
       type: "select",
       options: [
         {
-          value: "1",
+          value: "Guru Kolega / Teman Sejawa",
           label: "Guru Kolega / Teman Sejawat",
         },
-        { value: "2", label: " Guru Tamatan Pelatihan" },
-        { value: "3", label: " Pimpinan / Kepala Sekolah" },
+        { value: "Guru Tamatan Pelatihan", label: " Guru Tamatan Pelatihan" },
+        {
+          value: " Pimpinan / Kepala Sekolah",
+          label: " Pimpinan / Kepala Sekolah",
+        },
       ],
     },
     {

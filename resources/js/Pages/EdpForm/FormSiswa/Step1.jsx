@@ -1,20 +1,20 @@
 import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
-import Select from "react-select";
+// import Select from "react-select";
 import { Head } from "@inertiajs/react";
 
 const Step1 = ({ nextStep, handleChange, values, errors }) => {
   const identitasResponden = [
     {
       title: "Nama Responden",
-      type: "select",
+      type: "text",
       name: "nama_responden",
-      options: [
-        { value: "1", label: "Kikun Berulah" },
-        { value: "2", label: "Royhan mc cool" },
-        { value: "3", label: "Bambang" },
-        { value: "4", label: "Kepo" },
-      ],
+      // options: [
+      //   { value: "1", label: "Kikun Berulah" },
+      //   { value: "2", label: "Royhan mc cool" },
+      //   { value: "3", label: "Bambang" },
+      //   { value: "4", label: "Kepo" },
+      // ],
     },
     {
       title: "Nama Institusi / Sekolah",
@@ -88,43 +88,21 @@ const Step1 = ({ nextStep, handleChange, values, errors }) => {
           {identitasResponden.map((field, index) => (
             <div key={index} className="space-y-2">
               <p className="text-slate-700 font-bold">{field.title}</p>
-              {field.type === "select" ? (
-                <Select
+              <div>
+                <input
                   name={field.name}
-                  placeholder={`Pilih ${field.title}`}
-                  options={field.options || []}
-                  value={
-                    field.options
-                      ? field.options.find(
-                          (option) => option.value === values[field.name],
-                        )
-                      : null
-                  }
-                  onChange={(selectedOption) =>
-                    handleChange({
-                      target: { name: field.name, value: selectedOption.value },
-                    })
-                  }
-                  isSearchable // Optional, allows searching in dropdown
-                  classNamePrefix="react-select"
+                  type={field.type || "text"}
+                  value={values[field.name] || ""}
+                  onChange={handleChange}
+                  className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 />
-              ) : (
-                <div>
-                  <input
-                    name={field.name}
-                    type={field.type || "text"}
-                    value={values[field.name] || ""}
-                    onChange={handleChange}
-                    className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
-                  />
-                  {/* Display error if it exists */}
-                  {errors[field.name] && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors[field.name]}
-                    </p>
-                  )}
-                </div>
-              )}
+                {/* Display error if it exists */}
+                {errors[field.name] && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors[field.name]}
+                  </p>
+                )}
+              </div>
             </div>
           ))}
         </div>

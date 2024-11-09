@@ -25,7 +25,7 @@ class EdpOtherFormRequet extends FormRequest
       'nama_responden' => 'required|string|max:255',
       'nama_institusi_sekolah' => 'required|string|max:255',
       'kabupaten_kota' => 'required|string|max:255',
-      'no_whatsapp' => 'required|unique:edp_others,no_whatsapp,NULL,id,deleted_at,NULL',
+      'no_whatsapp' => 'required|numeric',
       'nama_tamatan_pelatihan' => 'required|string|max:255',
       'nama_jenis_pelatihan' => 'required|string|max:255',
       'jabatan_responden' => 'required|string|max:255',

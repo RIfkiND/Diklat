@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_responden');
               $table->string('nama_institusi_sekolah');
               $table->string('kabupaten_kota');
-              $table->string('no_whatsapp')->unique();
+              $table->string('no_whatsapp');
               $table->string('nama_tamatan_pelatihan');
               $table->string('nama_jenis_pelatihan');
               $table->string('jabatan_responden');
