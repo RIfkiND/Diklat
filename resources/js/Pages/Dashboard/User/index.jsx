@@ -30,6 +30,36 @@ export default function UserDashboard({ petugas, pelatihans }) {
   const [showPreview, setShowPreview] = useState(false); // For preview biodata
   const [showBiodata, setShowBiodata] = useState(true); // For biodata form
 
+
+
+  useEffect(() => {
+    if (auth.peserta?.biodata) {
+      const biodata = auth.peserta.biodata;
+      setData(biodata); // Populate the form with existing biodata
+
+      // Fetch districts based on the selected province
+      const selectedProvinceId = biodata.provinsi; // Assuming this is the ID of the province
+      const fetchDistricts = async (provinceId) => {
+        try {
+          const response = await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+          );
+          const data = await response.json();
+          const districtNames = data.map((district) => ({
+            id: district.id,
+            name: district.name,
+          }));
+          setDistricts(districtNames); // Update districts state
+        } catch (error) {
+          console.error("Error fetching districts:", error);
+        }
+      };
+
+      // Call the fetchDistricts function with the selected province ID
+      fetchDistricts(selectedProvinceId);
+    }
+  }, [auth.peserta?.biodata]);
+
   // preview biodata
   const [previewBiodata, setPreviewBiodata] = useState({
     provinsi: "",
@@ -242,7 +272,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        {auth.peserta.biodata ? (
+        {auth.peserta?.biodata ? (
           <>
             {showBiodata && (
               <div className="p-4 mb-6">
