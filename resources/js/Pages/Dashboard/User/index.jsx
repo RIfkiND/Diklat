@@ -7,7 +7,7 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useForm } from "@inertiajs/react"; // Import useForm for form handling
+import { useForm, usePage } from "@inertiajs/react"; // Import useForm for form handling
 
 export default function UserDashboard({ petugas, pelatihans }) {
   // Biodata form state management
@@ -22,6 +22,8 @@ export default function UserDashboard({ petugas, pelatihans }) {
     petugas_id_2: "",
     periode_akhir: null,
   });
+
+  const { auth } = usePage().props;
 
   const [provinces, setProvinces] = useState([]); // For provinsi
   const [districts, setDistricts] = useState([]); // For kabupaten
@@ -240,80 +242,166 @@ export default function UserDashboard({ petugas, pelatihans }) {
       <Head title="Biodata User" />
 
       <DashboardLayout>
-        {showBiodata && (
-          <div className="p-4 mb-6">
-            <form onSubmit={submit} className="text-left">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Inputs.map((column, columnIndex) => (
-                  <div key={columnIndex}>
-                    {column.map((field) => (
-                      <div
-                        key={field.id}
-                        className="mb-4 col-span-2 md:col-span-1"
-                      >
-                        <InputLabel
-                          htmlFor={field.id}
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          {field.label}
-                        </InputLabel>
-                        {field.type === "date" ? (
-                          <DatePicker
-                            selected={data[field.name]}
-                            onChange={(date) =>
-                              handleDateChange(date, field.name)
-                            }
-                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                            placeholderText="Choose a date"
-                            dateFormat="dd/MM/yyyy"
-                          />
-                        ) : field.type === "select" ? (
-                          <select
-                            id={field.id}
-                            name={field.name}
-                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                            value={data[field.name] || ""}
-                            onChange={(e) => handleSelectChange(e, field.name)}
+        {auth.peserta.biodata ? (
+          <>
+            {showBiodata && (
+              <div className="p-4 mb-6">
+                <form onSubmit={submit} className="text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {Inputs.map((column, columnIndex) => (
+                      <div key={columnIndex}>
+                        {column.map((field) => (
+                          <div
+                            key={field.id}
+                            className="mb-4 col-span-2 md:col-span-1"
                           >
-                            <option value="" disabled>
-                              Pilih {field.label}
-                            </option>
-                            {field.options.map((option) => (
-                              <option
-                                key={option.id || option}
-                                value={option.id || option}
+                            <InputLabel
+                              htmlFor={field.id}
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              {field.label}
+                            </InputLabel>
+                            {field.type === "date" ? (
+                              <DatePicker
+                                selected={data[field.name]}
+                                onChange={(date) =>
+                                  handleDateChange(date, field.name)
+                                }
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                placeholderText="Choose a date"
+                                dateFormat="dd/MM/yyyy"
+                              />
+                            ) : field.type === "select" ? (
+                              <select
+                                id={field.id}
+                                name={field.name}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                value={data[field.name] || ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, field.name)
+                                }
                               >
-                                {option.name || option}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <TextInput
-                            id={field.id}
-                            type={field.type}
-                            name={field.name}
-                            value={data[field.name] || ""}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                            autoComplete={field.autoComplete}
-                          />
-                        )}
+                                <option value="" disabled>
+                                  Pilih {field.label}
+                                </option>
+                                {field.options.map((option) => (
+                                  <option
+                                    key={option.id || option}
+                                    value={option.id || option}
+                                  >
+                                    {option.name || option}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <TextInput
+                                id={field.id}
+                                type={field.type}
+                                name={field.name}
+                                value={data[field.name] || ""}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                autoComplete={field.autoComplete}
+                              />
+                            )}
+                          </div>
+                        ))}
                       </div>
                     ))}
-                  </div>
-                ))}
 
-                <div className="col-span-1 md:col-span-2 flex justify-center">
-                  <PrimaryButton
-                    className="w-full max-w-xl flex items-center justify-center"
-                    type="submit"
-                  >
-                    Submit
-                  </PrimaryButton>
-                </div>
+                    <div className="col-span-1 md:col-span-2 flex justify-center">
+                      <PrimaryButton
+                        className="w-full max-w-xl flex items-center justify-center"
+                        type="submit"
+                      >
+                        Edit
+                      </PrimaryButton>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
+            )}
+          </>
+        ) : (
+          <>
+            {showBiodata && (
+              <div className="p-4 mb-6">
+                <form onSubmit={submit} className="text-left">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {Inputs.map((column, columnIndex) => (
+                      <div key={columnIndex}>
+                        {column.map((field) => (
+                          <div
+                            key={field.id}
+                            className="mb-4 col-span-2 md:col-span-1"
+                          >
+                            <InputLabel
+                              htmlFor={field.id}
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              {field.label}
+                            </InputLabel>
+                            {field.type === "date" ? (
+                              <DatePicker
+                                selected={data[field.name]}
+                                onChange={(date) =>
+                                  handleDateChange(date, field.name)
+                                }
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                placeholderText="Choose a date"
+                                dateFormat="dd/MM/yyyy"
+                              />
+                            ) : field.type === "select" ? (
+                              <select
+                                id={field.id}
+                                name={field.name}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                value={data[field.name] || ""}
+                                onChange={(e) =>
+                                  handleSelectChange(e, field.name)
+                                }
+                              >
+                                <option value="" disabled>
+                                  Pilih {field.label}
+                                </option>
+                                {field.options.map((option) => (
+                                  <option
+                                    key={option.id || option}
+                                    value={option.id || option}
+                                  >
+                                    {option.name || option}
+                                  </option>
+                                ))}
+                              </select>
+                            ) : (
+                              <TextInput
+                                id={field.id}
+                                type={field.type}
+                                name={field.name}
+                                value={data[field.name] || ""}
+                                onChange={handleInputChange}
+                                className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                autoComplete={field.autoComplete}
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+
+                    <div className="col-span-1 md:col-span-2 flex justify-center">
+                      <PrimaryButton
+                        className="w-full max-w-xl flex items-center justify-center"
+                        type="submit"
+                      >
+                        Submit
+                      </PrimaryButton>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )}
+          </>
         )}
 
         {/* Preview Biodata */}

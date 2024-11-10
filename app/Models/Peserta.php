@@ -57,7 +57,7 @@ class Peserta extends Authenticatable
 
   public function biodataPeserta()
   {
-    return $this->hasMany(BiodataPeserta::class);
+    return $this->hasOne(BiodataPeserta::class);
   }
   public function EdpOther(){
     return $this->hasMany(Edp::class);

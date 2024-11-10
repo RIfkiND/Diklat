@@ -35,12 +35,15 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $user ? [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'role' => $user instanceof \App\Models\Peserta ? 'peserta' :
-                             ($user instanceof \App\Models\Admin ? 'admin' : 'petugas')
-                ] : null,
+              'user' => $user ? [
+                  'id' => $user->id,
+                  'name' => $user->name,
+                  'role' => $user instanceof \App\Models\Peserta ? 'peserta' :
+                           ($user instanceof \App\Models\Admin ? 'admin' : 'petugas'),
+              ] : null,
+              'peserta' => $user instanceof \App\Models\Peserta ? [
+                'biodata' => $user-> biodataPeserta,
+              ] : null,
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

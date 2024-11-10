@@ -14,7 +14,7 @@ export default function DiklatRegister({ Rtl }) {
         <HeaderHome
           title={"Diklat Register"}
           description={
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quasi praesentium ea."
+            "Tempat Penginputan RTL"
           }
           content={"/images/ilustrasi/Monitor-bro.svg"}
         />
@@ -24,7 +24,9 @@ export default function DiklatRegister({ Rtl }) {
         <div className="p-4">
           <TableRtlUser data={Rtl} />
         </div>
-        <div className="flex justify-center">{/* <Pagination /> */}</div>
+        <div className="flex justify-center">
+          <Pagination paginateItems={Rtl}/>
+          </div>
       </DashboardLayout>
     </AuthenticatedLayout>
   );

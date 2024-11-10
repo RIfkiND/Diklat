@@ -4,7 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import MonitorIlustration from "@/Components/Image/MonitorIlustration";
 import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
-import { MdCancel } from "react-icons/md";
+
 import { FaEye } from "react-icons/fa";
 import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
@@ -34,11 +34,74 @@ const MonitoringPeserta = ({ biodata }) => {
 
   // Filter data based on the debounced search query
   const filteredData = biodata.data.filter((peserta) =>
-    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+    peserta.fullname.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
   );
 
   const handleSearchChange = (query) => {
-    setSearchQuery(query); // Update the search query state
+    setSearchQuery(query);
+  };
+
+  const [districts, setDistricts] = useState([]);
+  const [fetchingDistricts, setFetchingDistricts] = useState(false);
+  const [provinces, setProvinces] = useState([]);
+
+  // Fetch provinces once on mount
+  // Fetch provinces once on mount
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+        );
+        const data = await response.json();
+        setProvinces(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  // Fetch districts for a specific province ID if not already loaded
+  const fetchDistricts = async (provinceId) => {
+    if (!districts[provinceId] && !fetchingDistricts) {
+      setFetchingDistricts(true);
+      try {
+        const response = await fetch(
+          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
+        );
+        const data = await response.json();
+        setDistricts((prevDistricts) => ({
+          ...prevDistricts,
+          [provinceId]: data, // Cache districts by province ID
+        }));
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+      } finally {
+        setFetchingDistricts(false);
+      }
+    }
+  };
+
+  // Get province name by ID
+  const getProvinceName = (id) => {
+    const province = provinces.find((p) => p.id === String(id));
+    return province ? province.name : "Unknown Province";
+  };
+
+  // Get district name by ID and province ID
+  const getDistrictName = (provinceId, districtId) => {
+    if (!districts[provinceId]) {
+      fetchDistricts(provinceId); // Trigger fetch if not cached
+      return "Loading...";
+    }
+    const district = districts[provinceId].find(
+      (d) => d.id === String(districtId),
+    );
+    return district ? district.name : "Unknown District";
   };
 
   return (
@@ -68,7 +131,7 @@ const MonitoringPeserta = ({ biodata }) => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search onChange={handleSearchChange} />
+          <Search onSearchChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
             <FilterByStartTime />
             <FilterByEndTime />
@@ -104,32 +167,28 @@ const MonitoringPeserta = ({ biodata }) => {
                           {peserta.sekolah || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.provinsi || "tidak ada"}
+                          {getProvinceName(peserta.provinsi) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.kabupaten || "tidak ada"}
+                          {getDistrictName(
+                            peserta.provinsi,
+                            peserta.kabupaten,
+                          ) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.nama_petugas_pembimbing || "tidak ada"}
+                          {peserta.pelatihan.name || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
                           {peserta.periode_awal || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.available ? (
-                            <button
-                              onClick={handleView}
-                              className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                            >
-                              <FaEye className="text-xl text-teal-600" />
-                              <span className="text-sm">View</span>
-                            </button>
-                          ) : (
-                            <div className="flex items-center gap-3">
-                              <MdCancel className="text-xl text-red-500" />
-                              <span className="text-sm">Not Available</span>
-                            </div>
-                          )}
+                          <button
+                            onClick={handleView}
+                            className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
+                          >
+                            <FaEye className="text-xl text-teal-600" />
+                            <span className="text-sm">View</span>
+                          </button>
                         </td>
                       </tr>
                     ))

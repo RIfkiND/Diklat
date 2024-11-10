@@ -7,13 +7,28 @@ use App\Models\BiodataPeserta;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+
 
 class PetugasController extends Controller
 {
   public function Petugas()
   {
-    $biodata = BiodataPeserta::latest()->paginate(8);
-    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', compact('biodata'));
+    if (!Auth::guard('petugas')->check()) {
+      return redirect('/')->with('error', 'You must be logged in to view this page.');
+  }
+  $user = Auth::guard('petugas')->user();
+  $petugasId = $user->id;
+    
+    $biodata = BiodataPeserta::with(['petugas1', 'petugas2', 'pelatihan'])
+        ->where('petugas_id_1', $petugasId)
+        ->orWhere('petugas_id_2', $petugasId)
+        ->latest()
+        ->paginate(5);
+
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
+        'biodata' => $biodata
+    ]);
   }
 
   public function PetugasDataEdp()
