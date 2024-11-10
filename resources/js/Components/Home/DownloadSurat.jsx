@@ -47,7 +47,7 @@ const DownloadSurat = () => {
             </a>
           </div>
           <div
-            className={`duration-300 ease-in-out transition-all translate-x-[-200px] opacity-0 z-10 md:flex items-center gap-3 hidden ${openDrop ? "translate-x-9 opacity-100" : ""}`}
+            className={`duration-300 ease-in-out transition-all opacity-0 z-10 md:flex items-center gap-3 hidden pl-2 ${openDrop ? " opacity-100" : ""}`}
           >
             <a
               href="/pdf/Panduan Pendampingan RTL dan EDD 2024.pdf"
