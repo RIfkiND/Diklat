@@ -18,8 +18,8 @@ class EmailController extends Controller
       $sender = $request->input('email');
 
       Resend::emails()->send([
-          'from' => 'BMTI <BMTI@gmail.com>',
-          'to' => [$request->input('email')],
+        'from' => 'Acme <onboarding@resend.dev>',
+        'to' => [$request->input('email')],
           'subject' => 'Form Link',
           'html' => view('emails.form_link', ['formLink' => $formLink ,'sender'=> $sender])->render(),
       ]);
