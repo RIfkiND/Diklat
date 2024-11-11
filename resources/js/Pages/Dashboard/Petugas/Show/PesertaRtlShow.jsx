@@ -1,18 +1,81 @@
-import { React, useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 
-const PesertaRtlShow = () => {
+const PesertaRtlShow = ({ biodata }) => {
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState({});
+  const [fetchingDistricts, setFetchingDistricts] = useState(false);
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+        );
+        const data = await response.json();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  const fetchDistricts = async (provinceId) => {
+    if (!districts[provinceId] && !fetchingDistricts) {
+      setFetchingDistricts(true);
+      try {
+        const response = await fetch(
+          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
+        );
+        const data = await response.json();
+        setDistricts((prevDistricts) => ({
+          ...prevDistricts,
+          [provinceId]: data, // Cache districts by province ID
+        }));
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+      } finally {
+        setFetchingDistricts(false);
+      }
+    }
+  };
+
+  const getProvinceName = (id) => {
+    const province = provinces.find((p) => p.id === String(id));
+    return province ? province.name : "Unknown Province";
+  };
+
+  const getDistrictName = (provinceId, districtId) => {
+    if (!districts[provinceId]) {
+      fetchDistricts(provinceId); // Trigger fetch if not cached
+      return "Loading...";
+    }
+    const district = districts[provinceId].find(
+      (d) => d.id === String(districtId),
+    );
+    return district ? district.name : "Unknown District";
+  };
+
   const formFields = [
-    { label: "Nama", type: "text", width: "w-[23%]" },
-    { label: "Sekolah", type: "text", width: "w-[23%]" },
-    { label: "Provinsi", type: "text", width: "w-[23%]" },
-    { label: "Kabupaten", type: "text", width: "w-[23%]" },
+    { label: "Nama", type: "text", value: biodata.fullname },
+    { label: "Sekolah", type: "text", value: biodata.sekolah },
+    {
+      label: "Provinsi",
+      type: "text",
+      value: getProvinceName(biodata.provinsi),
+    },
+    {
+      label: "Kabupaten",
+      type: "text",
+      value: getDistrictName(biodata.provinsi, biodata.kabupaten),
+    },
   ];
 
-  // kegiatan
   const kegiatanLeft = [
     { title: "Tujuan", desk: "Lorem ipsum dolor sit amet." },
     { title: "sasaran", desk: "Lorem ipsum dolor sit amet." },
@@ -111,6 +174,7 @@ const PesertaRtlShow = () => {
                 </p>
                 <input
                   type={field.type}
+                  value={field.value}
                   disabled
                   className="rounded-lg text-sm text-textPrimary scrollbar-none bg-slate-50 border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
                 />
@@ -171,7 +235,11 @@ const PesertaRtlShow = () => {
 
             {/* RTL Section */}
             <div
-              className={`w-full col-span-12 lg:col-span-5 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col items-center space-y-1 ${item.rtl.length === 0 ? "opacity-50 cursor-pointer hover:opacity-100 transition-all duration-300" : ""}`}
+              className={`w-full col-span-12 lg:col-span-5 row-span-6 h-full shadow-primaryshadow p-5 rounded-xl gap-3 flex flex-col items-center space-y-1 ${
+                item.rtl.length === 0
+                  ? "opacity-50 cursor-pointer hover:opacity-100 transition-all duration-300"
+                  : ""
+              }`}
             >
               {/* Check if RTL data is empty */}
               {item.rtl.length === 0 ? (
@@ -262,7 +330,12 @@ const PesertaRtlShow = () => {
           </div>
         ))}
       </div>
-      {openModal && <ModalMonitoringPeserta onClose={handleCloseModal} />}
+      {openModal && (
+        <ModalMonitoringPeserta
+          onClose={handleCloseModal}
+          pesertaId={biodata.id}
+        />
+      )}
     </AuthenticatedLayout>
   );
 };

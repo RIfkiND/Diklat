@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Rtl;
 use App\Models\Peserta;
+use App\Models\Pelatihan;
+use App\Models\bukti_dukung;
+use App\Models\hasil_monitoring;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,11 +37,26 @@ class BiodataPeserta extends Model
       return $this->belongsTo(Petugas::class, 'petugas_id_1');
     }
 
-    public function pelatihan(){
-      return $this->belongsTo(Pelatihan::class);
+    public function pelatihan()
+    {
+        return $this->belongsTo(Pelatihan::class, 'pelatihan_id');
     }
     public function petugas2()
     {
-      return $this->belongsTo(Petugas::class, 'petugas_id_2');
+      return $this->belongsTo(Petugas::class, 'pwetugas_id_2');
+    }
+    public function rtls()
+    {
+        return $this->hasMany(Rtl::class, 'peserta_id');
+    }
+
+    public function hasilMonitorings()
+    {
+        return $this->hasMany(HasilMonitoring::class, 'peserta_id');
+    }
+
+    public function buktiDukungs()
+    {
+        return $this->hasMany(BuktiDukung::class, 'peserta_id');
     }
 }

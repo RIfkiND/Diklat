@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Peserta;
+use App\Models\BiodataPeserta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -49,5 +50,9 @@ class Rtl extends Model
     public function peserta()
     {
         return $this->belongsTo(Peserta::class, 'peserta_id');
+    }
+    public function biodataPeserta()
+    {
+        return $this->belongsTo(BiodataPeserta::class, 'peserta_id');
     }
 }

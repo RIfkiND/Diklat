@@ -4,7 +4,6 @@ import { Head, router } from "@inertiajs/react";
 import MonitorIlustration from "@/Components/Image/MonitorIlustration";
 import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
-
 import { FaEye } from "react-icons/fa";
 import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
@@ -13,9 +12,12 @@ const MonitoringPeserta = ({ biodata }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState({});
+  const [fetchingDistricts, setFetchingDistricts] = useState(false);
 
-  const handleView = () => {
-    router.visit(route("petugas.daftar-rtl-peserta"));
+  const handleView = (id) => {
+    router.visit(route("petugas.show-rtl-peserta", { id }));
   };
 
   useEffect(() => {
@@ -38,14 +40,9 @@ const MonitoringPeserta = ({ biodata }) => {
   );
 
   const handleSearchChange = (query) => {
-    setSearchQuery(query);
+    setSearchQuery(query); // Update the search query state
   };
 
-  const [districts, setDistricts] = useState([]);
-  const [fetchingDistricts, setFetchingDistricts] = useState(false);
-  const [provinces, setProvinces] = useState([]);
-
-  // Fetch provinces once on mount
   // Fetch provinces once on mount
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -55,10 +52,8 @@ const MonitoringPeserta = ({ biodata }) => {
         );
         const data = await response.json();
         setProvinces(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching provinces:", error);
-        setLoading(false);
       }
     };
 
@@ -131,7 +126,7 @@ const MonitoringPeserta = ({ biodata }) => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search onSearchChange={handleSearchChange} />
+          <Search onChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
             <FilterByStartTime />
             <FilterByEndTime />
@@ -176,14 +171,14 @@ const MonitoringPeserta = ({ biodata }) => {
                           ) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.pelatihan.name || "tidak ada"}
+                          {peserta.pelatihan || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.periode_awal || "tidak ada"}
+                          {peserta.periode_mulai || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
                           <button
-                            onClick={handleView}
+                            onClick={() => handleView(peserta.id)}
                             className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
                           >
                             <FaEye className="text-xl text-teal-600" />
