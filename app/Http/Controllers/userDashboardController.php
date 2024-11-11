@@ -44,4 +44,31 @@ class UserDashboardController extends Controller
       return back()->with('error', 'Gagal menambahkan biodata.');
     }
   }
+
+  public function updateBiodata(BiodataPesertaRequest $request): RedirectResponse
+{
+    $validatedData = $request->validated();
+
+    $user = Auth::user();
+    $peserta = Peserta::find($user?->id);
+
+    if (!$peserta) {
+        return back()->with('error', 'Peserta not found.');
+    }
+
+    $biodataPeserta = BiodataPeserta::where('peserta_id', $peserta->id)->first();
+
+    if (!$biodataPeserta) {
+        return back()->with('error', 'Biodata not found.');
+    }
+
+    try {
+        $biodataPeserta->update($validatedData);
+        return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil diperbarui.');
+    } catch (\Exception $e) {
+        Log::error('Failed to update biodata: ' . $e->getMessage());
+        return back()->with('error', 'Gagal memperbarui biodata.');
+    }
+}
+
 }
