@@ -12,6 +12,9 @@ const MonitoringPeserta = ({ biodata }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState({});
+  const [fetchingDistricts, setFetchingDistricts] = useState(false);
 
   const handleView = (id) => {
     router.visit(route("petugas.show-rtl-peserta", { id }));
@@ -38,6 +41,62 @@ const MonitoringPeserta = ({ biodata }) => {
 
   const handleSearchChange = (query) => {
     setSearchQuery(query); // Update the search query state
+  };
+
+  // Fetch provinces once on mount
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+        );
+        const data = await response.json();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  // Fetch districts for a specific province ID if not already loaded
+  const fetchDistricts = async (provinceId) => {
+    if (!districts[provinceId] && !fetchingDistricts) {
+      setFetchingDistricts(true);
+      try {
+        const response = await fetch(
+          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
+        );
+        const data = await response.json();
+        setDistricts((prevDistricts) => ({
+          ...prevDistricts,
+          [provinceId]: data, // Cache districts by province ID
+        }));
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+      } finally {
+        setFetchingDistricts(false);
+      }
+    }
+  };
+
+  // Get province name by ID
+  const getProvinceName = (id) => {
+    const province = provinces.find((p) => p.id === String(id));
+    return province ? province.name : "Unknown Province";
+  };
+
+  // Get district name by ID and province ID
+  const getDistrictName = (provinceId, districtId) => {
+    if (!districts[provinceId]) {
+      fetchDistricts(provinceId); // Trigger fetch if not cached
+      return "Loading...";
+    }
+    const district = districts[provinceId].find(
+      (d) => d.id === String(districtId),
+    );
+    return district ? district.name : "Unknown District";
   };
 
   return (
@@ -103,13 +162,16 @@ const MonitoringPeserta = ({ biodata }) => {
                           {peserta.sekolah || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.provinsi || "tidak ada"}
+                          {getProvinceName(peserta.provinsi) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.kabupaten || "tidak ada"}
+                          {getDistrictName(
+                            peserta.provinsi,
+                            peserta.kabupaten,
+                          ) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.pelatihan_name || "Tidak ada pelatihan"}
+                          {peserta.pelatihan || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
                           {peserta.periode_mulai || "tidak ada"}

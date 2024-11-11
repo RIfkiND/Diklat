@@ -170,12 +170,12 @@ const Navbar = () => {
                     >
                       Dashboard Peserta
                     </Link>
-                    <Link
+                    {/* <Link
                       href={route("form-edp.link")}
                       className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out"
                     >
                       Send Link EDP
-                    </Link>
+                    </Link> */}
                     <button
                       onClick={handleLogout}
                       className="block py-2 text-base font-medium text-slate-700 hover:text-primary transition-all duration-300 ease-in-out text-left"

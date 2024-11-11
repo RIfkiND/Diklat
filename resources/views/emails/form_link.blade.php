@@ -49,7 +49,7 @@
         .email-footer {
             text-align: center;
             padding: 10px;
-            background-color: #333;
+            background-color: #6366f1;
             color: #fff;
             font-size: 14px;
             border-radius: 8px;
@@ -58,8 +58,8 @@
         .btn {
             display: inline-block;
             padding: 10px 20px;
-            background-color: var(--primary); /* Menggunakan warna primary untuk tombol */
-            color: white;
+            background-color: #6366f1; /* Menggunakan warna primary untuk tombol */
+            color: #fff;
             text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
@@ -67,7 +67,7 @@
         }
 
         .btn:hover {
-            background-color: #5a5ce6; /* Warna hover sedikit lebih gelap */
+            background-color: #5a5ce6;
         }
     </style>
 </head>

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEllipsisV, FaEye, FaTrash } from "react-icons/fa"; // add faEdit
 import { MdCancel } from "react-icons/md";
-import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
-import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
+// import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
+// import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
 import Search from "@/Components/Ui/Input/Search";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 import Modal from "@/Components/Ui/Modal/Modal";
@@ -17,6 +17,30 @@ const TableRtlUser = ({ data }) => {
   const dropdownRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ismode, setIsMode] = useState("create");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
+
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  const filteredData = data.data.filter((Rtl) =>
+    Rtl.nama_kegiatan.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+  );
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+  };
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -53,10 +77,10 @@ const TableRtlUser = ({ data }) => {
   return (
     <div className="grid grid-cols-12 gap-5">
       <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-        <Search />
+        <Search onSearchChange={handleSearchChange}/>
         <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-          <FilterByStartTime />
-          <FilterByEndTime />
+          {/* <FilterByStartTime />
+          <FilterByEndTime /> */}
           <PrimaryButton
             className="w-full md:w-auto rounded-xl tracking-tight capitalize"
             onClick={() => {
@@ -94,7 +118,7 @@ const TableRtlUser = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((user, index) => (
+            {filteredData.map((user, index) => (
               <tr
                 key={user.id}
                 className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"

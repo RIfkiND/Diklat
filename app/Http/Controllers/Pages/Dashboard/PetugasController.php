@@ -9,16 +9,15 @@ use App\Models\bukti_dukung;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+
 
 class PetugasController extends Controller
 {
   public function Petugas()
   {
-    $biodata = BiodataPeserta::latest()->paginate(8);
-    return Inertia::render('Dashboard/Petugas/MonitoringPeserta',
-    [
-      'biodata' => $biodata
-    ]);
+    $biodata = BiodataPeserta::with('rtls')->latest()->paginate(5);
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', compact('biodata'));
   }
 
   public function PetugasDataEdp()
