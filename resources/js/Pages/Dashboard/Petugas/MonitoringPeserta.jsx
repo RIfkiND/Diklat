@@ -4,7 +4,6 @@ import { Head, router } from "@inertiajs/react";
 import MonitorIlustration from "@/Components/Image/MonitorIlustration";
 import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
-import { MdCancel } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
@@ -14,8 +13,8 @@ const MonitoringPeserta = ({ biodata }) => {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
 
-  const handleView = () => {
-    router.visit(route("petugas.daftar-rtl-peserta"));
+  const handleView = (id) => {
+    router.visit(route("petugas.show-rtl-peserta", { id }));
   };
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const MonitoringPeserta = ({ biodata }) => {
 
   // Filter data based on the debounced search query
   const filteredData = biodata.data.filter((peserta) =>
-    peserta.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
+    peserta.fullname.toLowerCase().includes(debouncedSearchQuery.toLowerCase()),
   );
 
   const handleSearchChange = (query) => {
@@ -110,26 +109,19 @@ const MonitoringPeserta = ({ biodata }) => {
                           {peserta.kabupaten || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.nama_petugas_pembimbing || "tidak ada"}
+                          {peserta.pelatihan_name || "Tidak ada pelatihan"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.periode_awal || "tidak ada"}
+                          {peserta.periode_mulai || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.available ? (
-                            <button
-                              onClick={handleView}
-                              className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                            >
-                              <FaEye className="text-xl text-teal-600" />
-                              <span className="text-sm">View</span>
-                            </button>
-                          ) : (
-                            <div className="flex items-center gap-3">
-                              <MdCancel className="text-xl text-red-500" />
-                              <span className="text-sm">Not Available</span>
-                            </div>
-                          )}
+                          <button
+                            onClick={() => handleView(peserta.id)}
+                            className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
+                          >
+                            <FaEye className="text-xl text-teal-600" />
+                            <span className="text-sm">View</span>
+                          </button>
                         </td>
                       </tr>
                     ))

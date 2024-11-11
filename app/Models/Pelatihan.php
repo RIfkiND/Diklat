@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\BiodataPeserta;
 use Illuminate\Database\Eloquent\Model;
 
 class Pelatihan extends Model
@@ -9,7 +10,8 @@ class Pelatihan extends Model
     protected $fillable =[
       'name'
     ];
-    public function BiodataPeserta(){
-      return $this->hasMany(BiodataPeserta::class);
+    public function biodataPesertas()
+    {
+        return $this->hasMany(BiodataPeserta::class, 'pelatihan_id');
     }
 }

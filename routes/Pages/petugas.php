@@ -6,19 +6,20 @@ use App\Http\Controllers\EdpPesertaController;
 use App\Http\Controllers\EdpDashboardController;
 use App\Http\Controllers\Pages\Dashboard\PetugasController;
 
-
 Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/monitoring-peserta', [PetugasController::class, 'Petugas'])->name('petugas.monitoring-peserta');
-    Route::get('/dashboard/petugas/monitoring-peserta/daftar-rtl', [PetugasController::class, 'PetugasDaftarRtlPeserta'])->name('petugas.daftar-rtl-peserta');
+    Route::get('/dashboard/petugas/monitoring-peserta/daftar-rtl', [PetugasController::class, 'index'])->name('petugas.daftar-rtl-peserta');
+    Route::get('/dashboard/petugas/monitoring-peserta/daftar-rtl/{id}', [PetugasController::class, 'show'])->name('petugas.show-rtl-peserta');
+    Route::post('/dashboard/petugas/monitoring-peserta/daftar-rtl/{id}/upload', [PetugasController::class, 'upload'])->name('petugas.upload-rtl-peserta');
     Route::get('/dashboard/petugas/data-edp', [PetugasController::class, 'PetugasDataEdp'])->name('petugas.data-edp');
     Route::get('/dashboard/petugas/data-edp/show', [PetugasController::class, 'PetugasDataEdpShow'])->name('petugas.data-edp-show');
 
     // Report
-    Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl', [PetugasController::class, "PetugasReportPendampinganRtl"])->name('Petugas.report-pendampingan-rtl');
-    Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl/slug', [PetugasController::class, "PetugasReportPendampinganRtlSlug"])->name('Petugas.report-pendampingan-rtl-slug');
+    Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl', [PetugasController::class, "PetugasReportPendampinganRtl"])->name('petugas.report-pendampingan-rtl');
+    Route::get('/dashboard/petugas/report/hasil-pendampingan-rtl/slug', [PetugasController::class, "PetugasReportPendampinganRtlSlug"])->name('petugas.report-pendampingan-rtl-slug');
 
-    Route::get('/dashboard/petugas/report/hasil-pengolahan-edp', [PetugasController::class, "PetugasReportPengolahanEdp"])->name('Petugas.report-pengolahan-edp');
-    Route::get('/dashboard/petugas/report/hasil-pengolahan-edp/slug', [PetugasController::class, "PetugasReportPengolahanEdpSlug"])->name('Petugas.report-pengolahan-edp-slug');
+    Route::get('/dashboard/petugas/report/hasil-pengolahan-edp', [PetugasController::class, "PetugasReportPengolahanEdp"])->name('petugas.report-pengolahan-edp');
+    Route::get('/dashboard/petugas/report/hasil-pengolahan-edp/slug', [PetugasController::class, "PetugasReportPengolahanEdpSlug"])->name('petugas.report-pengolahan-edp-slug');
 
     Route::get('/dashboard/petugas/edp/edp-peserta', [EdpPesertaController::class, 'renderEdpPeserta'])->name('petugas.dataedp-edp-siswa');
     Route::get('/dashboard/petugas/edp/edp-other', [EdpOtherController::class, 'renderEdpOther'])->name('petugas.dataedp-edp-other');

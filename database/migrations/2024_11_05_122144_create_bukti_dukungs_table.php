@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('daftar_hadir');
             $table->string('link_foto');
             $table->string('link_vidio');
-            $table->foreignIdFor(hasil_monitoring::class);  
+            $table->foreignIdFor(hasil_monitoring::class);
             $table->timestamps();
         });
     }
