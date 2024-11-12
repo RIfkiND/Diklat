@@ -209,14 +209,14 @@ const PesertaRtlShow = ({ biodata }) => {
         </div>
         <div className="w-full col-span-12 lg:col-span-12 row-span-6 justify-center rounded-xl gap-3 flex flex-col">
           <div className="grid grid-cols-10 gap-5">
-            <div className="col-span-5">
+            <div className="col-span-4 lg:col-span-3">
               <Search />
             </div>
-            <div className="col-span-3"></div>
+            <div className="col-span-1 lg:col-span-5"></div>
             <button
               ref={buttonRef}
               onClick={selectedItem !== null ? handleOpenModal : null}
-              className={`bg-primary text-white rounded-lg px-8 py-2 col-span-2 border border-primary transition-all duration-300 ${
+              className={`bg-primary text-white rounded-lg px-8 py-2 col-span-5 lg:col-span-2 border border-primary transition-all duration-300 ${
                 buttonTambah
                   ? "cursor-pointer hover:bg-white hover:text-primary"
                   : "cursor-not-allowed opacity-70"
@@ -234,7 +234,7 @@ const PesertaRtlShow = ({ biodata }) => {
               <div
                 onClick={() => handleSelection(index)}
                 ref={selectedItem === index ? containerRef : null}
-                className={`w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300 hover:bg-indigo-50 ${
+                className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300 hover:bg-indigo-50 ${
                   selectedItem === index ? "bg-indigo-50" : ""
                 }`}
               >
@@ -286,7 +286,7 @@ const PesertaRtlShow = ({ biodata }) => {
               {/*  */}
 
               <div
-                className={`w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300 ${
+                className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 ${
                   item.rtl.length === 0
                     ? "opacity-50 hover:opacity-100 transition-all duration-300"
                     : ""
