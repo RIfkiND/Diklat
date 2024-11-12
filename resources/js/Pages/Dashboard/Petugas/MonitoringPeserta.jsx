@@ -146,7 +146,7 @@ const MonitoringPeserta = ({ biodata }) => {
                     <th className="py-3 px-4">Kabupaten</th>
                     <th className="py-3 px-4">Nama Pelatihan</th>
                     <th className="py-3 px-4">Periode</th>
-                    <th className="py-3 px-4">Selengkapnya</th>
+                    <th className="py-3 px-4">Data RTL</th>
                   </tr>
                 </thead>
                 <tbody>
