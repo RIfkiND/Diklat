@@ -135,49 +135,12 @@ const TableRtlUser = ({ data }) => {
                   {available === "available" ? (
                     <>
                       <button
-                        className="py-3 px-4 flex items-center gap-3 hover:bg-slate-200 rounded-xl"
-                        onClick={() =>
-                          setOpenDropdown(
-                            openDropdown === user.id ? null : user.id,
-                          )
-                        }
-                      >
-                        <FaEllipsisV className="text-xl text-gray-600" />
-                      </button>
-                      {openDropdown === user.id && (
-                        <div
-                          className="absolute right-0 top-0 mt-2 w-32 bg-white border rounded-lg shadow-lg z-50"
-                          ref={dropdownRef}
-                        >
-                          <button
-                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => {
-                              setIsMode("read");
-                              setIsModalOpen(true);
-                            }}
-                          >
-                            <FaEye className="text-teal-600" />
-                            <span>View</span>
-                          </button>
-                          {/* <button
-                            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
-                            onClick={() => {
-                              setIsMode("edit");
-                              setIsModalOpen(true);
-                            }}
-                          >
-                            <FaEdit className="text-blue-600" />
-                            <span>Edit</span>
-                          </button> */}
-                          <button
                             className="w-full flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-gray-700"
                             onClick={() => handleDelete(user.id)}
                           >
                             <FaTrash className="text-red-600" />
                             <span>Delete</span>
                           </button>
-                        </div>
-                      )}
                     </>
                   ) : (
                     <div className="flex items-center gap-3">

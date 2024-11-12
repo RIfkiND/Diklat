@@ -50,13 +50,9 @@ class BiodataPeserta extends Model
         return $this->hasMany(Rtl::class, 'peserta_id');
     }
 
-    public function hasilMonitorings()
-    {
-        return $this->hasMany(HasilMonitoring::class, 'peserta_id');
-    }
+    // public function hasilMonitorings()
+    // {
+    //     return $this->hasMany(HasilMonitoring::class, 'peserta_id');
+    // }
 
-    public function buktiDukungs()
-    {
-        return $this->hasMany(BuktiDukung::class, 'peserta_id');
-    }
 }
