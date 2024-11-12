@@ -15,9 +15,7 @@ class hasil_monitoring extends Model
     'realisasi', 'solusi', 'kendala', 'peserta_id'
 ];
 
-    public function bukti_dukung(){
-      return $this->hasOne(bukti_dukung::class);
-    }
+
     public function biodataPeserta()
     {
         return $this->belongsTo(BiodataPeserta::class, 'peserta_id');
