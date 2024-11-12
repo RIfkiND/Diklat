@@ -125,7 +125,6 @@ const MonitoringPeserta = ({ biodata }) => {
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
           <Search onSearchChange={handleSearchChange} />
-          <div className="flex items-center gap-5 flex-wrap w-full md:w-auto"></div>
         </div>
 
         <div className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 lg:col-span-12 row-span-6 rounded-2xl relative">
