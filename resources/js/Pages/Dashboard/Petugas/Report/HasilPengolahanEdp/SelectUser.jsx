@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import Search from "@/Components/Ui/Input/Search";
-// import FilterByEndTime from "@/Components/Filter/FilterByEndTime";
-// import FilterByStartTime from "@/Components/Filter/FilteraBySrartTime";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 // import Pagination from "@/Components/Ui/Pagination";
@@ -63,10 +61,7 @@ const SelectUser = () => {
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
           <Search />
-          <div className="flex items-center gap-5 flex-wrap w-full md:w-auto">
-            {/* <FilterByStartTime />
-            <FilterByEndTime /> */}
-          </div>
+          <div className="flex items-center gap-5 flex-wrap w-full md:w-auto"></div>
         </div>
 
         <div
