@@ -140,7 +140,7 @@ const MonitoringPeserta = ({ biodata }) => {
                     <th className="py-3 px-4">Sekolah</th>
                     <th className="py-3 px-4">Provinsi</th>
                     <th className="py-3 px-4">Kabupaten</th>
-                    <th className="py-3 px-4">Nama Pelatihan</th>
+                    <th className="py-3 px-4">Nama Tamatan</th>
                     <th className="py-3 px-4">Periode</th>
                     <th className="py-3 px-4">Data RTL</th>
                   </tr>
@@ -167,7 +167,7 @@ const MonitoringPeserta = ({ biodata }) => {
                           ) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.pelatihan || "tidak ada"}
+                          {peserta.peserta.tamatan|| "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
                           {peserta.periode_mulai || "tidak ada"}

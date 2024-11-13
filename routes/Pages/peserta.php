@@ -14,7 +14,7 @@ Route::middleware(['role:peserta'])->group(function () {
   Route::get('/dashboard/user/register', [UserFormRegister::class, 'index'])->name('user.register');
   Route::get('/dashboard/user/monitoring', [MonitoringController::class, 'Monitoring']);
   Route::post('/dashboard/add/data', [UserDashboardController::class, 'addBiodata'])->name('add.biodata');
-  Route::put('/user/biodata/update', [UserDashboardController::class, 'updateBiodata'])->name('biodata.update');
+  Route::put('/peserta/update/biodata', [UserDashboardController::class, 'updateBiodata'])->name('biodata.update');
   Route::post('/dashboard/user/register', [UserFormRegister::class, 'addKegiatan']);
   Route::delete('/user/register/{id}', [UserFormRegister::class, 'DeleteKegiatan'])->name('user.register.delete');
   Route::put('/user/register/{id}', [UserFormRegister::class, 'editKegiatan'])->name('user.register.edit');

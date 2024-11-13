@@ -11,7 +11,7 @@ import { useForm, usePage } from "@inertiajs/react"; // Import useForm for form 
 
 export default function UserDashboard({ petugas, pelatihans }) {
   // Biodata form state management
-  const { data, setData, post, reset } = useForm({
+  const { data, setData, post,put, reset } = useForm({
     fullname: "",
     kabupaten: "",
     pelatihan_id: "",
@@ -29,9 +29,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
   const [districts, setDistricts] = useState([]); // For kabupaten
   const [showPreview, setShowPreview] = useState(false); // For preview biodata
   const [showBiodata, setShowBiodata] = useState(true); // For biodata form
-
-
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (auth.peserta?.biodata) {
       const biodata = auth.peserta.biodata;
@@ -42,7 +40,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
       const fetchDistricts = async (provinceId) => {
         try {
           const response = await fetch(
-            `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+            `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
           );
           const data = await response.json();
           const districtNames = data.map((district) => ({
@@ -144,43 +142,73 @@ export default function UserDashboard({ petugas, pelatihans }) {
     setData(name, value);
   };
 
-  // Submit the form
+  
   const submit = (e) => {
     e.preventDefault();
 
-    // Find the name for the selected province (provinsi) based on the id
     const selectedProvince = provinces.find(
-      (province) => province.id === parseInt(data.provinsi),
+      (province) => province.id === parseInt(data.provinsi)
     );
-    const provinceName = selectedProvince
-      ? selectedProvince.name
-      : data.provinsi; // Default to ID if not found
+    const provinceName = selectedProvince ? selectedProvince.name : data.provinsi;
 
-    // Find the name for the selected district (kabupaten) based on the ID
     const selectedDistrict = districts.find(
-      (district) => district.id === parseInt(data.kabupaten),
+      (district) => district.id === parseInt(data.kabupaten)
     );
-    const districtName = selectedDistrict
-      ? selectedDistrict.name
-      : data.kabupaten; // Default to ID if not found
+    const districtName = selectedDistrict ? selectedDistrict.name : data.kabupaten;
 
-    // Prepare the data to be submitted
+
     post(route("add.biodata"), {
       data: {
         ...data,
-        provinsi: provinceName, // Send the province name
-        kabupaten: districtName, // Send the district name
+        provinsi: provinceName,
+        kabupaten: districtName,
       },
       onSuccess: () => {
         console.log("Biodata berhasil ditambahkan");
-        setShowBiodata(false); // Hide the form
-        setShowPreview(true); // Show the preview
+        setShowBiodata(false);
+        setShowPreview(true);
       },
       onError: (errors) => {
         console.error("Gagal menambahkan biodata:", errors);
-        reset(); // Reset the form
+        reset();
       },
     });
+  };
+  const edit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const selectedProvince = provinces.find(
+      (province) => province.id === parseInt(data.provinsi)
+    );
+    const provinceName = selectedProvince ? selectedProvince.name : data.provinsi;
+
+    const selectedDistrict = districts.find(
+      (district) => district.id === parseInt(data.kabupaten)
+    );
+    const districtName = selectedDistrict ? selectedDistrict.name : data.kabupaten;
+
+    // Update using put
+    put(
+      route("biodata.update"),
+      {
+        ...data,
+        provinsi: provinceName,
+        kabupaten: districtName,
+      },
+      {
+        onSuccess: () => {
+          console.log("Biodata berhasil Diedit");
+          setShowBiodata(false);
+          setShowPreview(true);
+        },
+        onError: (errors) => {
+          console.error("Gagal memperbarui biodata:", errors);
+          reset();
+        },
+        onFinish: () => setLoading(false),
+      }
+    );
   };
 
   const Inputs = [
@@ -276,7 +304,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
           <>
             {showBiodata && (
               <div className="p-4 mb-6">
-                <form onSubmit={submit} className="text-left">
+                <form onSubmit={edit} className="text-left">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {Inputs.map((column, columnIndex) => (
                       <div key={columnIndex}>
@@ -343,8 +371,9 @@ export default function UserDashboard({ petugas, pelatihans }) {
                       <PrimaryButton
                         className="w-full max-w-xl flex items-center justify-center"
                         type="submit"
+                        disabled={loading}
                       >
-                        Edit
+                        {loading ? "Saving..." : "Edit"}
                       </PrimaryButton>
                     </div>
                   </div>
