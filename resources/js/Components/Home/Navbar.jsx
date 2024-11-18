@@ -12,7 +12,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", href: "home" },
-    { name: "Services", href: "services" },
+    { name: "Layanan", href: "layanan" },
+    { name: "Download Surat", href: "downloadSurat" },
+    { name: "Pertanyaan Umum", href: "faq" },
   ];
 
   const handleScroll = (targetId) => {
@@ -33,7 +35,7 @@ const Navbar = () => {
         <div>
           <p className="py-5 text-2xl font-bold text-primary">BBPPMPV BMTI</p>
         </div>
-        <div className="items-center gap-5 hidden md:flex">
+        <div className="items-center gap-3 hidden md:flex">
           {navItems.map((item, index) => (
             <div key={index}>
               <button
@@ -128,13 +130,13 @@ const Navbar = () => {
               href={route("Views.Auth.Peserta")}
               className="py-2 cursor-pointer hover:bg-slate-200 px-5 rounded-tr-xl text-slate-700 transition-all duration-300 ease-in-out"
             >
-              Login as Peserta
+              Login Sebagai Peserta
             </Link>
             <Link
               href={route("Views.Auth.Petugas")}
               className="py-2 cursor-pointer hover:bg-slate-200 px-5 rounded-bl-xl rounded-br-xl text-slate-700 transition-all duration-300 ease-in-out"
             >
-              Login as Pendamping
+              Login Sebagai Pendamping
             </Link>
           </div>
         )}
@@ -147,7 +149,7 @@ const Navbar = () => {
         />
 
         {openNav && (
-          <div className="absolute top-6 right-0 bg-white shadow-lg w-48 py-5">
+          <div className="absolute top-6 right-0 bg-white shadow-lg w-64 py-5">
             {navItems.map((item, index) => (
               <button
                 key={index}
@@ -226,13 +228,13 @@ const Navbar = () => {
                   href={route("Views.Auth.Peserta")}
                   className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
                 >
-                  Login as Peserta
+                  Login Sebagai Peserta
                 </Link>
                 <Link
                   href={route("Views.Auth.Petugas")}
                   className="block py-2 text-base font-medium text-slate-700 hover:text-primary px-4 transition-all duration-300 ease-in-out"
                 >
-                  Login as Pendamping
+                  Login Sebagai Pendamping
                 </Link>
               </div>
             )}
