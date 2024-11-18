@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "@inertiajs/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
   const [fotoSelected, setFotoSelected] = useState("tidak");
   const [videoSelected, setVideoSelected] = useState("tidak");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const { data, setData, post, processing, errors } = useForm({
     realisasi: "",
@@ -15,8 +18,16 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
     link_vidio: "",
   });
 
+  const date = [{ label: "Realisasi", name: "realisasi", rows: 1 }];
+  const datePickerRef = useRef(null);
+
+  const handleDivClick = () => {
+    if (datePickerRef.current) {
+      datePickerRef.current.setFocus(); // Fokus pada DatePicker saat div diklik
+    }
+  };
+
   const textAreas = [
-    { label: "Realisasi", name: "realisasi", rows: 1 },
     { label: "Kendala", name: "kendala", rows: 1 },
     { label: "Solusi", name: "solusi", rows: 1 },
   ];
@@ -55,6 +66,20 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
           className="gap-4 max-w-full mx-auto p-6 rounded-lg"
           onSubmit={submit}
         >
+          <p className="text-base text-slate-700 font-bold pl-1">Realisasi</p>
+          <div
+            className="rounded-lg text-sm cursor-pointer text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0"
+            onClick={handleDivClick}
+          >
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              className="border-none focus:border-none focus:ring-0 cursor-pointer"
+              placeholderText="Choose a date"
+              dateFormat="dd/MM/yyyy"
+              ref={datePickerRef} // Menambahkan ref pada DatePicker
+            />
+          </div>
           {textAreas.map((textarea, index) => (
             <div key={index}>
               <p className="text-base text-slate-700 font-bold pl-1">
