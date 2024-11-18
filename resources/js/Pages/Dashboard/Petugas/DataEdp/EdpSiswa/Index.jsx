@@ -5,11 +5,15 @@ import { Head, router } from "@inertiajs/react";
 import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
+import Modal from "@/Components/Ui/Modal/Modal";
+import EditEdpPeserta from "@/Components/Form/Edp/EdpPeserta/Edit";
 
 const Index = ({ Edp }) => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
+  const [selectForm, setSelectForm] = useState(null); // Track selected row
   const tableRef = useRef(null);
   const buttonRef = useRef(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleShowData = () => {
     if (selectedRow !== null) {
@@ -18,6 +22,13 @@ const Index = ({ Edp }) => {
         method: "get",
         data: { selectedData },
       });
+    } else if (selectedRow !== null) {
+      const selectedData = Edp[selectedRow];
+      route("petugas.dataedp-edp-siswa.show"),
+        {
+          method: "get",
+          data: { selectedData },
+        };
     }
   };
 
@@ -143,6 +154,29 @@ const Index = ({ Edp }) => {
             Tampilkan Rekap
           </span>
         </button>
+        <button
+          onClick={() => setIsOpenModal(!isOpenModal)}
+          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
+            selectedRow !== null
+              ? " hover:bg-indigo-700 cursor-pointer"
+              : "opacity-50 cursor-not-allowed"
+          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
+        >
+          <span className={`flex items-center font-bold gap-2 text-white `}>
+            <RiFile2Line2 className="text-2xl" />
+            Edit Peserta
+          </span>
+        </button>
+        <Modal
+          show={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+          maxWidth="xl"
+          className="w-full"
+        >
+          <div className="p-6">
+            <EditEdpPeserta data={Edp} />
+          </div>
+        </Modal>
       </div>
     </AuthenticatedLayout>
   );
