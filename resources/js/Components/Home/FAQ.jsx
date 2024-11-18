@@ -3,37 +3,37 @@ import React from "react";
 
 const faqs = [
   {
-    question: "Does training at BMTI receive a certificate?",
+    question: "Apa itu BBPPMPV BMTI ?",
     answer:
-      "Yes, participants who complete the training at BBPPMPV BMTI will receive a certificate as recognition of the skills and knowledge gained.",
+      "BBPPMPV BMTI merupakan unit kerja yang tugas utamanya adalah meningkatkan kompetensi guru dan tenaga kependidikan vokasi.",
   },
   {
-    question: "What is BBPPMPV BMTI ?",
+    question: "Apakah pelatihan di BMTI mendapat sertifikat ?",
     answer:
-      "BBPPMPV BMTI is a work unit whose main task is to improve the competence of teachers and vocational education personnel.",
+      "Ya, peserta yang menyelesaikan pelatihan di BBPPMPV BMTI akan menerima sertifikat sebagai pengakuan atas keterampilan dan ilmu yang diperoleh.",
   },
   {
-    question: "What are the advantages of training at BBPPMPV BMTI ?",
+    question: "Apa keuntungan pelatihan di BBPPMPV BMTI ?",
     answer:
-      "The training programs are designed to cover a wide range of skills and knowledge that are highly relevant to current industry needs.",
+      "Program pelatihan dirancang untuk mencakup berbagai keterampilan dan pengetahuan yang sangat relevan dengan kebutuhan industri saat ini.",
   },
   {
-    question: "Is training at BBPPMPV BMTI free?",
+    question: "Apakah pelatihan di BBPPMPV BMTI gratis?",
     answer:
-      "Training at BBPPMPV BMTI is completely free of charge. There are no fees required for participation.",
+      "Pelatihan di BBPPMPV BMTI sepenuhnya gratis. Tidak ada biaya yang dikenakan untuk berpartisipasi.",
   },
 ];
 
 const FAQ = () => {
   return (
-    <section className="py-10 sm:py-16 lg:py-24">
+    <section className="py-10 sm:py-16 lg:py-24" id="faq">
       <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
-            Questions & Answers
+            Pertanyaan & Jawaban
           </h2>
           <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-textPrimary">
-            Explore the common questions and answers about Celebration
+            Jelajahi pertanyaan dan jawaban umum tentang Perayaan
           </p>
         </div>
 
@@ -56,12 +56,12 @@ const FAQ = () => {
         <div className="flex items-center justify-center mt-12 md:mt-20">
           <div className="px-8 py-4 text-center bg-primary rounded-full">
             <p className="text-gray-50">
-              Didn’t find the answer you are looking for?{" "}
+              Tidak menemukan jawaban yang Anda cari ?{" "}
               <a
                 href="mailto:bbppmpv.bmti@kemdikbud.go.id"
                 className="text-yellow-300 transition-all duration-200 hover:text-yellow-400 focus:text-yellow-400 hover:underline"
               >
-                Contact our support
+                Hubungi dukungan kami
               </a>
             </p>
           </div>
