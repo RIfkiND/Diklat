@@ -76,7 +76,7 @@ const Navbar = () => {
                       href={route("form-edp.link")}
                       className="transition-all duration-300 ease-in-out hover:text-primary"
                     >
-                      Send Link EDP
+                      Dapatkan Link EDP
                     </Link>
                     <button
                       onClick={handleLogout}
