@@ -22,15 +22,26 @@ const Index = ({ Edp }) => {
         method: "get",
         data: { selectedData },
       });
-    } else if (selectedRow !== null) {
-      const selectedData = Edp[selectedRow];
-      route("petugas.dataedp-edp-siswa.show"),
-        {
-          method: "get",
-          data: { selectedData },
-        };
     }
+    // else if (selectedRow !== null) {
+    //   const selectedData = Edp[selectedRow];
+    //   route("petugas.dataedp-edp-siswa.show"),
+    //     {
+    //       method: "get",
+    //       data: { selectedData },
+    //     };
+    // }
   };
+
+  const handleModal = () =>{
+    if(selectForm !== null){
+      const selectedData = Edp[selectedRow];
+      router.visit(route("petugas.dataedp-edp-siswa.show"), {
+        method: "get",
+        data: { selectedData },
+      });
+    }
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -40,6 +51,8 @@ const Index = ({ Edp }) => {
         !buttonRef.current.contains(event.target)
       ) {
         setSelectedRow(null);
+        setSelectForm(null)
+
       }
     };
 
@@ -155,7 +168,11 @@ const Index = ({ Edp }) => {
           </span>
         </button>
         <button
-          onClick={() => setIsOpenModal(!isOpenModal)}
+          ref={buttonRef}
+          onClick={() => {
+            handleModal
+            setIsOpenModal(!isOpenModal)
+          }}
           className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
             selectedRow !== null
               ? " hover:bg-indigo-700 cursor-pointer"
@@ -174,7 +191,7 @@ const Index = ({ Edp }) => {
           className="w-full"
         >
           <div className="p-6">
-            <EditEdpPeserta data={Edp} />
+            <EditEdpPeserta />
           </div>
         </Modal>
       </div>

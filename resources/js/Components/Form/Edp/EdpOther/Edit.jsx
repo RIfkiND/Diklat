@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "@inertiajs/react";
 
-const EditEdpPeserta = ({ Edp }) => {
+const EditOtherEdp = ({ Edp }) => {
   const [selectedDates, setSelectedDates] = useState({
     tanggal_mulai: null,
     tanggal_akhir: null,
@@ -34,7 +34,7 @@ const EditEdpPeserta = ({ Edp }) => {
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary">
-      Edit Edp Peserta
+        Edit Edp Kolega, Tamatan, Kepala Sekolah
       </h3>
       <form>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -230,4 +230,4 @@ const EditEdpPeserta = ({ Edp }) => {
   );
 };
 
-export default EditEdpPeserta;
+export default EditOtherEdp;
