@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm, usePage } from "@inertiajs/react"; // Import useForm for form handling
+import { sekolah } from "@/Data/Sekolah";
 
 export default function UserDashboard({ petugas, pelatihans }) {
   // Biodata form state management
-  const { data, setData, post,put, reset } = useForm({
+  const { data, setData, post, put, reset } = useForm({
     fullname: "",
     kabupaten: "",
     pelatihan_id: "",
@@ -22,6 +23,8 @@ export default function UserDashboard({ petugas, pelatihans }) {
     petugas_id_2: "",
     periode_akhir: null,
   });
+
+
 
   const { auth } = usePage().props;
 
@@ -142,20 +145,22 @@ export default function UserDashboard({ petugas, pelatihans }) {
     setData(name, value);
   };
 
-  
   const submit = (e) => {
     e.preventDefault();
 
     const selectedProvince = provinces.find(
-      (province) => province.id === parseInt(data.provinsi)
+      (province) => province.id === parseInt(data.provinsi),
     );
-    const provinceName = selectedProvince ? selectedProvince.name : data.provinsi;
+    const provinceName = selectedProvince
+      ? selectedProvince.name
+      : data.provinsi;
 
     const selectedDistrict = districts.find(
-      (district) => district.id === parseInt(data.kabupaten)
+      (district) => district.id === parseInt(data.kabupaten),
     );
-    const districtName = selectedDistrict ? selectedDistrict.name : data.kabupaten;
-
+    const districtName = selectedDistrict
+      ? selectedDistrict.name
+      : data.kabupaten;
 
     post(route("add.biodata"), {
       data: {
@@ -179,14 +184,18 @@ export default function UserDashboard({ petugas, pelatihans }) {
     setLoading(true);
 
     const selectedProvince = provinces.find(
-      (province) => province.id === parseInt(data.provinsi)
+      (province) => province.id === parseInt(data.provinsi),
     );
-    const provinceName = selectedProvince ? selectedProvince.name : data.provinsi;
+    const provinceName = selectedProvince
+      ? selectedProvince.name
+      : data.provinsi;
 
     const selectedDistrict = districts.find(
-      (district) => district.id === parseInt(data.kabupaten)
+      (district) => district.id === parseInt(data.kabupaten),
     );
-    const districtName = selectedDistrict ? selectedDistrict.name : data.kabupaten;
+    const districtName = selectedDistrict
+      ? selectedDistrict.name
+      : data.kabupaten;
 
     // Update using put
     put(
@@ -198,17 +207,17 @@ export default function UserDashboard({ petugas, pelatihans }) {
       },
       {
         onSuccess: () => {
-          console.log("Biodata berhasil Diedit");
+          console.log("Biodata berhasil ditambahkan");
           setShowBiodata(false);
           setShowPreview(true);
         },
         onError: (errors) => {
-          console.error("Gagal memperbarui biodata:", errors);
+          console.error("Gagal menambahkan biodata:", errors);
           reset();
         },
-        onFinish: () => setLoading(false),
       }
     );
+
   };
 
   const Inputs = [
@@ -262,9 +271,13 @@ export default function UserDashboard({ petugas, pelatihans }) {
       {
         id: "6",
         label: "Sekolah",
-        type: "text",
+        type: "select",
         name: "sekolah",
         autoComplete: "sekolah",
+        options: sekolah.map((sekolah)=>({
+          id:sekolah.name,
+          name:sekolah.name
+        })),
       },
       {
         id: "7",
