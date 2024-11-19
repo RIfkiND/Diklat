@@ -46,29 +46,33 @@ class UserDashboardController extends Controller
   }
 
   public function updateBiodata(BiodataPesertaRequest $request): RedirectResponse
-{
-    $validatedData = $request->validated();
+  {
+     
+      if (!Auth::check()) {
+          return redirect()->route('login')->with('error', 'Please log in to update your biodata.');
+      }
 
-    $user = Auth::user();
-    $peserta = Peserta::find($user?->id);
+      $validatedData = $request->validated();
 
-    if (!$peserta) {
-        return back()->with('error', 'Peserta not found.');
-    }
+      try {
+          // Get authenticated user and associated peserta
+          $user = Auth::user();
+          $peserta = Peserta::findOrFail($user->id);
 
-    $biodataPeserta = BiodataPeserta::where('peserta_id', $peserta->id)->first();
+          // Find or create biodata if it doesn't exist
+          $biodataPeserta = BiodataPeserta::firstOrCreate(
+              ['peserta_id' => $peserta->id],
+              $validatedData
+          );
 
-    if (!$biodataPeserta) {
-        return back()->with('error', 'Biodata not found.');
-    }
+          $biodataPeserta->update($validatedData);
 
-    try {
-        $biodataPeserta->update($validatedData);
-        return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil diperbarui.');
-    } catch (\Exception $e) {
-        Log::error('Failed to update biodata: ' . $e->getMessage());
-        return back()->with('error', 'Gagal memperbarui biodata.');
-    }
-}
+          return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil diperbarui.');
+      } catch (\Exception $e) {
+          Log::error('Failed to update biodata for Peserta ID ' . ($user->id ?? 'N/A') . ': ' . $e->getMessage());
+          return back()->with('error', 'Gagal memperbarui biodata. Silakan coba lagi.');
+      }
+  }
+
 
 }

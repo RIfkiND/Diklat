@@ -10,13 +10,12 @@ use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-
-
+use Carbon\Carbon;
 class PetugasController extends Controller
 {
   public function Petugas()
   {
-    $biodata = BiodataPeserta::with('rtls')->latest()->paginate(5);
+    $biodata = BiodataPeserta::with(['peserta','rtls'])->latest()->paginate(5);
     return Inertia::render('Dashboard/Petugas/MonitoringPeserta', compact('biodata'));
   }
 
@@ -31,7 +30,7 @@ class PetugasController extends Controller
   }
   public function index()
     {
-        $biodata = BiodataPeserta::all();
+        $biodata = BiodataPeserta::with(['rtls','peserta'])->get();
 
         return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
             'biodata' => $biodata
@@ -40,12 +39,17 @@ class PetugasController extends Controller
 
     public function show($id)
     {
-      $biodata = BiodataPeserta::with('rtls')->findOrFail($id);
+        $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
+        $rtls = $biodata->peserta->rtls->map(function ($rtl) {
+            // Format the waktu_pelaksanaan date to "day month year"
+            $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
+            return $rtl;
+        });
 
-      return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
-          'biodata' => $biodata,
-          'rtls' => $biodata->rtls
-      ]);
+        return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
+            'biodata' => $biodata,
+            'Rtls' => $rtls,
+        ]);
     }
     public function upload(Request $request, $id)
 {

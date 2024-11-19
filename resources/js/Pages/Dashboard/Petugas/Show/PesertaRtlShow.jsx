@@ -5,7 +5,7 @@ import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 import Search from "@/Components/Ui/Input/Search";
 
-const PesertaRtlShow = ({ biodata }) => {
+const PesertaRtlShow = ({ biodata, Rtls }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState({});
   const [fetchingDistricts, setFetchingDistricts] = useState(false);
@@ -13,6 +13,9 @@ const PesertaRtlShow = ({ biodata }) => {
   const [buttonTambah, setButtonTambah] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const containerRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const buttonRef = useRef(null);
 
   useEffect(() => {
@@ -66,6 +69,29 @@ const PesertaRtlShow = ({ biodata }) => {
     return district ? district.name : "Unknown District";
   };
 
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    setTimer(newTimer);
+
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
+
+  const filteredData = Rtls.filter((kegiatan) =>
+    kegiatan.nama_kegiatan
+      .toLowerCase()
+      .includes(debouncedSearchQuery.toLowerCase()),
+  );
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+  };
   const formFields = [
     { label: "Nama", type: "text", value: biodata.fullname },
     { label: "Sekolah", type: "text", value: biodata.sekolah },
@@ -81,56 +107,85 @@ const PesertaRtlShow = ({ biodata }) => {
     },
   ];
 
-  const kegiatanLeft = [
-    { title: "Tujuan", desk: "Lorem ipsum dolor sit amet." },
-    { title: "sasaran", desk: "Lorem ipsum dolor sit amet." },
-  ];
+  // Step 3: Populate Viewkegiatan based on filteredData
+  const Viewkegiatan = filteredData.map((kegiatan) => ({
+    top: {
+      title: kegiatan.nama_kegiatan, // Ensure this key exists in Rtls entries
+      content: "test",
+    },
+    left: [
+      {
+        title: "tujuan",
+        content: kegiatan.tujuan,
+      },
+      {
+        title: "metode",
+        content: kegiatan.metode,
+      },
+    ],
+    right: [
+      {
+        title: "sasaran",
+        content: kegiatan.sasaran,
+      },
+      {
+        title: "tempat",
+        content: kegiatan.tempat,
+      },
+    ],
+    date: {
+      date: kegiatan.formatted_waktu_pelaksanaan,
+    },
+  }));
 
-  const kegiatanRight = [
-    { title: "Metode", desk: "Lorem ipsum dolor sit amet." },
-    { title: "Tempat", desk: "Lorem ipsum dolor sit amet." },
-  ];
-
-  const kegiatan = [
+  const ViewRtl = [
     {
-      title_kegiatan:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni",
-      kegiatanLeft: kegiatanLeft,
-      kegiatanRight: kegiatanRight,
-      date: "22/10/2024",
+      top: {
+        title: "RTL",
+      },
+      leftRTL: [
+        {
+          title: "Realisasi",
+          content: "Realisasi content",
+        },
+        {
+          title: "Kendala",
+          content: "Kendala content",
+        },
+      ],
+      rightRTL: {
+        title: "Solusi",
+        content: "Solusi content",
+      },
+      mid: {
+        title: "Bukti Dukung",
+      },
+      leftBD: [
+        {
+          title: "Undangan",
+          content: "Undangan content",
+        },
+        {
+          title: "Daftar Hadir",
+          content: "Daftar content",
+        },
+      ],
+      rightBD: [
+        {
+          title: "Link Foto",
+          content: "Link",
+        },
+        {
+          title: "Link Video",
+          content: "Link",
+        },
+      ],
     },
   ];
 
-  const rtlLeft = [
-    { title: "Realisasi", desk: "Lorem ipsum dolor sit amet." },
-    { title: "Kendala", desk: "Lorem ipsum dolor sit amet." },
-  ];
+  // const [available , setAvailable] = useSttae(false)
 
-  const rtlRight = [{ title: "Solusi", desk: "Lorem ipsum dolor sit amet." }];
-
-  const buktiDukungLeft = [
-    { title: "Undangan", desk: "Ya" },
-    { title: "Daftar Hadir", desk: "Tidak" },
-  ];
-
-  const buktiDukungRight = [
-    { title: "Link Foto", desk: "Lorem ipsum dolor sit amet." },
-    { title: "Link Video", desk: "Lorem ipsum dolor sit amet." },
-  ];
-
-  const rtl = [
-    {
-      rtlLeft: rtlLeft,
-      rtlRight: rtlRight,
-      buktiDukungLeft: buktiDukungLeft,
-      buktiDukungRight: buktiDukungRight,
-    },
-  ];
-
-  const dataRtl = [
-    { kegiatan: kegiatan, rtl: rtl },
-    { kegiatan: kegiatan, rtl: [] },
-  ];
+  // const isRtlData =
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -162,7 +217,7 @@ const PesertaRtlShow = ({ biodata }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, []); // Added empty dependency array to avoid unnecessary rerenders
 
   return (
     <AuthenticatedLayout
@@ -223,12 +278,12 @@ const PesertaRtlShow = ({ biodata }) => {
               }`}
               disabled={!buttonTambah}
             >
-              Tambah Data RTL
+              Tambah Data Monitoring
             </button>
           </div>
         </div>
         <div className="w-full col-span-12 lg:col-span-12 row-span-6 justify-center rounded-xl gap-3 flex flex-col">
-          {dataRtl.map((item, index) => (
+          {Viewkegiatan.map((item, index) => (
             <div className="grid grid-cols-12 gap-5 h-full" key={index}>
               {/*  */}
               <div
@@ -239,148 +294,136 @@ const PesertaRtlShow = ({ biodata }) => {
                 }`}
               >
                 <div className="flex items-center justify-center flex-col">
-                  <p className="text-xl font-bold text-textPrimary">Kegiatan</p>
+                  <p className="text-xl font-bold text-textPrimary">
+                    {item.top.title}
+                  </p>
                   <p className="text-sm font-bold text-textSecondary">
-                    {item.kegiatan[0].title_kegiatan}
+                    {item.top.content}
                   </p>
                 </div>
                 <div className="w-full flex justify-between">
                   {/* Left Section */}
-                  <div className="space-y-4">
-                    {item.kegiatan[0].kegiatanLeft.map(
-                      (leftItem, leftIndex) => (
-                        <div key={leftIndex}>
+                  <div className="">
+                    {item.left.map((leftItem, index) => (
+                      <div className="space-y-4" key={index}>
+                        <div className="flex flex-col">
                           <p className="text-base font-bold text-textPrimary">
                             {leftItem.title}
                           </p>
                           <p className="text-sm font-bold text-textSecondary">
-                            {leftItem.desk}
+                            {leftItem.content}
                           </p>
                         </div>
-                      ),
-                    )}
+                      </div>
+                    ))}
                   </div>
 
                   {/* Right Section */}
-                  <div className="space-y-4">
-                    {item.kegiatan[0].kegiatanRight.map(
-                      (rightItem, rightIndex) => (
-                        <div key={rightIndex}>
+                  <div className="">
+                    {item.right.map((leftItem, index) => (
+                      <div className="space-y-4" key={index}>
+                        <div className="">
                           <p className="text-base font-bold text-textPrimary">
-                            {rightItem.title}
+                            {leftItem.title}
                           </p>
                           <p className="text-sm font-bold text-textSecondary">
-                            {rightItem.desk}
+                            {leftItem.content}
                           </p>
                         </div>
-                      ),
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
                 <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
-                  {item.kegiatan[0].date}
+                  {item.date.date}
                 </p>
               </div>
 
-              {/*  */}
+              {/* RTL */}
+              {ViewRtl.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
+                >
+                  <div className="flex items-center justify-center flex-col">
+                    <p className="text-xl font-bold text-textPrimary">
+                      {item.top.title}
+                    </p>
+                  </div>
 
-              <div
-                className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 ${
-                  item.rtl.length === 0
-                    ? "opacity-50 hover:opacity-100 transition-all duration-300"
-                    : ""
-                }`}
-              >
-                {/* Check if RTL data is empty */}
-                {item.rtl.length === 0 ? (
-                  // <button
-                  //   onClick={handleOpenModal}
-                  //   className="flex justify-center items-center w-full h-full"
-                  // >
-                  //   <p className="text-xl font-bold text-textPrimary">
-                  //     Add Data RTL
-                  //   </p>
-                  // </button>
-                  <div className=""></div>
-                ) : (
-                  <>
-                    <div className="flex items-center justify-center flex-col">
-                      <p className="text-xl font-bold text-textPrimary">RTL</p>
+                  <div className="w-full flex justify-between">
+                    {/* Left RTL Section */}
+                    <div className="">
+                      {item.leftRTL.map((leftItem, index) => (
+                        <div className="space-y-4" key={index}>
+                          <div className="">
+                            <p className="text-base font-bold text-textPrimary">
+                              {leftItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {leftItem.content}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="w-full flex justify-between">
-                      {/* Left RTL Section */}
-                      <div className="space-y-4">
-                        {item.rtl[0].rtlLeft.map(
-                          (rtlLeftItem, rtlLeftIndex) => (
-                            <div key={rtlLeftIndex}>
-                              <p className="text-sm font-bold text-textPrimary">
-                                {rtlLeftItem.title}
-                              </p>
-                              <p className="text-sm text-textSecondary">
-                                {rtlLeftItem.desk}
-                              </p>
-                            </div>
-                          ),
-                        )}
-                      </div>
 
-                      {/* Right RTL Section */}
+                    {/* Right RTL Section */}
+                    <div className="">
                       <div className="space-y-4">
-                        {item.rtl[0].rtlRight.map(
-                          (rtlRightItem, rtlRightIndex) => (
-                            <div key={rtlRightIndex}>
+                        <div className="">
+                          <p className="text-base font-bold text-textPrimary">
+                            {item.rightRTL.title}
+                          </p>
+                          <p className="text-sm font-bold text-textSecondary">
+                            {item.rightRTL.content}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bukti Dukung Section */}
+                  <div className="space-y-4 w-full">
+                    <p className="text-base font-bold text-textPrimary">
+                      {item.mid.title}
+                    </p>
+                    <div className="flex justify-between">
+                      <div className="">
+                        {item.leftBD.map((leftItem, index) => (
+                          <div className="space-y-4" key={index}>
+                            <div className="">
                               <p className="text-base font-bold text-textPrimary">
-                                {rtlRightItem.title}
+                                {leftItem.title}
                               </p>
                               <p className="text-sm font-bold text-textSecondary">
-                                {rtlRightItem.desk}
+                                {leftItem.content}
                               </p>
                             </div>
-                          ),
-                        )}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="">
+                        {item.rightBD.map((RightItem, index) => (
+                          <div className="space-y-4" key={index}>
+                            <div className="">
+                              <p className="text-base font-bold text-textPrimary">
+                                {RightItem.title}
+                              </p>
+                              <p className="text-sm font-bold text-textSecondary">
+                                {RightItem.content}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
+                  </div>
+                </div>
+              ))}
 
-                    {/* Bukti Dukung Section */}
-                    <div className="space-y-4 w-full">
-                      <p className="text-base font-bold text-textPrimary">
-                        Bukti Dukung
-                      </p>
-                      <div className="flex justify-between">
-                        <div className="space-y-2">
-                          {item.rtl[0].buktiDukungLeft.map(
-                            (buktiItem, buktiIndex) => (
-                              <div key={buktiIndex}>
-                                <p className="text-sm text-textPrimary font-bold">
-                                  {buktiItem.title}
-                                </p>
-                                <p className="text-sm text-textSecondary">
-                                  {buktiItem.desk}
-                                </p>
-                              </div>
-                            ),
-                          )}
-                        </div>
-                        <div className="space-y-2">
-                          {item.rtl[0].buktiDukungRight.map(
-                            (buktiItem, buktiIndex) => (
-                              <div key={buktiIndex}>
-                                <p className="text-sm text-textPrimary font-bold">
-                                  {buktiItem.title}
-                                </p>
-                                <p className="text-sm text-textSecondary ">
-                                  {buktiItem.desk}
-                                </p>
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
+              {/*  */}
             </div>
           ))}
         </div>

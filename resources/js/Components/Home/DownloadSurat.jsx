@@ -6,22 +6,25 @@ const DownloadSurat = () => {
   const [openDrop, setOpenDrop] = useState(false);
 
   return (
-    <div className="w-full h-full rounded-2xl p-8 bg-primary text-white flex justify-between gap-5 flex-wrap">
+    <div
+      className="w-full h-full rounded-2xl p-8 bg-primary text-white flex justify-between gap-5 flex-wrap"
+      id="downloadSurat"
+    >
       <div className="w-[500px] md:w-[690px] flex flex-col justify-between gap-5">
         <div>
           <p className="text-2xl font-bold capitalize">
-            download the invitation letter and guide
+            unduh surat undangan dan panduan
           </p>
           <p className="text-sm">
-            If you’d like to download the invitation letter, just click the
-            button below. Make sure to check the details before downloading!
+            Jika Anda ingin mengunduh surat undangan, cukup klik tombol di bawah
+            ini. Pastikan untuk memeriksa detailnya sebelum mengunduh!
           </p>
         </div>
 
         <div className="relative flex items-center z-0">
           <button onClick={() => setOpenDrop(!openDrop)} className="z-20">
             <span className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out flex items-center gap-5">
-              Download Here
+              Unduh Disini
               <IoIosArrowDown
                 className={`transition-transform duration-300 ease-in-out transform ${openDrop ? "rotate-180" : "md:-rotate-90"}`}
               />
@@ -36,14 +39,14 @@ const DownloadSurat = () => {
               download="Panduan Pendampingan RTL dan EDD 2024.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Download invitation letter
+              Unduh surat undangan
             </a>
             <a
               href="/pdf/Surat Pengantar RTL & EDP Guru.pdf"
               download="Surat Pengantar RTL & EDP Guru.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Download guide
+              Unduh panduan
             </a>
           </div>
           <div
@@ -54,14 +57,14 @@ const DownloadSurat = () => {
               download="Panduan Pendampingan RTL dan EDD 2024.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Download invitation letter
+              Unduh surat undangan
             </a>
             <a
               href="/pdf/Surat Pengantar RTL & EDP Guru.pdf"
               download="Surat Pengantar RTL & EDP Guru.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Download guide
+              Unduh panduan
             </a>
           </div>
         </div>

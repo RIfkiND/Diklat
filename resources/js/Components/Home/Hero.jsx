@@ -8,11 +8,11 @@ const Hero = () => {
           <div className="w-full px-4 lg:w-5/12 text-center md:text-left">
             <div className="hero-content">
               <h1 className="mb-2 text-4xl font-bold !leading-[1.208] text-slate-700 sm:text-[42px] lg:text-[40px] xl:text-5xl">
-                Monitor, Evaluate, Achieve Excellence
+                Memantau, Mengevaluasi, Meraih Keunggulan
               </h1>
               <p className="mb-8 max-w-[480px] text-base text-textPrimary italic mx-auto md:mx-0">
-                Comprehensive monitoring solutions for continuous evaluation and
-                higher results.
+                Solusi pemantauan komprehensif untuk evaluasi berkelanjutan dan
+                hasil yang lebih tinggi.
               </p>
             </div>
           </div>
