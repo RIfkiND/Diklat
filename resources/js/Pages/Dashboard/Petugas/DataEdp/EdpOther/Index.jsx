@@ -13,7 +13,6 @@ const Index = ({ EdpOther }) => {
   const [selectForm, setSelectForm] = useState(null); // Track selected row
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-
   const tableRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -27,15 +26,15 @@ const Index = ({ EdpOther }) => {
     }
   };
 
-  const handleModal = () =>{
-    if(selectForm !== null){
+  const handleModal = () => {
+    if (selectForm !== null) {
       const selectedData = Edp[selectedRow];
       router.visit(route("petugas.dataedp-edp-siswa.show"), {
         method: "get",
         data: { selectedData },
       });
     }
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,7 +44,7 @@ const Index = ({ EdpOther }) => {
         !buttonRef.current.contains(event.target)
       ) {
         setSelectedRow(null);
-        setSelectForm(null)
+        setSelectForm(null);
       }
     };
 
@@ -163,8 +162,8 @@ const Index = ({ EdpOther }) => {
         <button
           ref={buttonRef}
           onClick={() => {
-            handleModal
-            setIsOpenModal(!isOpenModal)
+            handleModal;
+            setIsOpenModal(!isOpenModal);
           }}
           className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
             selectedRow !== null

@@ -165,7 +165,7 @@ const MonitoringPeserta = ({ biodata }) => {
                           ) || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
-                          {peserta.peserta.tamatan|| "tidak ada"}
+                          {peserta.peserta.tamatan || "tidak ada"}
                         </td>
                         <td className="py-3 px-4">
                           {peserta.periode_mulai || "tidak ada"}
