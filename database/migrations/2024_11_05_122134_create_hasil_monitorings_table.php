@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('solusi')->nullable();
 
             //
-            $table->string('undangan');
-            $table->dateTime('daftar_hadir');
+            $table->string('undangan')->default("ya");
+            $table->string('daftar_hadir')->default("ya");
+            $table->string('foto')->default("ya");
+            $table->string('vidio')->default("ya");
             $table->string('link_foto');
             $table->string('link_vidio');
             $table->foreignIdFor(Peserta::class);

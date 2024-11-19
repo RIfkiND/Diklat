@@ -12,7 +12,7 @@ class DashboardPageController extends Controller
 {
   public function Dashboard()
   {
-    $pesertas = Peserta::latest()->paginate(2);
+    $pesertas = Peserta::latest()->paginate(5);
 
     return Inertia::render('Dashboard/Admin/Table/Users',compact('pesertas'));
   }
@@ -31,7 +31,7 @@ class DashboardPageController extends Controller
   // Account Table User
   public function AccountPeserta()
   {
-    $pesertas = Peserta::latest()->paginate(2);
+    $pesertas = Peserta::latest()->paginate(5);
 
     return Inertia::render('Dashboard/Admin/Account/TableUser',compact('pesertas'));
   }
@@ -39,9 +39,9 @@ class DashboardPageController extends Controller
   // Account Table Petugas
   public function AccountPetugas()
   {
-    $petugas = Petugas::latest()->paginate(8);
+    $petugas = Petugas::latest()->paginate(5);
     return Inertia::render('Dashboard/Admin/Account/TablePetugas',compact('petugas'));
-  }
+  }         
 
 
 }

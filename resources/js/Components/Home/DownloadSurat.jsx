@@ -39,14 +39,14 @@ const DownloadSurat = () => {
               download="Panduan Pendampingan RTL dan EDD 2024.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Unduh surat undangan
+              Unduh panduan
             </a>
             <a
               href="/pdf/Surat Pengantar RTL & EDP Guru.pdf"
               download="Surat Pengantar RTL & EDP Guru.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Unduh panduan
+              Unduh surat undangan
             </a>
           </div>
           <div
@@ -57,14 +57,14 @@ const DownloadSurat = () => {
               download="Panduan Pendampingan RTL dan EDD 2024.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Unduh surat undangan
+              Unduh panduan
             </a>
             <a
               href="/pdf/Surat Pengantar RTL & EDP Guru.pdf"
               download="Surat Pengantar RTL & EDP Guru.pdf"
               className="px-8 py-2 rounded-xl bg-white text-primary border hover:bg-primary hover:text-white font-semibold transition-all duration-300 ease-in-out capitalize"
             >
-              Unduh panduan
+              Unduh surat undangan
             </a>
           </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Rtl;
 use App\Models\BiodataPeserta;
+use App\Models\hasil_monitoring;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -71,4 +72,10 @@ class Peserta extends Authenticatable
   {
     return $this->belongsTo(Pelatihan::class);
   }
+  // Pada model Peserta.php
+public function hasilMonitorings()
+{
+    return $this->hasMany(hasil_monitoring::class, 'peserta_id');
+}
+
 }

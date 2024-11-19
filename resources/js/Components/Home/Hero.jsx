@@ -15,6 +15,14 @@ const Hero = () => {
                 hasil yang lebih tinggi.
               </p>
             </div>
+
+            <a
+              href="/pdf/Buku Panduan RTL dan EDP BBPPMPV BMTI tahun 2024.pdf"
+              download="Buku Panduan RTL dan EDP BBPPMPV BMTI tahun 2024.pdf"
+              className="px-8 py-3 bg-primary border border-primary text-white rounded-3xl hover:bg-white hover:text-primary transition-all duration-300 ease-in-out"
+            >
+              Unduh Buku Panduan
+            </a>
           </div>
 
           <div className="w-full px-4 lg:w-6/12 flex justify-center md:justify-end">

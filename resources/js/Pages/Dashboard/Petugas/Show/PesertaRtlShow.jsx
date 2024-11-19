@@ -5,7 +5,7 @@ import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 import Search from "@/Components/Ui/Input/Search";
 
-const PesertaRtlShow = ({ biodata, Rtls }) => {
+const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState({});
   const [fetchingDistricts, setFetchingDistricts] = useState(false);
@@ -15,7 +15,7 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
   const containerRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
-  const [timer, setTimer] = useState(null);
+  const [timer, setTimer] = useState(null); // Use useState instead of useRef
   const buttonRef = useRef(null);
 
   useEffect(() => {
@@ -92,6 +92,7 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
   const handleSearchChange = (query) => {
     setSearchQuery(query);
   };
+
   const formFields = [
     { label: "Nama", type: "text", value: biodata.fullname },
     { label: "Sekolah", type: "text", value: biodata.sekolah },
@@ -107,10 +108,9 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
     },
   ];
 
-  // Step 3: Populate Viewkegiatan based on filteredData
   const Viewkegiatan = filteredData.map((kegiatan) => ({
     top: {
-      title: kegiatan.nama_kegiatan, // Ensure this key exists in Rtls entries
+      title: kegiatan.nama_kegiatan,
       content: "test",
     },
     left: [
@@ -138,54 +138,48 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
     },
   }));
 
-  const ViewRtl = [
-    {
-      top: {
-        title: "RTL",
-      },
-      leftRTL: [
-        {
-          title: "Realisasi",
-          content: "Realisasi content",
-        },
-        {
-          title: "Kendala",
-          content: "Kendala content",
-        },
-      ],
-      rightRTL: {
-        title: "Solusi",
-        content: "Solusi content",
-      },
-      mid: {
-        title: "Bukti Dukung",
-      },
-      leftBD: [
-        {
-          title: "Undangan",
-          content: "Undangan content",
-        },
-        {
-          title: "Daftar Hadir",
-          content: "Daftar content",
-        },
-      ],
-      rightBD: [
-        {
-          title: "Link Foto",
-          content: "Link",
-        },
-        {
-          title: "Link Video",
-          content: "Link",
-        },
-      ],
+  const ViewRtl = hasilMonitorings.map((monitoring) => ({
+    top: {
+      title: "RTL",
     },
-  ];
-
-  // const [available , setAvailable] = useSttae(false)
-
-  // const isRtlData =
+    leftRTL: [
+      {
+        title: "Realisasi",
+        content: monitoring.realisasi,
+      },
+      {
+        title: "Kendala",
+        content: monitoring.kendala,
+      },
+    ],
+    rightRTL: {
+      title: "Solusi",
+      content: monitoring.solusi,
+    },
+    mid: {
+      title: "Bukti Dukung",
+    },
+    leftBD: [
+      {
+        title: "Undangan",
+        content: monitoring.undangan,
+      },
+      {
+        title: "Daftar Hadir",
+        content: monitoring.daftar_hadir,
+      },
+    ],
+    rightBD: [
+      {
+        title: "Link Foto",
+        content: monitoring.link_foto,
+      },
+      {
+        title: "Link Video",
+        content: monitoring.link_vidio,
+      },
+    ],
+  }));
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -217,7 +211,7 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []); // Added empty dependency array to avoid unnecessary rerenders
+  }, []);
 
   return (
     <AuthenticatedLayout
@@ -265,7 +259,7 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
         <div className="w-full col-span-12 lg:col-span-12 row-span-6 justify-center rounded-xl gap-3 flex flex-col">
           <div className="grid grid-cols-10 gap-5">
             <div className="col-span-4 lg:col-span-3">
-              <Search />
+              <Search onChange={handleSearchChange} />
             </div>
             <div className="col-span-1 lg:col-span-5"></div>
             <button
@@ -285,7 +279,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
         <div className="w-full col-span-12 lg:col-span-12 row-span-6 justify-center rounded-xl gap-3 flex flex-col">
           {Viewkegiatan.map((item, index) => (
             <div className="grid grid-cols-12 gap-5 h-full" key={index}>
-              {/*  */}
               <div
                 onClick={() => handleSelection(index)}
                 ref={selectedItem === index ? containerRef : null}
@@ -302,7 +295,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                   </p>
                 </div>
                 <div className="w-full flex justify-between">
-                  {/* Left Section */}
                   <div className="">
                     {item.left.map((leftItem, index) => (
                       <div className="space-y-4" key={index}>
@@ -317,8 +309,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                       </div>
                     ))}
                   </div>
-
-                  {/* Right Section */}
                   <div className="">
                     {item.right.map((leftItem, index) => (
                       <div className="space-y-4" key={index}>
@@ -334,13 +324,10 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                     ))}
                   </div>
                 </div>
-
                 <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
                   {item.date.date}
                 </p>
               </div>
-
-              {/* RTL */}
               {ViewRtl.map((item, index) => (
                 <div
                   key={index}
@@ -351,9 +338,7 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                       {item.top.title}
                     </p>
                   </div>
-
                   <div className="w-full flex justify-between">
-                    {/* Left RTL Section */}
                     <div className="">
                       {item.leftRTL.map((leftItem, index) => (
                         <div className="space-y-4" key={index}>
@@ -368,8 +353,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                         </div>
                       ))}
                     </div>
-
-                    {/* Right RTL Section */}
                     <div className="">
                       <div className="space-y-4">
                         <div className="">
@@ -383,8 +366,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Bukti Dukung Section */}
                   <div className="space-y-4 w-full">
                     <p className="text-base font-bold text-textPrimary">
                       {item.mid.title}
@@ -422,8 +403,6 @@ const PesertaRtlShow = ({ biodata, Rtls }) => {
                   </div>
                 </div>
               ))}
-
-              {/*  */}
             </div>
           ))}
         </div>

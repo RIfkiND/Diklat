@@ -53,20 +53,11 @@ export const getNavItems = (role) => {
         ]
       : role === "admin"
         ? [
-            {
-              name: "Table Peserta",
-              icon: "FaRegUser",
-              path: "/dashboard/admin/users/table/user",
-            },
-            {
-              name: "Laporan Tugas",
-              icon: "FiFileText",
-              hasDropdown: true,
-              items: [
-                { name: "Laporan Harian", path: "/petugas/laporan-harian" },
-                { name: "Laporan Bulanan", path: "/petugas/laporan-bulanan" },
-              ],
-            },
+            // {
+            //   name: "Table Peserta",
+            //   icon: "FaRegUser",
+            //   path: "/dashboard/admin/users/table/user",
+            // },
             {
               name: "Akun",
               icon: "FaRegUser",
@@ -77,6 +68,15 @@ export const getNavItems = (role) => {
                   name: "Petugas",
                   path: "/dashboard/admin/account/petugas",
                 },
+              ],
+            },                            
+            {
+              name: "Laporan Tugas",
+              icon: "FiFileText",
+              hasDropdown: true,
+              items: [
+                { name: "Laporan Harian", path: "/petugas/laporan-harian" },
+                { name: "Laporan Bulanan", path: "/petugas/laporan-bulanan" },
               ],
             },
           ]
