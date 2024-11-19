@@ -39,57 +39,52 @@ class PetugasController extends Controller
 
     public function show($id)
     {
+        $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->get();
         $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
         $rtls = $biodata->peserta->rtls->map(function ($rtl) {
             // Format the waktu_pelaksanaan date to "day month year"
             $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
             return $rtl;
         });
-
+        // dd($hasilMonitorings);
         return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
             'biodata' => $biodata,
             'Rtls' => $rtls,
+            'hasilMonitorings' => $hasilMonitorings,
         ]);
     }
     public function upload(Request $request, $id)
-{
-    $request->validate([
-        'realisasi' => 'required|string',
-        'kendala' => 'required|string',
-        'solusi' => 'required|string',
-        'undangan' => 'required|string',
-        'daftar_hadir' => 'required|string',
-        'link_foto' => 'required|string',
-        'link_vidio' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'realisasi' => 'required|date',
+            'kendala' => 'required|string',
+            'solusi' => 'required|string',
+            'undangan' => 'required|string',
+            'daftar_hadir' => 'required|string',
+            'link_foto' => 'required|string',
+            'link_vidio' => 'required|string',
+        ]);
 
-    $hasilMonitoring = hasil_monitoring::create([
-        'peserta_id' => $id,
-        'realisasi' => $request->input('realisasi'),
-        'kendala' => $request->input('kendala'),
-        'solusi' => $request->input('solusi'),
-    ]);
-
-    if (!$hasilMonitoring) {
-        return back()->withErrors(['message' => 'Failed to create hasil_monitoring.']);
-    }
-
-    if ($hasilMonitoring->id) {
-        bukti_dukung::create([
+        $hasilMonitoring = hasil_monitoring::create([
             'peserta_id' => $id,
+            'realisasi' => $request->input('realisasi'),
+            'kendala' => $request->input('kendala'),
+            'solusi' => $request->input('solusi'),
             'undangan' => $request->input('undangan'),
             'daftar_hadir' => $request->input('daftar_hadir'),
+            'foto' => 'ya', // Assuming default value
+            'vidio' => 'ya', // Assuming default value
             'link_foto' => $request->input('link_foto'),
             'link_vidio' => $request->input('link_vidio'),
-            'hasil_monitoring_id' => $hasilMonitoring->id,
         ]);
+
+        if (!$hasilMonitoring) {
+            return back()->withErrors(['message' => 'Failed to create hasil_monitoring.']);
+        }
 
         return redirect()->route('petugas.show-rtl-peserta', ['id' => $id])
                          ->with('success', 'Data RTL berhasil ditambahkan.');
-    } else {
-        return back()->withErrors(['message' => 'Failed to retrieve hasil_monitoring ID.']);
     }
-}
 
   public function PetugasReportPendampinganRtl()
   {

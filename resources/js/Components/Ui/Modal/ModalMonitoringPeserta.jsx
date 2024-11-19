@@ -2,10 +2,9 @@ import React, { useState, useRef } from "react";
 import { useForm } from "@inertiajs/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
 
 const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
-  const [fotoSelected, setFotoSelected] = useState("tidak");
-  const [videoSelected, setVideoSelected] = useState("tidak");
   const [selectedDate, setSelectedDate] = useState(null);
 
   const { data, setData, post, processing, errors } = useForm({
@@ -18,13 +17,17 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
     link_vidio: "",
   });
 
-  const date = [{ label: "Realisasi", name: "realisasi", rows: 1 }];
   const datePickerRef = useRef(null);
 
   const handleDivClick = () => {
     if (datePickerRef.current) {
-      datePickerRef.current.setFocus(); // Fokus pada DatePicker saat div diklik
+      datePickerRef.current.setFocus(); // Focus on DatePicker when div is clicked
     }
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setData("realisasi", date ? format(date, "yyyy-MM-dd HH:mm:ss") : ""); // Update form data with formatted date
   };
 
   const textAreas = [
@@ -35,18 +38,6 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
   const selectOptions = [
     { label: "Undangan", name: "undangan", options: ["Tidak", "Ada"] },
     { label: "Daftar Hadir", name: "daftar_hadir", options: ["Tidak", "Ada"] },
-    {
-      label: "Foto",
-      name: "select_foto",
-      options: ["Tidak", "Ada"],
-      setter: setFotoSelected,
-    },
-    {
-      label: "Video",
-      name: "select_video",
-      options: ["Tidak", "Ada"],
-      setter: setVideoSelected,
-    },
   ];
 
   const submit = (e) => {
@@ -73,11 +64,11 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
           >
             <DatePicker
               selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={handleDateChange}
               className="border-none focus:border-none focus:ring-0 cursor-pointer"
               placeholderText="Choose a date"
               dateFormat="dd/MM/yyyy"
-              ref={datePickerRef} // Menambahkan ref pada DatePicker
+              ref={datePickerRef} // Add ref to DatePicker
             />
           </div>
           {textAreas.map((textarea, index) => (
@@ -118,12 +109,7 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
                         </p>
                         <select
                           value={data[select.name]}
-                          onChange={(e) => {
-                            setData(select.name, e.target.value);
-                            if (select.setter) {
-                              select.setter(e.target.value.toLowerCase());
-                            }
-                          }}
+                          onChange={(e) => setData(select.name, e.target.value)}
                           className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full cursor-pointer"
                         >
                           {select.options.map((option, idx) => (
@@ -145,26 +131,28 @@ const ModalMonitoringPeserta = ({ onClose, pesertaId }) => {
           </div>
 
           {/* Input fields for Foto and Video links */}
-          {fotoSelected === "ada" && (
+          <div className="mt-5 space-y-3">
+            <p className="text-xl text-slate-700 font-bold pl-1">Link Foto</p>
             <input
               type="text"
-              name="select_foto"
+              name="link_foto"
               value={data.link_foto}
               onChange={(e) => setData("link_foto", e.target.value)}
               placeholder="Masukan Link Foto"
-              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
+              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
             />
-          )}
-          {videoSelected === "ada" && (
+          </div>
+          <div className="mt-5 space-y-3">
+            <p className="text-xl text-slate-700 font-bold pl-1">Link Video</p>
             <input
               type="text"
-              name="select_video"
+              name="link_vidio"
               value={data.link_vidio}
               onChange={(e) => setData("link_vidio", e.target.value)}
               placeholder="Masukan Link Video"
-              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full mt-4"
+              className="rounded-lg text-sm text-slate-700 scrollbar-none border border-gray-400 focus:border-primary focus:outline-none transition-colors duration-300 focus:ring-0 w-full"
             />
-          )}
+          </div>
 
           <button
             className="w-full text-center bg-indigo-600 rounded-lg border border-indigo-600 text-white font-semibold mt-3 hover:bg-white hover:text-indigo-600 py-1 transition-all duration-300 ease-in-out"
