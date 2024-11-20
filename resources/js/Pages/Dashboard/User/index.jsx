@@ -24,8 +24,6 @@ export default function UserDashboard({ petugas, pelatihans }) {
     periode_akhir: null,
   });
 
-
-
   const { auth } = usePage().props;
 
   const [provinces, setProvinces] = useState([]); // For provinsi
@@ -215,9 +213,8 @@ export default function UserDashboard({ petugas, pelatihans }) {
           console.error("Gagal menambahkan biodata:", errors);
           reset();
         },
-      }
+      },
     );
-
   };
 
   const Inputs = [
@@ -250,7 +247,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
       },
       {
         id: "4",
-        label: "Nama Petugas Pembimbing 2",
+        label: "Nama Pendamping 2",
         type: "select",
         name: "petugas_id_2",
         autoComplete: "nama_petugas_pembimbing",
@@ -274,9 +271,9 @@ export default function UserDashboard({ petugas, pelatihans }) {
         type: "select",
         name: "sekolah",
         autoComplete: "sekolah",
-        options: sekolah.map((sekolah)=>({
-          id:sekolah.name,
-          name:sekolah.name
+        options: sekolah.map((sekolah) => ({
+          id: sekolah.name,
+          name: sekolah.name,
         })),
       },
       {

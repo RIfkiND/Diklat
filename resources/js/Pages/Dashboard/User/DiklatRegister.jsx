@@ -13,9 +13,7 @@ export default function DiklatRegister({ Rtl }) {
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <HeaderHome
           title={"Diklat Register"}
-          description={
-            "Tempat Penginputan RTL"
-          }
+          description={"Tempat Penginputan RTL"}
           content={"/images/ilustrasi/Monitor-bro.svg"}
         />
       </div>
@@ -25,8 +23,8 @@ export default function DiklatRegister({ Rtl }) {
           <TableRtlUser data={Rtl} />
         </div>
         <div className="flex justify-center">
-          <Pagination paginateItems={Rtl}/>
-          </div>
+          <Pagination paginateItems={Rtl} />
+        </div>
       </DashboardLayout>
     </AuthenticatedLayout>
   );
