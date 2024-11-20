@@ -1,39 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 import { Head } from "@inertiajs/react";
 import Select from "react-select";
+import { kabupaten } from "daftar-wilayah-indonesia";
 
-const Step1 = ({ nextStep, handleChange, values, errors }) => {
+const Step1 = ({ nextStep, handleChange, values, data }) => {
+  const DataKabupaten = kabupaten();
+
+  // When peserta is selected, populate other fields based on the selected data
+  useEffect(() => {
+    const selectedPeserta = data.find(
+      (peserta) => peserta.fullname === values.nama_responden
+    );
+
+    // Only update the state if selectedPeserta is found and the values haven't changed already
+    if (selectedPeserta) {
+      if (values.nama_institusi_sekolah !== selectedPeserta.nama_institusi_sekolah) {
+        handleChange({ target: { name: "nama_institusi_sekolah", value: selectedPeserta.nama_institusi_sekolah || "" } });
+      }
+      if (values.kabupaten_kota !== selectedPeserta.kabupaten_kota) {
+        handleChange({ target: { name: "kabupaten_kota", value: selectedPeserta.kabupaten_kota || "" } });
+      }
+      if (values.no_whatsapp !== selectedPeserta.no_whatsapp) {
+        handleChange({ target: { name: "no_whatsapp", value: selectedPeserta.no_whatsapp || "" } });
+      }
+
+      if (values.nama_tamatan_pelatihan !== selectedPeserta.nama_tamatan_pelatihan) {
+        handleChange({ target: { name: "nama_tamatan_pelatihan", value: selectedPeserta.nama_tamatan_pelatihan || "" } });
+      }
+      if (values.tanggal_dimulai !== selectedPeserta.tanggal_dimulai) {
+        handleChange({ target: { name: "tanggal_dimulai", value: selectedPeserta.tanggal_dimulai || "" } });
+      }
+      if (values.tanggal_selesai !== selectedPeserta.tanggal_selesai) {
+        handleChange({ target: { name: "tanggal_selesai", value: selectedPeserta.tanggal_selesai || "" } });
+      }
+    }
+  }, [values.nama_responden, data, handleChange]);
+
   const identitasResponden = [
-    {
-      title: "Nama Responden",
-      name: "nama_responden",
-      type: "select",
-      options: [
-        { value: "1", label: "Kikun Berulah" },
-        { value: "2", label: "Royhan mc cool" },
-        { value: "3", label: "Bambang" },
-        { value: "4", label: "Kepo" },
-      ],
-    },
-    {
-      title: "Nama Institusi / Sekolah",
-      name: "nama_institusi_sekolah",
-      type: "text",
-    },
-    { title: "Kabupaten / Kota", name: "kabupaten_kota", type: "text" },
+    { title: "Nama Responden", name: "nama_responden", type: "select", options: data.map(peserta => ({ value: peserta.fullname, label: peserta.fullname })) },
+    { title: "Nama Institusi / Sekolah", name: "nama_institusi_sekolah", type: "text" },
+    { title: "Kabupaten / Kota", name: "kabupaten_kota", type: "select", options: DataKabupaten.map(item => ({ value: item.nama, label: item.nama })) },
     { title: "No Whatsapp", name: "no_whatsapp", type: "number" },
     { title: "Email", name: "email", type: "email" },
-    {
-      title: "Nama Tamatan Pelatihan",
-      name: "nama_tamatan_pelatihan",
-      type: "text",
-    },
-    {
-      title: "Nama Jenis Pelatihan Yang DIikuti",
-      name: "nama_jenis_pelatihan",
-      type: "text",
-    },
+    { title: "Nama Tamatan Pelatihan", name: "nama_tamatan_pelatihan", type: "text" },
+    { title: "Nama Jenis Pelatihan Yang DIikuti", name: "nama_jenis_pelatihan", type: "text" },
     { title: "Tanggal Dimulai", name: "tanggal_dimulai", type: "date" },
     { title: "Tanggal Selesai", name: "tanggal_selesai", type: "date" },
   ];
@@ -43,25 +54,16 @@ const Step1 = ({ nextStep, handleChange, values, errors }) => {
       <Head title="Form Edp" />
       <div className="w-full h-[150px] bg-primary rounded-xl relative overflow-hidden pt-5 pl-5">
         <div>
-          <p className="text-2xl font-bold text-white">
-            Evaluasi Dampak Pelatihan - EDP
-          </p>
+          <p className="text-2xl font-bold text-white">Evaluasi Dampak Pelatihan - EDP</p>
           <p className="text-xs text-slate-100 max-w-[500px] leading-4">
-            Kami menjamin mutu pelatihan dengan mengevaluasi dampak peningkatan
-            kualitas dan kompetensi tenaga pendidik melalui berbagai metode
-            pelatihan.
+            Kami menjamin mutu pelatihan dengan mengevaluasi dampak peningkatan kualitas dan kompetensi tenaga pendidik melalui berbagai metode pelatihan.
           </p>
         </div>
-        <MonitorIlustration
-          images="/images/ilustrasi/Monitor-bro.svg"
-          className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]"
-        />
+        <MonitorIlustration images="/images/ilustrasi/Monitor-bro.svg" className="absolute bottom-[-20px] right-0 w-[100px] h-[100px]" />
       </div>
 
       <div className="w-full mt-5">
-        <p className="text-2xl font-bold text-slate-700 text-center">
-          Informasi Responden
-        </p>
+        <p className="text-2xl font-bold text-slate-700 text-center">Informasi Responden</p>
 
         <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-6">
           {identitasResponden.map((field, index) => (
@@ -72,13 +74,7 @@ const Step1 = ({ nextStep, handleChange, values, errors }) => {
                   name={field.name}
                   placeholder={`Pilih ${field.title}`}
                   options={field.options || []}
-                  value={
-                    field.options
-                      ? field.options.find(
-                          (option) => option.value === values[field.name],
-                        )
-                      : null
-                  }
+                  value={field.options ? field.options.find(option => option.value === values[field.name]) : null}
                   onChange={(selectedOption) =>
                     handleChange({
                       target: {

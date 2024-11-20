@@ -11,17 +11,19 @@ use Illuminate\Http\RedirectResponse;
 
 class EdpOtherController extends Controller
 {
-    public function renderEdpOther()
-    {
-      $edp_others = EdpOther::all()->map(function ($peserta) {
+      public function renderEdpOther()
+      {
+        $edp_others = EdpOther::paginate(5);
+
+    $edp_others->getCollection()->transform(function ($peserta) {
         $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
         $peserta->formatted_tanggal_selesai = Carbon::parse($peserta->tanggal_selesai)->format('Y-m-d');
         return $peserta;
     });
-        return Inertia::render('Dashboard/Petugas/DataEdp/EdpOther/Index', [
-            'EdpOther' => $edp_others,
-        ]);
-    }
+          return Inertia::render('Dashboard/Petugas/DataEdp/EdpOther/Index', [
+              'EdpOther' => $edp_others,
+          ]);
+      }
 
     public function renderEdpOtherShow(Request $request)
     {

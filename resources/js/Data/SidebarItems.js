@@ -36,6 +36,11 @@ export const getNavItems = (role) => {
             ],
           },
           {
+            name: "Copy EDP Link",
+            icon: "VscCopy",
+            path: "/form-edp-send-link",
+          },
+          {
             name: "Report",
             icon: "FiFileText",
             hasDropdown: true,
@@ -69,7 +74,7 @@ export const getNavItems = (role) => {
                   path: "/dashboard/admin/account/petugas",
                 },
               ],
-            },                            
+            },
             {
               name: "Laporan Tugas",
               icon: "FiFileText",

@@ -15,8 +15,19 @@ class PetugasController extends Controller
 {
   public function Petugas()
   {
-    $biodata = BiodataPeserta::with(['peserta','rtls'])->latest()->paginate(5);
-    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', compact('biodata'));
+
+  $user = Auth::guard('petugas')->user();
+  $petugasId = $user->id;
+
+    $biodata = BiodataPeserta::with(['petugas1', 'petugas2', 'pelatihan'])
+        ->where('petugas_id_1', $petugasId)
+        ->orWhere('petugas_id_2', $petugasId)
+        ->latest()
+        ->paginate(5);
+
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
+        'biodata' => $biodata
+    ]);
   }
 
   public function PetugasDataEdp()

@@ -1,21 +1,51 @@
 import React, { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
-// import Pagination from "@/Components/Ui/Pagination";
+import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
 import Modal from "@/Components/Ui/Modal/Modal";
 import EditOtherEdp from "@/Components/Form/Edp/EdpOther/Edit";
 
-const Index = ({ EdpOther }) => {
+const Index = ({ EdpOther ,search}) => {
+  const [searchQuery, setSearchQuery] = useState(search || "");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
   const [selectForm, setSelectForm] = useState(null); // Track selected row
   const [isOpenModal, setIsOpenModal] = useState(false);
 
+
+    useEffect(() => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      const newTimer = setTimeout(() => {
+        setDebouncedSearchQuery(searchQuery);
+      }, 500);
+
+      setTimer(newTimer);
+
+      return () => clearTimeout(newTimer);
+    }, [searchQuery]);
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+    router.visit(route("search.edpother", { search: query }), {
+      preserveState: true,
+      replace: true,
+    });
+  };
+
+  const filteredData = EdpOther.data.filter((edp) =>
+    edp.nama_responden.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+  );
+
+
   const tableRef = useRef(null);
   const buttonRef = useRef(null);
-
   const handleShowData = () => {
     if (selectedRow !== null) {
       const selectedData = EdpOther[selectedRow];
@@ -82,7 +112,7 @@ const Index = ({ EdpOther }) => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search />
+          <Search onSearchChange={handleSearchChange}/>
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto"></div>
         </div>
 
@@ -108,7 +138,7 @@ const Index = ({ EdpOther }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {EdpOther.map((user, index) => (
+                  {filteredData.map((user, index) => (
                     <tr
                       key={index}
                       className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
@@ -139,7 +169,7 @@ const Index = ({ EdpOther }) => {
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-                {/* <Pagination /> */}
+              <Pagination paginateItems={EdpOther} />
               </div>
             </div>
           </div>

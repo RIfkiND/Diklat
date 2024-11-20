@@ -13,7 +13,9 @@ class EdpPesertaController extends Controller
 {
     public function renderEdpPeserta()
     {
-        $edp_pesertas = Edp::all()->map(function ($peserta) {
+      $edp_pesertas = Edp::paginate(5);
+
+        $edp_pesertas->getCollection()->transform(function ($peserta) {
             $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
             $peserta->formatted_tanggal_selesai = Carbon::parse($peserta->tanggal_selesai)->format('Y-m-d');
             return $peserta;
