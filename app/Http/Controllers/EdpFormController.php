@@ -11,8 +11,20 @@ class EdpFormController extends Controller
   public function render()
   {
 
-    $peserta = BiodataPeserta::with(['pelatihan'])->get();
-    return Inertia::render('EdpForm/FormGuruDll/Index',compact('peserta'));
+    $peserta = BiodataPeserta::with(['peserta', 'pelatihan'])->get();
+    return Inertia::render('EdpForm/FormGuruDll/Index', [
+          'peserta' => $peserta->map(function($peserta) {
+              return [
+                  'fullname' => $peserta->fullname,
+                  'nama_institusi_sekolah' => $peserta->sekolah,
+                  'kabupaten_kota' => $peserta->kabupaten,
+                  'no_whatsapp' => optional($peserta->peserta)->no_hp, // Safely access no_hp
+                  'nama_tamatan_pelatihan' => optional($peserta->pelatihan)->name, // Safely access pelatihan name
+                  'tanggal_dimulai' => Carbon::parse($peserta->periode_mulai)->format('Y-m-d'),
+                  'tanggal_selesai' => Carbon::parse($peserta->periode_akhir)->format('Y-m-d'),
+              ];
+          }),
+      ]);
   }
   public function renderSiswa()
   {
