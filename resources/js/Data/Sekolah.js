@@ -37,9 +37,9 @@ export const sekolah = [
   { name: "SMKN 1 KATAPANG" },
   { name: "SMKN 2 GARUT" },
   { name: "SMKN 4 GARUT" },
-  { name: "SMK YPPT" },
   { name: "SMKS YPPT GARUT" },
   { name: "SMKS WIKRAMA 1 GARUT" },
   { name: "SMKN 9 GARUT" },
   { name: "SMK TEKNOLOGI MODERN" },
+  { name: "SMKN 1 GARUT" },
 ];

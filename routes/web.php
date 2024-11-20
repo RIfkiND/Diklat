@@ -32,6 +32,7 @@ Route::get('/', function () {
 Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.email');
 
 
+require __DIR__ . '/Pages/search.php';
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';
 require __DIR__ . '/Pages/peserta.php';

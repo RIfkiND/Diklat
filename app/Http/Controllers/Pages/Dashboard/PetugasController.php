@@ -15,9 +15,7 @@ class PetugasController extends Controller
 {
   public function Petugas()
   {
-    if (!Auth::guard('petugas')->check()) {
-      return redirect('/')->with('error', 'You must be logged in to view this page.');
-  }
+
   $user = Auth::guard('petugas')->user();
   $petugasId = $user->id;
 
