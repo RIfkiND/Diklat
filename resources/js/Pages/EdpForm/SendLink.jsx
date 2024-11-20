@@ -42,7 +42,7 @@ const SendLink = () => {
       </div>
       <div className="w-full mt-5">
         <p className="text-2xl font-bold text-slate-700 text-center">
-          Send Link EDP
+          Copy Link EDP
         </p>
 
         <div className="w-full shadow-primaryshadow p-5 mt-5 grid grid-cols-1 gap-x-10 gap-y-6">

@@ -6,11 +6,13 @@ import { TbAutomaticGearbox } from "react-icons/tb";
 import { FiFileText } from "react-icons/fi";
 import { usePage } from "@inertiajs/react";
 import { getNavItems } from "@/Data/SidebarItems";
+import { VscCopy } from "react-icons/vsc";
 
 const iconMap = {
   FaRegUser: <FaRegUser />,
   TbAutomaticGearbox: <TbAutomaticGearbox />,
   FiFileText: <FiFileText />,
+  VscCopy: <VscCopy />,
 };
 const Sidebar = () => {
   const {
