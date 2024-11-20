@@ -5,7 +5,7 @@ import Step3 from "./Step3";
 import Step4 from "./Step4";
 import { useForm } from "@inertiajs/react";
 
-const Index = () => {
+const Index = ({ peserta }) => {
   const [step, setStep] = useState(1);
   const { data, setData, post, errors } = useForm({
     nama_responden: "",
@@ -51,37 +51,6 @@ const Index = () => {
     setData(name, value);
   };
 
-  // const validateStep = () => {
-  //   switch (step) {
-  //     case 1:
-  //       if (
-  //         !data.nama_responden ||
-  //         !data.nama_institusi_sekolah ||
-  //         !data.kabupaten_kota ||
-  //         !data.no_whatsapp ||
-  //         !data.email
-  //       ) {
-  //         alert("Please fill all required fields in Step 1.");
-  //         return false;
-  //       }
-  //       break;
-  //     case 2:
-  //       if (
-  //         !data.nama_tamatan_pelatihan ||
-  //         !data.nama_jenis_pelatihan ||
-  //         !data.tanggal_dimulai ||
-  //         !data.tanggal_selesai
-  //       ) {
-  //         alert("Please fill all required fields in Step 2.");
-  //         return false;
-  //       }
-  //       break;
-  //     default:
-  //       return true;
-  //   }
-  //   return true;
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     post(route("post.edp.other"), {
@@ -98,7 +67,6 @@ const Index = () => {
   const validateStep = () => {
     switch (step) {
       case 1:
-        // Check if all required fields in step 1 are filled
         if (
           !data.nama_responden ||
           !data.jabatan_responden ||
@@ -189,6 +157,7 @@ const Index = () => {
           handleChange={handleChange}
           values={data} // Use `data` from useForm
           errors={errors}
+          data={peserta}
         />
       );
     case 2:
@@ -197,6 +166,7 @@ const Index = () => {
           nextStep={nextStep}
           prevStep={prevStep}
           handleChange={handleChange}
+          data={peserta}
           values={data} // Use `data` from useForm
           errors={errors}
         />
@@ -205,6 +175,7 @@ const Index = () => {
       return (
         <Step3
           nextStep={nextStep}
+          data={peserta}
           prevStep={prevStep}
           handleChange={handleChange}
           values={data}
@@ -216,6 +187,7 @@ const Index = () => {
         <Step4
           nextStep={nextStep}
           prevStep={prevStep}
+          data={peserta}
           handleChange={handleChange}
           values={data}
           errors={errors}
