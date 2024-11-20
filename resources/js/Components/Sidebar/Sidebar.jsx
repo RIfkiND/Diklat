@@ -43,9 +43,12 @@ const Sidebar = () => {
   return (
     <>
       <div className="hidden md:flex h-full w-full flex-col items-center gap-5 p-5">
-        <div className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-1">
+        <Link
+          href="/"
+          className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-1"
+        >
           <span className="text-2xl font-bold text-white">RTL - EDD</span>
-        </div>
+        </Link>
 
         <div className="flex w-full flex-col gap-2">
           <p className="text-start font-bold text-slate-600">Menu</p>
