@@ -20,11 +20,17 @@ class hasil_monitoring extends Model
         'vidio',
         'link_foto',
         'link_vidio',
-        'peserta_id'
+        'peserta_id',
+        'rtl_id',
     ];
 
     public function biodataPeserta()
     {
         return $this->belongsTo(BiodataPeserta::class, 'peserta_id');
+    }
+
+    public function rtl()
+    {
+        return $this->belongsTo(Rtl::class, 'rtl_id');
     }
 }

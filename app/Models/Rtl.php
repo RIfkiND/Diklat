@@ -55,4 +55,10 @@ class Rtl extends Model
     {
         return $this->belongsTo(BiodataPeserta::class, 'peserta_id');
     }
+
+    public function hasil_monitoring()
+{
+    return $this->hasOne(hasil_monitoring::class);
+}
+
 }

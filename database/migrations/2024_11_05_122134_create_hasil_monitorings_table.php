@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\Rtl;
 use App\Models\Peserta;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('link_foto');
             $table->string('link_vidio');
             $table->foreignIdFor(Peserta::class);
+            $table->foreignIdFor(Rtl::class);
             $table->timestamps();
         });
     }

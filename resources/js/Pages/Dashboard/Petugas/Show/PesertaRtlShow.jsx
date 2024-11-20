@@ -4,6 +4,10 @@ import { Head } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import ModalMonitoringPeserta from "@/Components/Ui/Modal/ModalMonitoringPeserta";
 import Search from "@/Components/Ui/Input/Search";
+import { CiMenuKebab } from "react-icons/ci";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { router } from "@inertiajs/react";
 
 const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const [provinces, setProvinces] = useState([]);
@@ -15,8 +19,21 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const containerRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
-  const [timer, setTimer] = useState(null); // Use useState instead of useRef
+  const [timer, setTimer] = useState(null);
   const buttonRef = useRef(null);
+
+  const [rtlIdss, setRtlIds] = useState([]);
+  const [monitoringRtlIdss, setMonitoringRtlIds] = useState([]);
+
+  useEffect(() => {
+    const rtlIds = Rtls;
+    console.log("Rtls (IDs only):", rtlIds);
+    setRtlIds(rtlIds);
+
+    const monitoringRtlIds = hasilMonitorings;
+    console.log("HasilMonitorings (RTL IDs only):", monitoringRtlIds);
+    setMonitoringRtlIds(monitoringRtlIds);
+  }, [Rtls, hasilMonitorings]);
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -139,6 +156,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   }));
 
   const ViewRtl = hasilMonitorings.map((monitoring) => ({
+    id: monitoring.id, // Ensure id is included here
     top: {
       title: "RTL",
     },
@@ -213,6 +231,16 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
     };
   }, []);
 
+  const [openMenu, setOpenMenu] = useState(false);
+  const handleOpenMenu = () => {
+    setOpenMenu(!openMenu);
+  };
+
+  const handleDelete = (id) => {
+    console.log("Deleting item with id:", id); // Debugging statement
+    router.delete(route("petugas.delete-rtl-peserta", { id }));
+  };
+
   return (
     <AuthenticatedLayout
       header={
@@ -276,73 +304,39 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
             </button>
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-12 row-span-6 justify-center rounded-xl gap-3 flex flex-col">
-          {Viewkegiatan.map((item, index) => (
-            <div className="grid grid-cols-12 gap-5 h-full" key={index}>
-              <div
-                onClick={() => handleSelection(index)}
-                ref={selectedItem === index ? containerRef : null}
-                className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300 hover:bg-indigo-50 ${
-                  selectedItem === index ? "bg-indigo-50" : ""
-                }`}
-              >
-                <div className="flex items-center justify-center flex-col">
-                  <p className="text-xl font-bold text-textPrimary">
-                    {item.top.title}
-                  </p>
-                  <p className="text-sm font-bold text-textSecondary">
-                    {item.top.content}
-                  </p>
-                </div>
-                <div className="w-full flex justify-between">
-                  <div className="">
-                    {item.left.map((leftItem, index) => (
-                      <div className="space-y-4" key={index}>
-                        <div className="flex flex-col">
-                          <p className="text-base font-bold text-textPrimary">
-                            {leftItem.title}
-                          </p>
-                          <p className="text-sm font-bold text-textSecondary">
-                            {leftItem.content}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="">
-                    {item.right.map((leftItem, index) => (
-                      <div className="space-y-4" key={index}>
-                        <div className="">
-                          <p className="text-base font-bold text-textPrimary">
-                            {leftItem.title}
-                          </p>
-                          <p className="text-sm font-bold text-textSecondary">
-                            {leftItem.content}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
-                  {item.date.date}
-                </p>
-              </div>
-              {ViewRtl.map((item, index) => (
+        <p className="col-span-12 py-2 text-center text-white font-bold bg-slate-400 opacity-80 rounded-xl">
+          TOLONG PASTIKAN MENGISI HASIL MONITORING HANYA SATU KALI!
+        </p>
+
+        <table className="w-full  col-span-12">
+          <tr className="w-full  flex gap-5">
+            <td className="w-full space-y-5">
+              {Viewkegiatan.map((item, index) => (
                 <div
                   key={index}
-                  className="w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
+                  onClick={() => {
+                    if (!monitoringRtlIdss.includes(item.id)) {
+                      handleSelection(index);
+                    }
+                  }}
+                  ref={selectedItem === index ? containerRef : null}
+                  className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 hover:bg-indigo-50
+                  ${rtlIdss.some((id) => monitoringRtlIdss.includes(id)) ? "cursor-not-allowed" : "cursor-pointer"}
+                  ${selectedItem === index ? "bg-indigo-50" : ""}`}
                 >
                   <div className="flex items-center justify-center flex-col">
                     <p className="text-xl font-bold text-textPrimary">
                       {item.top.title}
                     </p>
+                    <p className="text-sm font-bold text-textSecondary">
+                      {item.top.content}
+                    </p>
                   </div>
                   <div className="w-full flex justify-between">
-                    <div className="">
-                      {item.leftRTL.map((leftItem, index) => (
+                    <div>
+                      {item.left.map((leftItem, index) => (
                         <div className="space-y-4" key={index}>
-                          <div className="">
+                          <div className="flex flex-col">
                             <p className="text-base font-bold text-textPrimary">
                               {leftItem.title}
                             </p>
@@ -353,9 +347,89 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                         </div>
                       ))}
                     </div>
-                    <div className="">
-                      <div className="space-y-4">
-                        <div className="">
+                    <div>
+                      {item.right.map((leftItem, index) => (
+                        <div className="space-y-4" key={index}>
+                          <div>
+                            <p className="text-base font-bold text-textPrimary">
+                              {leftItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {leftItem.content}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
+                    {item.date.date}
+                  </p>
+                </div>
+              ))}
+            </td>
+            <td className="w-full">
+              {ViewRtl.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
+                >
+                  <div className="absolute right-3 top-3">
+                    <div className="relative">
+                      <div className="group w-[40px] h-[40px] rounded-full hover:bg-primary transition-all ease-in-out duration-300 flex justify-center items-center">
+                        <button
+                          onClick={handleOpenMenu}
+                          className="text-2xl group-hover:text-white transition-all ease-in-out duration-300"
+                        >
+                          <CiMenuKebab />
+                        </button>
+                      </div>
+
+                      {openMenu && (
+                        <div className="flex flex-col items-start bg-white  absolute top-12 right-3 border rounded w-[120px]">
+                          <button className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3  text-start pl-5 flex items-center gap-3">
+                            <FaEdit className="text-blue-500 text-lg" />
+                            edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(item.id)}
+                            className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3 text-start pl-5 flex items-center gap-3"
+                          >
+                            <MdDelete className="text-red-500 text-lg" />
+                            delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center flex-col">
+                    <p className="text-xl font-bold text-textPrimary">
+                      {item.top.title}
+                    </p>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div>
+                      {item.leftRTL.length ? (
+                        item.leftRTL.map((leftItem, index) => (
+                          <div className="space-y-4" key={index}>
+                            <p className="text-base font-bold text-textPrimary">
+                              {leftItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {leftItem.content}
+                            </p>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-sm text-gray-500">
+                          No Monitoring Data
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      {item.rightRTL ? (
+                        <div className="space-y-4">
                           <p className="text-base font-bold text-textPrimary">
                             {item.rightRTL.title}
                           </p>
@@ -363,7 +437,11 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                             {item.rightRTL.content}
                           </p>
                         </div>
-                      </div>
+                      ) : (
+                        <p className="text-sm text-gray-500">
+                          No Monitoring Data
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-4 w-full">
@@ -371,31 +449,27 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                       {item.mid.title}
                     </p>
                     <div className="flex justify-between">
-                      <div className="">
+                      <div>
                         {item.leftBD.map((leftItem, index) => (
                           <div className="space-y-4" key={index}>
-                            <div className="">
-                              <p className="text-base font-bold text-textPrimary">
-                                {leftItem.title}
-                              </p>
-                              <p className="text-sm font-bold text-textSecondary">
-                                {leftItem.content}
-                              </p>
-                            </div>
+                            <p className="text-base font-bold text-textPrimary">
+                              {leftItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {leftItem.content}
+                            </p>
                           </div>
                         ))}
                       </div>
-                      <div className="">
+                      <div>
                         {item.rightBD.map((RightItem, index) => (
                           <div className="space-y-4" key={index}>
-                            <div className="">
-                              <p className="text-base font-bold text-textPrimary">
-                                {RightItem.title}
-                              </p>
-                              <p className="text-sm font-bold text-textSecondary">
-                                {RightItem.content}
-                              </p>
-                            </div>
+                            <p className="text-base font-bold text-textPrimary">
+                              {RightItem.title}
+                            </p>
+                            <p className="text-sm font-bold text-textSecondary">
+                              {RightItem.content}
+                            </p>
                           </div>
                         ))}
                       </div>
@@ -403,9 +477,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                   </div>
                 </div>
               ))}
-            </div>
-          ))}
-        </div>
+            </td>
+          </tr>
+        </table>
       </div>
       {openModal && (
         <ModalMonitoringPeserta

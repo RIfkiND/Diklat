@@ -50,19 +50,26 @@ class PetugasController extends Controller
 
     public function show($id)
     {
-        $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->get();
+
+      $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->orWhere('rtl_id', $id)->get();
+
+      // dd($hasilMonitorings); // Tambahkan ini untuk debugging di backend
         $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
+
+         // Tambahkan ini untuk debugging di backend
         $rtls = $biodata->peserta->rtls->map(function ($rtl) {
             // Format the waktu_pelaksanaan date to "day month year"
             $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
             return $rtl;
         });
+        // dd($rtls);
         // dd($hasilMonitorings);
         return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
-            'biodata' => $biodata,
-            'Rtls' => $rtls,
-            'hasilMonitorings' => $hasilMonitorings,
-        ]);
+          'biodata' => $biodata,
+          'Rtls' => $rtls,
+          'hasilMonitorings' => $hasilMonitorings,
+      ]);
+
     }
     public function upload(Request $request, $id)
     {
@@ -87,6 +94,7 @@ class PetugasController extends Controller
             'vidio' => 'ya', // Assuming default value
             'link_foto' => $request->input('link_foto'),
             'link_vidio' => $request->input('link_vidio'),
+            'rtl_id'=>  $id,
         ]);
 
         if (!$hasilMonitoring) {
@@ -95,6 +103,17 @@ class PetugasController extends Controller
 
         return redirect()->route('petugas.show-rtl-peserta', ['id' => $id])
                          ->with('success', 'Data RTL berhasil ditambahkan.');
+    }
+    public function delete($id)
+    {
+        $hasilMonitoring = hasil_monitoring::findOrFail($id);
+
+        if (!$hasilMonitoring->delete()) {
+            return back()->withErrors(['message' => 'Failed to delete hasil_monitoring.']);
+        }
+
+        return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
+                         ->with('success', 'Data RTL berhasil dihapus.');
     }
 
   public function PetugasReportPendampinganRtl()
