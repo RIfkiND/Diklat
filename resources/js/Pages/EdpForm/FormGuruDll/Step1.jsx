@@ -8,43 +8,71 @@ const Step1 = ({ nextStep, handleChange, values, data }) => {
   const DataKabupaten = kabupaten();
   useEffect(() => {
     const selectedPeserta = data.find(
-      (peserta) => peserta.fullname === values.nama_responden
+      (peserta) => peserta.fullname === values.nama_tamatan_pelatihan,
     );
 
     // Only update the state if selectedPeserta is found and the values haven't changed already
     if (selectedPeserta) {
-      if (values.nama_institusi_sekolah !== selectedPeserta.nama_institusi_sekolah) {
-        handleChange({ target: { name: "nama_institusi_sekolah", value: selectedPeserta.nama_institusi_sekolah || "" } });
+      if (
+        values.nama_institusi_sekolah !== selectedPeserta.nama_institusi_sekolah
+      ) {
+        handleChange({
+          target: {
+            name: "nama_institusi_sekolah",
+            value: selectedPeserta.nama_institusi_sekolah || "",
+          },
+        });
       }
       if (values.kabupaten_kota !== selectedPeserta.kabupaten_kota) {
-        handleChange({ target: { name: "kabupaten_kota", value: selectedPeserta.kabupaten_kota || "" } });
+        handleChange({
+          target: {
+            name: "kabupaten_kota",
+            value: selectedPeserta.kabupaten_kota || "",
+          },
+        });
       }
       if (values.no_whatsapp !== selectedPeserta.no_whatsapp) {
-        handleChange({ target: { name: "no_whatsapp", value: selectedPeserta.no_whatsapp || "" } });
+        handleChange({
+          target: {
+            name: "no_whatsapp",
+            value: selectedPeserta.no_whatsapp || "",
+          },
+        });
       }
 
-      if (values.nama_tamatan_pelatihan !== selectedPeserta.nama_tamatan_pelatihan) {
-        handleChange({ target: { name: "nama_tamatan_pelatihan", value: selectedPeserta.nama_tamatan_pelatihan || "" } });
+      if (
+        values.nama_jenis_pelatihan !== selectedPeserta.nama_jenis_pelatihan
+      ) {
+        handleChange({
+          target: {
+            name: "nama_jenis_pelatihan",
+            value: selectedPeserta.nama_jenis_pelatihan || "",
+          },
+        });
       }
       if (values.tanggal_dimulai !== selectedPeserta.tanggal_dimulai) {
-        handleChange({ target: { name: "tanggal_dimulai", value: selectedPeserta.tanggal_dimulai || "" } });
+        handleChange({
+          target: {
+            name: "tanggal_dimulai",
+            value: selectedPeserta.tanggal_dimulai || "",
+          },
+        });
       }
       if (values.tanggal_selesai !== selectedPeserta.tanggal_selesai) {
-        handleChange({ target: { name: "tanggal_selesai", value: selectedPeserta.tanggal_selesai || "" } });
+        handleChange({
+          target: {
+            name: "tanggal_selesai",
+            value: selectedPeserta.tanggal_selesai || "",
+          },
+        });
       }
     }
-  }, [values.nama_responden, data, handleChange]);
-
+  }, [values.nama_tamatan_pelatihan, data, handleChange]);
   const identitasResponden = [
     {
       title: "Nama Responden",
       type: "text",
       name: "nama_responden",
-      type: "select",
-      options: data.map((peserta) => ({
-        value: peserta.fullname,
-        label: peserta.fullname,
-      })),
     },
     {
       title: "Jabatan Responden",
@@ -84,9 +112,12 @@ const Step1 = ({ nextStep, handleChange, values, data }) => {
     },
     {
       title: "Nama Tamatan Pelatihan",
-      type: "text",
       name: "nama_tamatan_pelatihan",
-      isDropdown: false,
+      type: "select",
+      options: data.map((peserta) => ({
+        value: peserta.fullname,
+        label: peserta.fullname,
+      })),
     },
     {
       title: "Nama Jenis Pelatihan Yang DIikuti",

@@ -10,7 +10,7 @@ const Step1 = ({ nextStep, handleChange, values, data }) => {
   // When peserta is selected, populate other fields based on the selected data
   useEffect(() => {
     const selectedPeserta = data.find(
-      (peserta) => peserta.fullname === values.nama_responden
+      (peserta) => peserta.fullname === values.nama_tamatan_pelatihan
     );
 
     // Only update the state if selectedPeserta is found and the values haven't changed already
@@ -25,8 +25,8 @@ const Step1 = ({ nextStep, handleChange, values, data }) => {
         handleChange({ target: { name: "no_whatsapp", value: selectedPeserta.no_whatsapp || "" } });
       }
 
-      if (values.nama_tamatan_pelatihan !== selectedPeserta.nama_tamatan_pelatihan) {
-        handleChange({ target: { name: "nama_tamatan_pelatihan", value: selectedPeserta.nama_tamatan_pelatihan || "" } });
+      if (values.nama_jenis_pelatihan !== selectedPeserta.nama_jenis_pelatihan) {
+        handleChange({ target: { name: "nama_jenis_pelatihan", value: selectedPeserta.nama_jenis_pelatihan || "" } });
       }
       if (values.tanggal_dimulai !== selectedPeserta.tanggal_dimulai) {
         handleChange({ target: { name: "tanggal_dimulai", value: selectedPeserta.tanggal_dimulai || "" } });
@@ -35,15 +35,15 @@ const Step1 = ({ nextStep, handleChange, values, data }) => {
         handleChange({ target: { name: "tanggal_selesai", value: selectedPeserta.tanggal_selesai || "" } });
       }
     }
-  }, [values.nama_responden, data, handleChange]);
+  }, [values.nama_tamatan_pelatihan, data, handleChange]);
 
   const identitasResponden = [
-    { title: "Nama Responden", name: "nama_responden", type: "select", options: data.map(peserta => ({ value: peserta.fullname, label: peserta.fullname })) },
+    { title: "Nama Responden", name: "nama_responden", type: "text" },
     { title: "Nama Institusi / Sekolah", name: "nama_institusi_sekolah", type: "text" },
     { title: "Kabupaten / Kota", name: "kabupaten_kota", type: "select", options: DataKabupaten.map(item => ({ value: item.nama, label: item.nama })) },
     { title: "No Whatsapp", name: "no_whatsapp", type: "number" },
     { title: "Email", name: "email", type: "email" },
-    { title: "Nama Tamatan Pelatihan", name: "nama_tamatan_pelatihan", type: "text" },
+    { title: "Nama Tamatan Pelatihan", name: "nama_tamatan_pelatihan", type: "select", options: data.map(peserta => ({ value: peserta.fullname, label: peserta.fullname }))},
     { title: "Nama Jenis Pelatihan Yang DIikuti", name: "nama_jenis_pelatihan", type: "text" },
     { title: "Tanggal Dimulai", name: "tanggal_dimulai", type: "date" },
     { title: "Tanggal Selesai", name: "tanggal_selesai", type: "date" },

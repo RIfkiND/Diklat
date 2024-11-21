@@ -19,7 +19,7 @@ class EdpFormController extends Controller
                   'nama_institusi_sekolah' => $peserta->sekolah,
                   'kabupaten_kota' => $peserta->kabupaten,
                   'no_whatsapp' => optional($peserta->peserta)->no_hp, // Safely access no_hp
-                  'nama_tamatan_pelatihan' => optional($peserta->pelatihan)->name, // Safely access pelatihan name
+                  'nama_jenis_pelatihan' => optional($peserta->pelatihan)->name, // Safely access pelatihan name
                   'tanggal_dimulai' => Carbon::parse($peserta->periode_mulai)->format('Y-m-d'),
                   'tanggal_selesai' => Carbon::parse($peserta->periode_akhir)->format('Y-m-d'),
               ];
@@ -37,7 +37,7 @@ class EdpFormController extends Controller
                   'nama_institusi_sekolah' => $peserta->sekolah,
                   'kabupaten_kota' => $peserta->kabupaten,
                   'no_whatsapp' => optional($peserta->peserta)->no_hp, // Safely access no_hp
-                  'nama_tamatan_pelatihan' => optional($peserta->pelatihan)->name, // Safely access pelatihan name
+                  'nama_jenis_pelatihan' => optional($peserta->pelatihan)->name, // Safely access pelatihan name
                   'tanggal_dimulai' => Carbon::parse($peserta->periode_mulai)->format('Y-m-d'),
                   'tanggal_selesai' => Carbon::parse($peserta->periode_akhir)->format('Y-m-d'),
               ];
