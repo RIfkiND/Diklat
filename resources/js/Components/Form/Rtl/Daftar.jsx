@@ -19,11 +19,19 @@ export default function DaftarRtl() {
   });
 
   const handleDateChange = (date, name) => {
+    const localDate = new Date(date); // Buat objek Date dari input
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, "0");
+    const day = String(localDate.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}-${month}-${day}`; // Format ke YYYY-MM-DD
+
     setSelectedDates((prevDates) => ({
       ...prevDates,
-      [name]: date,
+      [name]: formattedDate,
     }));
-    setData(name, date);
+
+    setData(name, formattedDate); // Kirim format tanggal yang sudah benar
   };
 
   const handleSelectChange = (event, name) => {
