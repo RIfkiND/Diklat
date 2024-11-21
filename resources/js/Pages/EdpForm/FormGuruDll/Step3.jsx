@@ -2,7 +2,7 @@ import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 import { Head } from "@inertiajs/react";
 
-const Step3 = ({ nextStep, prevStep, handleChange, values }) => {
+const Step3 = ({ nextStep, prevStep, handleChange, values ,data }) => {
   //
   const penyusunanRencana = [
     {

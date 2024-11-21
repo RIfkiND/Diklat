@@ -37,38 +37,38 @@ const Index = ({ peserta }) => {
     setData(name, value);
   };
 
-  // const validateStep = () => {
-  //   switch (step) {
-  //     case 1:
-  //       // Check if all required fields in step 1 are filled
-  //       if (
-  //         !data.nama_responden ||
-  //         !data.nama_institusi_sekolah ||
-  //         !data.kabupaten_kota ||
-  //         !data.no_whatsapp ||
-  //         !data.email
-  //       ) {
-  //         alert("Please fill all required fields in Step 1.");
-  //         return false;
-  //       }
-  //       break;
-  //     case 2:
-  //       // Check if all required fields in step 2 are filled
-  //       if (
-  //         !data.nama_tamatan_pelatihan ||
-  //         !data.nama_jenis_pelatihan ||
-  //         !data.tanggal_dimulai ||
-  //         !data.tanggal_selesai
-  //       ) {
-  //         alert("Please fill all required fields in Step 2.");
-  //         return false;
-  //       }
-  //       break;
-  //     default:
-  //       return true;
-  //   }
-  //   return true;
-  // };
+  const validateStep = () => {
+    switch (step) {
+      case 1:
+        // Check if all required fields in step 1 are filled
+        if (
+          !data.nama_responden ||
+          !data.nama_institusi_sekolah ||
+          !data.kabupaten_kota ||
+          !data.no_whatsapp ||
+          !data.email
+        ) {
+          alert("Please fill all required fields in Step 1.");
+          return false;
+        }
+        break;
+      case 2:
+        // Check if all required fields in step 2 are filled
+        if (
+          !data.nama_tamatan_pelatihan ||
+          !data.nama_jenis_pelatihan ||
+          !data.tanggal_dimulai ||
+          !data.tanggal_selesai
+        ) {
+          alert("Please fill all required fields in Step 2.");
+          return false;
+        }
+        break;
+      default:
+        return true;
+    }
+    return true;
+  };
 
   // Handle form submission
   const handleSubmit = (e) => {

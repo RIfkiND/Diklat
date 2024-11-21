@@ -53,12 +53,9 @@ class PetugasController extends Controller
 
       $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->orWhere('rtl_id', $id)->get();
 
-      // dd($hasilMonitorings); // Tambahkan ini untuk debugging di backend
         $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
 
-         // Tambahkan ini untuk debugging di backend
         $rtls = $biodata->peserta->rtls->map(function ($rtl) {
-            // Format the waktu_pelaksanaan date to "day month year"
             $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
             return $rtl;
         });
