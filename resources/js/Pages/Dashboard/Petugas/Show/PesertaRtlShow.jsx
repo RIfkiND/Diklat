@@ -127,8 +127,8 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
 
   const Viewkegiatan = filteredData.map((kegiatan) => ({
     top: {
-      title: kegiatan.nama_kegiatan,
-      content: "test",
+      title: "Kegiatan",
+      content: kegiatan.nama_kegiatan,
     },
     left: [
       {
@@ -320,7 +320,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                     }
                   }}
                   ref={selectedItem === index ? containerRef : null}
-                  className={`w-full col-span-12 md:col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 hover:bg-indigo-50
+                  className={`w-full h-[450px] col-span-12 md:col-span-6  shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 hover:bg-indigo-50
                   ${rtlIdss.some((id) => monitoringRtlIdss.includes(id)) ? "cursor-not-allowed" : "cursor-pointer"}
                   ${selectedItem === index ? "bg-indigo-50" : ""}`}
                 >
@@ -333,9 +333,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                     </p>
                   </div>
                   <div className="w-full flex justify-between">
-                    <div>
+                    <div className="space-y-4">
                       {item.left.map((leftItem, index) => (
-                        <div className="space-y-4" key={index}>
+                        <div key={index}>
                           <div className="flex flex-col">
                             <p className="text-base font-bold text-textPrimary">
                               {leftItem.title}
@@ -347,9 +347,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                         </div>
                       ))}
                     </div>
-                    <div>
+                    <div className="space-y-4">
                       {item.right.map((leftItem, index) => (
-                        <div className="space-y-4" key={index}>
+                        <div key={index}>
                           <div>
                             <p className="text-base font-bold text-textPrimary">
                               {leftItem.title}
@@ -372,7 +372,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
               {ViewRtl.map((item, index) => (
                 <div
                   key={index}
-                  className="w-full col-span-6 h-full shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
+                  className="w-full col-span-6 h-[450px] shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
                 >
                   <div className="absolute right-3 top-3">
                     <div className="relative">
@@ -409,10 +409,10 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                     </p>
                   </div>
                   <div className="w-full flex justify-between">
-                    <div>
+                    <div className="space-y-4">
                       {item.leftRTL.length ? (
                         item.leftRTL.map((leftItem, index) => (
-                          <div className="space-y-4" key={index}>
+                          <div className="" key={index}>
                             <p className="text-base font-bold text-textPrimary">
                               {leftItem.title}
                             </p>
@@ -427,9 +427,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                         </p>
                       )}
                     </div>
-                    <div>
+                    <div className="space-y-4">
                       {item.rightRTL ? (
-                        <div className="space-y-4">
+                        <div className="">
                           <p className="text-base font-bold text-textPrimary">
                             {item.rightRTL.title}
                           </p>
@@ -445,13 +445,13 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                     </div>
                   </div>
                   <div className="space-y-4 w-full">
-                    <p className="text-base font-bold text-textPrimary">
+                    <p className="text-xl font-bold text-textPrimary">
                       {item.mid.title}
                     </p>
                     <div className="flex justify-between">
-                      <div>
+                      <div className="space-y-4">
                         {item.leftBD.map((leftItem, index) => (
-                          <div className="space-y-4" key={index}>
+                          <div key={index}>
                             <p className="text-base font-bold text-textPrimary">
                               {leftItem.title}
                             </p>
@@ -461,9 +461,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                           </div>
                         ))}
                       </div>
-                      <div>
+                      <div className="space-y-4">
                         {item.rightBD.map((RightItem, index) => (
-                          <div className="space-y-4" key={index}>
+                          <div key={index}>
                             <p className="text-base font-bold text-textPrimary">
                               {RightItem.title}
                             </p>
