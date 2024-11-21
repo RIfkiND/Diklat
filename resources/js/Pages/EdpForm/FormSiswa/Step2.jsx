@@ -2,7 +2,7 @@ import React from "react";
 import MonitorIlustration from "../../../Components/Image/MonitorIlustration";
 import { Head } from "@inertiajs/react";
 
-const Step2 = ({ prevStep, handleSubmit, handleChange, values }) => {
+const Step2 = ({ prevStep, handleSubmit, handleChange, values ,data}) => {
   const tampilanGuru = [
     { title: "Tampilan Menarik", name: "tampilan_menarik" },
     { title: "Sabar", name: "sabar" },

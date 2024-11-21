@@ -19,12 +19,24 @@ export default function DaftarRtl() {
   });
 
   const handleDateChange = (date, name) => {
+    const localDate = new Date(date); // Membuat objek Date dari input date picker
+
+    // Ambil tahun, bulan, dan tanggal dari tanggal lokal
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, "0"); // Bulan dimulai dari 0
+    const day = String(localDate.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}-${month}-${day}`; // Format YYYY-MM-DD
+
     setSelectedDates((prevDates) => ({
       ...prevDates,
-      [name]: date,
+      [name]: formattedDate,
     }));
-    setData(name, date);
+
+    setData(name, formattedDate);
   };
+
+  console.log(handleDateChange);
 
   const handleSelectChange = (event, name) => {
     const value = event.target.value;
