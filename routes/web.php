@@ -32,6 +32,13 @@ Route::get('/', function () {
 Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.email');
 
 
+
+// Route Instrumen ks
+Route::get('/instrumen-ks', function () {
+  return Inertia::render('InstrumenKs/Index');
+})->name('instrumen-ks');
+
+
 require __DIR__ . '/Pages/search.php';
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';
