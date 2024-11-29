@@ -41,11 +41,6 @@ const Index = ({ Edp, search }) => {
     });
   };
 
-  const filteredData = Edp.data.filter((edp) =>
-    edp.nama_responden
-      .toLowerCase()
-      .includes(debouncedSearchQuery.toLowerCase()),
-  );
 
   const handleShowData = () => {
     if (selectedRow !== null) {
@@ -68,7 +63,7 @@ const Index = ({ Edp, search }) => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOuts ide = (event) => {
       if (
         tableRef.current &&
         !tableRef.current.contains(event.target) &&
@@ -132,7 +127,6 @@ const Index = ({ Edp, search }) => {
                     <th className="py-3 px-4">Sekolah</th>
                     <th className="py-3 px-4">Kabupaten / Kota</th>
                     <th className="py-3 px-4">No Whatsapp</th>
-                    <th className="py-3 px-4">Email</th>
                     <th className="py-3 px-4">Tamatan Pelatihan</th>
                     <th className="py-3 px-4">Pelatihan Yang DIikuti</th>
                     <th className="py-3 px-4">Tanggal Dimulai</th>
@@ -140,7 +134,7 @@ const Index = ({ Edp, search }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredData.map((user, index) => (
+                  {Edp.data.map((user, index) => (
                     <tr
                       key={index}
                       className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
@@ -155,7 +149,6 @@ const Index = ({ Edp, search }) => {
                       </td>
                       <td className="py-3 px-4">{user.kabupaten_kota}</td>
                       <td className="py-3 px-4">{user.no_whatsapp}</td>
-                      <td className="py-3 px-4">{user.email}</td>
                       <td className="py-3 px-4">
                         {user.nama_tamatan_pelatihan}
                       </td>
