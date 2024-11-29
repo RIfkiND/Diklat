@@ -45,11 +45,14 @@ class SearchFunctionController extends Controller
   {
     $search = $request->input('search');
 
-    $edp_others = EdpOther::when($search, function ($query, $search) {
-      $query->where('nama_responden', 'like', "%{$search}%")
-        ->orWhere('sekolah', 'like', "%{$search}%");
-    })
-      ->paginate(5);
+    $edp_others = EdpOther::whereAny(
+      [
+        'nama_responden',
+        'nama_institusi_sekolah',
+      ],
+      'LIKE',
+      "%$search%"
+    )->paginate(5);
 
     $edp_others->getCollection()->transform(function ($peserta) {
       $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
@@ -67,11 +70,14 @@ class SearchFunctionController extends Controller
   {
     $search = $request->input('search');
 
-    $edp_pesertas = Edp::when($search, function ($query, $search) {
-      $query->where('nama_responden', 'like', "%{$search}%")
-        ->orWhere('sekolah', 'like', "%{$search}%");
-    })
-      ->paginate(5);
+    $edp_pesertas = Edp::whereAny(
+      [
+        'nama_responden',
+        'nama_institusi_sekolah',
+      ],
+      'LIKE',
+      "%$search%"
+    )->paginate(5);
 
     $edp_pesertas->getCollection()->transform(function ($peserta) {
       $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
