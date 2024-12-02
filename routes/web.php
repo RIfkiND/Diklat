@@ -38,6 +38,9 @@ Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.ema
 
 Route::get('/report/main-report/pdf', [MainReportController::class, 'main_report_view'])->name('main-report-view');
 
+Route::get('/dashboard/petugas/report/upload-berkas', function () {
+  return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
+})->name('landingpage');
 require __DIR__ . '/Pages/search.php';
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';

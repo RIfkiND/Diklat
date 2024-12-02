@@ -53,6 +53,10 @@ export const getNavItems = (role) => {
                 name: "Hasil Pengolahan EDP",
                 path: "/dashboard/petugas/report/hasil-pengolahan-edp",
               },
+              {
+                name: "Upload Berkas Laporan",
+                path: "/dashboard/petugas/report/upload-berkas",
+              },
             ],
           },
         ]
