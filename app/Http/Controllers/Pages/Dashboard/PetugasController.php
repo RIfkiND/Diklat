@@ -18,17 +18,17 @@ class PetugasController extends Controller
   public function Petugas()
   {
 
-  $user = Auth::guard('petugas')->user();
-  $petugasId = $user->id;
+    $user = Auth::guard('petugas')->user();
+    $petugasId = $user->id;
 
     $biodata = BiodataPeserta::with(['petugas1', 'petugas2', 'pelatihan'])
-        ->where('petugas_id_1', $petugasId)
-        ->orWhere('petugas_id_2', $petugasId)
-        ->latest()
-        ->paginate(5);
+      ->where('petugas_id_1', $petugasId)
+      ->orWhere('petugas_id_2', $petugasId)
+      ->latest()
+      ->paginate(5);
 
     return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
-        'biodata' => $biodata
+      'biodata' => $biodata
     ]);
   }
 
@@ -42,95 +42,85 @@ class PetugasController extends Controller
     return Inertia::render('Dashboard/Petugas/Data/Show');
   }
   public function index()
-    {
-        $biodata = BiodataPeserta::with(['rtls','peserta'])->get();
+  {
+    $biodata = BiodataPeserta::with(['rtls', 'peserta'])->get();
 
-        return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
-            'biodata' => $biodata
-        ]);
-    }
-
-    public function show($id)
-    {
-
-      $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->orWhere('rtl_id', $id)->get();
-
-        $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
-
-        $rtls = $biodata->peserta->rtls->map(function ($rtl) {
-            $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
-            return $rtl;
-        });
-        // dd($rtls);
-        // dd($hasilMonitorings);
-        return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
-          'biodata' => $biodata,
-          'Rtls' => $rtls,
-          'hasilMonitorings' => $hasilMonitorings,
-      ]);
-
-    }
-    public function upload(Request $request, $id)
-    {
-        $request->validate([
-            'realisasi' => 'required|date',
-            'kendala' => 'required|string',
-            'solusi' => 'required|string',
-            'undangan' => 'required|string',
-            'daftar_hadir' => 'required|string',
-            'link_foto' => 'required|string',
-            'link_vidio' => 'required|string',
-        ]);
-
-        $hasilMonitoring = hasil_monitoring::create([
-            'peserta_id' => $id,
-            'realisasi' => $request->input('realisasi'),
-            'kendala' => $request->input('kendala'),
-            'solusi' => $request->input('solusi'),
-            'undangan' => $request->input('undangan'),
-            'daftar_hadir' => $request->input('daftar_hadir'),
-            'foto' => 'ya', // Assuming default value
-            'vidio' => 'ya', // Assuming default value
-            'link_foto' => $request->input('link_foto'),
-            'link_vidio' => $request->input('link_vidio'),
-            'rtl_id'=>  $id,
-        ]);
-
-        if (!$hasilMonitoring) {
-            return back()->withErrors(['message' => 'Failed to create hasil_monitoring.']);
-        }
-
-        return redirect()->route('petugas.show-rtl-peserta', ['id' => $id])
-                         ->with('success', 'Data RTL berhasil ditambahkan.');
-    }
-    public function delete($id)
-    {
-        $hasilMonitoring = hasil_monitoring::findOrFail($id);
-
-        if (!$hasilMonitoring->delete()) {
-            return back()->withErrors(['message' => 'Failed to delete hasil_monitoring.']);
-        }
-
-        return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
-                         ->with('success', 'Data RTL berhasil dihapus.');
-    }
-    public function update(UpdateHasilMonitoringRequest $request, $id)
-    {
-        $hasilMonitoring = hasil_monitoring::findOrFail($id);
-
-<<<<<<< HEAD
-  public function PetugasBerkas(){
-    return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
-
+    return Inertia::render('Dashboard/Petugas/MonitoringPeserta', [
+      'biodata' => $biodata
+    ]);
   }
 
-=======
-        $hasilMonitoring->update($request->validated());
+  public function show($id)
+  {
 
-        return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
-            ->with('success', 'Data RTL berhasil diperbarui.');
+    $hasilMonitorings = hasil_monitoring::where('peserta_id', $id)->orWhere('rtl_id', $id)->get();
+
+    $biodata = BiodataPeserta::with('peserta.rtls')->findOrFail($id);
+
+    $rtls = $biodata->peserta->rtls->map(function ($rtl) {
+      $rtl->formatted_waktu_pelaksanaan = Carbon::parse($rtl->waktu_pelaksanaan)->format('d F Y');
+      return $rtl;
+    });
+    // dd($rtls);
+    // dd($hasilMonitorings);
+    return Inertia::render('Dashboard/Petugas/Show/PesertaRtlShow', [
+      'biodata' => $biodata,
+      'Rtls' => $rtls,
+      'hasilMonitorings' => $hasilMonitorings,
+    ]);
+  }
+  public function upload(Request $request, $id)
+  {
+    $request->validate([
+      'realisasi' => 'required|date',
+      'kendala' => 'required|string',
+      'solusi' => 'required|string',
+      'undangan' => 'required|string',
+      'daftar_hadir' => 'required|string',
+      'link_foto' => 'required|string',
+      'link_vidio' => 'required|string',
+    ]);
+
+    $hasilMonitoring = hasil_monitoring::create([
+      'peserta_id' => $id,
+      'realisasi' => $request->input('realisasi'),
+      'kendala' => $request->input('kendala'),
+      'solusi' => $request->input('solusi'),
+      'undangan' => $request->input('undangan'),
+      'daftar_hadir' => $request->input('daftar_hadir'),
+      'foto' => 'ya', // Assuming default value
+      'vidio' => 'ya', // Assuming default value
+      'link_foto' => $request->input('link_foto'),
+      'link_vidio' => $request->input('link_vidio'),
+      'rtl_id' =>  $id,
+    ]);
+
+    if (!$hasilMonitoring) {
+      return back()->withErrors(['message' => 'Failed to create hasil_monitoring.']);
     }
->>>>>>> 677ffe4da537b431a7d5b08bf5437bf82b47e6ed
+
+    return redirect()->route('petugas.show-rtl-peserta', ['id' => $id])
+      ->with('success', 'Data RTL berhasil ditambahkan.');
+  }
+  public function delete($id)
+  {
+    $hasilMonitoring = hasil_monitoring::findOrFail($id);
+
+    if (!$hasilMonitoring->delete()) {
+      return back()->withErrors(['message' => 'Failed to delete hasil_monitoring.']);
+    }
+
+    return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
+      ->with('success', 'Data RTL berhasil dihapus.');
+  }
+  public function update(UpdateHasilMonitoringRequest $request, $id)
+  {
+    $hasilMonitoring = hasil_monitoring::findOrFail($id);
+  }
+  public function PetugasBerkas()
+  {
+    return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
+  }
   public function PetugasReportPendampinganRtl()
   {
     return Inertia::render('Dashboard/Petugas/Report/HasilPendampinganRtl/SelectUser');
@@ -141,7 +131,7 @@ class PetugasController extends Controller
   }
   public function PetugasReportPengolahanEdp()
   {
-  return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
+    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
   }
   public function PetugasReportPengolahanEdpSlug()
   {
