@@ -2,6 +2,7 @@ import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 import InputLabel from "@/Components/Ui/Input/InputLabel";
 import TextInput from "@/Components/Ui/Input/TextInput";
 import React, { useState } from "react";
+import { router } from "@inertiajs/react";
 
 const UploadForm = () => {
   const [imageFiles, setImageFiles] = useState([]);
@@ -36,15 +37,21 @@ const UploadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    imageFiles.forEach((file, index) =>
-      formData.append(`images[${index}]`, file),
-    );
-    formData.append("video", videoFile);
-    formData.append("signature_companion1", signatures.companion1);
-    formData.append("signature_companion2", signatures.companion2);
+    // const formData = new FormData();
+    // imageFiles.forEach((file, index) =>
+    //   formData.append(`url[${index}]`, file),
+    // );
+    // formData.append("vidio_berkas", videoFile);
+    // formData.append("signature_companion1", signatures.companion1);
+    // formData.append("signature_companion2", signatures.companion2);
 
-    console.log("Form submitted!"); // Replace with server submission logic
+    const newForm = {
+      imageFiles,
+      videoFile,
+      signatures,
+    };
+    router.post(route("upload.berkas"), newForm);
+    console.log(newForm);
   };
 
   return (
@@ -61,29 +68,29 @@ const UploadForm = () => {
 
           <div className="relative flex flex-col min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
             <div className="order-2 mt-6">
-            <TextInput
-              type="file"
-              accept="image/*"
-              id="image-kegiatan"
-              multiple
-              onChange={(e) => handleImageChange(e.target.files)}
-              required
-              className="hidden"
-            />
-            <label
-              htmlFor="image-kegiatan"
-              className="cursor-pointer flex flex-col items-center justify-center"
-            >
-              <span className="mb-2 block text-xl font-semibold text-gray-700">
-                Drop files here
-              </span>
-              <span className="mb-2 block text-base font-medium text-gray-400">
-                Or
-              </span>
-              <span className="inline-flex rounded border border-[#e0e0e0] mb-4 py-2 px-7 text-base font-medium text-gray-700">
-                Browse
-              </span>
-            </label>
+              <TextInput
+                type="file"
+                accept="image/*"
+                id="image-kegiatan"
+                multiple
+                onChange={(e) => handleImageChange(e.target.files)}
+                required
+                className="hidden"
+              />
+              <label
+                htmlFor="image-kegiatan"
+                className="cursor-pointer flex flex-col items-center justify-center"
+              >
+                <span className="mb-2 block text-xl font-semibold text-gray-700">
+                  Drop files here
+                </span>
+                <span className="mb-2 block text-base font-medium text-gray-400">
+                  Or
+                </span>
+                <span className="inline-flex rounded border border-[#e0e0e0] mb-4 py-2 px-7 text-base font-medium text-gray-700">
+                  Browse
+                </span>
+              </label>
             </div>
 
             {imageFiles.length > 0 && (

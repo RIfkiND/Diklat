@@ -113,6 +113,11 @@ class PetugasController extends Controller
                          ->with('success', 'Data RTL berhasil dihapus.');
     }
 
+  public function PetugasBerkas(){
+    return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
+
+  }
+
   public function PetugasReportPendampinganRtl()
   {
     return Inertia::render('Dashboard/Petugas/Report/HasilPendampinganRtl/SelectUser');
