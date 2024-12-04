@@ -39,9 +39,7 @@ const Index = ({ EdpOther ,search}) => {
     });
   };
 
-  const filteredData = EdpOther.data.filter((edp) =>
-    edp.nama_responden.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-  );
+
 
 
   const tableRef = useRef(null);
@@ -130,7 +128,6 @@ const Index = ({ EdpOther ,search}) => {
                     <th className="py-3 px-4">Sekolah</th>
                     <th className="py-3 px-4">Kabupaten / Kota</th>
                     <th className="py-3 px-4">No Whatsapp</th>
-                    <th className="py-3 px-4">Email</th>
                     <th className="py-3 px-4">Tamatan Pelatihan</th>
                     <th className="py-3 px-4">Pelatihan Yang DIikuti</th>
                     <th className="py-3 px-4">Tanggal Dimulai</th>
@@ -138,7 +135,7 @@ const Index = ({ EdpOther ,search}) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredData.map((user, index) => (
+                  {EdpOther.data.map((user, index) => (
                     <tr
                       key={index}
                       className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
@@ -153,7 +150,6 @@ const Index = ({ EdpOther ,search}) => {
                       </td>
                       <td className="py-3 px-4">{user.kabupaten_kota}</td>
                       <td className="py-3 px-4">{user.no_whatsapp}</td>
-                      <td className="py-3 px-4">{user.email}</td>
                       <td className="py-3 px-4">
                         {user.nama_tamatan_pelatihan}
                       </td>

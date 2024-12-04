@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Mail\V1\EmailController;
+use App\Http\Controllers\PDF\MainReportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,12 +34,13 @@ Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.ema
 
 
 
-// Route Instrumen ks
-Route::get('/instrumen-ks', function () {
-  return Inertia::render('InstrumenKs/Index');
-})->name('instrumen-ks');
+// Report
 
+Route::get('/report/main-report/pdf', [MainReportController::class, 'main_report_view'])->name('main-report-view');
 
+Route::get('/dashboard/petugas/report/upload-berkas', function () {
+  return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
+})->name('landingpage');
 require __DIR__ . '/Pages/search.php';
 require __DIR__ . '/Auth/auth.php';
 require __DIR__ . '/Pages/petugas.php';
