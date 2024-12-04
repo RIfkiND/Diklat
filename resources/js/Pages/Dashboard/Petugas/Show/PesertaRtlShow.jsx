@@ -8,6 +8,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { router } from "@inertiajs/react";
+import ModalMonitoringPesertaEdit from "@/Components/Ui/Modal/ModalMonitoringPesertaEdit";
 
 const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const [provinces, setProvinces] = useState([]);
@@ -21,9 +22,14 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
   const buttonRef = useRef(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const [rtlIdss, setRtlIds] = useState([]);
   const [monitoringRtlIdss, setMonitoringRtlIds] = useState([]);
+
+  const handleOpenEditMonitoring = () => {
+    setOpenEditModal(true);
+  };
 
   useEffect(() => {
     const rtlIds = Rtls;
@@ -386,7 +392,10 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
                       </div>
 
                       {openMenu && (
-                        <div className="flex flex-col items-start bg-white  absolute top-12 right-3 border rounded w-[120px]">
+                        <div
+                          onClick={handleOpenEditMonitoring}
+                          className="flex flex-col items-start bg-white  absolute top-12 right-3 border rounded w-[120px]"
+                        >
                           <button className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3  text-start pl-5 flex items-center gap-3">
                             <FaEdit className="text-blue-500 text-lg" />
                             edit
@@ -485,6 +494,14 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
         <ModalMonitoringPeserta
           onClose={handleCloseModal}
           pesertaId={biodata.id}
+        />
+      )}
+
+      {openEditModal && hasilMonitorings && (
+        <ModalMonitoringPesertaEdit
+          onClose={handleCloseModal}
+          pesertaId={biodata.id}
+          hasilMonitorings={hasilMonitorings} // Pass hasilMonitorings to the component
         />
       )}
     </AuthenticatedLayout>
