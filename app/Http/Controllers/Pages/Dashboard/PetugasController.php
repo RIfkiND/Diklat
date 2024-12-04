@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Pages\Dashboard;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Inertia\Inertia;
+use App\Models\Peserta;
+use App\Models\bukti_dukung;
+use Illuminate\Http\Request;
 use App\Models\BiodataPeserta;
 use App\Models\hasil_monitoring;
-use App\Models\bukti_dukung;
-use App\Models\Peserta;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Http\Requests\Put\V1\Petugas\UpdateHasilMonitoringRequest;
+
 class PetugasController extends Controller
 {
   public function Petugas()
@@ -112,7 +114,15 @@ class PetugasController extends Controller
         return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
                          ->with('success', 'Data RTL berhasil dihapus.');
     }
+    public function update(UpdateHasilMonitoringRequest $request, $id)
+    {
+        $hasilMonitoring = hasil_monitoring::findOrFail($id);
 
+        $hasilMonitoring->update($request->validated());
+
+        return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
+            ->with('success', 'Data RTL berhasil diperbarui.');
+    }
   public function PetugasReportPendampinganRtl()
   {
     return Inertia::render('Dashboard/Petugas/Report/HasilPendampinganRtl/SelectUser');
