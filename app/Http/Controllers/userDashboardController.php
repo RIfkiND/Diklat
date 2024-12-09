@@ -38,7 +38,7 @@ class UserDashboardController extends Controller
 
     try {
       BiodataPeserta::create($validatedData);
-      return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil ditambahkan.');
+      return back()->with('success', 'Biodata berhasil ditambahkan.');
     } catch (\Exception $e) {
       Log::error('Failed to save biodata: ' . $e->getMessage());
       return back()->with('error', 'Gagal menambahkan biodata.');

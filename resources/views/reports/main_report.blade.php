@@ -60,11 +60,22 @@
                     <td></td>
                     <td>
                         <ol class="list-decimal list-inside">
-                            <li> Dwi Agustina, M.Pd</li>
-                            <li> Dewi Indriati, B.Sc.</li>
+                            @foreach($biodataPeserta as $biodata)
+                                <!-- Check if petugas1 is assigned -->
+                                @if($biodata->petugas1)
+                                    <li>{{ $biodata->petugas1->name }}</li>
+                                @else
+                                    <li>No Petugas 1 Assigned</li>
+                                @endif                    
+                                @if($biodata->petugas2)
+                                    <li>{{ $biodata->petugas2->name }}</li>
+                                @else
+                                    <li>No Petugas 2 Assigned</li>
+                                @endif
+                            @endforeach
                         </ol>
                     </td>
-                </tr>
+                                  
                 <tr>
                     <td>Nama Program</td>
                     <td></td>
@@ -148,7 +159,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <x-reports.hasil-pelaksanaan-kegiatan />
+                    <x-reports.hasil-pelaksanaan-kegiatan :biodataPeserta="$biodataPeserta"  />
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -178,7 +189,7 @@
                     <x-reports.lampiran-text />
                 </tr>
                 <tr>
-                    <x-reports.ttd />
+                    <x-reports.ttd  :biodataPeserta="$biodataPeserta"/>
                 </tr>
 
                 {{-- Lampiran --}}
