@@ -22,23 +22,27 @@ class StoreBerkasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vidio_berkas' => 'required|file|mimes:mp4,mov,avi,wmv|max:20480', 
-            'signature_companion1' => 'required|file|mimes:jpg,jpeg,png|max:5120',
-            'signature_companion2' => 'required|file|mimes:jpg,jpeg,png|max:5120',
-            'url.*' => 'required|file|mimes:jpg,jpeg,png|max:5120',
+            'imageFiles.*' => 'mimes:jpeg,jpg,png,gif|max:10240', // Array of image files, max size 10MB
+            // Validate video fil
+            'videoFile' => 'mimes:mp4,mov,avi|max:20000', // Video file validation
+            // Validate signature files
+            'signatures.companion1' => 'mimes:jpeg,jpg,png,gif|max:10240', // Signature file 1
+            'signatures.companion2' => 'mimes:jpeg,jpg,png,gif|max:10240'
         ];
     }
     public function messages()
     {
         return [
-            'vidio_berkas.required' => 'A video file is required.',
-            'vidio_berkas.file' => 'The uploaded video must be a valid file.',
-            'vidio_berkas.mimetypes' => 'The video must be in MP4, AVI, or MPEG format.',
-            'vidio_berkas.max' => 'The video file size must not exceed 20MB.',
-            'signature_companion1.required' => 'The first companion signature is required.',
-            'signature_companion2.required' => 'The second companion signature is required.',
-            'photos.array' => 'The photos field must be an array of URLs.',
-            'photos.*.url' => 'Each photo must be a valid URL.',
+            'vidio_berkas.required' => 'The video file is required.',
+            'vidio_berkas.mimes' => 'The video must be a file of type: mp4, mkv, avi.',
+            'vidio_berkas.max' => 'The video size must not exceed 10MB.',
+            'url.array' => 'The image files must be in an array.',
+            'url.*.mimes' => 'Each image file must be a JPG, JPEG, or PNG.',
+            'url.*.max' => 'Each image file must not exceed 5MB.',
+            'signature_companion1.required' => 'The first signature companion is required.',
+            'signature_companion2.string' => 'The second signature companion must be a string.',
+            'signature_companion1.max' => 'The first signature companion must not exceed 255 characters.',
+            'signature_companion2.max' => 'The second signature companion must not exceed 255 characters.',
         ];
     }
 }

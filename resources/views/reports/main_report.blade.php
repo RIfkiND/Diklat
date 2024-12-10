@@ -189,7 +189,7 @@
                     <x-reports.lampiran-text />
                 </tr>
                 <tr>
-                    <x-reports.ttd  :biodataPeserta="$biodataPeserta"/>
+                    <x-reports.ttd  :biodataPeserta="$biodataPeserta" :berkas="$berkas"/>
                 </tr>
 
                 {{-- Lampiran --}}
@@ -208,7 +208,7 @@
                 <tr>
                   <td colspan="3" class="header-text">
                     Lampiran 3. Foto Kegiatan
-                    <x-reports.lampiran1-surat-tugas/>
+                    <x-reports.lampiran-photo-kegiatan :berkas="$berkas"/>
                   </td>
                 </tr>
             </tbody>

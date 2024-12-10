@@ -8,11 +8,7 @@ class Photo_Berkas extends Model
 {
     //
 
-    protected $fillable =[
-        'url',
-        'berkas_id'
-    ];
-
+    protected $fillable = ['url', 'berkas_id'];
 
     public function Berkas(){
         return $this->belongsTo(Berkas::class);
