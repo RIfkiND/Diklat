@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('vidio_berkas');
             $table->string('signature_companion1');
             $table->string('signature_companion2');
+            $table->string('kesimpulan');
+            $table->string('saran');
+            $table->string('surat_tugas');     
+            $table->string('daftar_hadir');       
             $table->timestamps();
         });
     }

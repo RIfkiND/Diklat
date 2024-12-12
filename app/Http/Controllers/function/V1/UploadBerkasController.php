@@ -18,20 +18,26 @@ class UploadBerkasController extends Controller
     public function upload(StoreBerkasRequest $request)
     {
         $user = Auth::guard('petugas')->user();
-    
-        // Upload video
+
         $videoPath = $this->uploadFile($request->file('videoFile'), "Petugas/Berkas/{$user->id}/Videos");
-    
-        // Upload signature images
+
         $signature1Path = $this->uploadSignature($request->file('signatures.companion1'), $user->id, 'companion1');
         $signature2Path = $this->uploadSignature($request->file('signatures.companion2'), $user->id, 'companion2');
+
+        $suratTugasPath = $this->uploadBerkas($request->file('files.Surat_Tugas'), $user->id, 'Surat_Tugas');
+        $daftarHadirPath = $this->uploadBerkas($request->file('files.Daftar_Hadir'), $user->id, 'Daftar_Hadir');
+
         $berkas = Berkas::create([
             'petugas_id' => $user->id,
             'vidio_berkas' => $videoPath,
             'signature_companion1' => $signature1Path,
             'signature_companion2' => $signature2Path,
+            'saran' => $request->input('saran'),
+            'kesimpulan' => $request->input('kesimpulan'),
+            'surat_tugas' => $suratTugasPath,
+            'daftar_hadir' => $daftarHadirPath,
         ]);
-    
+
         // Handle image file uploads
         if ($request->hasFile('imageFiles')) {
             foreach ($request->file('imageFiles') as $photoUrl) {
@@ -43,12 +49,22 @@ class UploadBerkasController extends Controller
                 ]);
             }
         }
-    
+
         // Return response
         return redirect()->route('UploadBerkas')->with('success', 'You have added a new Product');
     }
-    
+
     // Helper method to upload signature images
+    private function uploadBerkas($BerkasFile, $userId, $fieldName)
+    {
+        if ($BerkasFile) {
+            $uniqueName = time() . '-' . Str::random(10) . '.' . $BerkasFile->getClientOriginalExtension();
+            $filePath = $BerkasFile->storeAs("Petugas/Berkas/{$userId}/Berkas", $uniqueName, 'public');
+            return Storage::url($filePath);
+        }
+        return null;
+    }
+
     private function uploadSignature($signatureFile, $userId, $fieldName)
     {
         if ($signatureFile) {
@@ -58,7 +74,7 @@ class UploadBerkasController extends Controller
         }
         return null;
     }
-    
+
 
     /**
      * Handle file upload.

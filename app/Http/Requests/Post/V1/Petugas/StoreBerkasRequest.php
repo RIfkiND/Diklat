@@ -22,12 +22,14 @@ class StoreBerkasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'imageFiles.*' => 'mimes:jpeg,jpg,png,gif|max:10240', // Array of image files, max size 10MB
-            // Validate video fil
-            'videoFile' => 'mimes:mp4,mov,avi|max:20000', // Video file validation
-            // Validate signature files
-            'signatures.companion1' => 'mimes:jpeg,jpg,png,gif|max:10240', // Signature file 1
-            'signatures.companion2' => 'mimes:jpeg,jpg,png,gif|max:10240'
+            'imageFiles.*' => 'required|mimes:jpeg,jpg,png,gif|max:10240', // Array of image files, max size 10MB
+            'videoFile' => 'required|mimes:mp4,mov,avi|max:20000', // Video file validation
+            'signatures.companion1' => 'required|mimes:jpeg,jpg,png,gif|max:10240', // Signature file 1
+            'signatures.companion2' => 'required|mimes:jpeg,jpg,png,gif|max:10240',
+            'saran' => 'required|string|min:5|max:255',
+            'kesimpulan' => 'required|string|min:5|max:255',
+            'files.Surat_Tugas' => 'required|mimes:pdf|max:10240',
+            'files.Daftar_Hadir' => 'required|mimes:jpeg,jpg,png,gif|max:10240',
         ];
     }
     public function messages()

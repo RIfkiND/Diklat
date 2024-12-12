@@ -18,6 +18,8 @@ class PesertaSeeder extends Seeder
           DB::table('pesertas')->insert([
             // ['name'=> 'User','no_hp'=>'12345678910','password'=>bcrypt('12345678910'),'tamatan' => 'Matematika Berbasis Kejuruan'],
             ['name'=> 'ambatron','no_hp'=>'85467667577','password'=>bcrypt('85467667577'),'tamatan' => 'Matematika Berbasis Kejuruan'],
+            ['name'=> 'kaka','no_hp'=>'85467667566','password'=>bcrypt('85467667566'),'tamatan' => 'Matematika Berbasis Kejuruan'],
+
             // ['name' => 'SAIDI SETIAWAN', 'no_hp' => '81540923927', 'password' => bcrypt('81540923927'), 'tamatan' => 'Matematika Berbasis Kejuruan'],
             // ['name' => 'Erniasih, S.Pd., Gr.', 'no_hp' => '83875292957', 'password' => bcrypt('83875292957'), 'tamatan' => 'Pelatihan Bahasa Inggris Berbasis Kejuruan'],
             // ['name' => 'IRFAN FAUZIYAN, S.Pd', 'no_hp' => '81287556454', 'password' => bcrypt('81287556454'), 'tamatan' => 'Commercial Building Electrical Installation'],
