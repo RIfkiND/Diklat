@@ -12,6 +12,7 @@ use App\Models\hasil_monitoring;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Put\V1\Petugas\UpdateHasilMonitoringRequest;
+use App\Models\Berkas;
 
 class PetugasController extends Controller
 {
@@ -131,7 +132,11 @@ class PetugasController extends Controller
   }
   public function PetugasReportPengolahanEdp()
   {
-    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/SelectUser');
+  $user =Auth::guard('petugas')->user();
+   $BerkasData  = Berkas::with('photo_berkas')->where('petugas_id',$user->id)->first();
+    return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/Berkas',[
+      'BerkasData'=> $BerkasData 
+    ]);
   }
   public function PetugasReportPengolahanEdpSlug()
   {

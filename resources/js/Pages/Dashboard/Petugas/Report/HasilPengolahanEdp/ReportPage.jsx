@@ -41,57 +41,6 @@ const ReportPage = () => {
         sis2: "",
       },
     },
-    {
-      komponen: "Kompetisi Tamatan Pelatihan",
-      aspek: {
-        as1: "Penyusunan Rencana Pembelajaran",
-        as2: "Pelaksanaan Pembelajaran",
-        as3: "Persiapan Evaluasi Pembelajaran",
-      },
-      tamatan: {
-        tam1: "3.00",
-        tam2: "3.00",
-        tam3: "3.00",
-      },
-      kepala: {
-        kep1: "3.00",
-        kep2: "3.00",
-        kep3: "3.00",
-      },
-      kolega: {
-        kol1: "2.93",
-        kol2: "2.63",
-        kol3: "3.00",
-      },
-      siswa: {
-        sis1: "3.00",
-        sis2: "",
-        sis3: "",
-      },
-    },
-    {
-      komponen: "Pengembangan Profesi Dan Karir",
-      aspek: {
-        as1: "Program Pengembangan",
-        as2: "Pelaksanaan Pengembangan",
-      },
-      tamatan: {
-        tam1: "2.00",
-        tam2: "2.00",
-      },
-      kepala: {
-        kep1: "3.00",
-        kep2: "3.00",
-      },
-      kolega: {
-        kol1: "1.88",
-        kol2: "2.33",
-      },
-      siswa: {
-        sis1: "",
-        sis2: "",
-      },
-    },
   ];
 
   function hitungRataRata(data) {
