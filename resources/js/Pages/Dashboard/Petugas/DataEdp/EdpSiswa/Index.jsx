@@ -63,7 +63,7 @@ const Index = ({ Edp, search }) => {
   };
 
   useEffect(() => {
-    const handleClickOuts ide = (event) => {
+    const handleClickOutside = (event) => {
       if (
         tableRef.current &&
         !tableRef.current.contains(event.target) &&
