@@ -27,9 +27,8 @@ Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/edp/edp-peserta', [EdpPesertaController::class, 'renderEdpPeserta'])->name('petugas.dataedp-edp-siswa');
     Route::get('/dashboard/petugas/edp/edp-other', [EdpOtherController::class, 'renderEdpOther'])->name('petugas.dataedp-edp-other');
 
-    Route::get('/dashboard/p
-    etugas/edp/edp-peserta/show', [EdpPesertaController::class, 'renderEdpPesertaShow'])->name('petugas.dataedp-edp-siswa.show');
-    Route::get('/dashboard/petugas/edp/edp-other/show', [EdpOtherController::class, 'renderEdpOtherShow'])->name('petugas.dataedp-edp-other.show');
+    Route::get('/dashboard/petugas/edp/edp-peserta/show', [EdpPesertaController::class, 'renderEdpPesertaShow'])->name('petugas.data.edp-siswa.show');
+    Route::get('/dashboard/petugas/edp/edp-other/show', [EdpOtherController::class, 'renderEdpOtherShow'])->name('petugas.data.edp-other.show');
    
 });
 

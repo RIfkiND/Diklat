@@ -20,17 +20,17 @@ const EditEdpPeserta = ({ Edp }) => {
     setData(name, date);
   };
 
-  // const { data, setData, put, processing, errors } = useForm({
-  //   name: Edp.nama_responden || "",
-  //   sekolah: Edp.sekolah || "",
-  //   kabupaten: Edp.kabupaten || "",
-  //   no_wa: Edp.no_wa || "",
-  //   email: Edp.email || "",
-  //   pelatiha_diikuti: Edp.pelatiha_diikuti || "",
-  //   tamatan_pelatihan: Edp.tamatan_pelatihan || "",
-  //   tanggal_mulai: Edp.tanggal_mulai || "",
-  //   tanggal_akhir: Edp.tanggal_akhir || "",
-  // });
+  const { data, setData, put, processing, errors } = useForm({
+    name: Edp.nama_responden || "",
+    sekolah: Edp.sekolah || "",
+    kabupaten: Edp.kabupaten || "",
+    no_wa: Edp.no_wa || "",
+    email: Edp.email || "",
+    pelatiha_diikuti: Edp.pelatiha_diikuti || "",
+    tamatan_pelatihan: Edp.tamatan_pelatihan || "",
+    tanggal_mulai: Edp.tanggal_mulai || "",
+    tanggal_akhir: Edp.tanggal_akhir || "",
+  });
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary">
@@ -49,12 +49,12 @@ const EditEdpPeserta = ({ Edp }) => {
               id="name"
               name="name"
               type="text"
-              // value={data.name}
-              // onChange={(e) => setData("name", e.target.value)}
+              value={data.name}
+              onChange={(e) => setData("name", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="Jhon Doe"
             />
-            {/* {errors.nip && <p className="text-red-500 text-sm">{errors.nip}</p>} */}
+            {errors.nip && <p className="text-red-500 text-sm">{errors.nip}</p>}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -67,14 +67,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="sekolah"
               name="sekolah"
               type="text"
-              // value={data.sekolah}
-              // onChange={(e) => setData("sekolah", e.target.value)}
+              value={data.sekolah}
+              onChange={(e) => setData("sekolah", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="SMKN 1 Ciamis"
             />
-            {/* {errors.name && (
+            {errors.name && (
               <p className="text-red-500 text-sm">{errors.name}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -87,14 +87,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="kabupaten"
               name="kabupaten"
               type="text"
-              // value={data.kabupaten}
-              // onChange={(e) => setData("kabupaten", e.target.value)}
+              value={data.kabupaten}
+              onChange={(e) => setData("kabupaten", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="Ciamis"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -107,14 +107,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="no_wa"
               name="no_wa"
               type="number"
-              // value={data.no_wa}
-              // onChange={(e) => setData("no_wa", e.target.value)}
+              value={data.no_wa}
+              onChange={(e) => setData("no_wa", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="0852121"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -127,14 +127,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="email"
               name="email"
               type="email"
-              // value={data.email}
-              // onChange={(e) => setData("email", e.target.value)}
+              value={data.email}
+              onChange={(e) => setData("email", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="contoh@exampl.con"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -147,14 +147,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="tamatan_pelatihan"
               name="tamatan_pelatihan"
               type="text"
-              // value={data.tamatan_pelatihan}
-              // onChange={(e) => setData("tamatan_pelatihan", e.target.value)}
+              value={data.tamatan_pelatihan}
+              onChange={(e) => setData("tamatan_pelatihan", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder=""
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -167,14 +167,14 @@ const EditEdpPeserta = ({ Edp }) => {
               id="pelatihan_diikuti"
               name="pelatihan_diikuti"
               type="text"
-              // value={data.pelatiha_diikuti}
-              // onChange={(e) => setData("pelatihan_diikuti", e.target.value)}
+              value={data.pelatiha_diikuti}
+              onChange={(e) => setData("pelatihan_diikuti", e.target.value)}
               className="block w-full border border-gray-300 rounded-md p-2"
               placeholder="Belajar Website"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -191,9 +191,9 @@ const EditEdpPeserta = ({ Edp }) => {
               placeholderText="Choose a date"
               dateFormat="dd/MM/yyyy"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <InputLabel
@@ -210,18 +210,18 @@ const EditEdpPeserta = ({ Edp }) => {
               placeholderText="Choose a date"
               dateFormat="dd/MM/yyyy"
             />
-            {/* {errors.unit_kerja && (
+            {errors.unit_kerja && (
               <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )} */}
+            )}
           </div>
         </div>
         <div className="col-span-1 lg:col-span-3 items-center flex justify-center gap-4 flex-col">
           <PrimaryButton
             type="submit"
-            // disabled={processing}
+            disabled={processing}
             className="w-full max-w-xs tracking-normal flex items-center justify-center"
           >
-            {/* {processing ? "Saving..." : "Save"} */}
+            {processing ? "Saving..." : "Save"}
             Save
           </PrimaryButton>
         </div>

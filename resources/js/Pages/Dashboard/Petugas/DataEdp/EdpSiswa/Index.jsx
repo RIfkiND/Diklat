@@ -44,8 +44,8 @@ const Index = ({ Edp, search }) => {
 
   const handleShowData = () => {
     if (selectedRow !== null) {
-      const selectedData = Edp[selectedRow];
-      router.visit(route("petugas.dataedp-edp-siswa.show"), {
+      const selectedData = Edp.data[selectedRow];
+      router.visit(route("petugas.data.edp-siswa.show"), {
         method: "get",
         data: { selectedData },
       });
@@ -54,7 +54,7 @@ const Index = ({ Edp, search }) => {
 
   const handleModal = () => {
     if (selectForm !== null) {
-      const selectedData = Edp[selectedRow];
+      const selectedData = Edp.data[selectedRow];
       router.visit(route("petugas.dataedp-edp-siswa.show"), {
         method: "get",
         data: { selectedData },
