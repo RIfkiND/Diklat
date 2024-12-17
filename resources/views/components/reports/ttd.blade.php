@@ -37,30 +37,6 @@
         @endforeach
 
         <!-- Signatures section -->
-        <div class="col-span-2 text-center">
-            <p>Mengetahui</p>
-        </div>
-
-        <div class="flex justify-center">
-            <div class="gap-2 flex flex-col">
-                <p>Kepala SMKN 3 Yogyakarta</p>
-                <img src="" alt="Kepala SMKN Signature" class="w-32 h-32 mt-6">
-                <div class="">
-                    <h4>Dwi Agustina, M.Pd</h4>
-                    <p>NIP 196508161989102001</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex justify-center">
-            <div class="space-y-2">
-                <p class="max-w-[200px]">Kepala SMKS Taman Siswa Jetis Yogyakarta</p>
-                <img src="{{ asset('path/to/kepala-taman-siswa-signature.jpg') }}" alt="Kepala Taman Siswa Signature" class="w-32 h-32">
-                <div class="">
-                    <h4>Dwi Agustina, M.Pd</h4>
-                    <p>NIP 196508161989102001</p>
-                </div>
-            </div>
-        </div>
+            
     </section>
 </td>

@@ -7,11 +7,12 @@ import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useForm, usePage } from "@inertiajs/react"; // Import useForm for form handling
+import { useForm, usePage } from "@inertiajs/react";
 import { sekolah } from "@/Data/Sekolah";
+import { provinsi, kabupaten } from "daftar-wilayah-indonesia";
 
 export default function UserDashboard({ petugas, pelatihans }) {
-  // Biodata form state management
+  // Form state management
   const { data, setData, post, put, reset } = useForm({
     fullname: "",
     kabupaten: "",
@@ -26,139 +27,85 @@ export default function UserDashboard({ petugas, pelatihans }) {
 
   const { auth } = usePage().props;
 
-  const [provinces, setProvinces] = useState([]); // For provinsi
-  const [districts, setDistricts] = useState([]); // For kabupaten
-  const [showPreview, setShowPreview] = useState(false); // For preview biodata
-  const [showBiodata, setShowBiodata] = useState(true); // For biodata form
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [showPreview, setShowPreview] = useState(false);
+  const [showBiodata, setShowBiodata] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [previewBiodata, setPreviewBiodata] = useState({});
+
+  // Fetch provinces on mount
+  useEffect(() => {
+    const provincesData = provinsi();
+    const formattedProvinces = provincesData.map((province) => ({
+      id: province.kode,
+      name: province.nama,
+    }));
+    setProvinces(formattedProvinces);
+  }, []);
+
+  // Populate form data if user already has biodata
   useEffect(() => {
     if (auth.peserta?.biodata) {
       const biodata = auth.peserta.biodata;
-      setData(biodata); // Populate the form with existing biodata
+      setData(biodata);
 
-      // Fetch districts based on the selected province
-      const selectedProvinceId = biodata.provinsi; // Assuming this is the ID of the province
-      const fetchDistricts = async (provinceId) => {
-        try {
-          const response = await fetch(
-            `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
-          );
-          const data = await response.json();
-          const districtNames = data.map((district) => ({
-            id: district.id,
-            name: district.name,
-          }));
-          setDistricts(districtNames); // Update districts state
-        } catch (error) {
-          console.error("Error fetching districts:", error);
-        }
-      };
-
-      // Call the fetchDistricts function with the selected province ID
-      fetchDistricts(selectedProvinceId);
+      if (biodata.provinsi) {
+        fetchDistricts(biodata.provinsi);
+      }
     }
   }, [auth.peserta?.biodata]);
 
-  // preview biodata
-  const [previewBiodata, setPreviewBiodata] = useState({
-    provinsi: "",
-    kabupaten: "",
-    pelatihan_id: "",
-    petugas_id_1: "",
-    petugas_id_2: "",
-  });
-
-  // Fetch provinces data
-  useEffect(() => {
-    const fetchProvinces = async () => {
-      try {
-        const response = await fetch(
-          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
-        );
-        const data = await response.json();
-        const provinceNames = data.map((province) => ({
-          id: province.id,
-          name: province.name,
-        }));
-        setProvinces(provinceNames);
-      } catch (error) {
-        console.error("Error fetching provinces:", error);
-      }
-    };
-    fetchProvinces();
-  }, []);
-
-  // Handle select change for province and kabupaten
-
-  const handleSelectChange = async (e, fieldName) => {
-    const value = e.target.value;
-    const text = e.target.options[e.target.selectedIndex].text;
-    setData(fieldName, value);
-    setPreviewData(fieldName, text);
-
-    if (fieldName === "provinsi") {
-      const selectedProvince = provinces.find(
-        (province) => province.id === parseInt(value),
-      );
-      if (selectedProvince) {
-        // Store the name of the province, not the ID
-        setData("provinsi", selectedProvince.name);
-      }
-
-      // Fetch the districts for the selected province
-      const response = await fetch(
-        `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${value}.json`,
-      );
-      const data = await response.json();
-      const districtNames = data.map((district) => ({
-        id: district.id,
-        name: district.name,
-      }));
-      setDistricts(districtNames);
-    } else if (fieldName === "kabupaten") {
-      const selectedDistrict = districts.find(
-        (district) => district.id === parseInt(value),
-      );
-      if (selectedDistrict) {
-        // Store the name of the district, not the ID
-        setData("kabupaten", selectedDistrict.name);
-      }
-    }
-  };
-
-  const setPreviewData = (fieldName, text) => {
-    setPreviewBiodata((prevState) => ({
-      ...prevState,
-      [fieldName]: text,
+  // Fetch districts based on selected province
+  const fetchDistricts = (provinceId) => {
+    const districtsData = kabupaten(provinceId);
+    const formattedDistricts = districtsData.map((district) => ({
+      id: district.kode,
+      name: district.nama,
     }));
+    setDistricts(formattedDistricts);
   };
-  // Handle date change for datepicker
+
+  // Handle date changes
   const handleDateChange = (date, name) => {
     setData(name, date);
   };
 
-  // Handle input change for text fields
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData(name, value);
   };
 
+  const handleSelectChange = (e, fieldName) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const value = selectedOption.text; // Get the name of the option
+    const selectedId = selectedOption.value; // Get the id of the option
+
+    // For fields like 'provinsi', 'kabupaten', etc., set the name
+    if (fieldName === "provinsi" || fieldName === "kabupaten") {
+      setData(fieldName, value);
+    } else if (fieldName === "petugas_id_1" || fieldName === "petugas_id_2" || fieldName=="pelatihan_id") {
+      // For petugas, set the id (not the name)
+      setData(fieldName, selectedId);
+    } else {
+      // For other fields, set the name (or value)
+      setData(fieldName, value);
+    }
+
+    if (fieldName === "provinsi") {
+      const provinceId = provinces.find((p) => p.name === value)?.id;
+      fetchDistricts(provinceId);
+    }
+  };
+
+  // Submit form
   const submit = (e) => {
     e.preventDefault();
-
-    const selectedProvince = provinces.find(
-      (province) => province.id === parseInt(data.provinsi),
-    );
-    const provinceName = selectedProvince
-      ? selectedProvince.name
-      : data.provinsi;
-
-    const selectedDistrict = districts.find(
-      (district) => district.id === parseInt(data.kabupaten),
-    );
-    const districtName = selectedDistrict
-      ? selectedDistrict.name
-      : data.kabupaten;
+    const provinceName =
+      provinces.find((p) => p.id === data.provinsi)?.name || data.provinsi;
+    const districtName =
+      districts.find((d) => d.id === data.kabupaten)?.name || data.kabupaten;
 
     post(route("add.biodata"), {
       data: {
@@ -177,25 +124,19 @@ export default function UserDashboard({ petugas, pelatihans }) {
       },
     });
   };
+
+  // Edit form
   const edit = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const selectedProvince = provinces.find(
-      (province) => province.id === parseInt(data.provinsi),
-    );
-    const provinceName = selectedProvince
-      ? selectedProvince.name
-      : data.provinsi;
+    const provinceName =
+      provinces.find((p) => p.id === parseInt(data.provinsi))?.name ||
+      data.provinsi;
+    const districtName =
+      districts.find((d) => d.id === parseInt(data.kabupaten))?.name ||
+      data.kabupaten;
 
-    const selectedDistrict = districts.find(
-      (district) => district.id === parseInt(data.kabupaten),
-    );
-    const districtName = selectedDistrict
-      ? selectedDistrict.name
-      : data.kabupaten;
-
-    // Update using put
     put(
       route("biodata.update"),
       {
@@ -205,18 +146,19 @@ export default function UserDashboard({ petugas, pelatihans }) {
       },
       {
         onSuccess: () => {
-          console.log("Biodata berhasil ditambahkan");
+          console.log("Biodata berhasil diperbarui");
           setShowBiodata(false);
           setShowPreview(true);
         },
         onError: (errors) => {
-          console.error("Gagal menambahkan biodata:", errors);
+          console.error("Gagal memperbarui biodata:", errors);
           reset();
         },
       },
     );
   };
 
+  // Input configurations
   const Inputs = [
     [
       {
@@ -231,7 +173,6 @@ export default function UserDashboard({ petugas, pelatihans }) {
         label: "Provinsi",
         type: "select",
         name: "provinsi",
-        autoComplete: "provinsi",
         options: provinces,
       },
       {
@@ -239,30 +180,16 @@ export default function UserDashboard({ petugas, pelatihans }) {
         label: "Nama Pelatihan",
         type: "select",
         name: "pelatihan_id",
-        autoComplete: "pelatihan",
-        options: pelatihans.map((pelatihan) => ({
-          id: pelatihan.id,
-          name: pelatihan.name,
-        })),
+        options: pelatihans.map((p) => ({ id: p.id, name: p.name })),
       },
       {
         id: "4",
         label: "Nama Pendamping 2",
         type: "select",
         name: "petugas_id_2",
-        autoComplete: "nama_petugas_pembimbing",
-        options: petugas.map((pembimbing) => ({
-          id: pembimbing.id,
-          name: pembimbing.name,
-        })),
+        options: petugas.map((p) => ({ id: p.id, name: p.name })),
       },
-      {
-        id: "5",
-        label: "Periode Akhir",
-        type: "date",
-        name: "periode_akhir",
-        autoComplete: "periode_akhir",
-      },
+      { id: "5", label: "Periode Akhir", type: "date", name: "periode_akhir" },
     ],
     [
       {
@@ -270,18 +197,13 @@ export default function UserDashboard({ petugas, pelatihans }) {
         label: "Sekolah",
         type: "select",
         name: "sekolah",
-        autoComplete: "sekolah",
-        options: sekolah.map((sekolah) => ({
-          id: sekolah.name,
-          name: sekolah.name,
-        })),
+        options: sekolah.map((s) => ({ id: s.name, name: s.name })),
       },
       {
         id: "7",
         label: "Kabupaten",
         type: "select",
         name: "kabupaten",
-        autoComplete: "kabupaten",
         options: districts,
       },
       {
@@ -289,19 +211,9 @@ export default function UserDashboard({ petugas, pelatihans }) {
         label: "Nama Petugas Pembimbing 1",
         type: "select",
         name: "petugas_id_1",
-        autoComplete: "nama_petugas_pembimbing",
-        options: petugas.map((pembimbing) => ({
-          id: pembimbing.id,
-          name: pembimbing.name,
-        })),
+        options: petugas.map((p) => ({ id: p.id, name: p.name })),
       },
-      {
-        id: "9",
-        label: "Periode Mulai",
-        type: "date",
-        name: "periode_mulai",
-        autoComplete: "periode_mulai",
-      },
+      { id: "9", label: "Periode Mulai", type: "date", name: "periode_mulai" },
     ],
   ];
 
@@ -355,7 +267,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
                                 {field.options.map((option) => (
                                   <option
                                     key={option.id || option}
-                                    value={option.id || option}
+                                    value={option.name || option}
                                   >
                                     {option.name || option}
                                   </option>
@@ -434,10 +346,8 @@ export default function UserDashboard({ petugas, pelatihans }) {
                                   Pilih {field.label}
                                 </option>
                                 {field.options.map((option) => (
-                                  <option
-                                    key={option.id || option}
-                                    value={option.id || option}
-                                  >
+                                  <option key={option.id}   value={field.name === "provinsi" || field.name === "kabupaten" ? option.name : option.id}>
+
                                     {option.name || option}
                                   </option>
                                 ))}
