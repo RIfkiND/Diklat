@@ -67,7 +67,8 @@ const ModalMonitoringPesertaEdit = ({
       return;
     }
 
-    put(route("petugas.update-rtl-peserta", { id: pesertaId }));
+    put(route("petugas.update-rtl-peserta"));
+    onClose();
   };
 
   return (
