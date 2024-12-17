@@ -2,6 +2,7 @@ import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
 import InputLabel from "@/Components/Ui/Input/InputLabel";
 import TextInput from "@/Components/Ui/Input/TextInput";
 import React, { useState } from "react";
+import { router } from "@inertiajs/react";
 
 const UploadForm = () => {
   const [imageFiles, setImageFiles] = useState([]);
@@ -10,6 +11,34 @@ const UploadForm = () => {
     companion1: null,
     companion2: null,
   });
+  const [files, setFiles] = useState({});
+  const [saran, setSaran] = useState("");
+  const [kesimpulan, setKesimpulan] = useState("");
+
+  const handleFileChange = (fileType, file) => {
+    if (file) {
+      // Validasi file berdasarkan tipe
+      const isSuratTugas = fileType === "Surat_Tugas";
+      const isValidFile =
+        (isSuratTugas && file.type === "application/pdf") ||
+        (!isSuratTugas && file.type.startsWith("image/"));
+
+      if (!isValidFile) {
+        alert(
+          isSuratTugas
+            ? "Only PDF files are allowed for Surat Tugas."
+            : "Only image files are allowed for Daftar Hadir.",
+        );
+        return;
+      }
+    }
+
+    // Perbarui state
+    setFiles((prevFiles) => ({
+      ...prevFiles,
+      [fileType]: file,
+    }));
+  };
 
   const handleImageChange = (files) => {
     const selectedFiles = Array.from(files).slice(0, 20); // Limit to 20 files
@@ -36,15 +65,25 @@ const UploadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    imageFiles.forEach((file, index) =>
-      formData.append(`images[${index}]`, file),
-    );
-    formData.append("video", videoFile);
-    formData.append("signature_companion1", signatures.companion1);
-    formData.append("signature_companion2", signatures.companion2);
+    // const formData = new FormData();
+    // imageFiles.forEach((file, index) =>
+    //   formData.append(`url[${index}]`, file),
+    // );
+    // formData.append("vidio_berkas", videoFile);
+    // formData.append("signature_companion1", signatures.companion1);
+    // formData.append("signature_companion2", signatures.companion2);
 
-    console.log("Form submitted!"); // Replace with server submission logic
+    const newForm = {
+      imageFiles,
+      videoFile,
+      signatures,
+      files,
+      saran,
+      kesimpulan,
+    };
+    console.log(newForm);
+    router.post(route("upload.berkas"), newForm);
+    console.log(newForm);
   };
 
   return (
@@ -54,6 +93,8 @@ const UploadForm = () => {
       className="flex flex-col gap-12"
     >
       <div className="flex items-center gap-6">
+        {/* Image */}
+
         <div className="basis-1/2">
           <InputLabel className="block text-md mb-4 font-medium text-gray-700">
             Upload Images (Max 20)
@@ -61,29 +102,29 @@ const UploadForm = () => {
 
           <div className="relative flex flex-col min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
             <div className="order-2 mt-6">
-            <TextInput
-              type="file"
-              accept="image/*"
-              id="image-kegiatan"
-              multiple
-              onChange={(e) => handleImageChange(e.target.files)}
-              required
-              className="hidden"
-            />
-            <label
-              htmlFor="image-kegiatan"
-              className="cursor-pointer flex flex-col items-center justify-center"
-            >
-              <span className="mb-2 block text-xl font-semibold text-gray-700">
-                Drop files here
-              </span>
-              <span className="mb-2 block text-base font-medium text-gray-400">
-                Or
-              </span>
-              <span className="inline-flex rounded border border-[#e0e0e0] mb-4 py-2 px-7 text-base font-medium text-gray-700">
-                Browse
-              </span>
-            </label>
+              <TextInput
+                type="file"
+                accept="image/*"
+                id="image-kegiatan"
+                multiple
+                onChange={(e) => handleImageChange(e.target.files)}
+                required
+                className="hidden"
+              />
+              <label
+                htmlFor="image-kegiatan"
+                className="cursor-pointer flex flex-col items-center justify-center"
+              >
+                <span className="mb-2 block text-xl font-semibold text-gray-700">
+                  Drop files here
+                </span>
+                <span className="mb-2 block text-base font-medium text-gray-400">
+                  Or
+                </span>
+                <span className="inline-flex rounded border border-[#e0e0e0] mb-4 py-2 px-7 text-base font-medium text-gray-700">
+                  Browse
+                </span>
+              </label>
             </div>
 
             {imageFiles.length > 0 && (
@@ -109,6 +150,7 @@ const UploadForm = () => {
           </div>
         </div>
 
+        {/* Video */}
         <div className="basis-1/2">
           <InputLabel className="block text-sm mb-4 font-medium text-gray-700">
             Upload Video
@@ -160,6 +202,7 @@ const UploadForm = () => {
         </div>
       </div>
 
+      {/* Tanda Tangan */}
       <div className="flex items-center gap-6">
         {["companion1", "companion2"].map((companion, index) => (
           <div className="basis-1/2" key={companion}>
@@ -216,6 +259,102 @@ const UploadForm = () => {
             {/* Preview gambar untuk companion tertentu */}
           </div>
         ))}
+      </div>
+
+      {/* Berkas File PDF */}
+      <div className="flex items-center gap-6">
+        {["Surat_Tugas", "Daftar_Hadir"].map((fileType) => (
+          <div className="basis-1/2" key={fileType}>
+            <InputLabel className="block text-md font-medium text-gray-700 mb-4">
+              Upload {fileType}
+            </InputLabel>
+            <div className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+              {!files[fileType] ? (
+                <>
+                  <TextInput
+                    type="file"
+                    accept={
+                      fileType === "Surat_Tugas" ? "application/pdf" : "image/*"
+                    }
+                    id={`file-input-${fileType}`}
+                    onChange={(e) =>
+                      handleFileChange(fileType, e.target.files[0])
+                    }
+                    required
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor={`file-input-${fileType}`}
+                    className="cursor-pointer flex flex-col items-center justify-center"
+                  >
+                    <span className="mb-2 block text-xl font-semibold text-gray-700">
+                      Drop files here
+                    </span>
+                    <span className="mb-2 block text-base font-medium text-gray-400">
+                      Or
+                    </span>
+                    <span className="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-gray-700">
+                      Browse
+                    </span>
+                  </label>
+                </>
+              ) : (
+                <div className="gap-6 flex flex-col items-center">
+                  {files[fileType].type.includes("image") && (
+                    <img
+                      src={URL.createObjectURL(files[fileType])}
+                      alt={`${fileType} Preview`}
+                      className="w-64 h-64 object-cover border rounded shadow-md"
+                    />
+                  )}
+                  <p className="text-sm font-medium text-gray-700">
+                    {files[fileType].name}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => handleFileChange(fileType, null)}
+                    className="mt-2 px-4 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Saran dan Kesimpulan */}
+      <div className="flex gap-6">
+        <div className="basis-1/2">
+          <InputLabel className="block text-md font-medium text-gray-700 mb-4">
+            Kesimpulan
+          </InputLabel>
+          <textarea
+            id="textarea-kesimpulan"
+            placeholder="Masukkan kesimpulan di sini"
+            rows="6"
+            name="kesimpulan"
+            className="mt-1 block w-full border border-gray-300 rounded-md p-3 ring-0 focus:border-primary focus:ring-primary"
+            onChange={(e) => setKesimpulan(e.target.value)}
+            required
+          ></textarea>
+        </div>
+
+        <div className="basis-1/2">
+          <InputLabel className="block text-md font-medium text-gray-700 mb-4">
+            Saran
+          </InputLabel>
+          <textarea
+            id="textarea-saran"
+            placeholder="Masukkan saran di sini"
+            rows="6"
+            name="saran"
+            className="mt-1 block w-full border border-gray-300 rounded-md p-3 ring-0 focus:border-primary focus:ring-primary"
+            onChange={(e) => setSaran("saran", e.target.value)}
+            required
+          ></textarea>
+        </div>
       </div>
 
       <div className="flex justify-center">

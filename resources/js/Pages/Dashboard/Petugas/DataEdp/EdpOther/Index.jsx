@@ -10,7 +10,7 @@ import EditOtherEdp from "@/Components/Form/Edp/EdpOther/Edit";
 
 const Index = ({ EdpOther ,search}) => {
   const [searchQuery, setSearchQuery] = useState(search || "");
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [setDebouncedSearchQuery] = useState(searchQuery);
   const [timer, setTimer] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
   const [selectForm, setSelectForm] = useState(null); // Track selected row
@@ -47,7 +47,7 @@ const Index = ({ EdpOther ,search}) => {
   const handleShowData = () => {
     if (selectedRow !== null) {
       const selectedData = EdpOther[selectedRow];
-      router.visit(route("petugas.dataedp-edp-other.show"), {
+      router.visit(route("petugas.data.edp-other.show"), {
         method: "get",
         data: { selectedData },
       });
@@ -57,7 +57,7 @@ const Index = ({ EdpOther ,search}) => {
   const handleModal = () => {
     if (selectForm !== null) {
       const selectedData = Edp[selectedRow];
-      router.visit(route("petugas.dataedp-edp-siswa.show"), {
+      router.visit(route("petugas.data.edp-other.show"), {
         method: "get",
         data: { selectedData },
       });

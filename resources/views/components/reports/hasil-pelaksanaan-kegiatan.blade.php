@@ -19,27 +19,21 @@
             <td class="font-semibold">Pelatihan yang Diikuti</td>
             <td class="font-semibold">RTL</td>
           </tr>
+          @foreach ($biodataPeserta as $index => $BiodataPeserta)
           <tr>
-            <td>1</td>
-            <td>Ahmad Taufiq Tambunan, S.Pd</td>
-            <td>SMKN 3 Yogyakarta</td>
-            <td>Pelatihan Penggunaan Software CAD CAM</td>
-            <td>Ada</td>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ $BiodataPeserta->peserta ? $BiodataPeserta->peserta->name : 'No Peserta Assigned' }}</td>
+              <td>{{ $BiodataPeserta->sekolah }}</td>
+              <td>{{ $BiodataPeserta->pelatihan ? $BiodataPeserta->pelatihan->name : 'No Pelatihan Assigned' }}</td>
+              <td>
+                  @if($BiodataPeserta->rtls)
+                      Ada
+                  @else
+                      Tidak Ada
+                  @endif
+              </td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Ahmad Taufiq Tambunan, S.Pd</td>
-            <td>SMKN 3 Yogyakarta</td>
-            <td>Pelatihan Penggunaan Software CAD CAM</td>
-            <td>Ada</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Ahmad Taufiq Tambunan, S.Pd</td>
-            <td>SMKN 3 Yogyakarta</td>
-            <td>Pelatihan Penggunaan Software CAD CAM</td>
-            <td>Ada</td>
-          </tr>
+      @endforeach
         </tbody>
       </table>
 

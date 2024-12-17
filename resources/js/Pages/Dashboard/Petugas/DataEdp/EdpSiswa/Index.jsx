@@ -41,24 +41,32 @@ const Index = ({ Edp, search }) => {
     });
   };
 
-
   const handleShowData = () => {
     if (selectedRow !== null) {
-      const selectedData = Edp[selectedRow];
-      router.visit(route("petugas.dataedp-edp-siswa.show"), {
+      const selectedData = Edp.data[selectedRow];
+      router.visit(route("petugas.data.edp-siswa.show"), {
         method: "get",
         data: { selectedData },
       });
     }
   };
 
-  const handleModal = () => {
+  const handleModalEdit = () => {
     if (selectForm !== null) {
-      const selectedData = Edp[selectedRow];
-      router.visit(route("petugas.dataedp-edp-siswa.show"), {
-        method: "get",
-        data: { selectedData },
-      });
+      const selectedData = Edp.data[selectForm];
+      setSelectForm(selectedData);
+      setIsOpenModal(true);
+
+      console.log(selectForm);
+    }
+  };
+
+  const handleCheck = () => {
+    if (selectForm !== null) {
+      const selectedData = Edp.data[selectForm];
+      setSelectForm(selectedData);
+
+      console.log(selectForm);
     }
   };
 
@@ -109,7 +117,7 @@ const Index = ({ Edp, search }) => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search onSearchChange={handleSearchChange}/>
+          <Search onSearchChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto"></div>
         </div>
 
@@ -138,9 +146,9 @@ const Index = ({ Edp, search }) => {
                     <tr
                       key={index}
                       className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
-                        selectedRow === index ? "bg-indigo-100" : ""
+                        selectForm === index ? "bg-indigo-100" : ""
                       }`}
-                      onClick={() => setSelectedRow(index)}
+                      onClick={() => setSelectForm(index)}
                     >
                       <td className="py-3 px-4">{index + 1}</td>
                       <td className="py-3 px-4">{user.nama_responden}</td>
@@ -164,7 +172,7 @@ const Index = ({ Edp, search }) => {
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-              <Pagination paginateItems={Edp} />
+                <Pagination paginateItems={Edp} />
               </div>
             </div>
           </div>
@@ -174,7 +182,7 @@ const Index = ({ Edp, search }) => {
           ref={buttonReff}
           onClick={handleShowData}
           className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectedRow !== null
+            selectForm !== null
               ? " hover:bg-indigo-700 cursor-pointer"
               : "opacity-50 cursor-not-allowed"
           } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
@@ -186,17 +194,14 @@ const Index = ({ Edp, search }) => {
         </button>
         <button
           ref={buttonRef}
-          onClick={() => {
-            handleModal;
-            setIsOpenModal(!isOpenModal);
-          }}
+          onClick={handleModalEdit} // Panggil handleModalEdit
           className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectedRow !== null
-              ? " hover:bg-indigo-700 cursor-pointer"
+            selectForm !== null
+              ? "hover:bg-indigo-700 cursor-pointer"
               : "opacity-50 cursor-not-allowed"
           } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
         >
-          <span className={`flex items-center font-bold gap-2 text-white `}>
+          <span className="flex items-center font-bold gap-2 text-white">
             <RiFile2Line2 className="text-2xl" />
             Edit Peserta
           </span>
@@ -208,7 +213,11 @@ const Index = ({ Edp, search }) => {
           className="w-full"
         >
           <div className="p-6">
-            <EditEdpPeserta />
+            <EditEdpPeserta
+              Edp={selectForm}
+              EdpId={selectForm?.id}
+              onCloseModal={() => setIsOpenModal(false)}
+            />
           </div>
         </Modal>
       </div>

@@ -37,13 +37,13 @@ class BiodataPeserta extends Model
       return $this->belongsTo(Petugas::class, 'petugas_id_1');
     }
 
+    public function petugas2()
+    {
+      return $this->belongsTo(Petugas::class, 'petugas_id_2');
+    }
     public function pelatihan()
     {
         return $this->belongsTo(Pelatihan::class, 'pelatihan_id');
-    }
-    public function petugas2()
-    {
-      return $this->belongsTo(Petugas::class, 'pwetugas_id_2');
     }
     public function rtls()
     {

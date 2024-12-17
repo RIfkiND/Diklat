@@ -26,6 +26,6 @@ class EdpFunctionformController extends Controller
 
       return redirect('/')->with('success', 'Edp Berhasil Ditambahkan');
     }
-
+    
 
 }

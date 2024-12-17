@@ -22,10 +22,11 @@ class HasilMonitoringSeeder extends Seeder
                 'link_foto' => 'https://example.com/foto1.jpg',
                 'link_vidio' => 'https://example.com/vidio1.mp4',
                 'peserta_id' => 3,
+                'rtl_id' => 1, // Tambahkan rtl_id
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            // Add more entries as needed
+            // Tambahkan lebih banyak entri sesuai kebutuhan
         ]);
     }
 }
