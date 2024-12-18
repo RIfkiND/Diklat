@@ -70,6 +70,6 @@ class EdpPesertaController extends Controller
         ]);
 
         // Redirect atau response sesuai kebutuhan
-        return redirect()->route('edp.index')->with('success', 'Data EDP berhasil diperbarui.');
+        return redirect()->route('petugas.dataedp-edp-siswa')->with('success', 'Data EDP berhasil diperbarui.');
     }
 }

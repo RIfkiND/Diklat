@@ -59,7 +59,7 @@ const EditEdpPeserta = ({ Edp, EdpId, onCloseModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(route("petugas.data.edp-siswa.update", { id: EdpId }), {
+    put(route("petugas.data.edp-siswa.update", EdpId), {
       onSuccess: () => {
         console.log("Data berhasil diperbarui");
         alert("Data berhasil diperbarui");

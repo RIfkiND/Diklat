@@ -10,7 +10,8 @@ const ModalMonitoringPesertaEdit = ({
   pesertaId,
 }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  console.log("Monitoring ID:", pesertaId);
+  const [monitoringId, setMonitoringId] = useState(null); // State to store the monitoring ID
+  console.log("Peserta ID:", pesertaId);
   const { data, setData, put, processing, errors } = useForm({
     realisasi: "",
     kendala: "",
@@ -35,6 +36,7 @@ const ModalMonitoringPesertaEdit = ({
         link_vidio: monitoring.link_vidio,
       });
       setSelectedDate(new Date(monitoring.realisasi));
+      setMonitoringId(monitoring.id); // Set the monitoring ID
     }
   }, [hasilMonitorings]);
 
@@ -62,23 +64,27 @@ const ModalMonitoringPesertaEdit = ({
   const submit = (e) => {
     e.preventDefault();
 
-    if (!pesertaId) {
+    if (!monitoringId) {
       console.error("Error: Monitoring ID is missing.");
       return;
     }
 
-    put(route("petugas.update-rtl-peserta"));
-    onClose();
+    put(route("petugas.update-rtl-peserta", { id: monitoringId }), {
+      onSuccess: () => {
+        onClose();
+        window.location.href = route("petugas.show-rtl-peserta", { id: pesertaId }); // Redirect to the desired page
+      },
+    });
   };
 
   return (
     <div className="absolute bg-slate-800 top-0 left-0 right-0 bottom-0 w-full h-full z-[999] flex items-center justify-center mx-auto my-auto bg-opacity-35">
       <button
         onClick={onClose}
-        className="z-30 w-full h-full absolute"
+        className="z-10 w-full h-full absolute"
       ></button>
       <div className="w-[80%] md:w-[50%] h-[80%] bg-white rounded-2xl p-5 overflow-y-auto scrollbar-none z-40">
-        <p className="text-2xl text-slate-700 font-bold">Tambah Data RTL</p>
+        <p className="text-2xl text-slate-700 font-bold">Edit Data RTL</p>
         <form
           className="gap-4 max-w-full mx-auto p-6 rounded-lg"
           onSubmit={submit}

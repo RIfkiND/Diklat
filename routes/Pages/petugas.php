@@ -27,8 +27,9 @@ Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/report/hasil-pengolahan-edp/slug', [PetugasController::class, "PetugasReportPengolahanEdpSlug"])->name('petugas.report-pengolahan-edp-slug');
 
     Route::get('/dashboard/petugas/edp/edp-peserta', [EdpPesertaController::class, 'renderEdpPeserta'])->name('petugas.dataedp-edp-siswa');
-    Route::put('/dashboard/petugas/edp/edp-peserta', [EdpPesertaController::class, 'EdpEdit'])->name('petugas.data.edp-siswa.update');
+    Route::put('/dashboard/petugas/edp/edp-peserta/{id}/update', [EdpPesertaController::class, 'EdpEdit'])->name('petugas.data.edp-siswa.update');
     Route::get('/dashboard/petugas/edp/edp-other', [EdpOtherController::class, 'renderEdpOther'])->name('petugas.dataedp-edp-other');
+    Route::put('/dashboard/petugas/edp/edp-other/{id}/update', [EdpOtherController::class, 'EdpOtherEdit'])->name('petugas.data.edp-other.update');
 
     Route::get('/dashboard/petugas/edp/edp-peserta/show', [EdpPesertaController::class, 'renderEdpPesertaShow'])->name('petugas.data.edp-siswa.show');
     Route::get('/dashboard/petugas/edp/edp-other/show', [EdpOtherController::class, 'renderEdpOtherShow'])->name('petugas.data.edp-other.show');

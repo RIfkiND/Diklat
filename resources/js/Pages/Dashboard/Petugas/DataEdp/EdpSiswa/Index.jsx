@@ -4,7 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
-import { RiFile2Line2 } from "react-icons/ri";
+import { RiFile2Line2, RiEdit2Line } from "react-icons/ri";
 import Modal from "@/Components/Ui/Modal/Modal";
 import EditEdpPeserta from "@/Components/Form/Edp/EdpPeserta/Edit";
 
@@ -12,8 +12,6 @@ const Index = ({ Edp, search }) => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
   const [selectForm, setSelectForm] = useState(null); // Track selected row
   const tableRef = useRef(null);
-  const buttonRef = useRef(null);
-  const buttonReff = useRef(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState(search || "");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
@@ -41,53 +39,19 @@ const Index = ({ Edp, search }) => {
     });
   };
 
-  const handleShowData = () => {
-    if (selectedRow !== null) {
-      const selectedData = Edp.data[selectedRow];
-      router.visit(route("petugas.data.edp-siswa.show"), {
-        method: "get",
-        data: { selectedData },
-      });
-    }
+  const handleShowData = (index) => {
+    const selectedData = Edp.data[index];
+    router.visit(route("petugas.data.edp-siswa.show"), {
+      method: "get",
+      data: { selectedData },
+    });
   };
 
-  const handleModalEdit = () => {
-    if (selectForm !== null) {
-      const selectedData = Edp.data[selectForm];
-      setSelectForm(selectedData);
-      setIsOpenModal(true);
-
-      console.log(selectForm);
-    }
+  const handleModalEdit = (index) => {
+    const selectedData = Edp.data[index];
+    setSelectForm(selectedData);
+    setIsOpenModal(true);
   };
-
-  const handleCheck = () => {
-    if (selectForm !== null) {
-      const selectedData = Edp.data[selectForm];
-      setSelectForm(selectedData);
-
-      console.log(selectForm);
-    }
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        tableRef.current &&
-        !tableRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target) &&
-        !buttonReff.current.contains(event.target)
-      ) {
-        setSelectedRow(null);
-        setSelectForm(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <AuthenticatedLayout
@@ -123,7 +87,7 @@ const Index = ({ Edp, search }) => {
 
         <div
           ref={tableRef}
-          className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 lg:col-span-9 row-span-6 rounded-2xl relative"
+          className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 row-span-6 rounded-2xl relative"
         >
           <div className="relative">
             <div className="overflow-x-auto scrollbar-none h-full">
@@ -139,16 +103,14 @@ const Index = ({ Edp, search }) => {
                     <th className="py-3 px-4">Pelatihan Yang DIikuti</th>
                     <th className="py-3 px-4">Tanggal Dimulai</th>
                     <th className="py-3 px-4">Tanggal Selesai</th>
+                    <th className="py-3 px-4">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {Edp.data.map((user, index) => (
                     <tr
                       key={index}
-                      className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
-                        selectForm === index ? "bg-indigo-100" : ""
-                      }`}
-                      onClick={() => setSelectForm(index)}
+                      className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
                     >
                       <td className="py-3 px-4">{index + 1}</td>
                       <td className="py-3 px-4">{user.nama_responden}</td>
@@ -167,6 +129,20 @@ const Index = ({ Edp, search }) => {
                       <td className="py-3 px-4">
                         {user.formatted_tanggal_selesai}
                       </td>
+                      <td className="py-3 px-4 flex gap-2">
+                        <button
+                          onClick={() => handleShowData(index)}
+                          className="bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded"
+                        >
+                          Show
+                        </button>
+                        <button
+                          onClick={() => handleModalEdit(index)}
+                          className="bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded"
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -178,34 +154,6 @@ const Index = ({ Edp, search }) => {
           </div>
         </div>
 
-        <button
-          ref={buttonReff}
-          onClick={handleShowData}
-          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectForm !== null
-              ? " hover:bg-indigo-700 cursor-pointer"
-              : "opacity-50 cursor-not-allowed"
-          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
-        >
-          <span className={`flex items-center font-bold gap-2 text-white `}>
-            <RiFile2Line2 className="text-2xl" />
-            Tampilkan Rekap
-          </span>
-        </button>
-        <button
-          ref={buttonRef}
-          onClick={handleModalEdit} // Panggil handleModalEdit
-          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectForm !== null
-              ? "hover:bg-indigo-700 cursor-pointer"
-              : "opacity-50 cursor-not-allowed"
-          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
-        >
-          <span className="flex items-center font-bold gap-2 text-white">
-            <RiFile2Line2 className="text-2xl" />
-            Edit Peserta
-          </span>
-        </button>
         <Modal
           show={isOpenModal}
           onClose={() => setIsOpenModal(false)}
