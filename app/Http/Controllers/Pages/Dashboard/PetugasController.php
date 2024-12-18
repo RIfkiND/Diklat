@@ -117,6 +117,11 @@ class PetugasController extends Controller
   public function update(UpdateHasilMonitoringRequest $request, $id)
   {
     $hasilMonitoring = hasil_monitoring::findOrFail($id);
+
+    $hasilMonitoring->update($request->validated());
+
+    return redirect()->route('petugas.show-rtl-peserta', ['id' => $hasilMonitoring->peserta_id])
+      ->with('success', 'Data RTL berhasil diperbarui.');
   }
   public function PetugasBerkas()
   {
@@ -135,7 +140,7 @@ class PetugasController extends Controller
   $user =Auth::guard('petugas')->user();
    $BerkasData  = Berkas::with('photo_berkas')->where('petugas_id',$user->id)->first();
     return Inertia::render('Dashboard/Petugas/Report/HasilPengolahanEdp/Berkas',[
-      'BerkasData'=> $BerkasData 
+      'BerkasData'=> $BerkasData
     ]);
   }
   public function PetugasReportPengolahanEdpSlug()

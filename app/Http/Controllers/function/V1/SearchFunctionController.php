@@ -52,7 +52,7 @@ class SearchFunctionController extends Controller
       ],
       'LIKE',
       "%$search%"
-    )->paginate(5);
+    )->paginate(5)->appends(['search' => $search]);;
 
     $edp_others->getCollection()->transform(function ($peserta) {
       $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
@@ -77,7 +77,7 @@ class SearchFunctionController extends Controller
       ],
       'LIKE',
       "%$search%"
-    )->paginate(5);
+    )->paginate(5)->appends(['search' => $search]);
 
     $edp_pesertas->getCollection()->transform(function ($peserta) {
       $peserta->formatted_tanggal_dimulai = Carbon::parse($peserta->tanggal_dimulai)->format('Y-m-d');
