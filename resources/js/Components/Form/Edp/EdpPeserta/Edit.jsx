@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputLabel from "@/Components/Ui/Input/InputLabel";
 import TextInput from "@/Components/Ui/Input/TextInput";
 import PrimaryButton from "@/Components/Ui/Button/PrimaryButton";
@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "@inertiajs/react";
 
-const EditEdpPeserta = ({ Edp }) => {
+const EditEdpPeserta = ({ Edp, EdpId, onCloseModal }) => {
   const [selectedDates, setSelectedDates] = useState({
     tanggal_mulai: null,
     tanggal_akhir: null,
@@ -21,161 +21,126 @@ const EditEdpPeserta = ({ Edp }) => {
   };
 
   const { data, setData, put, processing, errors } = useForm({
-    name: Edp.nama_responden || "",
-    sekolah: Edp.sekolah || "",
-    kabupaten: Edp.kabupaten || "",
-    no_wa: Edp.no_wa || "",
-    email: Edp.email || "",
-    pelatiha_diikuti: Edp.pelatiha_diikuti || "",
-    tamatan_pelatihan: Edp.tamatan_pelatihan || "",
-    tanggal_mulai: Edp.tanggal_mulai || "",
-    tanggal_akhir: Edp.tanggal_akhir || "",
+    name: Edp?.nama_responden || "",
+    sekolah: Edp?.nama_institusi_sekolah || "",
+    kabupaten: Edp?.kabupaten_kota || "",
+    no_wa: Edp?.no_whatsapp || "",
+    email: Edp?.email || "",
+    nama_jenis_pelatihan: Edp?.nama_jenis_pelatihan || "",
+    tamatan_pelatihan: Edp?.nama_tamatan_pelatihan || "",
+    tanggal_mulai: Edp?.tanggal_dimulai || "",
+    tanggal_akhir: Edp?.tanggal_selesai || "",
   });
+
+  useEffect(() => {
+    if (Edp && Object.keys(Edp).length > 0) {
+      setData({
+        name: Edp.nama_responden || "",
+        sekolah: Edp.nama_institusi_sekolah || "",
+        kabupaten: Edp.kabupaten_kota || "",
+        no_wa: Edp.no_whatsapp || "",
+        email: Edp.email || "",
+        nama_jenis_pelatihan: Edp.nama_jenis_pelatihan || "",
+        tamatan_pelatihan: Edp.nama_tamatan_pelatihan || "",
+        tanggal_mulai: Edp.tanggal_dimulai || "",
+        tanggal_akhir: Edp.tanggal_selesai || "",
+      });
+
+      setSelectedDates({
+        tanggal_mulai: Edp.tanggal_dimulai
+          ? new Date(Edp.tanggal_dimulai)
+          : null,
+        tanggal_akhir: Edp.tanggal_selesai
+          ? new Date(Edp.tanggal_selesai)
+          : null,
+      });
+    }
+  }, [Edp]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    put(route("petugas.data.edp-siswa.update", EdpId), {
+      onSuccess: () => {
+        console.log("Data berhasil diperbarui");
+        alert("Data berhasil diperbarui");
+        onCloseModal(); // Tutup modal setelah berhasil submit
+      },
+      onError: (errors) => {
+        console.error("Error:", errors);
+        alert("Terjadi kesalahan saat memperbarui data");
+      },
+    });
+  };
+
+  const inputFields = [
+    { id: "name", label: "Nama", type: "text", placeholder: "Jhon Doe" },
+    {
+      id: "sekolah",
+      label: "Sekolah",
+      type: "text",
+      placeholder: "SMKN 1 Ciamis",
+    },
+    {
+      id: "kabupaten",
+      label: "Kabupaten",
+      type: "text",
+      placeholder: "Ciamis",
+    },
+    {
+      id: "no_wa",
+      label: "No Whatsapp",
+      type: "number",
+      placeholder: "0852121",
+    },
+    {
+      id: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "contoh@example.com",
+    },
+    {
+      id: "tamatan_pelatihan",
+      label: "Tamatan Pelatihan",
+      type: "text",
+      placeholder: "",
+    },
+    {
+      id: "nama_jenis_pelatihan",
+      label: "Pelatihan Diikuti",
+      type: "text",
+      placeholder: "Belajar Website",
+    },
+  ];
+
   return (
     <>
       <h3 className="text-xl mb-6 font-semibold text-center text-primary">
-      Edit Edp Peserta
+        Edit Edp Peserta
       </h3>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Nama
-            </InputLabel>
-            <TextInput
-              id="name"
-              name="name"
-              type="text"
-              value={data.name}
-              onChange={(e) => setData("name", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Jhon Doe"
-            />
-            {errors.nip && <p className="text-red-500 text-sm">{errors.nip}</p>}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="sekolah"
-              className="block text-sm font-medium text-gray-700"
-            >
-              sekolah
-            </InputLabel>
-            <TextInput
-              id="sekolah"
-              name="sekolah"
-              type="text"
-              value={data.sekolah}
-              onChange={(e) => setData("sekolah", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="SMKN 1 Ciamis"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="Kabupaten"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Kabupaten
-            </InputLabel>
-            <TextInput
-              id="kabupaten"
-              name="kabupaten"
-              type="text"
-              value={data.kabupaten}
-              onChange={(e) => setData("kabupaten", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Ciamis"
-            />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="no_wa"
-              className="block text-sm font-medium text-gray-700"
-            >
-              No Whatsapp
-            </InputLabel>
-            <TextInput
-              id="no_wa"
-              name="no_wa"
-              type="number"
-              value={data.no_wa}
-              onChange={(e) => setData("no_wa", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="0852121"
-            />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email{" "}
-            </InputLabel>
-            <TextInput
-              id="email"
-              name="email"
-              type="email"
-              value={data.email}
-              onChange={(e) => setData("email", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="contoh@exampl.con"
-            />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="tamatan_pelatihan"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Tamatan Pelatihan
-            </InputLabel>
-            <TextInput
-              id="tamatan_pelatihan"
-              name="tamatan_pelatihan"
-              type="text"
-              value={data.tamatan_pelatihan}
-              onChange={(e) => setData("tamatan_pelatihan", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder=""
-            />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputLabel
-              htmlFor="pelatihan_diikuti"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Kabupaten
-            </InputLabel>
-            <TextInput
-              id="pelatihan_diikuti"
-              name="pelatihan_diikuti"
-              type="text"
-              value={data.pelatiha_diikuti}
-              onChange={(e) => setData("pelatihan_diikuti", e.target.value)}
-              className="block w-full border border-gray-300 rounded-md p-2"
-              placeholder="Belajar Website"
-            />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
-            )}
-          </div>
+          {inputFields.map((field) => (
+            <div key={field.id} className="flex flex-col gap-2">
+              <InputLabel
+                htmlFor={field.id}
+                className="block text-sm font-medium text-gray-700"
+              >
+                {field.label}
+              </InputLabel>
+              <TextInput
+                id={field.id}
+                name={field.id}
+                type={field.type}
+                value={data[field.id]}
+                onChange={(e) => setData(field.id, e.target.value)}
+                className="block w-full border border-gray-300 rounded-md p-2"
+                placeholder={field.placeholder}
+              />
+              {errors[field.id] && (
+                <p className="text-red-500 text-sm">{errors[field.id]}</p>
+              )}
+            </div>
+          ))}
           <div className="flex flex-col gap-2">
             <InputLabel
               htmlFor="tanggal_mulai"
@@ -191,8 +156,8 @@ const EditEdpPeserta = ({ Edp }) => {
               placeholderText="Choose a date"
               dateFormat="dd/MM/yyyy"
             />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
+            {errors.tanggal_mulai && (
+              <p className="text-red-500 text-sm">{errors.tanggal_mulai}</p>
             )}
           </div>
           <div className="flex flex-col gap-2">
@@ -210,8 +175,8 @@ const EditEdpPeserta = ({ Edp }) => {
               placeholderText="Choose a date"
               dateFormat="dd/MM/yyyy"
             />
-            {errors.unit_kerja && (
-              <p className="text-red-500 text-sm">{errors.unit_kerja}</p>
+            {errors.tanggal_akhir && (
+              <p className="text-red-500 text-sm">{errors.tanggal_akhir}</p>
             )}
           </div>
         </div>
@@ -222,7 +187,6 @@ const EditEdpPeserta = ({ Edp }) => {
             className="w-full max-w-xs tracking-normal flex items-center justify-center"
           >
             {processing ? "Saving..." : "Save"}
-            Save
           </PrimaryButton>
         </div>
       </form>

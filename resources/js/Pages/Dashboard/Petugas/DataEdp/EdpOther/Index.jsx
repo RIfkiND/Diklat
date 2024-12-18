@@ -4,32 +4,33 @@ import { Head, router } from "@inertiajs/react";
 import Pagination from "@/Components/Ui/Pagination";
 import Search from "@/Components/Ui/Input/Search";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
-import { RiFile2Line2 } from "react-icons/ri";
+import { RiFile2Line2, RiMore2Fill } from "react-icons/ri";
 import Modal from "@/Components/Ui/Modal/Modal";
 import EditOtherEdp from "@/Components/Form/Edp/EdpOther/Edit";
+import { FaEdit, FaEllipsisV, FaEye } from "react-icons/fa";
 
-const Index = ({ EdpOther ,search}) => {
-  const [searchQuery, setSearchQuery] = useState(search || "");
-  const [setDebouncedSearchQuery] = useState(searchQuery);
-  const [timer, setTimer] = useState(null);
+const Index = ({ EdpOther, search }) => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
-  const [selectForm, setSelectForm] = useState(null); // Track selected row
+  const [selectForm, setSelectForm] = useState(null); // Track selected form data
+  const tableRef = useRef(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(search || "");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
+  const [timer, setTimer] = useState(null);
 
+  useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
 
-    useEffect(() => {
-      if (timer) {
-        clearTimeout(timer);
-      }
+    const newTimer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
 
-      const newTimer = setTimeout(() => {
-        setDebouncedSearchQuery(searchQuery);
-      }, 500);
+    setTimer(newTimer);
 
-      setTimer(newTimer);
-
-      return () => clearTimeout(newTimer);
-    }, [searchQuery]);
+    return () => clearTimeout(newTimer);
+  }, [searchQuery]);
 
   const handleSearchChange = (query) => {
     setSearchQuery(query);
@@ -39,48 +40,32 @@ const Index = ({ EdpOther ,search}) => {
     });
   };
 
-
-
-
-  const tableRef = useRef(null);
-  const buttonRef = useRef(null);
-  const handleShowData = () => {
-    if (selectedRow !== null) {
-      const selectedData = EdpOther[selectedRow];
-      router.visit(route("petugas.data.edp-other.show"), {
-        method: "get",
-        data: { selectedData },
-      });
-    }
+  const handleShowData = (index) => {
+    const selectedData = EdpOther.data[index];
+    router.visit(route("petugas.data.edp-other.show"), {
+      method: "get",
+      data: { selectedData },
+    });
   };
 
-  const handleModal = () => {
-    if (selectForm !== null) {
-      const selectedData = Edp[selectedRow];
-      router.visit(route("petugas.data.edp-other.show"), {
-        method: "get",
-        data: { selectedData },
-      });
-    }
+  const handleModalEdit = (index) => {
+    const selectedData = EdpOther.data[index];
+    setSelectForm(selectedData);
+    setIsOpenModal(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        tableRef.current &&
-        !tableRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setSelectedRow(null);
-        setSelectForm(null);
-      }
-    };
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const [openMenuIndex, setOpenMenuIndex] = useState(null); // Simpan indeks menu yang terbuka
+
+  // Fungsi untuk membuka/menutup menu berdasarkan indeks
+  const handleOpenMenu = (index) => {
+    if (openMenuIndex === index) {
+      setOpenMenuIndex(null); // Tutup menu jika yang sama di-klik lagi
+    } else {
+      setOpenMenuIndex(index); // Buka menu untuk indeks tertentu
+    }
+  };
 
   return (
     <AuthenticatedLayout
@@ -110,13 +95,13 @@ const Index = ({ EdpOther ,search}) => {
         </div>
 
         <div className="group py-5 h-full col-span-12 row-span-2 rounded-2xl relative flex items-center gap-5 justify-between z-50 flex-wrap w-full">
-          <Search onSearchChange={handleSearchChange}/>
+          <Search onSearchChange={handleSearchChange} />
           <div className="flex items-center gap-5 flex-wrap w-full md:w-auto"></div>
         </div>
 
         <div
           ref={tableRef}
-          className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 lg:col-span-9 row-span-6 rounded-2xl relative"
+          className="group bg-white shadow-primaryshadow p-5 h-full col-span-12 row-span-6 rounded-2xl relative"
         >
           <div className="relative">
             <div className="overflow-x-auto scrollbar-none h-full">
@@ -132,16 +117,14 @@ const Index = ({ EdpOther ,search}) => {
                     <th className="py-3 px-4">Pelatihan Yang DIikuti</th>
                     <th className="py-3 px-4">Tanggal Dimulai</th>
                     <th className="py-3 px-4">Tanggal Selesai</th>
+                    <th className="py-3 px-4">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {EdpOther.data.map((user, index) => (
                     <tr
                       key={index}
-                      className={`text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer ${
-                        selectedRow === index ? "bg-indigo-100" : ""
-                      }`}
-                      onClick={() => setSelectedRow(index)}
+                      className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
                     >
                       <td className="py-3 px-4">{index + 1}</td>
                       <td className="py-3 px-4">{user.nama_responden}</td>
@@ -160,48 +143,44 @@ const Index = ({ EdpOther ,search}) => {
                       <td className="py-3 px-4">
                         {user.formatted_tanggal_selesai}
                       </td>
+                      <td className="">
+                        <button
+                          onClick={() => handleOpenMenu(index)}
+                          className="hover:bg-primary transition-all duration-500 ease-in-out text-gray-600 hover:text-white p-2 rounded-full group"
+                        >
+                          <FaEllipsisV className="text-xl" />
+                        </button>
+
+                        {openMenuIndex === index && (
+                          <div className="menu-container absolute z-10 space-y-2 bg-white border rounded shadow-lg">
+                            <button
+                              onClick={() => handleShowData(index)}
+                              className="w-full flex items-center gap-2 px-7 py-2 hover:bg-gray-100 text-gray-700"
+                            >
+                              <FaEye className="text-teal-600" />
+                              <span>View</span>
+                            </button>
+                            <button
+                              onClick={() => handleModalEdit(index)}
+                              className="w-full flex items-center gap-2 px-7 py-2 hover:bg-gray-100 text-gray-700"
+                            >
+                              <FaEdit className="text-blue-600" />
+                              <span>Edit</span>
+                            </button>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <div className="sticky left-0 right-0 bottom-0 mt-5 flex justify-center">
-              <Pagination paginateItems={EdpOther} />
+                <Pagination paginateItems={EdpOther} />
               </div>
             </div>
           </div>
         </div>
 
-        <button
-          ref={buttonRef}
-          onClick={handleShowData}
-          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectedRow !== null
-              ? " hover:bg-indigo-700 cursor-pointer"
-              : "opacity-50 cursor-not-allowed"
-          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
-        >
-          <span className={`flex items-center font-bold gap-2 text-white `}>
-            <RiFile2Line2 className="text-2xl" />
-            Tampilkan Rekap
-          </span>
-        </button>
-        <button
-          ref={buttonRef}
-          onClick={() => {
-            handleModal;
-            setIsOpenModal(!isOpenModal);
-          }}
-          className={`absolute lg:sticky bottom-5 right-5 lg:top-5 bg-indigo-400 ${
-            selectedRow !== null
-              ? " hover:bg-indigo-700 cursor-pointer"
-              : "opacity-50 cursor-not-allowed"
-          } shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10`}
-        >
-          <span className={`flex items-center font-bold gap-2 text-white `}>
-            <RiFile2Line2 className="text-2xl" />
-            Edit Peserta
-          </span>
-        </button>
         <Modal
           show={isOpenModal}
           onClose={() => setIsOpenModal(false)}
@@ -209,7 +188,11 @@ const Index = ({ EdpOther ,search}) => {
           className="w-full"
         >
           <div className="p-6">
-            <EditOtherEdp />
+            <EditOtherEdp
+              Edp={selectForm}
+              EdpId={selectForm?.id}
+              onCloseModal={() => setIsOpenModal(false)}
+            />
           </div>
         </Modal>
       </div>

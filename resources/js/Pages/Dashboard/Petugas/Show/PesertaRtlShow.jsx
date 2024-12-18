@@ -237,9 +237,9 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
     };
   }, []);
 
-  const [openMenu, setOpenMenu] = useState(false);
-  const handleOpenMenu = () => {
-    setOpenMenu(!openMenu);
+  const [openMenu, setOpenMenu] = useState(null);
+  const handleOpenMenu = (index) => {
+    setOpenMenu(openMenu === index ? null : index);
   };
 
   const handleDelete = (id) => {
@@ -314,181 +314,182 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
           TOLONG PASTIKAN MENGISI HASIL MONITORING HANYA SATU KALI!
         </p>
 
-        <table className="w-full  col-span-12">
-          <tr className="w-full  flex gap-5">
-            <td className="w-full space-y-5">
-              {Viewkegiatan.map((item, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    if (!monitoringRtlIdss.includes(item.id)) {
-                      handleSelection(index);
-                    }
-                  }}
-                  ref={selectedItem === index ? containerRef : null}
-                  className={`w-full h-[450px] col-span-12 md:col-span-6  shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 hover:bg-indigo-50
-                  ${rtlIdss.some((id) => monitoringRtlIdss.includes(id)) ? "cursor-not-allowed" : "cursor-pointer"}
-                  ${selectedItem === index ? "bg-indigo-50" : ""}`}
-                >
-                  <div className="flex items-center justify-center flex-col">
-                    <p className="text-xl font-bold text-textPrimary">
-                      {item.top.title}
-                    </p>
-                    <p className="text-sm font-bold text-textSecondary">
-                      {item.top.content}
-                    </p>
-                  </div>
-                  <div className="w-full flex justify-between">
-                    <div className="space-y-4">
-                      {item.left.map((leftItem, index) => (
-                        <div key={index}>
-                          <div className="flex flex-col">
-                            <p className="text-base font-bold text-textPrimary">
-                              {leftItem.title}
-                            </p>
-                            <p className="text-sm font-bold text-textSecondary">
-                              {leftItem.content}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="space-y-4">
-                      {item.right.map((leftItem, index) => (
-                        <div key={index}>
-                          <div>
-                            <p className="text-base font-bold text-textPrimary">
-                              {leftItem.title}
-                            </p>
-                            <p className="text-sm font-bold text-textSecondary">
-                              {leftItem.content}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
-                    {item.date.date}
+        <div className="w-full col-span-12 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-5">
+            {Viewkegiatan.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => {
+                  if (!monitoringRtlIdss.includes(item.id)) {
+                    handleSelection(index);
+                  }
+                }}
+                ref={selectedItem === index ? containerRef : null}
+                className={`w-full h-[450px] shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 transition-all duration-300 hover:bg-indigo-50
+                ${rtlIdss.some((id) => monitoringRtlIdss.includes(id)) ? "cursor-not-allowed" : "cursor-pointer"}
+                ${selectedItem === index ? "bg-indigo-50" : ""}`}
+              >
+                <div className="flex items-center justify-center flex-col">
+                  <p className="text-xl font-bold text-textPrimary">
+                    {item.top.title}
+                  </p>
+                  <p className="text-sm font-bold text-textSecondary">
+                    {item.top.content}
                   </p>
                 </div>
-              ))}
-            </td>
-            <td className="w-full">
-              {ViewRtl.map((item, index) => (
-                <div
-                  key={index}
-                  className="w-full col-span-6 h-[450px] shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
-                >
-                  <div className="absolute right-3 top-3">
-                    <div className="relative">
-                      <div className="group w-[40px] h-[40px] rounded-full hover:bg-primary transition-all ease-in-out duration-300 flex justify-center items-center">
-                        <button
-                          onClick={handleOpenMenu}
-                          className="text-2xl group-hover:text-white transition-all ease-in-out duration-300"
-                        >
-                          <CiMenuKebab />
-                        </button>
-                      </div>
-
-                      {openMenu && (
-                        <div
-                          onClick={handleOpenEditMonitoring}
-                          className="flex flex-col items-start bg-white  absolute top-12 right-3 border rounded w-[120px]"
-                        >
-                          <button className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3  text-start pl-5 flex items-center gap-3">
-                            <FaEdit className="text-blue-500 text-lg" />
-                            edit
-                          </button>
-                          <button
-                            onClick={() => handleDelete(item.id)}
-                            className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3 text-start pl-5 flex items-center gap-3"
-                          >
-                            <MdDelete className="text-red-500 text-lg" />
-                            delete
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-center flex-col">
-                    <p className="text-xl font-bold text-textPrimary">
-                      {item.top.title}
-                    </p>
-                  </div>
-                  <div className="w-full flex justify-between">
-                    <div className="space-y-4">
-                      {item.leftRTL.length ? (
-                        item.leftRTL.map((leftItem, index) => (
-                          <div className="" key={index}>
-                            <p className="text-base font-bold text-textPrimary">
-                              {leftItem.title}
-                            </p>
-                            <p className="text-sm font-bold text-textSecondary">
-                              {leftItem.content}
-                            </p>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-sm text-gray-500">
-                          No Monitoring Data
-                        </p>
-                      )}
-                    </div>
-                    <div className="space-y-4">
-                      {item.rightRTL ? (
-                        <div className="">
+                <div className="w-full flex justify-between">
+                  <div className="space-y-4">
+                    {item.left.map((leftItem, index) => (
+                      <div key={index}>
+                        <div className="flex flex-col">
                           <p className="text-base font-bold text-textPrimary">
-                            {item.rightRTL.title}
+                            {leftItem.title}
                           </p>
                           <p className="text-sm font-bold text-textSecondary">
-                            {item.rightRTL.content}
+                            {leftItem.content}
                           </p>
                         </div>
-                      ) : (
-                        <p className="text-sm text-gray-500">
-                          No Monitoring Data
-                        </p>
-                      )}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="space-y-4 w-full">
-                    <p className="text-xl font-bold text-textPrimary">
-                      {item.mid.title}
-                    </p>
-                    <div className="flex justify-between">
-                      <div className="space-y-4">
-                        {item.leftBD.map((leftItem, index) => (
-                          <div key={index}>
-                            <p className="text-base font-bold text-textPrimary">
-                              {leftItem.title}
-                            </p>
-                            <p className="text-sm font-bold text-textSecondary">
-                              {leftItem.content}
-                            </p>
-                          </div>
-                        ))}
+                  <div className="space-y-4">
+                    {item.right.map((leftItem, index) => (
+                      <div key={index}>
+                        <div>
+                          <p className="text-base font-bold text-textPrimary">
+                            {leftItem.title}
+                          </p>
+                          <p className="text-sm font-bold text-textSecondary">
+                            {leftItem.content}
+                          </p>
+                        </div>
                       </div>
-                      <div className="space-y-4">
-                        {item.rightBD.map((RightItem, index) => (
-                          <div key={index}>
-                            <p className="text-base font-bold text-textPrimary">
-                              {RightItem.title}
-                            </p>
-                            <p className="text-sm font-bold text-textSecondary">
-                              {RightItem.content}
-                            </p>
-                          </div>
-                        ))}
+                    ))}
+                  </div>
+                </div>
+                <p className="absolute right-5 top-3 text-sm font-semibold text-textSecondary">
+                  {item.date.date}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="space-y-5">
+            {ViewRtl.map((item, index) => (
+              <div
+                key={index}
+                className="w-full h-[450px] shadow-primaryshadow p-8 rounded-xl gap-3 flex flex-col items-center relative space-y-2 cursor-pointer transition-all duration-300"
+              >
+                <div className="absolute right-3 top-3">
+                  <div className="relative">
+                    <div className="group w-[40px] h-[40px] rounded-full hover:bg-primary transition-all ease-in-out duration-300 flex justify-center items-center">
+                      <button
+                        onClick={() => handleOpenMenu(index)}
+                        className="text-2xl group-hover:text-white transition-all ease-in-out duration-300"
+                      >
+                        <CiMenuKebab />
+                      </button>
+                    </div>
+
+                    {openMenu === index && (
+                      <div
+                        onClick={handleOpenEditMonitoring}
+                        className="flex flex-col items-start bg-white absolute top-12 right-3 border rounded w-[120px]"
+                      >
+                        <button className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3 text-start pl-5 flex items-center gap-3">
+                          <FaEdit className="text-blue-500 text-lg" />
+                          edit
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(item.id);
+                          }}
+                          className="text-sm capitalize hover:bg-slate-200 transition-all duration-300 ease-in-out runded w-full py-3 text-start pl-5 flex items-center gap-3"
+                        >
+                          <MdDelete className="text-red-500 text-lg" />
+                          delete
+                        </button>
                       </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center flex-col">
+                  <p className="text-xl font-bold text-textPrimary">
+                    {item.top.title}
+                  </p>
+                </div>
+                <div className="w-full flex justify-between">
+                  <div className="space-y-4">
+                    {item.leftRTL.length ? (
+                      item.leftRTL.map((leftItem, index) => (
+                        <div className="" key={index}>
+                          <p className="text-base font-bold text-textPrimary">
+                            {leftItem.title}
+                          </p>
+                          <p className="text-sm font-bold text-textSecondary">
+                            {leftItem.content}
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-gray-500">
+                        No Monitoring Data
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-4">
+                    {item.rightRTL ? (
+                      <div className="">
+                        <p className="text-base font-bold text-textPrimary">
+                          {item.rightRTL.title}
+                        </p>
+                        <p className="text-sm font-bold text-textSecondary">
+                          {item.rightRTL.content}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-500">
+                        No Monitoring Data
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="space-y-4 w-full">
+                  <p className="text-xl font-bold text-textPrimary">
+                    {item.mid.title}
+                  </p>
+                  <div className="flex justify-between">
+                    <div className="space-y-4">
+                      {item.leftBD.map((leftItem, index) => (
+                        <div key={index}>
+                          <p className="text-base font-bold text-textPrimary">
+                            {leftItem.title}
+                          </p>
+                          <p className="text-sm font-bold text-textSecondary">
+                            {leftItem.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="space-y-4">
+                      {item.rightBD.map((RightItem, index) => (
+                        <div key={index}>
+                          <p className="text-base font-bold text-textPrimary">
+                            {RightItem.title}
+                          </p>
+                          <p className="text-sm font-bold text-textSecondary">
+                            {RightItem.content}
+                          </p>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-              ))}
-            </td>
-          </tr>
-        </table>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       {openModal && (
         <ModalMonitoringPeserta

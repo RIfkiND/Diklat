@@ -31,8 +31,8 @@ class PetugasSeeder extends Seeder
       // Tambahkan lebih banyak data petugas di sini jika diperlukan
     ]);
 
-    // DB::table('petugas')->insert([
-    //   ['name' => 'Drs. Tatang Sukendar, M.T.', 'NIP' => '196009211984031003', 'unit_kerja' => 'Program Keahlian Ketenagalistrikan'],
+    DB::table('petugas')->insert([
+      ['name' => 'Drs. Tatang Sukendar, M.T.', 'NIP' => '196009211984031003', 'unit_kerja' => 'Program Keahlian Ketenagalistrikan'],
     //   // ['name' => 'Drs. Tatang Taslimuharom, M.P.', 'NIP' => '196007061985031005', 'unit_kerja' => 'Tim Kerja Penjaminan Mutu Pendidikan Vokasi (Penanggung Jawab)'],
     //   // ['name' => 'Anita Widiawati, M.Pd.', 'NIP' => '197407142002122001', 'unit_kerja' => 'Program Keahlian Ketenagalistrikan'],
     //   // ['name' => 'R. Gunawan, M.Pd.', 'NIP' => '196605161989121001', 'unit_kerja' => 'Program Keahlian Elektronika dan Informatika'],
@@ -178,6 +178,6 @@ class PetugasSeeder extends Seeder
     //   // ['name' => 'Cloudia Auneke, S.Tr.T.', 'NIP' => '199512202024212049', 'unit_kerja' => 'Program Keahlian Ketenagalistrikan'],
     //   // ['name' => 'Astri Sulistianingrum, A.md.', 'NIP' => '198705212024212021', 'unit_kerja' => 'Bagian Tata Usaha dan Rumah Tangga'],
     //   // ['name' => 'Nur Fitriana Rakhmawati, A.md.', 'NIP' => '199705302024212047', 'unit_kerja' => 'Bagian Tata Usaha dan Rumah Tangga'],
-    // ]);
+    ]);
   }
 }
