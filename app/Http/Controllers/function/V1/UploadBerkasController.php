@@ -51,7 +51,7 @@ class UploadBerkasController extends Controller
         }
 
         // Return response
-        return redirect()->route('UploadBerkas')->with('success', 'You have added a new Product');
+        return redirect()->route('petugas.report-pengolahan-edp')->with('success', 'You have added a new Product');
     }
 
     // Helper method to upload signature images

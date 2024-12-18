@@ -204,7 +204,7 @@ const Berkas = ({ BerkasData }) => {
           ))}
 
           {/* Add Berkas Button */}
-          {BerkasData.length === 0 ? (
+          {BerkasData === 0 ? (
             <button
               ref={buttonRef}
               onClick={handleTambahBerkasData}

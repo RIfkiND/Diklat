@@ -19,7 +19,7 @@ class MainReportController extends Controller
     ->orWhere('petugas_id_2', $petugas->id)
     ->get();
 
-    
+
     $berkas = Berkas::with('photo_berkas')->where('petugas_id',$petugas->id)->get();
     return view("reports.main_report",compact('petugas','biodataPeserta','petugas','berkas'));
   }
