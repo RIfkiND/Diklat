@@ -140,7 +140,7 @@ const Berkas = ({ BerkasData }) => {
                   {field.name || "Tidak ada data."}
                 </p>
               ) : field.type === "image" ? (
-                field.many ? (
+                field.many ? (  
                   // Rendering multiple images
                   BerkasData.photo_berkas?.length ? (
                     <div className="grid grid-cols-4 gap-4">
