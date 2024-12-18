@@ -7,6 +7,7 @@ import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2, RiEdit2Line } from "react-icons/ri";
 import Modal from "@/Components/Ui/Modal/Modal";
 import EditEdpPeserta from "@/Components/Form/Edp/EdpPeserta/Edit";
+import { FaEdit, FaEllipsisV, FaEye } from "react-icons/fa";
 
 const Index = ({ Edp, search }) => {
   const [selectedRow, setSelectedRow] = useState(null); // Track selected row
@@ -51,6 +52,19 @@ const Index = ({ Edp, search }) => {
     const selectedData = Edp.data[index];
     setSelectForm(selectedData);
     setIsOpenModal(true);
+  };
+
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const [openMenuIndex, setOpenMenuIndex] = useState(null); // Simpan indeks menu yang terbuka
+
+  // Fungsi untuk membuka/menutup menu berdasarkan indeks
+  const handleOpenMenu = (index) => {
+    if (openMenuIndex === index) {
+      setOpenMenuIndex(null); // Tutup menu jika yang sama di-klik lagi
+    } else {
+      setOpenMenuIndex(index); // Buka menu untuk indeks tertentu
+    }
   };
 
   return (
@@ -129,19 +143,32 @@ const Index = ({ Edp, search }) => {
                       <td className="py-3 px-4">
                         {user.formatted_tanggal_selesai}
                       </td>
-                      <td className="py-3 px-4 flex gap-2">
+                      <td className="">
                         <button
-                          onClick={() => handleShowData(index)}
-                          className="bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded"
+                          onClick={() => handleOpenMenu(index)}
+                          className="hover:bg-primary transition-all duration-500 ease-in-out text-gray-600 hover:text-white p-2 rounded-full group"
                         >
-                          Show
+                          <FaEllipsisV className="text-xl" />
                         </button>
-                        <button
-                          onClick={() => handleModalEdit(index)}
-                          className="bg-indigo-400 hover:bg-indigo-700 text-white font-bold py-1 px-2 rounded"
-                        >
-                          Edit
-                        </button>
+
+                        {openMenuIndex === index && (
+                          <div className="menu-container absolute z-10 space-y-2 bg-white border rounded shadow-lg">
+                            <button
+                              onClick={() => handleShowData(index)}
+                              className="w-full flex items-center gap-2 px-7 py-2 hover:bg-gray-100 text-gray-700"
+                            >
+                              <FaEye className="text-teal-600" />
+                              <span>View</span>
+                            </button>
+                            <button
+                              onClick={() => handleModalEdit(index)}
+                              className="w-full flex items-center gap-2 px-7 py-2 hover:bg-gray-100 text-gray-700"
+                            >
+                              <FaEdit className="text-blue-600" />
+                              <span>Edit</span>
+                            </button>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}
