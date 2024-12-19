@@ -7,7 +7,8 @@
                     <!-- Petugas 1 -->
                     @if($biodata->petugas1)
                         <p>Petugas 1,</p>
-                        <img src="{{ $biodata->petugas1->profile_picture ?? asset('path/to/default-image.jpg') }}" alt="Petugas 1" class="w-32 h-32">
+                        <img src="{{ $berkas->firstWhere('petugas_id', $biodata->petugas1->id)->signature_companion_1 ?? asset('path/to/default-image.jpg') }}" 
+                             alt="Petugas 1" class="w-32 h-32">
                         <div>
                             <h4>{{ $biodata->petugas1->name }}</h4>
                             <p>{{ $biodata->petugas1->NIP }}</p>
@@ -24,7 +25,8 @@
                     <!-- Petugas 2 -->
                     @if($biodata->petugas2)
                         <p>Petugas 2,</p>
-                        <img src="{{ $biodata->petugas2->profile_picture ?? asset('path/to/default-image.jpg') }}" alt="Petugas 2" class="w-32 h-32">
+                        <img src="{{ $berkas->firstWhere('petugas_id', $biodata->petugas2->id)->signature_companion_2 ?? asset('path/to/default-image.jpg') }}" 
+                             alt="Petugas 2" class="w-32 h-32">
                         <div>
                             <h4>{{ $biodata->petugas2->name }}</h4>
                             <p>{{ $biodata->petugas2->NIP }}</p>
@@ -35,8 +37,5 @@
                 </div>
             </div>
         @endforeach
-
-        <!-- Signatures section -->
-            
     </section>
 </td>

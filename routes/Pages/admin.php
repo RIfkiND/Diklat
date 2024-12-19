@@ -1,10 +1,9 @@
   <?php
 
     use App\Http\Controllers\Pages\Admin\DashboardPageController;
-    use App\Http\Controllers\function\V1\PesertaFunctionController;
-    use App\Http\Controllers\function\V1\PetugasFunctionController;
+    use App\Http\Controllers\Function\V1\PesertaFunctionController;
+    use App\Http\Controllers\Function\V1\PetugasFunctionController;
     use Illuminate\Support\Facades\Route;
-    use Inertia\Inertia;
     // Admin
     Route::middleware(['role:admins'])->prefix("/dashboard/admin")->group(function () {
         Route::get('/users/table/user', [DashboardPageController::class, 'Dashboard'])->name('admin.users');

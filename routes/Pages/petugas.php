@@ -5,8 +5,8 @@ use App\Http\Controllers\EdpOtherController;
 use App\Http\Controllers\EdpPesertaController;
 use App\Http\Controllers\EdpDashboardController;
 use App\Http\Controllers\Pages\Dashboard\PetugasController;
-use App\Http\Controllers\function\V1\UploadBerkasController;
-use App\Http\Controllers\function\V1\EdpFunctionFormUpdateController;
+use App\Http\Controllers\Function\V1\UploadBerkasController;
+use App\Http\Controllers\Function\V1\EdpFunctionFormUpdateController;
 
 Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/monitoring-peserta', [PetugasController::class, 'Petugas'])->name('petugas.monitoring-peserta');

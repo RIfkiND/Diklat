@@ -25,7 +25,6 @@ const EditEdpPeserta = ({ Edp, EdpId, onCloseModal }) => {
     sekolah: Edp?.nama_institusi_sekolah || "",
     kabupaten: Edp?.kabupaten_kota || "",
     no_wa: Edp?.no_whatsapp || "",
-    email: Edp?.email || "",
     nama_jenis_pelatihan: Edp?.nama_jenis_pelatihan || "",
     tamatan_pelatihan: Edp?.nama_tamatan_pelatihan || "",
     tanggal_mulai: Edp?.tanggal_dimulai || "",
@@ -91,12 +90,6 @@ const EditEdpPeserta = ({ Edp, EdpId, onCloseModal }) => {
       label: "No Whatsapp",
       type: "number",
       placeholder: "0852121",
-    },
-    {
-      id: "email",
-      label: "Email",
-      type: "email",
-      placeholder: "contoh@example.com",
     },
     {
       id: "tamatan_pelatihan",

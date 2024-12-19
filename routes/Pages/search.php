@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\function\V1\SearchFunctionController;
+use App\Http\Controllers\Function\V1\SearchFunctionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

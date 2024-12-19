@@ -14,14 +14,18 @@ class MainReportController extends Controller
   public function main_report_view()
   {
     $petugas = Auth::guard('petugas')->user();
-    $biodataPeserta = BiodataPeserta::with(['peserta', 'pelatihan', 'petugas1', 'petugas2','rtls'])
+    $biodataPeserta = BiodataPeserta::with(['peserta', 'pelatihan', 'petugas1', 'petugas2', 'rtls'])
     ->where('petugas_id_1', $petugas->id)
     ->orWhere('petugas_id_2', $petugas->id)
+    ->distinct()
+    ->take(1) // Ensure one entry per petugas
     ->get();
 
+$berkas = Berkas::with('photo_berkas')
+    ->where('petugas_id', $petugas->id)
+    ->get();
 
-    $berkas = Berkas::with('photo_berkas')->where('petugas_id',$petugas->id)->get();
-    return view("reports.main_report",compact('petugas','biodataPeserta','petugas','berkas'));
+return view("reports.main_report", compact('petugas', 'biodataPeserta', 'berkas'));
   }
 
 

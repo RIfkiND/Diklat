@@ -3,9 +3,8 @@
 
 use App\Http\Controllers\UserFormRegister;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\EdpFormController;
-use App\Http\Controllers\function\V1\EdpFunctionformController;
+use App\Http\Controllers\Function\V1\EdpFunctionformController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\Pages\Dashboard\PesertaController;
 

@@ -11,7 +11,6 @@ const Show = () => {
     { label: "Sekolah", value: selectedData.nama_institusi_sekolah },
     { label: "Kabupaten / Kota", value: selectedData.kabupaten_kota },
     { label: "No Whatsapp", value: selectedData.no_whatsapp },
-    { label: "Email", value: selectedData.email },
   ];
 
   const kegiatan = [

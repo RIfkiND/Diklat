@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\V1\AuthLoginController;
-use App\Http\Controllers\Auth\V1\LogoutController;
+use App\Http\Controllers\Auth\AuthLoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 
