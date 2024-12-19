@@ -36,7 +36,7 @@ Route::post('send/email', [EmailController::class, 'SendEmail'])->name('send.ema
 
 // Report
 
-Route::get('  ', [MainReportController::class, 'main_report_view'])->name('main-report-view');
+Route::get('/report/main-report/pdf', [MainReportController::class, 'main_report_view'])->name('main-report-view');
 
 
 require __DIR__ . '/Pages/search.php';
