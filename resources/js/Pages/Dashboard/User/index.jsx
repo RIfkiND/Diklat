@@ -34,6 +34,28 @@ export default function UserDashboard({ petugas, pelatihans }) {
   const [loading, setLoading] = useState(false);
   const [previewBiodata, setPreviewBiodata] = useState({});
 
+  useEffect(() => {
+    if (data) {
+      // Fetch names for petugas_id_1 and petugas_id_2 from the petugas list
+      const petugas1 = petugas.find((p) => p.id === data.petugas_id_1);
+      const petugas2 = petugas.find((p) => p.id === data.petugas_id_2);
+
+      const provinceName =
+        provinces.find((p) => p.id === data.provinsi)?.name || data.provinsi;
+      const districtName =
+        districts.find((d) => d.id === data.kabupaten)?.name || data.kabupaten;
+
+      // Set the preview data
+      setPreviewBiodata({
+        ...data,
+        provinsi: provinceName,
+        kabupaten: districtName,
+        petugas_id_1: petugas1 ? petugas1.name : "", // Ensure this pulls the correct petugas name
+        petugas_id_2: petugas2 ? petugas2.name : "", // Ensure this pulls the correct petugas name
+      });
+    }
+  }, [data, provinces, districts, petugas]);
+
   // Fetch provinces on mount
   useEffect(() => {
     const provincesData = provinsi();
@@ -85,7 +107,11 @@ export default function UserDashboard({ petugas, pelatihans }) {
     // For fields like 'provinsi', 'kabupaten', etc., set the name
     if (fieldName === "provinsi" || fieldName === "kabupaten") {
       setData(fieldName, value);
-    } else if (fieldName === "petugas_id_1" || fieldName === "petugas_id_2" || fieldName=="pelatihan_id") {
+    } else if (
+      fieldName === "petugas_id_1" ||
+      fieldName === "petugas_id_2" ||
+      fieldName == "pelatihan_id"
+    ) {
       // For petugas, set the id (not the name)
       setData(fieldName, selectedId);
     } else {
@@ -266,8 +292,13 @@ export default function UserDashboard({ petugas, pelatihans }) {
                                 </option>
                                 {field.options.map((option) => (
                                   <option
-                                    key={option.id || option}
-                                    value={option.name || option}
+                                    key={option.id}
+                                    value={
+                                      field.name === "provinsi" ||
+                                      field.name === "kabupaten"
+                                        ? option.name
+                                        : option.id
+                                    }
                                   >
                                     {option.name || option}
                                   </option>
@@ -276,7 +307,7 @@ export default function UserDashboard({ petugas, pelatihans }) {
                             ) : (
                               <TextInput
                                 id={field.id}
-                                type={field.type}
+                                typeF={field.type}
                                 name={field.name}
                                 value={data[field.name] || ""}
                                 onChange={handleInputChange}
@@ -346,8 +377,15 @@ export default function UserDashboard({ petugas, pelatihans }) {
                                   Pilih {field.label}
                                 </option>
                                 {field.options.map((option) => (
-                                  <option key={option.id}   value={field.name === "provinsi" || field.name === "kabupaten" ? option.name : option.id}>
-
+                                  <option
+                                    key={option.id}
+                                    value={
+                                      field.name === "provinsi" ||
+                                      field.name === "kabupaten"
+                                        ? option.name
+                                        : option.id
+                                    }
+                                  >
                                     {option.name || option}
                                   </option>
                                 ))}
