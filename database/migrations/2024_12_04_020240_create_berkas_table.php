@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('berkas', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Petugas::class);
+            $table->string('petugas_1');
+            $table->string('petugas_2');
             $table->string('vidio_berkas');
             $table->string('signature_companion1');
             $table->string('signature_companion2');

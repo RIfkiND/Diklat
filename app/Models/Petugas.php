@@ -29,7 +29,7 @@ class Petugas extends Authenticatable
   }
 
   public function berkas(){
-    return $this->hasOne(Berkas::class);
+    return $this->hasMany(Berkas::class);
   }
   public function detail_petugas()
   {

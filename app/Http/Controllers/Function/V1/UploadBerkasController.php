@@ -7,6 +7,8 @@ use App\Http\Requests\Post\V1\Petugas\StoreBerkasRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Berkas;
+use App\Models\BerkasEdpOther;
+use App\Models\BerkasEdpSiswa;
 use App\Models\Photo_Berkas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -36,9 +38,28 @@ class UploadBerkasController extends Controller
             'kesimpulan' => $request->input('kesimpulan'),
             'surat_tugas' => $suratTugasPath,
             'daftar_hadir' => $daftarHadirPath,
+            'petugas_1' => $request->input('petugas_1'),
+            'petugas_2' => $request->input('petugas_2'),
+
         ]);
 
-        // Handle image file uploads
+        $berkasEdpOther = BerkasEdpOther::create([
+            'berkas_id' => $berkas->id, 
+            'edp_other_id_1' => $request->input('edp_other_id_1'),
+            'edp_other_id_2' => $request->input('edp_other_id_2'),
+            'edp_other_id_3' => $request->input('edp_other_id_3'),
+            'edp_other_id_4' => $request->input('edp_other_id_4'),
+            'edp_other_id_5' => $request->input('edp_other_id_5'),
+        ]);
+        $berkasEdpSiswa = BerkasEdpSiswa::create([
+            'berkas_id' => $berkas->id, 
+            'edp_siswa_id_1' => $request->input('edp_siswa_id_1'),
+            'edp_siswa_id_2' => $request->input('edp_siswa_id_2'),
+            'edp_siswa_id_3' => $request->input('edp_siswa_id_3'),
+            'edp_siswa_id_4' => $request->input('edp_siswa_id_4'),
+            'edp_siswa_id_5' => $request->input('edp_siswa_id_5'),
+        ]);
+        
         if ($request->hasFile('imageFiles')) {
             foreach ($request->file('imageFiles') as $photoUrl) {
                 $uniqueName = time() . '-' . Str::random(10) . '.' . $photoUrl->getClientOriginalExtension();
@@ -54,7 +75,6 @@ class UploadBerkasController extends Controller
         return redirect()->route('petugas.report-pengolahan-edp')->with('success', 'You have added a new Product');
     }
 
-    // Helper method to upload signature images
     private function uploadBerkas($BerkasFile, $userId, $fieldName)
     {
         if ($BerkasFile) {

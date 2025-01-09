@@ -8,6 +8,8 @@ class Berkas extends Model
 {
     protected $fillable = [
         'petugas_id',
+        'petugas_1',
+        'petugas_2',
         'vidio_berkas',
         'signature_companion1',
         'signature_companion2',

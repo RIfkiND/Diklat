@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 
-export default function UploadBerkas() {
+export default function UploadBerkas({petugas ,edpsiswa ,edpother}) {
     return (
         <AuthenticatedLayout>
             <Head title="Data Peserta" />
@@ -18,7 +18,7 @@ export default function UploadBerkas() {
                 />
             </div>  
             <DashboardLayout>
-                <FormUpload/>
+                <FormUpload petugas={petugas} edpsiswa={edpsiswa} edpother={edpother}/>
             </DashboardLayout>
         </AuthenticatedLayout>)
 }

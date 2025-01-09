@@ -107,24 +107,6 @@ const UploadForm = ( {petugas,edpother,edpsiswa }) => {
     },
   ];
   
-  const formSiswa = [
-    {
-      title: "Siswa",
-      name: "siswa",
-      type: "select",
-      options: edpsiswa.map((s) => ({ label: s.name, value: s.name })),
-    },
-  ];
-
-  const formEdpOther = [
-    {
-      title: "EDP Other",
-      name: "edpother",
-      type: "select",
-      options: edpother.map((e) => ({ label: e.name, value: e.name })),
-    },
-  ];
-
 
   return (
     <form
@@ -161,40 +143,7 @@ const UploadForm = ( {petugas,edpother,edpsiswa }) => {
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-6">
-        {formSiswa.map((field, index) => (
-          <div className="basis-1/2" key={index}>
-            <InputLabel className="block text-md mb-4 font-medium text-gray-700">{field.title}</InputLabel>
-            <Select
-              name={field.name}
-              placeholder={`Pilih ${field.title}`}
-              options={field.options || []}
-              value={field.options.find((option) => option.value === siswa)}
-              onChange={(selectedOption) => setSiswa(selectedOption?.value || null)}
-              isSearchable={true}
-              classNamePrefix="react-select"
-            />
-          </div>
-        ))}
-      </div>
 
-      {/* EDP Other Select */}
-      <div className="flex items-center gap-6">
-        {formEdpOther.map((field, index) => (
-          <div className="basis-1/2" key={index}>
-            <InputLabel className="block text-md mb-4 font-medium text-gray-700">{field.title}</InputLabel>
-            <Select
-              name={field.name}
-              placeholder={`Pilih ${field.title}`}
-              options={field.options || []}
-              value={field.options.find((option) => option.value === edpOther)}
-              onChange={(selectedOption) => setEdpOther(selectedOption?.value || null)}
-              isSearchable={true}
-              classNamePrefix="react-select"
-            />
-          </div>
-        ))}
-      </div>
       <div className="flex items-center gap-6">
         {/* Image */}
 

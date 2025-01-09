@@ -4,6 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
 import { RiFile2Line2 } from "react-icons/ri";
+import Select from "react-select";
 
 const Berkas = ({ BerkasData }) => {
   const [selectedRow, setSelectedRow] = useState(null);
@@ -31,48 +32,65 @@ const Berkas = ({ BerkasData }) => {
     };
   }, []);
 
+  const [selectPetugas1, setSelectPetugas1] = useState(null)
+
   const fields = [
+  //   {
+  //   title: "Petugas 1",
+  //   name: "petugas_1",
+  //   type: "select",
+  //   options: [
+  //     {
+  //       name: "Gagus",
+  //       value: "gagus",
+  //     },
+  //     {
+  //       name: "Rifki",
+  //       value: "rifki",
+  //     },
+  //   ],
+  // },
     {
       title: "Daftar Hadir",
-      name: BerkasData.daftar_hadir,
+      name: BerkasData?.daftar_hadir ,
       type: "image",
     },
     {
       title: "Tanda Tangan Petugas 1",
-      name: BerkasData.signature_companion1,
+      name: BerkasData?.signature_companion1 ,
       size: "half",
       type: "image",
     },
     {
       title: "Tanda Tangan Petugas 2",
-      name: BerkasData.signature_companion2,
+      name: BerkasData?.signature_companion2 ,
       size: "half",
       type: "image",
     },
     {
       title: "Photo Berkas",
-      name: BerkasData.photo_berkas,
+      name: BerkasData?.photo_berkas || [],
       type: "image",
       many: true,
     },
     {
       title: "Video Berkas",
-      name: BerkasData.vidio_berkas,
+      name: BerkasData?.vidio_berkas || "Tidak ada data.",
       type: "video",
     },
     {
       title: "Surat Tugas",
-      name: BerkasData.surat_tugas,
+      name: BerkasData?.surat_tugas || "Tidak ada data.",
       type: "pdf",
     },
     {
       title: "Saran",
-      name: BerkasData.saran,
+      name: BerkasData?.saran || "Tidak ada data.",
       type: "text",
     },
     {
       title: "Kesimpulan",
-      name: BerkasData.kesimpulan,
+      name: BerkasData?.kesimpulan || "Tidak ada data.",
       type: "text",
     },
   ];
@@ -82,20 +100,10 @@ const Berkas = ({ BerkasData }) => {
       "Apakah Anda yakin ingin menghapus gambar/berkas ini?",
     );
     if (confirmed) {
-      // Lakukan tindakan penghapusan di sini
       console.log("Gambar/Berkas telah dihapus.");
-      // Misalnya, panggil fungsi untuk menghapus berkas dari server atau state
-      // removeImageFromServerOrState();
-      return 0;
     } else {
       console.log("Penghapusan dibatalkan.");
     }
-  };
-
-  // Contoh fungsi untuk menghapus berkas dari state atau server
-  const removeImageFromServerOrState = () => {
-    // Logic untuk menghapus berkas
-    console.log("Menghapus berkas dari server atau state...");
   };
 
   return (
@@ -124,111 +132,86 @@ const Berkas = ({ BerkasData }) => {
 
         {/* Main Content */}
         <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {fields.map((field, index) => (
-            <div
-              className={`p-4 bg-white shadow-md rounded-lg border border-gray-200 grid gap-4 ${
-                field.size === "half" ? "md:col-span-1" : "md:col-span-2"
-              }`}
-              key={index}
-            >
-              <h4 className="text-lg font-semibold text-gray-700">
-                {field.title}
-              </h4>
+          {fields && fields.length > 0 ? (
+            fields.map((field, index) => (
+              <div
+                className={`p-4 bg-white shadow-md rounded-lg border border-gray-200 grid gap-4 ${
+                  field.size === "half" ? "md:col-span-1" : "md:col-span-2"
+                }`}
+                key={index}
+              >
+                <h4 className="text-lg font-semibold text-gray-700">
+                  {field.title}
+                </h4>
 
-              {field.type === "text" ? (
-                <p className="text-gray-600">
-                  {field.name || "Tidak ada data."}
-                </p>
-              ) : field.type === "image" ? (
-                field.many ? (  
-                  // Rendering multiple images
-                  BerkasData.photo_berkas?.length ? (
-                    <div className="grid grid-cols-4 gap-4">
-                      {BerkasData.photo_berkas.map((photo, idx) => (
-                        <div className="relative" key={idx}>
-                          <button
-                            onClick={handleRemoveImageBerkas}
-                            className="absolute bg-red-600 text-white py-1 px-3 rounded-full top-[-20px] right-[-20px]"
-                          >
-                            x
-                          </button>
-                          <img
-                            key={idx}
-                            src={photo.url}
-                            alt={`Photo Berkas ${idx + 1}`}
-                            className="w-[250px] h-[250px] object-cover rounded-lg"
-                          />
-                        </div>
-                      ))}
-                    </div>
+                {field.type === "select" ? (
+                  <Select
+                    name={field.name}
+                    placeholder={`Pilih ${field.title}`}
+                    options={field.options || []}
+                    value={selectPetugas1 ? field.options.find(option => option.value === selectPetugas1) : null}
+                    onChange={(selectedOption) => setSelectPetugas1(selectedOption?.value || "")}
+                    isSearchable
+                    classNamePrefix="react-select"
+                  />
+                ) : field.type === "text" ? (
+                  <p className="text-gray-600">{field.name}</p>
+                ) : field.type === "image" ? (
+                  field.many ? (
+                    BerkasData?.photo_berkas?.length ? (
+                      <div className="grid grid-cols-4 gap-4">
+                        {BerkasData.photo_berkas?.map((photo, idx) => (
+                          <div className="relative" key={idx}>
+                            <img
+                              key={idx}
+                              src={photo.url}
+                              alt={`Photo Berkas ${idx + 1}`}
+                              className="w-[250px] h-[250px] object-cover rounded-lg"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-500">Tidak ada foto tersedia.</p>
+                    )
                   ) : (
-                    <p className="text-gray-500">Tidak ada foto tersedia.</p>
+                    <div className="relative">
+                      <p className="text-gray-500">Tidak ada foto tersedia.</p>
+                    </div>
                   )
-                ) : (
+                ) : field.type === "video" ? (
                   <div className="relative">
-                    {" "}
-                    <button
-                      onClick={handleRemoveImageBerkas}
-                      className="absolute bg-red-600 text-white py-1 px-3 rounded-full top-[-10px] right-[-10px]"
-                    >
-                      x
-                    </button>
-                    <img
-                      src={field.name}
-                      alt="Berkas"
-                      className={`object-cover rounded-lg ${field.size === "half" ? "w-full h-[250px]" : "w-full h-[500px]"}`}
-                    />
+                    <video src={field.name} controls className="w-full"></video>
                   </div>
-                )
-              ) : field.type === "video" ? (
-                <div className="relative">
-                  <button
-                    onClick={handleRemoveImageBerkas}
-                    className="absolute bg-red-600 text-white py-1 px-3 rounded-full top-[-10px] right-[-10px]"
-                  >
-                    x
-                  </button>
-                  <video src={`${field.name}`} controls className="w-full"></video>
-                </div>
-              ) : field.type === "pdf" ? (
-                <div className="">
-                  <a
-                    href={`${field.name}`}
-                    className="bg-emerald-500 rounded-xl px-20 py-1 text-white border boder border-emerald-500 hover:bg-transparent hover:text-emerald-500 transition-all duration-500 ease-in-out"
-                  >
-                    Lihat surat tugas
-                  </a>
-                </div>
-              ) : null}
-            </div>
-          ))}
+                ) : field.type === "pdf" ? (
+                  <div>
+                    <a
+                      href={field.name}
+                      className="bg-emerald-500 rounded-xl px-20 py-1 text-white border border-emerald-500 hover:bg-transparent hover:text-emerald-500 transition-all duration-500 ease-in-out"
+                    >
+                      Lihat surat tugas
+                    </a>
+                  </div>
+                ) : null}
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 text-center col-span-12">
+              Berkas tidak ada.
+            </p>
+          )}
 
           {/* Add Berkas Button */}
-          {BerkasData === 0 ? (
-            <button
-              ref={buttonRef}
-              onClick={handleTambahBerkasData}
-              className="absolute right-5 bottom-5 bg-indigo-400
-             shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10"
-            >
-              <span className="flex items-center font-bold gap-2 text-white">
-                <RiFile2Line2 className="text-2xl" />
-                Tambah Berkas
-              </span>
-            </button>
-          ) : (
-            <button
-              ref={buttonRef}
-              onClick={handleTambahBerkasData}
-              className="absolute right-5 bottom-5 bg-indigo-400
-             shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10"
-            >
-              <span className="flex items-center font-bold gap-2 text-white">
-                <RiFile2Line2 className="text-2xl" />
-                Edit Berkas
-              </span>
-            </button>
-          )}
+          <button
+            ref={buttonRef}
+            onClick={handleTambahBerkasData}
+            className="absolute right-5 bottom-5 bg-indigo-400 shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10"
+          >
+            <span className="flex items-center font-bold gap-2 text-white">
+              <RiFile2Line2 className="text-2xl" />
+              {BerkasData ? "Edit Berkas" : "Tambah Berkas"}
+            </span>
+          </button>
         </div>
       </div>
     </AuthenticatedLayout>

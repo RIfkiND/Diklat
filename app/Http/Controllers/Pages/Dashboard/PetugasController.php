@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Put\V1\Petugas\UpdateHasilMonitoringRequest;
 use App\Models\Berkas;
+use App\Models\Edp;
+use App\Models\EdpOther;
+use App\Models\Petugas;
 
 class PetugasController extends Controller
 {
@@ -125,7 +128,14 @@ class PetugasController extends Controller
   }
   public function PetugasBerkas()
   {
-    return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index');
+    $petugas = Petugas::all();
+    $edpother= EdpOther::all();
+    $edpsiswa = Edp::all();
+    return Inertia::render('Dashboard/Petugas/Report/upload-berkas/Index',[
+     'petugas'=> $petugas,
+     'edpother'=>  $edpother,
+     'edpsiswa'=> $edpsiswa
+    ]);
   }
   public function PetugasReportPendampinganRtl()
   {

@@ -38,7 +38,7 @@ class PesertaController extends Controller
     $validatedData['peserta_id'] = $peserta->id;
 
     BiodataPeserta::create($validatedData);
-    return back()->with('success', 'Biodata berhasil ditambahkan.' );
+    return redirect()->back()->with('success', 'Biodata berhasil ditambahkan.' );
   }
 
   public function updateBiodata(BiodataPesertaRequest $request): RedirectResponse
@@ -53,7 +53,6 @@ class PesertaController extends Controller
       $user = Auth::user();
       $peserta = Peserta::findOrFail($user->id);
 
-      // Find or create biodata if it doesn't exist
       $biodataPeserta = BiodataPeserta::firstOrCreate(
         ['peserta_id' => $peserta->id],
         $validatedData
@@ -61,7 +60,7 @@ class PesertaController extends Controller
 
       $biodataPeserta->update($validatedData);
 
-      return back()->with('success', 'Biodata berhasil diperbarui.');
+      return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
  
   }
 }

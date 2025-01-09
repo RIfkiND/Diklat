@@ -22,14 +22,29 @@ class StoreBerkasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'imageFiles.*' => 'required|mimes:jpeg,jpg,png,gif|max:10240', // Array of image files, max size 10MB
-            'videoFile' => 'required|mimes:mp4,mov,avi|max:20000', // Video file validation
-            'signatures.companion1' => 'required|mimes:jpeg,jpg,png,gif|max:10240', // Signature file 1
-            'signatures.companion2' => 'required|mimes:jpeg,jpg,png,gif|max:10240',
+            'petugas_1' => 'required|string',
+            'petugas_2' => 'required|string',
+            'imageFiles.*' => 'required|mimes:jpeg,jpg,png,gif|max:20248',
+            'videoFile' => 'required|mimes:mp4,mov,avi|max:100000',
+            'signatures.companion1' => 'required|mimes:jpeg,jpg,png,gif|max:20248',
+            'signatures.companion2' => 'required|mimes:jpeg,jpg,png,gif|max:20248',
             'saran' => 'required|string|min:5|max:255',
             'kesimpulan' => 'required|string|min:5|max:255',
-            'files.Surat_Tugas' => 'required|mimes:pdf|max:10240',
-            'files.Daftar_Hadir' => 'required|mimes:jpeg,jpg,png,gif|max:10240',
+            'files.Surat_Tugas' => 'required|mimes:pdf|max:20248',
+            'files.Daftar_Hadir' => 'required|mimes:jpeg,jpg,png,gif|max:20248',
+
+
+            'edp_other_id_1' => 'required|exists:berkas_edp_others,id',
+            'edp_other_id_2' => 'required|exists:berkas_edp_others,id',
+            'edp_other_id_3' => 'required|exists:berkas_edp_others,id',
+            'edp_other_id_4' => 'required|exists:berkas_edp_others,id',
+            'edp_other_id_5' => 'required|exists:berkas_edp_others,id',
+
+            'edp_siswa_id_1' => 'required|exists:berkas_edp_siswas,id',
+            'edp_siswa_id_2' => 'required|exists:berkas_edp_siswas,id',
+            'edp_siswa_id_3' => 'required|exists:berkas_edp_siswas,id',
+            'edp_siswa_id_4' => 'required|exists:berkas_edp_siswas,id',
+            'edp_siswa_id_5' => 'required|exists:berkas_edp_siswas,id',
         ];
     }
     public function messages()
