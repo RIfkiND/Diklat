@@ -29,57 +29,57 @@
       return () => clearTimeout(newTimer);
     }, [searchQuery]);
 
-    useEffect(() => {
-      const fetchProvinces = async () => {
-        try {
-          const response = await fetch(
-            "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
-          );
-          const data = await response.json();
-          setProvinces(data);
-        } catch (error) {
-          console.error("Error fetching provinces:", error);
-        }
-      };
+    // useEffect(() => {
+    //   const fetchProvinces = async () => {
+    //     try {
+    //       const response = await fetch(
+    //         "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
+    //       );
+    //       const data = await response.json();
+    //       setProvinces(data);
+    //     } catch (error) {
+    //       console.error("Error fetching provinces:", error);
+    //     }
+    //   };
 
-      fetchProvinces();
-    }, []);
+    //   fetchProvinces();
+    // }, []);
 
-    const fetchDistricts = async (provinceId) => {
-      if (!districts[provinceId] && !fetchingDistricts) {
-        setFetchingDistricts(true);
-        try {
-          const response = await fetch(
-            `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
-          );
-          const data = await response.json();
-          setDistricts((prevDistricts) => ({
-            ...prevDistricts,
-            [provinceId]: data,
-          }));
-        } catch (error) {
-          console.error("Error fetching districts:", error);
-        } finally {
-          setFetchingDistricts(false);
-        }
-      }
-    };
+    // const fetchDistricts = async (provinceId) => {
+    //   if (!districts[provinceId] && !fetchingDistricts) {
+    //     setFetchingDistricts(true);
+    //     try {
+    //       const response = await fetch(
+    //         `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+    //       );
+    //       const data = await response.json();
+    //       setDistricts((prevDistricts) => ({
+    //         ...prevDistricts,
+    //         [provinceId]: data,
+    //       }));
+    //     } catch (error) {
+    //       console.error("Error fetching districts:", error);
+    //     } finally {
+    //       setFetchingDistricts(false);
+    //     }
+    //   }
+    // };
 
-    const getProvinceName = (id) => {
-      const province = provinces.find((p) => p.id === String(id));
-      return province ? province.name : "Unknown Province";
-    };
+    // const getProvinceName = (id) => {
+    //   const province = provinces.find((p) => p.id === String(id));
+    //   return province ? province.name : "Unknown Province";
+    // };
 
-    const getDistrictName = (provinceId, districtId) => {
-      if (!districts[provinceId]) {
-        fetchDistricts(provinceId);
-        return "Loading...";
-      }
-      const district = districts[provinceId].find(
-        (d) => d.id === String(districtId)
-      );
-      return district ? district.name : "Unknown District";
-    };
+    // const getDistrictName = (provinceId, districtId) => {
+    //   if (!districts[provinceId]) {
+    //     fetchDistricts(provinceId);
+    //     return "Loading...";
+    //   }
+    //   const district = districts[provinceId].find(
+    //     (d) => d.id === String(districtId)
+    //   );
+    //   return district ? district.name : "Unknown District";
+    // };
 
     const handleSearchChange = (query) => {
       setSearchQuery(query); 
@@ -144,8 +144,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredData.length > 0 ? (
-                      filteredData.map((peserta, index) => (
+                    {biodata.data.length > 0 ? (
+                      biodata.data.map((peserta, index) => (
                         <tr
                           key={peserta.id}
                           className="text-gray-700 border-b hover:bg-indigo-50 text-sm cursor-pointer"
@@ -156,13 +156,12 @@
                             {peserta.sekolah || "tidak ada"}
                           </td>
                           <td className="py-3 px-4">
-                            {getProvinceName(peserta.provinsi) || "tidak ada"}
+                            {peserta.provinsi || "tidak ada"}
                           </td>
                           <td className="py-3 px-4">
-                            {getDistrictName(
-                              peserta.provinsi,
-                              peserta.kabupaten
-                            ) || "tidak ada"}
+                            {
+                             peserta.kabupaten
+                            }
                           </td>
                           <td className="py-3 px-4">
                             {peserta.pelatihan.name || "tidak ada"}

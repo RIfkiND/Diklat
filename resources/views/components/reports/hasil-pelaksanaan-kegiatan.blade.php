@@ -1,3 +1,6 @@
+@props(['EdpOther', 'biodataPeserta'])
+
+
 <td colspan="3">
   <ol class="list-decimal list-inside">
     <li>
@@ -64,44 +67,69 @@
           <ol class="mx-4 mt-5 list-decimal list-inside">
             <li>Hasil pengolahan data Evaluasi Dampak Pelatihan responden Kepala Sekolah adalah
 
-
               <table class="w-full h-full">
+                <thead>
+                    <tr>
+                        <th class="font-semibold">No</th>
+                        <th class="font-semibold">NAMA TAMATAN DIKLAT</th>
+                        <th class="font-semibold">PENGIMBASAN</th>
+                        <th class="font-semibold">PEMBELAJARAN</th>
+                        <th class="font-semibold">PENGEMBANGAN</th>
+                        <th class="font-semibold">RATA-RATA</th>
+                    </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td class="font-semibold">No</td>
-                    <td class="font-semibold">NAMA TAMATAN DIKLAT</td>
-                    <td class="font-semibold">PENGIMBASAN</td>
-                    <td class="font-semibold">PEMBELAJARAN</td>
-                    <td class="font-semibold">PENGEMBANGAN</td>
-                    <td class="font-semibold">RATA-RATA</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                    @php
+                        $filteredEdpOthers = $EdpOther->filter(function ($item) {
+                            return $item->jabatan_responden === 'Pimpinan/Kepala Sekolah';
+                        });
+                    @endphp
+            
+                    @if ($filteredEdpOthers->isNotEmpty())
+                        @php $counter = 1; @endphp
+                        @foreach ($filteredEdpOthers as $EdpOthers)
+                            <tr>
+                                <td>{{ $counter }}</td>
+                                <td>{{ $EdpOthers->nama_tamatan_pelatihan }}</td>
+                                <td>{{ $EdpOthers->pengimbasan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pembelajaran ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pengembangan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->rata_rata ?? 'N/A' }}</td>
+                            </tr>
+                            @php $counter++; @endphp
+                        @endforeach
+                    @else
+                        <!-- Display three blank rows if no matching data -->
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endif
                 </tbody>
-              </table>
-
+            </table>
+            
+            
+            
               <p>
                 Keterangan :
               </p>
@@ -117,42 +145,66 @@
 
             <li class="mt-5">Hasil pengolahan data Evaluasi Dampak Pelatihan responden tamatan adalah:
               <table class="w-full h-full">
+                <thead>
+                    <tr>
+                        <th class="font-semibold">No</th>
+                        <th class="font-semibold">NAMA TAMATAN DIKLAT</th>
+                        <th class="font-semibold">PENGIMBASAN</th>
+                        <th class="font-semibold">PEMBELAJARAN</th>
+                        <th class="font-semibold">PENGEMBANGAN</th>
+                        <th class="font-semibold">RATA-RATA</th>
+                    </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td class="font-semibold">No</td>
-                    <td class="font-semibold">NAMA TAMATAN DIKLAT</td>
-                    <td class="font-semibold">PENGIMBASAN</td>
-                    <td class="font-semibold">PEMBELAJARAN</td>
-                    <td class="font-semibold">PENGEMBANGAN</td>
-                    <td class="font-semibold">RATA-RATA</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                    @php
+                        $filteredEdpOthers = $EdpOther->filter(function ($item) {
+                            return $item->jabatan_responden === 'Guru Tamatan Pelatihan';
+                        });
+                    @endphp
+            
+                    @if ($filteredEdpOthers->isNotEmpty())
+                        @php $counter = 1; @endphp
+                        @foreach ($filteredEdpOthers as $EdpOthers)
+                            <tr>
+                                <td>{{ $counter }}</td>
+                                <td>{{ $EdpOthers->nama_tamatan_pelatihan }}</td>
+                                <td>{{ $EdpOthers->pengimbasan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pembelajaran ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pengembangan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->rata_rata ?? 'N/A' }}</td>
+                            </tr>
+                            @php $counter++; @endphp
+                        @endforeach
+                    @else
+                        <!-- Display three blank rows if no matching data -->
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endif
                 </tbody>
-              </table>
-
+            </table>
+            
               <p>
                 Keterangan :
               </p>
@@ -168,41 +220,66 @@
 
             <li class="mt-5">Hasil pengolahan data Evaluasi Dampak Pelatihan responden Kolega adalah:
               <table class="w-full h-full">
+                <thead>
+                    <tr>
+                        <th class="font-semibold">No</th>
+                        <th class="font-semibold">NAMA TAMATAN DIKLAT</th>
+                        <th class="font-semibold">PENGIMBASAN</th>
+                        <th class="font-semibold">PEMBELAJARAN</th>
+                        <th class="font-semibold">PENGEMBANGAN</th>
+                        <th class="font-semibold">RATA-RATA</th>
+                    </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td class="font-semibold">No</td>
-                    <td class="font-semibold">NAMA TAMATAN DIKLAT</td>
-                    <td class="font-semibold">PENGIMBASAN</td>
-                    <td class="font-semibold">PEMBELAJARAN</td>
-                    <td class="font-semibold">PENGEMBANGAN</td>
-                    <td class="font-semibold">RATA-RATA</td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                    @php
+                        $filteredEdpOthers = $EdpOther->filter(function ($item) {
+                            return $item->jabatan_responden === 'Guru Kolega / Teman Sejawa';
+                        });
+                    @endphp
+            
+                    @if ($filteredEdpOthers->isNotEmpty())
+                        @php $counter = 1; @endphp
+                        @foreach ($filteredEdpOthers as $EdpOthers)
+                            <tr>
+                                <td>{{ $counter }}</td>
+                                <td>{{ $EdpOthers->nama_tamatan_pelatihan }}</td>
+                                <td>{{ $EdpOthers->pengimbasan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pembelajaran ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->pengembangan ?? 'N/A' }}</td>
+                                <td>{{ $EdpOthers->rata_rata ?? 'N/A' }}</td>
+                            </tr>
+                            @php $counter++; @endphp
+                        @endforeach
+                    @else
+                        <!-- Display three blank rows if no matching data -->
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endif
                 </tbody>
-              </table>
+            </table>
+            
 
               <p>
                 Keterangan :

@@ -34,17 +34,17 @@ class StoreBerkasRequest extends FormRequest
             'files.Daftar_Hadir' => 'required|mimes:jpeg,jpg,png,gif|max:20248',
 
 
-            'edp_other_id_1' => 'required|exists:berkas_edp_others,id',
-            'edp_other_id_2' => 'required|exists:berkas_edp_others,id',
-            'edp_other_id_3' => 'required|exists:berkas_edp_others,id',
-            'edp_other_id_4' => 'required|exists:berkas_edp_others,id',
-            'edp_other_id_5' => 'required|exists:berkas_edp_others,id',
+            // 'edp_other_id_1' => 'required|exists:berkas_edp_others,id',
+            // 'edp_other_id_2' => 'required|exists:berkas_edp_others,id',
+            // 'edp_other_id_3' => 'required|exists:berkas_edp_others,id',
+            // 'edp_other_id_4' => 'required|exists:berkas_edp_others,id',
+            // 'edp_other_id_5' => 'required|exists:berkas_edp_others,id',
 
-            'edp_siswa_id_1' => 'required|exists:berkas_edp_siswas,id',
-            'edp_siswa_id_2' => 'required|exists:berkas_edp_siswas,id',
-            'edp_siswa_id_3' => 'required|exists:berkas_edp_siswas,id',
-            'edp_siswa_id_4' => 'required|exists:berkas_edp_siswas,id',
-            'edp_siswa_id_5' => 'required|exists:berkas_edp_siswas,id',
+            // 'edp_siswa_id_1' => 'required|exists:berkas_edp_siswas,id',
+            // 'edp_siswa_id_2' => 'required|exists:berkas_edp_siswas,id',
+            // 'edp_siswa_id_3' => 'required|exists:berkas_edp_siswas,id',
+            // 'edp_siswa_id_4' => 'required|exists:berkas_edp_siswas,id',
+            // 'edp_siswa_id_5' => 'required|exists:berkas_edp_siswas,id',
         ];
     }
     public function messages()

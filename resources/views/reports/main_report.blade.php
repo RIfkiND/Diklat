@@ -60,18 +60,10 @@
                     <td></td>
                     <td>
                         <ol class="list-decimal list-inside">
-                            @foreach($biodataPeserta as $biodata)
+                            @foreach($berkas as $berkass)
                                 <!-- Check if petugas1 is assigned -->
-                                @if($biodata->petugas1)
-                                    <li>{{ $biodata->petugas1->name }}</li>
-                                @else
-                                    <li>No Petugas 1 Assigned</li>
-                                @endif                    
-                                @if($biodata->petugas2)
-                                    <li>{{ $biodata->petugas2->name }}</li>
-                                @else
-                                    <li>No Petugas 2 Assigned</li>
-                                @endif
+                                    <li>{{ $berkass->petugas_1 }}</li>
+                                    <li>{{ $berkass->petugas_2 }}</li>
                             @endforeach
                         </ol>
                     </td>
@@ -159,7 +151,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <x-reports.hasil-pelaksanaan-kegiatan :biodataPeserta="$biodataPeserta"  />
+                    <x-reports.hasil-pelaksanaan-kegiatan 
+                    :EdpOther="$EdpOther" 
+                    :biodataPeserta="$biodataPeserta" 
+                />
+                
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -178,7 +174,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <x-reports.kesimpulan-dan-saran />
+                    <x-reports.kesimpulan-dan-saran  :berkas="$berkas"/>
                 </tr>
                 <tr>
                     <td colspan="3" class="header-text">
@@ -196,13 +192,13 @@
                 <tr>
                   <td colspan="3" class="header-text">
                     Lampiran 1. Surat Tugas
-                    <x-reports.lampiran1-surat-tugas/>
+                    <x-reports.lampiran1-surat-tugas  :berkas="$berkas"/>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3" class="header-text">
                     Lampiran 2. Daftar Hadir
-                    <x-reports.lampiran1-surat-tugas/>
+                    <x-reports.lampiran-daftar-hadir  :berkas="$berkas"/>
                   </td>
                 </tr>
                 <tr>

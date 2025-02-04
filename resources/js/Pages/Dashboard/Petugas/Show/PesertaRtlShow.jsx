@@ -45,7 +45,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
     const fetchProvinces = async () => {
       try {
         const response = await fetch(
-          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json",
+          "https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json"
         );
         const data = await response.json();
         setProvinces(data);
@@ -61,7 +61,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
       setFetchingDistricts(true);
       try {
         const response = await fetch(
-          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`,
+          `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceId}.json`
         );
         const data = await response.json();
         setDistricts((prevDistricts) => ({
@@ -77,19 +77,19 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   };
 
   const getProvinceName = (id) => {
-    const province = provinces.find((p) => p.id === String(id));
-    return province ? province.name : "Unknown Province";
+    if (id) {
+      const province = provinces.find((p) => p.id === String(id));
+      return province ? province.name : id; // If no province found, show the ID itself
+    }
+    return id; // Just return the ID if no matching province found
   };
 
   const getDistrictName = (provinceId, districtId) => {
-    if (!districts[provinceId]) {
-      fetchDistricts(provinceId);
-      return "Loading...";
+    if (districtId) {
+      const district = districts[provinceId]?.find((d) => d.id === String(districtId));
+      return district ? district.name : districtId; // If district found, show the name, otherwise show the ID
     }
-    const district = districts[provinceId].find(
-      (d) => d.id === String(districtId),
-    );
-    return district ? district.name : "Unknown District";
+    return districtId; // If no districtId, return the districtId itself
   };
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
   const filteredData = Rtls.filter((kegiatan) =>
     kegiatan.nama_kegiatan
       .toLowerCase()
-      .includes(debouncedSearchQuery.toLowerCase()),
+      .includes(debouncedSearchQuery.toLowerCase())
   );
 
   const handleSearchChange = (query) => {
@@ -122,14 +122,17 @@ const PesertaRtlShow = ({ biodata, Rtls, hasilMonitorings }) => {
     {
       label: "Provinsi",
       type: "text",
-      value: getProvinceName(biodata.provinsi),
+      value: biodata.provinsi ? getProvinceName(biodata.provinsi) : biodata.provinsi, // show biodata.provinsi directly
     },
     {
       label: "Kabupaten",
       type: "text",
-      value: getDistrictName(biodata.provinsi, biodata.kabupaten),
+      value: biodata.kabupaten
+        ? getDistrictName(biodata.provinsi, biodata.kabupaten) // show biodata.kabupaten directly
+        : biodata.kabupaten, // directly show biodata.kabupaten if available
     },
   ];
+  
 
   const Viewkegiatan = filteredData.map((kegiatan) => ({
     top: {

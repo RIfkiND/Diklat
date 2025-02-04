@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import AnalyticsIlustration from "@/Components/Image/AnalyticsIlustration";
-import { RiFile2Line2 } from "react-icons/ri";
+import { RiFile2Line2, RiDownload2Line } from "react-icons/ri";
 import Select from "react-select";
-
+import axios from "axios";
 const Berkas = ({ BerkasData }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const tableRef = useRef(null);
@@ -13,6 +13,24 @@ const Berkas = ({ BerkasData }) => {
 
   const handleTambahBerkasData = () => {
     router.visit(route("UploadBerkas"));
+  };
+  const handleDownloadBerkasData = () => {
+    axios({
+      url: route("report.download"),
+      method: "GET",
+      responseType: "blob", // Penting untuk file
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "main_report.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  };
+  const handleLihatBerkasData = () => {
+    router.visit(route("main-report-view"));
   };
 
   useEffect(() => {
@@ -32,41 +50,9 @@ const Berkas = ({ BerkasData }) => {
     };
   }, []);
 
-  const [selectPetugas1, setSelectPetugas1] = useState(null)
+  const [selectPetugas1, setSelectPetugas1] = useState(null);
 
   const fields = [
-  //   {
-  //   title: "Petugas 1",
-  //   name: "petugas_1",
-  //   type: "select",
-  //   options: [
-  //     {
-  //       name: "Gagus",
-  //       value: "gagus",
-  //     },
-  //     {
-  //       name: "Rifki",
-  //       value: "rifki",
-  //     },
-  //   ],
-  // },
-    {
-      title: "Daftar Hadir",
-      name: BerkasData?.daftar_hadir ,
-      type: "image",
-    },
-    {
-      title: "Tanda Tangan Petugas 1",
-      name: BerkasData?.signature_companion1 ,
-      size: "half",
-      type: "image",
-    },
-    {
-      title: "Tanda Tangan Petugas 2",
-      name: BerkasData?.signature_companion2 ,
-      size: "half",
-      type: "image",
-    },
     {
       title: "Photo Berkas",
       name: BerkasData?.photo_berkas || [],
@@ -94,6 +80,8 @@ const Berkas = ({ BerkasData }) => {
       type: "text",
     },
   ];
+
+  console.log(fields[2]);
 
   const handleRemoveImageBerkas = () => {
     const confirmed = confirm(
@@ -149,8 +137,16 @@ const Berkas = ({ BerkasData }) => {
                     name={field.name}
                     placeholder={`Pilih ${field.title}`}
                     options={field.options || []}
-                    value={selectPetugas1 ? field.options.find(option => option.value === selectPetugas1) : null}
-                    onChange={(selectedOption) => setSelectPetugas1(selectedOption?.value || "")}
+                    value={
+                      selectPetugas1
+                        ? field.options.find(
+                            (option) => option.value === selectPetugas1,
+                          )
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      setSelectPetugas1(selectedOption?.value || "")
+                    }
                     isSearchable
                     classNamePrefix="react-select"
                   />
@@ -158,21 +154,23 @@ const Berkas = ({ BerkasData }) => {
                   <p className="text-gray-600">{field.name}</p>
                 ) : field.type === "image" ? (
                   field.many ? (
-                    BerkasData?.photo_berkas?.length ? (
+                    field.name.length ? (
                       <div className="grid grid-cols-4 gap-4">
-                        {BerkasData.photo_berkas?.map((photo, idx) => (
-                          <div className="relative" key={idx}>
+                        {field.name.map((photo) => (
+                          <div className="relative" key={photo.id}>
                             <img
-                              key={idx}
+                              key={photo.id}
                               src={photo.url}
-                              alt={`Photo Berkas ${idx + 1}`}
+                              alt={`Photo Berkas ${photo.id}`}
                               className="w-[250px] h-[250px] object-cover rounded-lg"
                             />
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-gray-500">Tidak ada foto tersedia.</p>
+                      <p className="text-gray-500">
+                        Tidak ada Url yang tersedia.
+                      </p>
                     )
                   ) : (
                     <div className="relative">
@@ -202,16 +200,30 @@ const Berkas = ({ BerkasData }) => {
           )}
 
           {/* Add Berkas Button */}
-          <button
-            ref={buttonRef}
-            onClick={handleTambahBerkasData}
-            className="absolute right-5 bottom-5 bg-indigo-400 shadow-xl p-5 h-6 lg:h-16 col-span-3 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out z-10"
-          >
-            <span className="flex items-center font-bold gap-2 text-white">
-              <RiFile2Line2 className="text-2xl" />
-              {BerkasData ? "Edit Berkas" : "Tambah Berkas"}
-            </span>
-          </button>
+          <div className="absolute right-5 bottom-5 flex gap-4 z-10">
+            <button
+              ref={buttonRef}
+              onClick={
+                BerkasData ? handleLihatBerkasData : handleTambahBerkasData
+              }
+              className="bg-indigo-400 shadow-xl p-5 h-6 lg:h-16 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out"
+            >
+              <span className="flex items-center font-bold gap-2 text-white">
+                <RiFile2Line2 className="text-2xl" />
+                {BerkasData ? "Lihat" : "Tambah Berkas"}
+              </span>
+            </button>
+
+            <button
+              onClick={handleDownloadBerkasData}
+              className="bg-green-500 shadow-xl p-5 h-6 lg:h-16 rounded-2xl flex items-center justify-center transition-all duration-300 ease-in-out"
+            >
+              <span className="flex items-center font-bold gap-2 text-white">
+                <RiDownload2Line className="text-2xl" />
+                Download
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </AuthenticatedLayout>

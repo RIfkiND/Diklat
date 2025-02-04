@@ -7,6 +7,8 @@ use App\Http\Controllers\EdpDashboardController;
 use App\Http\Controllers\Pages\Dashboard\PetugasController;
 use App\Http\Controllers\Function\V1\UploadBerkasController;
 use App\Http\Controllers\Function\V1\EdpFunctionFormUpdateController;
+use App\Http\Controllers\PDF\MainReportController;
+
 
 Route::middleware(['role:petugas'])->group(function () {
     Route::get('/dashboard/petugas/monitoring-peserta', [PetugasController::class, 'Petugas'])->name('petugas.monitoring-peserta');
@@ -37,3 +39,4 @@ Route::middleware(['role:petugas'])->group(function () {
 });
 
 Route::post('/petugas/upload/berkas',[UploadBerkasController::class ,'upload'])->name('upload.berkas');
+Route::get('/report/download', [MainReportController::class, 'downloadpdf'])->name('report.download');

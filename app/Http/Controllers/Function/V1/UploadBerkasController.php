@@ -43,22 +43,22 @@ class UploadBerkasController extends Controller
 
         ]);
 
-        $berkasEdpOther = BerkasEdpOther::create([
-            'berkas_id' => $berkas->id, 
-            'edp_other_id_1' => $request->input('edp_other_id_1'),
-            'edp_other_id_2' => $request->input('edp_other_id_2'),
-            'edp_other_id_3' => $request->input('edp_other_id_3'),
-            'edp_other_id_4' => $request->input('edp_other_id_4'),
-            'edp_other_id_5' => $request->input('edp_other_id_5'),
-        ]);
-        $berkasEdpSiswa = BerkasEdpSiswa::create([
-            'berkas_id' => $berkas->id, 
-            'edp_siswa_id_1' => $request->input('edp_siswa_id_1'),
-            'edp_siswa_id_2' => $request->input('edp_siswa_id_2'),
-            'edp_siswa_id_3' => $request->input('edp_siswa_id_3'),
-            'edp_siswa_id_4' => $request->input('edp_siswa_id_4'),
-            'edp_siswa_id_5' => $request->input('edp_siswa_id_5'),
-        ]);
+        // $berkasEdpOther = BerkasEdpOther::create([
+        //     'berkas_id' => $berkas->id, 
+        //     'edp_other_id_1' => $request->input('edp_other_id_1'),
+        //     'edp_other_id_2' => $request->input('edp_other_id_2'),
+        //     'edp_other_id_3' => $request->input('edp_other_id_3'),
+        //     'edp_other_id_4' => $request->input('edp_other_id_4'),
+        //     'edp_other_id_5' => $request->input('edp_other_id_5'),
+        // ]);
+        // $berkasEdpSiswa = BerkasEdpSiswa::create([
+        //     'berkas_id' => $berkas->id, 
+        //     'edp_siswa_id_1' => $request->input('edp_siswa_id_1'),
+        //     'edp_siswa_id_2' => $request->input('edp_siswa_id_2'),
+        //     'edp_siswa_id_3' => $request->input('edp_siswa_id_3'),
+        //     'edp_siswa_id_4' => $request->input('edp_siswa_id_4'),
+        //     'edp_siswa_id_5' => $request->input('edp_siswa_id_5'),
+        // ]);
         
         if ($request->hasFile('imageFiles')) {
             foreach ($request->file('imageFiles') as $photoUrl) {

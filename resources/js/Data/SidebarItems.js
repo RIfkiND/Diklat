@@ -45,10 +45,10 @@ export const getNavItems = (role) => {
             icon: "FiFileText",
             hasDropdown: true,
             items: [
-              {
-                name: "Hasil Pendampingan RTL",
-                path: "/dashboard/petugas/report/hasil-pendampingan-rtl",
-              },
+              // {
+              //   name: "Hasil Pendampingan RTL",
+              //   path: "/dashboard/petugas/report/hasil-pendampingan-rtl",
+              // },
               {
                 name: "Berkas Laporan",
                 path: "/dashboard/petugas/report/hasil-pengolahan-edp",

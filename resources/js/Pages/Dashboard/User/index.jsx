@@ -324,9 +324,8 @@ export default function UserDashboard({ petugas, pelatihans }) {
                       <PrimaryButton
                         className="w-full max-w-xl flex items-center justify-center"
                         type="submit"
-                        disabled={loading}
                       >
-                        {loading ? "Saving..." : "Edit"}
+                        Edit
                       </PrimaryButton>
                     </div>
                   </div>

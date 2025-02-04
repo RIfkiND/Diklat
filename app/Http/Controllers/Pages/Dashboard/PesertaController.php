@@ -38,7 +38,7 @@ class PesertaController extends Controller
     $validatedData['peserta_id'] = $peserta->id;
 
     BiodataPeserta::create($validatedData);
-    return redirect()->back()->with('success', 'Biodata berhasil ditambahkan.' );
+    return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil ditambahkan.' );
   }
 
   public function updateBiodata(BiodataPesertaRequest $request): RedirectResponse
@@ -60,7 +60,7 @@ class PesertaController extends Controller
 
       $biodataPeserta->update($validatedData);
 
-      return redirect()->back()->with('success', 'Biodata berhasil diperbarui.');
+      return redirect()->route('user.dashboard')->with('success', 'Biodata berhasil diperbarui.');
  
   }
 }

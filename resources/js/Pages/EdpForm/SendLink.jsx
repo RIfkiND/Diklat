@@ -9,8 +9,8 @@ const SendLink = () => {
   const handleCopyLink = () => {
     const link =
       selectedOption === "Siswa"
-        ? "https://form-edp-siswa"
-        : "https://form-edp";
+        ? "https://edp.kejuruan.id/form-edp-siswa"
+        : "https://edp.kejuruan.id/form-edp";
     navigator.clipboard
       .writeText(link)
       .then(() => {
