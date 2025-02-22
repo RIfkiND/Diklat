@@ -40,7 +40,6 @@ class EdpSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Add more records as needed
         ]);
     }
 }
